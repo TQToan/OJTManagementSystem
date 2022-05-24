@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Register Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="RegisterCompanyDetailsController" method="POST" enctype="multipart/form-data">
+            Company Name: <input type="text" name="companyName" value=""  placeholder="*Company Name"> <br />
+            City: <select name="city"   >
+                <option value="TP.HCM">TP.HCM</option>
+                <option value="Dong Nai">Đồng Nai</option>
+                <option value="Tay Ninh">Tây Ninh</option>
+                <option value="Binh Duong">Bình Dương</option>
+            </select><br />
+            Address: <input type="text" name="companyAddress" value="" placeholder="*Company Address"> <br />
+            Description: <textarea name="companyDescription" placeholder="*Company Summary" cols="30" rows="3"></textarea><br />
+            Phone<input type="text" name="companyPhone" value=""  placeholder="*Phone"><br />
+            Logo: <input type="file"  name="companyLogo" >
+            <input type="submit" name="btAction"  value="Sign Up">
+        </form>
+    </body>
+</html>
