@@ -1,0 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.se1625.tblaccount;
+
+/**
+ *
+ * @author ASUS
+ */
+public class TblAccountError {
+
+    private String accountError;
+    private String userEmailEmpty;
+    private String userPasswordEmpty;
+
+    public TblAccountError() {
+    }
+
+    public TblAccountError(String accountError, String userEmailEmpty, String userPasswordEmpty) {
+        this.accountError = accountError;
+        this.userEmailEmpty = userEmailEmpty;
+        this.userPasswordEmpty = userPasswordEmpty;
+    }
+
+    public String getAccountError() {
+        return accountError;
+    }
+
+    public void setAccountError(String accountError) {
+        this.accountError = accountError;
+    }
+
+    public String getUserEmailEmpty() {
+        return userEmailEmpty;
+    }
+
+    public void setUserEmailEmpty(String userEmailEmpty) {
+        this.userEmailEmpty = userEmailEmpty;
+    }
+
+    public String getUserPasswordEmpty() {
+        return userPasswordEmpty;
+    }
+
+    public void setUserPasswordEmpty(String userPasswordEmpty) {
+        this.userPasswordEmpty = userPasswordEmpty;
+    }
+}

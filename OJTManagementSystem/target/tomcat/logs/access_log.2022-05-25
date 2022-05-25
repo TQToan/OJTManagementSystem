@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [25/May/2022:11:00:32 +0700] "GET /OJTManagementSystem/loginPage HTTP/1.1" 200 986 http-bio-8080-exec-2 1348
+0:0:0:0:0:0:0:1 - - [25/May/2022:11:00:46 +0700] "POST /OJTManagementSystem/loginAccountsController HTTP/1.1" 200 228 http-bio-8080-exec-3 1147

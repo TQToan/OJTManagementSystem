@@ -28,7 +28,7 @@ public class TblAccountDTO implements Serializable{
         this.avatar = avatar;
         this.is_Admin = is_Admin;
     }
-    
+       
     
     /**
      * @return the email

@@ -124,4 +124,116 @@ public class TblAccountDAO implements Serializable {
         }
         return false;
     }
+    public boolean checkLogin(String username, String password) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        con = DBHelper.makeConnection();
+        try {
+            if (con != null) {
+                String sql = "SELECT username "
+                        + "FROM TblAccount "
+                        + "WHERE username = ? "
+                        + "AND password = ? "
+                        + "AND isAdmin = 3 ";
+
+                stm = con.prepareStatement(sql);
+                stm.setString(1, username);
+                stm.setString(2, password);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public TblAccountDTO getAccount(String username) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT username, password, name, avatar, isAdmin "
+                        + "FROM tblAccount "
+                        + "WHERE username = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, username);
+                rs = stm.executeQuery();
+                TblAccountDTO dto = null;
+                if (rs.next()) {
+                    String accountname = rs.getString("username");
+                    String password = rs.getString("password");
+                    String name = rs.getString("name");
+                    String avatar = rs.getString("avatar");
+                    int role = rs.getInt("isAdmin");
+                    dto = new TblAccountDTO(accountname, name, avatar, role);
+                }
+                return dto;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+    
+    public boolean addStudentAccount(String username, String name, String avatar, int isAdmin, String studentCode) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        try{
+            con = DBHelper.makeConnection();
+            if(con != null){
+                con.setAutoCommit(false);
+                String sql1 = "INSERT INTO tblAccount("
+                        + "username, name, avatar, isAdmin) "
+                        + "VALUES (?, ?, ?, ?)";
+                stm = con.prepareStatement(sql1);
+                stm.setString(1, username);
+                stm.setString(2, name);
+                stm.setString(3, avatar);
+                stm.setInt(4, isAdmin);               
+                int effectRow1 = stm.executeUpdate();
+                
+                String sql2 = "INSERT INTO tblStudent("
+                        + "studentCode, username) "
+                        + "VALUES (?, ?) ";                     
+                stm = con.prepareStatement(sql2);
+                stm.setString(1, studentCode);
+                stm.setString(2, username);                
+                int effectRow2 = stm.executeUpdate();
+                
+                con.commit();
+                
+                if(effectRow1 > 0 && effectRow2 > 0){
+                    return true;
+                }
+            }
+        }finally{
+            if(con != null){
+                con.close();
+            }
+        }        
+        
+        return false;
+    }
 }
