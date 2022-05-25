@@ -95,7 +95,7 @@
                              value="206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com" />
                     <c:param name="approval_prompt" value="force" />
                 </c:url>
-                <a href="" class="google-btn row">
+                <a href="${loginGoogle}" class="google-btn row">
 
                     <i class="fab fa-google google-logo col-2 "></i>
                     <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
