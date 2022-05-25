@@ -53,7 +53,6 @@ public class RegisterCompanyServlet extends HttpServlet {
         try {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            System.out.println(password);
             String confirmPassword = request.getParameter("confirmPassword");
             String parttern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
             boolean errorFound = false;

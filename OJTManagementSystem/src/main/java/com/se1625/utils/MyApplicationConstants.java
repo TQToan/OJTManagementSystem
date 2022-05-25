@@ -13,20 +13,25 @@ public class MyApplicationConstants {
 
     public class ShowStudentHomeFeature {
 
-        public static final String STUDENT_HOME_PAGE = "studentHomePage";
+        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
+
     }
 
     public class SearchComanyStudentHomeFeature {
 
-        public static final String STUDENT_HOME_PAGE = "";
-        public static final String SEARCH_COMPANY_POST_PAGE = "SearchCompanyPostPage";
+
+
+        public static final String STUDENT_HOME_PAGE = "ShowStudentHomeController";
+        public static final String SEARCH_COMPANY_POST_PAGE = "HomeResultPageJSP";
+
     }
 
     public class RegisterCompanyFeature {
 
-        public static final String REGISTER_COMPANY_PAGE_1_JSP = "RegisterCompanyPage1JSP";
-        public static final String COMPANY_DASHBOARD_PAGE = "CompanyDashBoardPage";
-        public static final String REGISTER_COMPANY_PAGE_2_JSP = "RegisterCompanyPage2JSP";
+        public static final String REGISTER_COMPANY_PAGE_1_JSP = "RegisterPage1JSP";
+        public static final String LOGIN_PAGE = "";
+        public static final String REGISTER_COMPANY_PAGE_2_JSP = "RegisterPage2JSP";
+
     }
 
     public class Constants {

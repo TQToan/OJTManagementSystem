@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Student Information</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+</head>
+<body>
+    <header class="header ">
+            <div class="navbar header__nav_cus">
+                <a href="home.html" class="header__logo">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
+                <div class="header__name">
+                    <div class="header__name--show">
+                        Hi, Toàn
+                        <i class="fas fa-angle-down icon-down"></i>
+                    </div>
+                    <div class="header__name--hidden">
+                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
+                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                    </div>
+                </div>
+                
+            </div>
+    
+    </header>
+
+    <main class="main">
+        <div class="main-body">
+            <div class="main-body-cViewStu">
+                <div class="main-body-cViewStu__header">
+                    Student Information
+                </div>
+                <div class="row">
+                    <div class="inforStu-left col-3">
+                        <img src="./assets/img/person.jpg" alt="" class="inforStu-left--img">
+                        <div class="inforStu-left__content">
+                            <p>Name: Thái Quốc Toàn </p>
+                            <p>Birthday: XX-XX-XXXX</p>
+                            <p>Gender: Men</p>
+                            <p>Address: TP. HCM</p>
+                            <p>Email: toangtqse151272@fpt.edu.vn</p>    
+                        </div>
+                    </div>
+    
+                    <div class="inforStu-right col-8">
+                        <div class="inforStu-right__header">
+                            Career Information
+                        </div>
+                        <div class="inforStu-right__content">
+                            <p>Expected Job: Java Developer </p>
+                            <p>Technology: Java </p>
+                            <p>Experience: < 1 year </p>
+                            <p>Foreign Language: English </p>
+                            <p>Salary: by aggreement </p>
+                            <p>Other Skills: Office Skills </p>
+                            <p>Last Update: 15-5-2022</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-pdf__cViewStu">
+                    <embed src="./assets/pdf/Cv.pdf" type="application/pdf" scrolling="auto" width="100%" height="900px"/>
+                </div>                
+            </div>
+           
+        </div>
+
+        <div class="fix--btn">
+            <a href="#" class=" primary-btn apply-btn">Apply Now</a>
+            <a href="#"class= " primary-btn edit-btn">Edit</a>
+            <a href="home.html"class= " primary-btn exit-btn">Exit</a>
+        </div>
+      
+    </main>
+
+    <footer class="footer">
+        <div class="footer__content">
+            @copyright 2022
+        </div>
+    
+</footer>
+    
+    
+</body>
+</html>

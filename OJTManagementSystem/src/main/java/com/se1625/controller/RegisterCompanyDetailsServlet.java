@@ -63,136 +63,141 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1_JSP);
+        String url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.LOGIN_PAGE);
 
         try {
-            // Create a factory for disk-based file items
-            DiskFileItemFactory factory = new DiskFileItemFactory();
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("VERIFY_EMAIL");
+                if (accountCompany != null) {
+                    // Create a factory for disk-based file items
+                    DiskFileItemFactory factory = new DiskFileItemFactory();
 
-            // Configure a repository (to ensure a secure temp location is used)
-            ServletContext servletContext = this.getServletConfig().getServletContext();
-            File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-            factory.setRepository(repository);
+                    // Configure a repository (to ensure a secure temp location is used)
+                    ServletContext servletContext = this.getServletConfig().getServletContext();
+                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+                    factory.setRepository(repository);
 
-            // Create a new file upload handler
-            ServletFileUpload upload = new ServletFileUpload(factory);
+                    // Create a new file upload handler
+                    ServletFileUpload upload = new ServletFileUpload(factory);
 
-            // Parse the request
-            List<FileItem> items = upload.parseRequest(request);
+                    // Parse the request
+                    List<FileItem> items = upload.parseRequest(request);
 
-            Iterator<FileItem> iter = items.iterator();
-            HashMap<String, String> params = new HashMap<>();
-            String name = "";
-            String value = "";
-            String fileName = "";
-            String logoName = "";
-            while (iter.hasNext()) {
-                FileItem item = iter.next();
-                
-                if (item.isFormField()) {
-                    name = item.getFieldName();
-                    value = item.getString();
-                    params.put(name, value);
-                } else {
-                    fileName = item.getName();
+                    Iterator<FileItem> iter = items.iterator();
+                    HashMap<String, String> params = new HashMap<>();
+                    String name = "";
+                    String value = "";
+                    String fileName = "";
+                    String logoName = "";
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
+
+                        if (item.isFormField()) {
+                            name = item.getFieldName();
+                            value = item.getString("UTF-8");
+                            params.put(name, value);
+                        } else {
+                            fileName = item.getName();
+                            if (fileName == null || fileName.equals("")) {
+                                break;
+                            } else {
+                                Path path = Paths.get(fileName);
+                                String realPath = request.getServletContext().getRealPath("/avatars");
+                                logoName = path.getFileName().toString();
+                                File uploadFile = new File(realPath + "/" + logoName);
+                                if (Files.exists(Paths.get(realPath)) == false) {
+                                    Files.createDirectories(Paths.get(realPath));
+                                }
+                                item.write(uploadFile);
+                            }
+                        }
+                    }
+
+                    TblAccountDAO accountDAO = new TblAccountDAO();
+                    String companyName = params.get("companyName");
+                    String city = params.get("city");
+                    String address = params.get("companyAddress");
+                    String description = params.get("companyDescription");
+                    String phone = params.get("companyPhone");
+                    boolean found = false;
+                    RegisterCompanyError errors = new RegisterCompanyError();
+
+                    if (companyName.trim().length() > 50 || companyName.trim().length() < 10) {
+                        //quang loi
+                        found = true;
+                        errors.setCompanyNameLengthError("Company name is required 10-50 characters");
+                    }
+                    if (city.trim().equals("")) {
+                        found = true;
+                        errors.setCompanyCityError("City is required.");
+                    }
+                    if (address.trim().length() > 100 || address.trim().length() < 10) {
+                        //quang loi
+                        found = true;
+                        errors.setCompanyAddressLengthError("Company address is required 10-100 characters");
+                    }
+                    if (description.trim().length() > 2000 || description.trim().length() < 50) {
+                        //quang loi
+                        found = true;
+                        errors.setCompanyDescriptionLegthError("company description is required 50-2000 characters");
+                    }
+                    if (phone.trim().length() > 10 || phone.trim().length() < 10) {
+                        //quang loi
+                        found = true;
+                        errors.setCompanyPhoneLengthError("company Phone is required 10 characters");
+                    }
+
                     if (fileName == null || fileName.equals("")) {
-                        break;
+                        found = true;
+                        errors.setCompanyLogoLenthError("Company Logo is required.");
+                    }
+
+                    if (found) {
+                        request.setAttribute("companyName", companyName);
+                        request.setAttribute("city", city);
+                        request.setAttribute("companyAddress", address);
+                        request.setAttribute("companyDescription", description);
+                        request.setAttribute("companyPhone", phone);
+                        request.setAttribute("companyLogo", fileName);
+                        request.setAttribute("ERROR_REGISTER_COMPANY", errors);
+                        url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_2_JSP);
                     } else {
-                        Path path = Paths.get(fileName);
-                        String realPath = request.getServletContext().getRealPath("/avatars");
-                        logoName = path.getFileName().toString();
-                        File uploadFile = new File(realPath + "/" + logoName);
-                        if (Files.exists(Paths.get(realPath)) == false) {
-                            Files.createDirectories(Paths.get(realPath));
+                        accountCompany.setName(companyName);
+                        accountCompany.setAvatar(logoName);
+                        accountCompany.setIs_Admin(3);
+                        //add account vao tblaccount
+                        boolean isAdded = accountDAO.addAccountCompany(accountCompany);
+                        if (isAdded) {
+                            TblCompanyDTO companyDetail = new TblCompanyDTO();
+                            companyDetail.setAccount(accountCompany);
+                            companyDetail.setAddress(address);
+                            companyDetail.setCity(city);
+                            companyDetail.setCompany_Description(description);
+                            companyDetail.setPhone(phone);
+                            companyDetail.setIs_Signed(false);
+
+                            TblCompanyDAO companyDAO = new TblCompanyDAO();
+                            String lasID = companyDAO.getLastIDCompany();
+                            String newComanyID = MyApplicationHelper.createIdCompany(lasID);
+                            companyDetail.setCompanyID(newComanyID);
+
+                            boolean statusAdded = companyDAO.AddCompany(companyDetail);
+                            if (statusAdded) {
+                                session.invalidate();
+                                url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.LOGIN_PAGE);
+                            }
                         }
-                        item.write(uploadFile);
+
                     }
                 }
-            }
-
-            TblAccountDAO accountDAO = new TblAccountDAO();
-            String companyName = params.get("companyName");
-            String city = params.get("city");
-            String address = params.get("companyAddress");
-            String description = params.get("companyDescription");
-            String phone = params.get("companyPhone");
-            
-            System.out.println(description);
-            boolean found = false;
-            RegisterCompanyError errors = new RegisterCompanyError();
-
-            if (companyName.trim().length() > 50 || companyName.trim().length() < 10) {
-                //quang loi
-                found = true;
-                errors.setCompanyNameLengthError("Company name is required 10-50 characters");
-            }
-            if (address.trim().length() > 100 || address.trim().length() < 10) {
-                //quang loi
-                found = true;
-                errors.setCompanyAddressLengthError("Company address is required 10-100 characters");
-            }
-            if (description.trim().length() > 2000 || description.trim().length() < 50) {
-                //quang loi
-                found = true;
-                errors.setCompanyDescriptionLegthError("company description is required 50-2000 characters");
-            }
-            if (phone.trim().length() > 10 || phone.trim().length() < 10) {
-                //quang loi
-                found = true;
-                errors.setCompanyPhoneLengthError("company Phone is required 10 characters");
-            }
-            
-            if (fileName == null || fileName.equals("")) {
-                found = true;
-                errors.setCompanyLogoLenthError("Company Logo is required.");
-            }
-
-            if (found) {
-                request.setAttribute("companyName", companyName);
-                request.setAttribute("city", city);
-                request.setAttribute("companyAddress", address);
-                request.setAttribute("companyDescription", description);
-                request.setAttribute("companyPhone", phone);
-                request.setAttribute("companyLogo", fileName);
-                request.setAttribute("ERROR_REGISTER_COMPANY", errors);
-                url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_2_JSP);
-            } else {
-                HttpSession session = request.getSession(false);
-                if (session != null) {
-                    TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("VERIFY_EMAIL");
-                    accountCompany.setName(companyName);
-                    accountCompany.setAvatar(logoName);
-                    accountCompany.setIs_Admin(3);
-                    //add account vao tblaccount
-                    boolean isAdded = accountDAO.addAccountCompany(accountCompany);
-                    if (isAdded) {
-                        TblCompanyDTO companyDetail = new TblCompanyDTO();
-                        companyDetail.setAccount(accountCompany);
-                        companyDetail.setAddress(address);
-                        companyDetail.setCity(city);
-                        companyDetail.setCompany_Description(description);
-                        companyDetail.setPhone(phone);
-
-                        TblCompanyDAO companyDAO = new TblCompanyDAO();
-                        String lasID = companyDAO.getLastIDCompany();
-                        String newComanyID = MyApplicationHelper.createIdCompany(lasID);
-                        companyDetail.setCompanyID(newComanyID);
-
-                        boolean statusAdded = companyDAO.AddCompany(companyDetail);
-                        if (statusAdded) {
-                            session.removeAttribute("VERIFY_EMAIL");
-                            url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.COMPANY_DASHBOARD_PAGE);
-                        }
-                    }
-                }
-
             }
         } catch (SQLException ex) {
-            log("SQLException occurs RegisterCompanyServlet " + ex.getMessage());
+            log("SQLException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException occurs RegisterCompanyServlet " + ex.getMessage());
+            log("NamingException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (Exception ex) {
-            log("Exception occurs RegisterCompanyServlet " + ex.getMessage());
+            log("Exception occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

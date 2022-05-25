@@ -5,8 +5,12 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblmajor.TblMajorDAO;
+import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,7 +46,7 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         String companyID = request.getParameter("nameCompany");
         String majorID = request.getParameter("nameMajor");
         String nameLocation = request.getParameter("nameLocation");
@@ -50,21 +54,30 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.SearchComanyStudentHomeFeature.STUDENT_HOME_PAGE;
+        String url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.STUDENT_HOME_PAGE);
         int page;
         int numberProductPage = 10;
         int start;
         int size;
         int end;
         try {
-            if (companyID.isEmpty() == false || majorID.isEmpty() == false
+            int idMajor;
+            if (majorID.isEmpty()) {
+                idMajor = 0;
+            } else {
+                idMajor = Integer.parseInt(majorID);
+            }
+            if (companyID.isEmpty() == false || idMajor != 0
                     || nameLocation.isEmpty() == false) {
                 TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                companyPostDAO.searchPostByFilter(companyID, majorID, nameLocation);
+                TblCompanyDAO companyDAO = new TblCompanyDAO();
+                TblMajorDAO majorDAO = new TblMajorDAO();
+                companyPostDAO.searchPostByFilter(companyID, idMajor, nameLocation);
                 List<TblCompany_PostDTO> listCompanyPostByFilter = companyPostDAO.getCompanyPostByFilter();
-                size = listCompanyPostByFilter.size();
-                String xpage = request.getParameter("page");
-                if (xpage == null) {
+                if (listCompanyPostByFilter != null) {
+                    size = listCompanyPostByFilter.size();
+                    String xpage = request.getParameter("page");
+                    if (xpage == null) {
                         page = 1;
                     } else {
                         page = Integer.parseInt(xpage);
@@ -73,30 +86,38 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
                     if (numberPage == 0) {
                         numberPage = size / numberProductPage;
                     } else {
-                        numberPage = (size / numberProductPage) + 1 ;
+                        numberPage = (size / numberProductPage) + 1;
                     }
                     start = (page - 1) * numberProductPage;
                     end = Math.min(page * numberProductPage, size);
                     List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
                             getListByPage(listCompanyPostByFilter, start, end);
-                    
+
                     request.setAttribute("LIST_RESULT", companyPostPerPage);
+                    request.setAttribute("SIZE_OF_LIST", size);
                     request.setAttribute("page", page);
                     request.setAttribute("numberPage", numberPage);
-                    
-                    
-                url = properties.getProperty(MyApplicationConstants.
-                        SearchComanyStudentHomeFeature.SEARCH_COMPANY_POST_PAGE);
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
-            } else {
-                response.sendRedirect(url);
+
+                }
+                companyDAO.getNameCompanies();
+                List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                request.setAttribute("COMPANY_NAME", listNameCompany);
+
+                majorDAO.getNameMajor();
+                List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.SEARCH_COMPANY_POST_PAGE);
             }
         } catch (SQLException ex) {
             log("SQLException occurs at SearchCompanyStudentHomeServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException occurs at SearchCompanyStudentHomeServlet " + ex.getMessage());
-        } 
+        } catch (NumberFormatException ex) {
+            log("NumberFormatException occurs at SearchCompanyStudentHomeServlet " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
         // check session với role là student 
         // check nếu cả companyname và namemajor, nameLocation đều rỗng thì vẫn gọi lại 
         //       servlet showStudenthomeServlet để show lại các thông tin
