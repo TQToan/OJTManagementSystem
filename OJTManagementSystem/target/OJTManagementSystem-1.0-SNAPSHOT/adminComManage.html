@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Company Management</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+</head>
+
+<body>
+    <header></header>
+
+    <main class="row">
+        <nav class="col-2  nav-fixed">
+            <a href="#" class="nav__logo ">
+                <img src="./assets/img/logo.png" alt="" class="nav--logo">
+            </a>
+                <a href="#" class=" nav__infor--link text-truncate">
+                    <i class="fas fa-user-circle nav__infor--icon"></i>
+                    FPT University HCM
+                </a>
+
+            <ul class="nav__content">
+                <li class="nav__items">
+                    <a href="adminStuManage.html" class="nav__item--link">
+                        <i class="fas fa-university"></i>
+                        Student Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminComManage.html" class="nav__item--link">
+                        <i class="far fa-building"></i>
+                        Company Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        Post Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminInterAppl.html" class="nav__item--link">
+                        <i class="fas fa-clipboard-check"></i>
+                        Internship Application
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminEval.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                       Evalution
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="login.html" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <div class="main-body  offset-2 col-10">
+            <div class="row">
+                <div class="main-body-aComManage ">
+                    <div class="main-body-aComManage__header">
+                        Company Management
+                    </div>
+
+
+                    <div class="main-body-aComManage__search">
+                        <form action="">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <input type="text" name="" id="" placeholder="Company Name">
+                                        </td>
+                                        <td>
+                                            <input type="email" name="" id="" placeholder="Email">     
+                                        </td>
+                                        <td> 
+                                            <input type="text" name="" id="" placeholder="Phone">     
+                                        </td>
+                                        <td> 
+                                            <input type="text" name="" id="" placeholder="Address">     
+                                        </td>
+                                        <td> 
+                                            <select id="city" name="city"  class="" >
+                                                <option value="" disabled selected>Status</option>
+                                                <option value="Success" class="text-success">
+                                                    Signed
+                                                </option>
+                                                <option value="Denied" class="text-danger">
+                                                    Not Yet
+                                                </option>
+                                            </select>                                        
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Search" class=" aComManage-search-btn">
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="main-body-aComManage__content">
+                        <div class="resultpage__header">
+                            Result : 100
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Not Yet
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Not Yet
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Not Yet
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Not Yet
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>FPT Software</td>
+                                    <td>thanhnhse151252@fpt.edu.vn</td>
+                                    <td>0123456789</td>
+                                    <td>Quan 9 Tp.HCM</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Signed
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" >Update</a>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                    <div class="main__pagination">
+                        <ul class="pagination main_cus__pagination">
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+            <div class="footer__content">
+                @copyright 2022
+            </div>
+
+    </footer>
+
+</body>
+
+</html>

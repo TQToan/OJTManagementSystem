@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student - Applied Jobs</title>
+    <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/student.css">
+</head>
+
+<body>
+    <header></header>
+
+    <main class="row">
+        <nav class="col-2  nav-fixed">
+            <a href="home.html" class="nav__logo ">
+                <img src="./assets/img/logo.png" alt="" class="nav--logo">
+            </a>
+            <a href="studentProfile.html" class=" nav__infor--link text-truncate">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                Thái Quốc Toàn
+            </a>
+
+            <ul class="nav__content">
+                <li class="nav__items">
+                    <a href="#" class="nav__item--link">
+                        <i class="fas fa-palette "></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="studentProfile.html" class="nav__item--link">
+                        <i class="fas fa-user-edit"></i>
+                        My Profile
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <div  class="nav__item--link nav__item--dropdown">
+                        <i class="fas fa-pen"></i>
+                        My Jobs
+                        <i class="fas fa-angle-down icon-down"></i>
+                    </div>
+                    <div class="nav__item__dropdown">
+                        <a href="studentSaveJob.html" class="nav__item__dropdown--link">
+                            Saved Jobs
+                        </a>
+                        <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            Applied Jobs
+                        </a>
+                    </div>
+                </li>
+                <li class="nav__items">
+                    <a href="studentReview.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                        Review Internship
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="login.html" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <div class="main-body  offset-2 col-10">
+            <div class="row">
+                <div class="main-body-appl ">
+                    <div class="main-body-appl__header">
+                        Applied Jobs*
+                    </div>
+
+
+                    <div class="main-body-appl__search">
+                        <form action="">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <input type="text" name="" id="" placeholder="Type Job">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="" id="" placeholder="Company">
+                                        </td>
+                                        <td>
+                                            <select id="city" name="city"  class="" >
+                                                <option value=""  disabled selected>Location</option>
+                                                <option value="TP.HCM">TP.HCM</option>
+                                                <option value="Dong Nai">Dong Nai</option>
+                                                <option value="Tay Ninh">Tay Ninh</option>
+                                                <option value="Binh Duong">Binh Duong</option>
+                                              </select>
+                                        </td>
+                                        <td> 
+                                            <input type="text" name="" id="" placeholder="Creation Date">     
+                                        </td>
+                                        <td>
+                                            <input type="text" name="" id="" placeholder="Expiration Date">     
+                                        </td>
+    
+                                        <td>
+                                            <select id="city" name="city"  class="" >
+                                                <option value="" disabled selected>Status</option>
+                                                <option value="Denied" class="text-danger">Denied</option>
+                                                <option value="Waiting" class="text-warning">Waiting</option>
+                                                <option value="Success" class="text-success">Success</option>
+                                              </select>
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Search" class=" appl-search-btn">
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="main-body-appl__content">
+                        <div class="resultpage__header">
+                            Result : 100
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>Type Job</th>
+                                    <th>Company</th>
+                                    <th>Location</th>
+                                    <th> Creation Date</th>
+                                    <th>Expiration Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="homeCPostDetail.html">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Denied
+                                        </strong>
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Denied
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Success
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-warning">
+                                        <strong>
+                                            Waiting
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" class="appl__table--cancel-btn">Cancel</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-warning">
+                                        <strong>
+                                            Waiting
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" class="appl__table--cancel-btn">Cancel</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Denied
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Success
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-success">
+                                        <strong>
+                                            Success
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-warning">
+                                        <strong>
+                                            Waiting
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <a href="" class="appl__table--cancel-btn">Cancel</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <a href="">Java Developer</a>
+                                    </td>
+                                    <td>FPT Software</td>
+                                    <td>TP.HCM</td>
+                                    <td>20-4-2022</td>
+                                    <td>20-5-2022</td>
+                                    <td class="text-danger">
+                                        <strong>
+                                            Denied
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                    <div class="main__pagination">
+                        <ul class="pagination main_cus__pagination">
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="footer__content">
+                @copyright 2022
+            </div>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
