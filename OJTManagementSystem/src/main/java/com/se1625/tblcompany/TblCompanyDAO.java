@@ -163,15 +163,16 @@ public class TblCompanyDAO implements Serializable {
             if (companyDetails != null) {
                 con = DBHelper.makeConnection();
                 if (con != null) {
-                    String sql = "INSERT INTO tblCompany (companyID, address, city, phone, company_Description, username) "
-                            + "VALUES (?, ?, ?, ?, ?, ?) ";
+                    String sql = "INSERT INTO tblCompany (companyID, address, city, phone, company_Description, is_Signed, username) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?) ";
                     stm = con.prepareStatement(sql);
                     stm.setString(1, companyDetails.getCompanyID());
                     stm.setNString(2, companyDetails.getAddress());
                     stm.setNString(3, companyDetails.getCity());
                     stm.setString(4, companyDetails.getPhone());
                     stm.setNString(5, companyDetails.getCompany_Description());
-                    stm.setString(6, companyDetails.getAccount().getEmail());
+                    stm.setBoolean(6, companyDetails.isIs_Signed());
+                    stm.setString(7, companyDetails.getAccount().getEmail());
 
                     int rows = stm.executeUpdate();
                     if (rows > 0) {

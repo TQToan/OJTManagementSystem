@@ -46,7 +46,7 @@ public class TblCompany_PostDAO implements Serializable{
             con = DBHelper.makeConnection();
             if (con != null) {
                 String sql = "SELECT TOP 6 cp.postID, cp.title_Post, "
-                        + " cp.postingDate, cp.quantityIterns, "
+                        + " cp.postingDate, cp.quantityInterns, "
                         + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
                         + "m.majorName, ac.name, ac.avatar \n" +
                         "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n" +
@@ -60,7 +60,7 @@ public class TblCompany_PostDAO implements Serializable{
                     String title_Post = rs.getNString("title_Post");
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
-                    int quantityInterns = rs.getInt("quantityIterns");
+                    int quantityInterns = rs.getInt("quantityInterns");
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int statusPost = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
@@ -108,123 +108,78 @@ public class TblCompany_PostDAO implements Serializable{
     }
     
     public void searchPostByFilter(String companyID,
-            String MajorID, String nameLocation) throws SQLException, NamingException {
+            int MajorID, String nameLocation) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                if (companyID.isEmpty() == false && MajorID.isEmpty() == false 
-                        && nameLocation.isEmpty() == false ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
+                String sql = "SELECT post.postID, post.title_Post, post.quantityInterns, post.postingDate, "
                             + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
                             + "post.school_confirm, post.statusPost "
                         + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
                         + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.companyID = ? and post.majorID = ? and post.workLocation LIKE ?";
+                        + "ON (post.majorID = major.majorID) ";
+                if (companyID.isEmpty() == false && MajorID != 0 
+                        && nameLocation.isEmpty() == false ) {
+                    sql += " WHERE post.companyID = ? and post.majorID = ? and post.workLocation LIKE ?";
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, companyID);
-                    stm.setNString(2, MajorID);
+                    System.out.println("loi o day 1");
+                    stm.setString(1, companyID);
+                    stm.setInt(2, MajorID);
                     stm.setNString(3, "%" + nameLocation + "%");
                 } 
-                if (companyID.isEmpty() == false && MajorID.isEmpty() == true 
+                if (companyID.isEmpty() == false && MajorID == 0 
                         && nameLocation.isEmpty() == false ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.companyID = ? and post.workLocation LIKE ?";
+                    sql += "WHERE post.companyID = ? and post.workLocation LIKE ?";
+                    System.out.println("loi o day 2");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, companyID);
+                    stm.setString(1, companyID);
                     stm.setNString(2, "%" + nameLocation + "%");
                 } 
-                if (companyID.isEmpty() == false && MajorID.isEmpty() == false 
+                if (companyID.isEmpty() == false && MajorID != 0 
                         && nameLocation.isEmpty() == true ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.companyID = ? and post.majorID = ? ";
+                    sql += "WHERE post.companyID = ? and post.majorID = ? ";
+                    System.out.println("loi o day 3");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, companyID);
-                    stm.setNString(2, MajorID);
+                    stm.setString(1, companyID);
+                    stm.setInt(2, MajorID);
                 } 
-                if (companyID.isEmpty() == false && MajorID.isEmpty() == true 
+                if (companyID.isEmpty() == false && MajorID == 0 
                         && nameLocation.isEmpty() == true ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.companyID = ?  ";
+                    sql += "WHERE post.companyID = ?  ";
+                    System.out.println("loi o day 4");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, companyID);
-                    System.out.println("DO");
+                    stm.setString(1, companyID);
                 } 
-                if (companyID.isEmpty() == true && MajorID.isEmpty() == false 
+                if (companyID.isEmpty() == true && MajorID != 0 
                         && nameLocation.isEmpty() == false ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.majorID = ? and post.workLocation LIKE ?";
+                    sql += "WHERE post.majorID = ? and post.workLocation LIKE ?";
+                    System.out.println("loi o day 5");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, MajorID);
+                    stm.setInt(1, MajorID);
                     stm.setNString(2, "%" + nameLocation + "%");
                 } 
-                if (companyID.isEmpty() == true && MajorID.isEmpty() == false 
+                if (companyID.isEmpty() == true && MajorID != 0 
                         && nameLocation.isEmpty() == true ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.majorID = ? ";
+                    sql += "WHERE post.majorID = ? ";
+                    System.out.println("loi o day 6");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, MajorID);
+                    stm.setInt(1, MajorID);
                 } 
-                
-                if (companyID.isEmpty() == true && MajorID.isEmpty() == false 
+                if (companyID.isEmpty() == true && MajorID == 0 
                         && nameLocation.isEmpty() == false ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.majorID = ? and post.workLocation LIKE ? ";
-                    stm = con.prepareCall(sql);
-                    stm.setNString(1, MajorID);
-                    stm.setNString(2, "%" + nameLocation + "%");
-                } 
-                if (companyID.isEmpty() == true && MajorID.isEmpty() == true 
-                        && nameLocation.isEmpty() == false ) {
-                    String sql = "SELECT post.postID, post.title_Post, post.quantityIterns, post.postingDate, "
-                            + "post.expirationDate, post.workLocation, major.majorName, acc.name, "
-                            + "post.school_confirm, post.statusPost "
-                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
-                        + "ON (post.majorID = major.majorID) "
-                        + "WHERE post.workLocation LIKE ? ";
+                    sql += "WHERE post.workLocation LIKE ? ";
+                    System.out.println("loi o day 7");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + nameLocation + "%");
                 }
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    System.out.println("Do1");
                     int postID = rs.getInt("postID");
                     String title_Post = rs.getNString("title_Post");
-                    int quanityItens = rs.getInt("quantityIterns");
+                    int quanityItens = rs.getInt("quantityInterns");
                     Date postingDate = rs.getDate("postingDate");
                     Date exprirationDate = rs.getDate("expirationDate");
                     boolean school_confirm = rs.getBoolean("school_confirm");
@@ -233,7 +188,6 @@ public class TblCompany_PostDAO implements Serializable{
                     String majorName = rs.getNString("majorName");
                     String companyName = rs.getNString("name");
                     if (school_confirm == true && status_Post == 1 && quanityItens > 0) {
-                        System.out.println("DO DO");
                         TblAccountDTO account = new TblAccountDTO();
                         account.setName(companyName);
                         
