@@ -1,0 +1,445 @@
+.aUpdate-btn{
+    padding: 3px;
+    background-color: var(--background-aquar);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.aUpdate-btn:hover{
+    transform: scale(1.1);
+}
+
+.accept-btn:hover{
+    background-color: var(--background-orange);
+    color: var(--text-color-white);
+    transform: scale(1.1);
+}
+
+.reject-btn{
+    background-color: var(--background-white);
+    color: var(--text-color-black);
+    border: 1px solid var(--text-color-black);
+}
+
+.reject-btn:hover{
+    transform: scale(1.1);
+    background-color: var(--background-white);
+    color: var(--text-color-black);
+    border: 1px solid var(--text-color-black);
+}
+/* footer-------------------------------------------- */
+.footer{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* footer--------------------END------------------------ */
+
+.main-body{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+
+/* Student Management-------------------------------------------- */
+.main-body-aStuManage{
+    text-align: center;
+}
+
+.main-body-aStuManage__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.main-body-aStuManage__search td,  .main-body-aStuManage__search tr{
+    border: none;
+}
+
+.main-body-aStuManage__search{
+    font-size: 1.6rem;
+}
+
+.main-body-aStuManage__search input,
+.main-body-aStuManage__search select{
+    width: 100%;
+}
+.main-body-aStuManage__search select{
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+
+.main-body-aStuManage__content{
+    font-size: 1.4rem;
+}
+
+.main-body-aStuManage td:nth-child(1){
+    width: 5%;
+}
+.main-body-aStuManage td:nth-child(2){
+    width: 10%;
+}
+.main-body-aStuManage td:nth-child(3){
+    width: 25%;
+}
+.main-body-aStuManage td:nth-child(4){
+    width: 20%;
+}
+.main-body-aStuManage td:nth-child(5){
+    width: 5%;
+}
+.main-body-aStuManage td:nth-child(6){
+    width: 10%;
+}
+.main-body-aStuManage td:nth-child(7){
+    width: 15%;
+}
+.main-body-aStuManage td:nth-child(8){
+    width: 10%;
+}
+
+.aStuManage-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.aStuManage-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+    padding: 0px;
+}
+/* Student Management----------------END---------------------------- */
+
+/* Company Management-------------------------------------------- */
+.main-body-aComManage{
+    text-align: center;
+}
+
+.main-body-aComManage__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.main-body-aComManage__search td,  .main-body-aComManage__search tr{
+    border: none;
+}
+
+.main-body-aComManage__search{
+    font-size: 1.6rem;
+}
+
+.main-body-aComManage__search input,
+.main-body-aComManage__search select{
+    width: 100%;
+}
+.main-body-aComManage__search select{
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+
+.main-body-aComManage__content{
+    font-size: 1.4rem;
+}
+
+.main-body-aComManage td:nth-child(1){
+    width: 5%;
+}
+.main-body-aComManage td:nth-child(2){
+    width: 25%;
+}
+.main-body-aComManage td:nth-child(3){
+    width: 20%;
+}
+.main-body-aComManage td:nth-child(4){
+    width: 10%;
+}
+.main-body-aComManage td:nth-child(5){
+    width: 20%;
+}
+.main-body-aComManage td:nth-child(6){
+    width: 10%;
+}
+.main-body-aComManage td:nth-child(7){
+    width: 10%;
+}
+
+.aComManage-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.aComManage-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+    padding: 0px;
+}
+/* Company Management----------------END---------------------------- */
+
+/* Post Management-------------------------------------------- */
+.main-body-aPostManage{
+    text-align: center;
+}
+
+.main-body-aPostManage__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.main-body-aPostManage__search td,  .main-body-aPostManage__search tr{
+    border: none;
+}
+
+.main-body-aPostManage__search{
+    font-size: 1.6rem;
+}
+
+.main-body-aPostManage__search input,
+.main-body-aPostManage__search select{
+    width: 100%;
+}
+.main-body-aPostManage__search select{
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+
+.main-body-aPostManage__content{
+    font-size: 1.4rem;
+}
+
+.main-body-aPostManage td:nth-child(1){
+    width: 5%;
+}
+.main-body-aPostManage td:nth-child(2){
+    width: 30%;
+}
+.main-body-aPostManage td:nth-child(3){
+    width: 15%;
+}
+.main-body-aPostManage td:nth-child(4){
+    width: 20%;
+}
+.main-body-aPostManage td:nth-child(5){
+    width: 15%;
+}
+.main-body-aPostManage td:nth-child(6){
+    width: 15%;
+}
+
+.aPostManage-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.aPostManage-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+    padding: 0px;
+}
+/* Post Management----------------END---------------------------- */
+
+/* Internship Application -------------------------------------------- */
+
+.main-body-aInterAppl{
+    text-align: center;
+}
+
+.main-body-aInterAppl__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.main-body-aInterAppl__search td,  .main-body-aInterAppl__search tr{
+    border: none;
+}
+
+.main-body-aInterAppl__search{
+    font-size: 1.6rem;
+}
+
+.main-body-aInterAppl__search input,
+.main-body-aInterAppl__search select{
+    width: 100%;
+}
+.main-body-aInterAppl__search select{
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+
+.main-body-aInterAppl__content{
+    font-size: 1.4rem;
+}
+
+.main-body-aInterAppl td:nth-child(1){
+    width: 5%;
+}
+.main-body-aInterAppl td:nth-child(2){
+    width: 10%;
+}
+.main-body-aInterAppl td:nth-child(3){
+    width: 20%;
+}
+.main-body-aInterAppl td:nth-child(4){
+    width: 20%;
+}
+.main-body-aInterAppl td:nth-child(5){
+    width: 12%;
+}
+.main-body-aInterAppl td:nth-child(6){
+    width: 12%;
+}
+.main-body-aInterAppl td:nth-child(7){
+    width: 12%;
+}
+.main-body-aInterAppl td:nth-child(8){
+    width: 9%;
+}
+
+.aInterAppl-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.aInterAppl-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+    padding: 0px;
+}
+/* Internship Application ----------------END---------------------------- */
+
+
+/* Evalution  -------------------------------------------- */
+.main-body-aEval{
+    text-align: center;
+}
+
+.main-body-aEval__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+
+.main-body-aEval__search td,  .main-body-aEval__search tr{
+    border: none;
+}
+
+.main-body-aEval__search{
+    font-size: 1.6rem;
+}
+
+.main-body-aEval__search input,
+.main-body-aEval__search select{
+    width: 100%;
+}
+.main-body-aEval__search select{
+    padding-top: 1px;
+    padding-bottom: 2px;
+}
+
+
+.main-body-aEval__content{
+    font-size: 1.4rem;
+}
+
+
+.main-body-aEval td:nth-child(1){
+    width: 5%;
+}
+.main-body-aEval td:nth-child(2){
+    width: 10%;
+}
+.main-body-aEval td:nth-child(3){
+    width: 18%;
+}
+.main-body-aEval td:nth-child(4){
+    width: 17%;
+}
+.main-body-aEval td:nth-child(5){
+    width: 15%;
+}
+.main-body-aEval td:nth-child(6){
+    width: 10%;
+}
+.main-body-aEval td:nth-child(7){
+    width: 5%;
+}
+.main-body-aEval td:nth-child(8){
+    width: 10%;
+}
+.main-body-aEval td:nth-child(9){
+    width: 10%;
+}
+
+.aEval-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+.aEval-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+    padding: 0px;
+}
+/* Evalution  ----------------END---------------------------- */
+
+/* View Post  -------------------------------------------- */
+.main-body-aViewPost{
+    margin: 0 100px 50px 100px;
+    font-size: 1.6rem;
+}
+
+.aViewPost__header{
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.aViewPost-btn{
+    margin-top: 50px;
+    display: flex;
+}
+
+/* View Post  ----------------END---------------------------- */
+
