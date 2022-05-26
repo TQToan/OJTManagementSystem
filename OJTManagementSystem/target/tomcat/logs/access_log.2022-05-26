@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [26/May/2022:17:54:27 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [26/May/2022:17:54:35 +0700] "POST /OJTManagementSystem/RegisterCompanyController HTTP/1.1" 200 3755 http-bio-8080-exec-3 1008
