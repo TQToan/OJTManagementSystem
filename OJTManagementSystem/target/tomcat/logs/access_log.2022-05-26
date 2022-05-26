@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:17:17 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:17:20 +0700] "POST /OJTManagementSystem/loginAccountsController HTTP/1.1" 200 4595 http-bio-8080-exec-2 548
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:17:26 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-4 0
@@ -24,3 +25,7 @@
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:19:42 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-8 0
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:19:46 +0700] "GET /OJTManagementSystem/LoginGoogleServlet?code=4/0AX4XfWiGlZQYm0w2VGK5EIr4Hmn_IIdhHch7QpWwdvct1VCMoA04WD4stW1BKVskJUUI6w&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile%20openid&authuser=1&hd=fpt.edu.vn&prompt=consent HTTP/1.1" 302 - http-bio-8080-exec-8 232
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:19:54 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-8 0
+=======
+0:0:0:0:0:0:0:1 - - [26/May/2022:17:54:27 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [26/May/2022:17:54:35 +0700] "POST /OJTManagementSystem/RegisterCompanyController HTTP/1.1" 200 3755 http-bio-8080-exec-3 1008
+>>>>>>> a18cd707afaf98852aa77964f48172e075d8d41d
