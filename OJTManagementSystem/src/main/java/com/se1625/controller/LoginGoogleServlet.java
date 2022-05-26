@@ -76,7 +76,7 @@ public class LoginGoogleServlet extends HttpServlet {
                     }
                 } else {
                     error = new TblAccountError();
-                    error.setAccountError("Your account is not allowed to login the system");
+                    error.setUserEmailNotAllow("Your account is not allowed to login the system");
                     request.setAttribute("ERROR", error);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);

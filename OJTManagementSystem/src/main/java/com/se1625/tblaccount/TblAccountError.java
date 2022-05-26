@@ -14,15 +14,18 @@ public class TblAccountError {
     private String accountError;
     private String userEmailEmpty;
     private String userPasswordEmpty;
-
+    private String userEmailNotAllow;
+    
     public TblAccountError() {
     }
 
-    public TblAccountError(String accountError, String userEmailEmpty, String userPasswordEmpty) {
+    public TblAccountError(String accountError, String userEmailEmpty, String userPasswordEmpty, String userEmailNotAllow) {
         this.accountError = accountError;
         this.userEmailEmpty = userEmailEmpty;
         this.userPasswordEmpty = userPasswordEmpty;
+        this.userEmailNotAllow = userEmailNotAllow;
     }
+  
 
     public String getAccountError() {
         return accountError;
@@ -47,4 +50,14 @@ public class TblAccountError {
     public void setUserPasswordEmpty(String userPasswordEmpty) {
         this.userPasswordEmpty = userPasswordEmpty;
     }
+
+    public String getUserEmailNotAllow() {
+        return userEmailNotAllow;
+    }
+
+    public void setUserEmailNotAllow(String userEmailNotAllow) {
+        this.userEmailNotAllow = userEmailNotAllow;
+    }
+    
+    
 }
