@@ -20,10 +20,10 @@
     <body>
         <header class="header ">
             <div class="navbar">
-                <a href="login.html" class="header__logo ">
+                <a href="loginPage" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-                <a href="login.html" class="primary-btn ">Login</a>
+                <a href="loginPage" class="primary-btn ">Login</a>
             </div>
         </header>
         <c:set var="errors" value="${requestScope.ERROR_REGISTER_COMPANY}"/>
@@ -92,17 +92,20 @@
                                 <div class="right-file-input">
                                     <label for="myfile" >
                                         *Logo:
-                                        <c:if test="${not empty requestScope.companyLogo}">
+                                        <%-- <c:if test="${not empty requestScope.companyLogo}">
                                             <img src="./avatars/${requestScope.companyLogo}" /> 
-                                        </c:if>
+                                        </c:if> --%>
                                     </label>
-                                    <input type="file" name="companyLogo" value="" id="myfile"/>
+                                    <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>
                                 </div>
                                 <div class="text-danger">Your error</div>
 
 
                                 <div class="end-form-btn">
                                     <!--                                <a href="./register1.html" class="back-btn primary-btn">Back</a>-->
+                                    <input type="hidden" name="companyAccount" value="${verifyEmail}" />
+                                    <input type="hidden" name="email" value="${email}" />
+                                    <input type="hidden" name="password" value="${password}" />
                                     <input type="submit" class=" primary-btn " name="btAction" value="Sign Up" />
                                 </div>
 

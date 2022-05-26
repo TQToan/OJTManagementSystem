@@ -38,25 +38,29 @@ public class EmailVerificationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String verifyCode = request.getParameter("varification");
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1_JSP);
+        String url = MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1;
         
-        
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("VERIFY_EMAIL");
-            if (verifyCode.trim().equals(accountCompany.getVerifyCode())) {
-                request.setAttribute("SUCCESS_VERIFY", "Your email verified successful. Click Next button to continuous.");
-            } else {
-                request.setAttribute("FAIL_VERIFY", "Verify code is invalid. Please input again.");
+        if (verifyCode != null) {
+            url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1_JSP);
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("ACCOUNT_COMPANY");
+                if (verifyCode.trim().equals(accountCompany.getVerifyCode())) {
+                    request.setAttribute("SUCCESS_VERIFY", "Your email verified successful. Click Next button to continuous.");
+                } else {
+                    request.setAttribute("FAIL_VERIFY", "Verify code is invalid. Please input again.");
+                }
             }
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
+        } else {
+            response.sendRedirect(url);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

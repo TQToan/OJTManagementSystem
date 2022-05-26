@@ -21,7 +21,7 @@
     <body>
         <header class="header ">
             <div class="navbar">
-                <a href="login.html" class="header__logo ">
+                <a href="" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
                 <a href="" class="primary-btn ">Login</a>
@@ -73,13 +73,18 @@
                                 <!--                            <div class="text-danger">Your error</div>-->
                                 <!--                            <input type="text" class="right-form__input" placeholder="*Vertification">
                                                             <div class="text-danger">Your error</div>-->
-                                <input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" 
+                                <%--<input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" 
                                        <c:if test="${not empty sessionScope.VERIFY_EMAIL}" var="verify"> 
+                                           hidden="hidden"
+                                       </c:if>
+                                       />--%>
+                                <input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" 
+                                       <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" var="verify"> 
                                            hidden="hidden"
                                        </c:if>
                                        />
                             </form>
-                            <c:set var="verifyEmail" value="${sessionScope.VERIFY_EMAIL}"/>
+                                <c:set var="verifyEmail" value="${sessionScope.ACCOUNT_COMPANY}"/>
                             <c:if test="${not empty verifyEmail}">
                                 <form action="EmailVerificationController" method="POST">
 

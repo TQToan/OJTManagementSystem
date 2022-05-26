@@ -63,13 +63,15 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1;
+
+        HttpSession session = request.getSession(false);
 
         try {
-            HttpSession session = request.getSession(false);
             if (session != null) {
-                TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("VERIFY_EMAIL");
+                TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("ACCOUNT_COMPANY");
                 if (accountCompany != null) {
+                    url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1);
                     // Create a factory for disk-based file items
                     DiskFileItemFactory factory = new DiskFileItemFactory();
 
@@ -109,7 +111,11 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
                                 }
-                                item.write(uploadFile);
+                                if (uploadFile.exists()) {
+                                    // bị trùng tên
+                                } else {
+                                    item.write(uploadFile);
+                                }
                             }
                         }
                     }
@@ -120,6 +126,8 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                     String address = params.get("companyAddress");
                     String description = params.get("companyDescription");
                     String phone = params.get("companyPhone");
+                    String email = params.get("email");
+                    String password = params.get("password");
                     boolean found = false;
                     RegisterCompanyError errors = new RegisterCompanyError();
 
@@ -163,6 +171,8 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                         request.setAttribute("ERROR_REGISTER_COMPANY", errors);
                         url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_2_JSP);
                     } else {
+                        accountCompany.setEmail(email);
+                        accountCompany.setPassword(password);
                         accountCompany.setName(companyName);
                         accountCompany.setAvatar(logoName);
                         accountCompany.setIs_Admin(3);
@@ -190,18 +200,20 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                         }
 
                     }
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
                 }
+            } else {
+                response.sendRedirect(url);
             }
+
         } catch (SQLException ex) {
             log("SQLException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (Exception ex) {
             log("Exception occurs RegisterCompanyDetailsServlet " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

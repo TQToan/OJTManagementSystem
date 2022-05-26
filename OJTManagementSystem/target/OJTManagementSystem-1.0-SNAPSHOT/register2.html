@@ -13,10 +13,10 @@
     <body>
         <header class="header ">
             <div class="navbar">
-                <a href="login.html" class="header__logo ">
+                <a href="loginPage" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-                <a href="login.html" class="primary-btn ">Login</a>
+                <a href="loginPage" class="primary-btn ">Login</a>
             </div>
         </header>
 
@@ -33,32 +33,22 @@
                         <div class="right-form">
                             <form action="RegisterCompanyDetailsController" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
                                 <input type="text" class="right-form__input" name="companyName" value="" placeholder="*Company Name" /> 
-                                <!--                            <div class="text-danger">Your error</div>-->
                                 <select id="city" name="city"  class="right-form__input" >
-<!--                                    <option value="" disabled="disabled" selected="selected">*Choose City</option>-->
                                     <option value="TP.HCM">TP.HCM</option>
                                     <option value="Dong Nai">Dong Nai</option>
                                     <option value="Tay Ninh">Tay Ninh</option>
                                     <option value="Binh Duong">Binh Duong</option>
                                 </select>
-                                <!--                              <div class="text-danger">Your error</div>-->
-                                <input type="text" name="companyAddress" value="" class="right-form__input" placeholder="*Company Address" /> 
-                                <!--                            <div class="text-danger">Your error</div>-->
+                                <input type="text" name="companyAddress" value="" class="right-form__input" placeholder="*Company Address" />
                                 <textarea name="companyDescription" class="right-form__input righ-form-textarea" placeholder="*Company Summary" cols="30" rows="3"></textarea>
-                                <!--                            <div class="text-danger">Your error</div>-->
                                 <input type="text" name="companyPhone" value="" class="right-form__input" placeholder="*Phone" />
-                                <!--                            <div class="text-danger">Your error</div>-->
                                 <div class="right-file-input">
                                     <label for="myfile" >
                                         *Logo:
                                     </label>
                                     <input type="file" id="myfile" name="companyLogo" />
                                 </div>
-                                <!--                            <div class="text-danger">Your error</div>-->
-
-
                                 <div class="end-form-btn">
-                                    <!--                                <a href="./register1.html" class="back-btn primary-btn">Back</a>-->
                                     <input type="submit" class=" primary-btn " name="btAction" value="Sign Up" />
                                 </div>
                             </form>
