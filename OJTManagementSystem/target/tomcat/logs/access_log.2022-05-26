@@ -18,3 +18,11 @@
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:42:07 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5577 http-bio-8080-exec-10 82
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:42:25 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 4911 http-bio-8080-exec-10 3
 0:0:0:0:0:0:0:1 - - [26/May/2022:23:42:40 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5160 http-bio-8080-exec-10 13
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:01 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5598 http-bio-8080-exec-10 4
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:07 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5598 http-bio-8080-exec-10 4
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:13 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5590 http-bio-8080-exec-10 7
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:38 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5383 http-bio-8080-exec-10 3
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:45 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5368 http-bio-8080-exec-10 8
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:43:49 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5375 http-bio-8080-exec-10 8
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:44:33 +0700] "POST /OJTManagementSystem/RegisterCompanyDetailsController HTTP/1.1" 200 5375 http-bio-8080-exec-10 6
+0:0:0:0:0:0:0:1 - - [26/May/2022:23:44:46 +0700] "GET /OJTManagementSystem/loginPage HTTP/1.1" 200 3616 http-bio-8080-exec-10 72
