@@ -171,8 +171,9 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                         request.setAttribute("ERROR_REGISTER_COMPANY", errors);
                         url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_2_JSP);
                     } else {
-                        accountCompany.setEmail(email);
-                        accountCompany.setPassword(password);
+                        //loi add account company
+                        accountCompany.setEmail(accountCompany.getEmail());
+                        accountCompany.setPassword(accountCompany.getPassword());
                         accountCompany.setName(companyName);
                         accountCompany.setAvatar(logoName);
                         accountCompany.setIs_Admin(3);

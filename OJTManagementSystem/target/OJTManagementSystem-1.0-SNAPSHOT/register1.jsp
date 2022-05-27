@@ -41,7 +41,10 @@
                         <div class="right-form">
                             <c:set var="errors" value="${requestScope.ERROR_REGISTER}" />
                             <form action="RegisterCompanyController" method="POST">
-                                <input type="text" name="email" value="${param.email}" class="right-form__input" placeholder="*Login Email" /> 
+                                <input type="text" name="email" value="${param.email}" class="right-form__input" placeholder="*Login Email" 
+                                       <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
+                                           disabled="disabled"
+                                       </c:if>/> 
                                 <c:if test="${not empty errors.emailFormatError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.emailFormatError}</div>
@@ -56,14 +59,20 @@
 
                                 <!--                            Sửa đổi trang register-->
                                 <!--                            <a href="register2.html" class="verify-email">send email information</a> -->
-                                <input type="password" name="password" value="${param.password}" class="right-form__input" placeholder="*Password" /> 
+                                <input type="password" name="password" value="${param.password}" class="right-form__input" placeholder="*Password" 
+                                       <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
+                                       disabled="disabled"
+                                    </c:if> /> 
                                 <c:set var="password" value="${param.password}" />
                                 <c:if test="${not empty errors.passwordLengthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.passwordLengthError}</div>
                                     </font>
                                 </c:if>
-                                <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="*Re-enter Password" /> 
+                                <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="*Re-enter Password" 
+                                       <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
+                                           disabled="disabled"
+                                       </c:if> /> 
                                 <c:set var="confirmPassword" value="${param.confirmPassword}" />
                                 <c:if test="${not empty errors.passwordConfirmError}">
                                     <font style="color: red">
@@ -84,7 +93,7 @@
                                        </c:if>
                                        />
                             </form>
-                                <c:set var="verifyEmail" value="${sessionScope.ACCOUNT_COMPANY}"/>
+                            <c:set var="verifyEmail" value="${sessionScope.ACCOUNT_COMPANY}"/>
                             <c:if test="${not empty verifyEmail}">
                                 <form action="EmailVerificationController" method="POST">
 

@@ -43,7 +43,7 @@ public class LoginGoogleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String code = request.getParameter("code");
         String accessToken = MyApplicationHelper.getToken(code);
         UserGoogleDTO userInfo = MyApplicationHelper.getUserInfo(accessToken);
@@ -73,10 +73,16 @@ public class LoginGoogleServlet extends HttpServlet {
                     if (role == 1) {
                         url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
                         response.sendRedirect(url);
+                    } else {
+                        error = new TblAccountError();
+                        error.setUserEmailNotAllow("Your account is not allowed to login the system");
+                        request.setAttribute("ERROR", error);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     }
                 } else {
                     error = new TblAccountError();
-                    error.setAccountError("Your account is not allowed to login the system");
+                    error.setUserEmailNotAllow("Your account is not allowed to login the system");
                     request.setAttribute("ERROR", error);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
@@ -87,7 +93,7 @@ public class LoginGoogleServlet extends HttpServlet {
         } catch (SQLException ex) {
             log("LoginGoogleServlet_SQLException " + ex.getMessage());
         }
-          
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
