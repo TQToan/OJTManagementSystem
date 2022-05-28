@@ -5,6 +5,7 @@
  */
 package com.se1625.tblaccount;
 
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -179,6 +180,7 @@ public class TblAccountDAO implements Serializable {
                     String avatar = rs.getString("avatar");
                     int role = rs.getInt("isAdmin");
                     dto = new TblAccountDTO(accountname, name, avatar, role);
+                    dto.setPassword(password);
                 }
                 return dto;
             }
@@ -208,7 +210,7 @@ public class TblAccountDAO implements Serializable {
                         + "VALUES (?, ?, ?, ?)";
                 stm = con.prepareStatement(sql1);
                 stm.setString(1, username);
-                stm.setString(2, name);
+                stm.setNString(2, name);
                 stm.setString(3, avatar);
                 stm.setInt(4, isAdmin);               
                 int effectRow1 = stm.executeUpdate();
@@ -228,6 +230,9 @@ public class TblAccountDAO implements Serializable {
                 }
             }
         }finally{
+            if (stm != null) {
+                stm.close();
+            }
             if(con != null){
                 con.close();
             }
@@ -235,4 +240,51 @@ public class TblAccountDAO implements Serializable {
         
         return false;
     }
+    
+    public boolean addStudentAccount(TblStudentDTO student) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        try{
+            con = DBHelper.makeConnection();
+            if(con != null){
+                con.setAutoCommit(false);
+                String sql1 = "INSERT INTO tblAccount("
+                        + "username, name, isAdmin) "
+                        + "VALUES (?, ?, ?)";
+                stm = con.prepareStatement(sql1);
+                stm.setString(1, student.getAccount().getEmail());
+                stm.setNString(2, student.getAccount().getName());              
+                stm.setInt(3, 2);              
+                int effectRow1 = stm.executeUpdate();
+                
+                String sql2 = "INSERT INTO tblStudent("
+                        + "studentCode, username, major, phone, numberOfCredit) "
+                        + "VALUES (?, ?, ?, ?, ?) ";                     
+                stm = con.prepareStatement(sql2);
+                stm.setString(1, student.getStudentCode());
+                stm.setString(2, student.getAccount().getEmail());                
+                stm.setNString(3, student.getMajor());                
+                stm.setString(4, student.getPhone());                
+                stm.setInt(5, student.getNumberOfCredits());                
+                int effectRow2 = stm.executeUpdate();
+                
+                con.commit();
+                
+                if(effectRow1 > 0 && effectRow2 > 0){
+                    return true;
+                }
+            }
+        }finally{
+            if (stm != null) {
+                stm.close();
+            }
+            if(con != null){
+                con.setAutoCommit(true);
+                con.close();
+            }
+        }        
+        
+        return false;
+    }
+
 }

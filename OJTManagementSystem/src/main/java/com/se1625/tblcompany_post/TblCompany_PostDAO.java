@@ -6,7 +6,10 @@
 package com.se1625.tblcompany_post;
 
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
+import com.se1625.tblmajor.TblMajorDAO;
+import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -233,5 +236,72 @@ public class TblCompany_PostDAO implements Serializable{
             listPage.add(list.get(i));
         }
         return listPage;
+    }
+
+    public TblCompany_PostDTO getCompanyPost(int postID) throws SQLException, NamingException {
+        Connection con = null; 
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblCompany_PostDTO companyPost = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT postID, title_Post, job_Description, "
+                        + "job_Requirement, remuneration, workLocation, "
+                        + "quantityInterns, postingDate, expirationDate, "
+                        + "school_Confirm, statusPost, companyID, majorID "
+                        + "FROM tblCompany_Post "
+                        + "WHERE postID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, postID);
+                
+                rs = stm.executeQuery();
+                
+                if (rs.next()) {
+                    String title_Post = rs.getNString("title_Post");
+                    String job_Description = rs.getNString("job_Description");
+                    String job_Requirement = rs.getNString("job_Requirement");
+                    String remuneration = rs.getNString("remuneration");
+                    String workLocation = rs.getNString("workLocation");
+                    int quantityInterns = rs.getInt("quantityInterns");
+                    Date postingDate = rs.getDate("postingDate");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    boolean schoolConfirm = rs.getBoolean("school_Confirm");
+                    int statusPost = rs.getInt("statusPost");
+                    String companyID = rs.getString("companyID");
+                    int majorID = rs.getInt("majorID");
+                    
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    TblCompanyDTO company = companyDAO.getCompany(companyID);
+                    
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    TblMajorDTO major = majorDAO.getMajor(majorID);
+                    
+                    companyPost = new TblCompany_PostDTO();
+                    companyPost.setPostID(postID);
+                    companyPost.setTitle_Post(title_Post);
+                    companyPost.setJob_Description(job_Description);
+                    companyPost.setJob_Requirement(job_Requirement);
+                    companyPost.setRemuneration(remuneration);
+                    companyPost.setQuantityIterns(quantityInterns);
+                    companyPost.setWorkLocation(workLocation);
+                    companyPost.setPostingDate(postingDate);
+                    companyPost.setExpirationDate(expirationDate);
+                    companyPost.setSchool_confirm(schoolConfirm);
+                    companyPost.setStatusPost(statusPost);
+                    companyPost.setCompany(company);
+                    companyPost.setMajor(major);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return companyPost;
     }
 }

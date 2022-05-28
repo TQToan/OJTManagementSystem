@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:43:27 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:43:27 +0700] "GET /OJTManagementSystem/ HTTP/1.1" 304 - http-bio-8080-exec-3 14
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:45:04 +0700] "POST /OJTManagementSystem/ImportStudentExcelFileController HTTP/1.1" 302 - http-bio-8080-exec-5 856
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:45:04 +0700] "GET /OJTManagementSystem/AdminStudentManagementPage HTTP/1.1" 200 16388 http-bio-8080-exec-7 2
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:45:04 +0700] "GET /OJTManagementSystem/assets/css/admin.css HTTP/1.1" 200 9120 http-bio-8080-exec-8 2
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:45:04 +0700] "GET /OJTManagementSystem/assets/font/fontawesome-free-6.1.1-web/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23940 http-bio-8080-exec-9 1
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:46:11 +0700] "GET /OJTManagementSystem/ExportEvalutionExcelFileController HTTP/1.1" 200 3649 http-bio-8080-exec-1 243
+0:0:0:0:0:0:0:1 - - [28/May/2022:14:47:51 +0700] "GET /OJTManagementSystem/ExportEvalutionExcelFileController HTTP/1.1" 200 3706 http-bio-8080-exec-4 37
