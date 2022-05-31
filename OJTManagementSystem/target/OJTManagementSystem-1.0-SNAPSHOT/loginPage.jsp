@@ -31,6 +31,9 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
+            <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
+                ${requestScope.ERROR_IMPORT_EXCEL}
+            </c:if>
             <div class="row main-body">
                 <div class="container-left offset-1 col-4">
                     <h2 class="container__heading">*Company</h2>

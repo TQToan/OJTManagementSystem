@@ -88,4 +88,77 @@ public class TblApplicationDAO implements Serializable{
             }
         }
     }
+    
+    public boolean addApplication(TblApplicationDTO application) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "INSERT INTO tblApplication (attachmentPath, expected_Job, technology, experience, "
+                        + "foreign_Language, otherSkills, studentCode, postID, student_Confirm) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, application.getAttachmentPath());
+                stm.setNString(2, application.getExpected_job());
+                stm.setNString(3, application.getTechnology());
+                stm.setNString(4, application.getExperience());
+                stm.setNString(5, application.getForeign_Language());
+                stm.setNString(6, application.getOtherSkills());
+                stm.setString(7, application.getStudent().getStudentCode());
+                stm.setInt (8, application.getCompanyPost().getPostID());
+                stm.setBoolean(9, true);
+                
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean updateApplication(TblApplicationDTO application) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblApplication (attachmentPath, expected_Job, technology, experience, "
+                        + "foreign_Language, otherSkills, studentCode, postID ) "
+                        + "SET (?, ?, ?, ?, ?, ?, ?, ?) "
+                        + "WHERE ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, application.getAttachmentPath());
+                stm.setNString(2, application.getExpected_job());
+                stm.setNString(3, application.getTechnology());
+                stm.setNString(4, application.getExperience());
+                stm.setNString(5, application.getForeign_Language());
+                stm.setNString(6, application.getOtherSkills());
+                stm.setString(7, application.getStudent().getStudentCode());
+                stm.setInt (8, application.getCompanyPost().getPostID());
+                stm.setInt(9, application.getApplicationID());
+                
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
 }

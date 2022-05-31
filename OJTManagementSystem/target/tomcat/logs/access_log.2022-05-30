@@ -1,0 +1,3 @@
+0:0:0:0:0:0:0:1 - - [30/May/2022:18:47:38 +0700] "GET /OJTManagementSystem/LoadApplyCVStudentController HTTP/1.1" 200 5460 http-bio-8080-exec-1 1047
+0:0:0:0:0:0:0:1 - - [30/May/2022:18:47:47 +0700] "POST /OJTManagementSystem/ApplyCVStudentConTroller HTTP/1.1" 200 17412 http-bio-8080-exec-3 73
+0:0:0:0:0:0:0:1 - - [30/May/2022:18:47:47 +0700] "GET /OJTManagementSystem/assets/css/student.css HTTP/1.1" 304 - http-bio-8080-exec-4 3

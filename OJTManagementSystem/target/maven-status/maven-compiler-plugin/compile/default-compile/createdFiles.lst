@@ -1,6 +1,7 @@
 com\se1625\controller\LoginGoogleServlet.class
 com\se1625\controller\SearchCompanyStudentHomeServlet.class
 com\se1625\tblaccount\RegisterCompanyAccountError.class
+com\se1625\tblapplication\ApplyCVStudentError.class
 com\se1625\tblstudent\TblStudentDAO.class
 com\se1625\utils\MyApplicationConstants$RegisterCompanyFeature.class
 com\se1625\controller\ExportEvalutionExcelFileServlet.class
@@ -12,9 +13,11 @@ com\se1625\tblaccount\TblAccountError.class
 com\se1625\controller\LoginAccountsServlet.class
 com\se1625\tblcompany\RegisterCompanyError.class
 com\se1625\utils\MyApplicationConstants$AddStudentFeture.class
+com\se1625\controller\ApplyCVStudentServlet.class
 com\se1625\controller\ImportStudentExcelFileServlet.class
 com\se1625\controller\RegisterCompanyServlet.class
 com\se1625\tblapplication\TblApplicationDTO.class
+com\se1625\controller\LoadApplyCVStudentServlet.class
 com\se1625\utils\DBHelper.class
 com\se1625\utils\MyApplicationHelper$1.class
 com\se1625\utils\MyApplicationConstants$ShowStudentHomeFeature.class
@@ -30,11 +33,13 @@ com\se1625\utils\MyApplicationConstants$Constants.class
 com\se1625\utils\MyApplicationConstants.class
 com\se1625\tblaccount\TblAccountDAO.class
 com\se1625\tblcompany\TblCompanyDTO.class
+com\se1625\utils\MyApplicationConstants$LoadApplyCVStudentFeature.class
 com\se1625\utils\MyApplicationConstants$SearchComanyStudentHomeFeature.class
 com\se1625\controller\EmailVerificationServlet.class
 com\se1625\tblcompany_post\TblCompany_PostDTO.class
 com\se1625\tblcompany\TblCompanyDAO.class
 com\se1625\tblaccount\TblAccountDTO.class
+com\se1625\utils\MyApplicationConstants$ApplyCVStudentFeature.class
 com\se1625\listener\MyApplicationListener.class
 com\se1625\tblcompany_post\TblCompany_PostDAO.class
 com\se1625\filter\DispatchFilter.class

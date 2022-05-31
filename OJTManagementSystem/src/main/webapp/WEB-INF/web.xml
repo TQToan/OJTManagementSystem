@@ -24,6 +24,18 @@
         <servlet-name>ExportEvalutionExcelFileServlet</servlet-name>
         <servlet-class>com.se1625.controller.ExportEvalutionExcelFileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadApplyCVStudentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.LoadApplyCVStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApplyCVStudentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ApplyCVStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CVStudentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CVStudentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>ExportEvalutionExcelFileServlet</servlet-name>
         <url-pattern>/ExportEvalutionExcelFileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadApplyCVStudentServlet</servlet-name>
+        <url-pattern>/LoadApplyCVStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApplyCVStudentServlet</servlet-name>
+        <url-pattern>/ApplyCVStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CVStudentServlet</servlet-name>
+        <url-pattern>/CVStudentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

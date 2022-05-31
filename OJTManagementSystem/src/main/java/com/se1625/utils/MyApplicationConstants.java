@@ -71,5 +71,15 @@ public class MyApplicationConstants {
     
     public class ImportStudentExcelFileFeature{
         public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
+        public static final String DEMP_PAGE = "loginPage";
+    }
+    
+    public class LoadApplyCVStudentFeature{
+        public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
+    }
+    
+    public class ApplyCVStudentFeature{
+        public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
+        public static final String STUDENT_APPLIED_JOB_PAGE = "StudentApplJobPage";
     }
 }

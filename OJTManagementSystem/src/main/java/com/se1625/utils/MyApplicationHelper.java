@@ -159,98 +159,111 @@ public class MyApplicationHelper {
         String StudentCode = username.substring(begin, end).toUpperCase();
         return StudentCode;
     }
-    
-    public static List<TblStudentDTO> readExcel(String excelFilePath) throws FileNotFoundException, IOException, IllegalArgumentException {
-        List<TblStudentDTO> studentList = new ArrayList<>();
+
+    public static List<TblStudentDTO> readExcel(String excelFilePath)
+            throws FileNotFoundException, IOException, IllegalArgumentException, Exception {
+        List<TblStudentDTO> studentList = null;
 
         //get File
         InputStream inputStream = new FileInputStream(excelFilePath);
 
         //get wordbook
         Workbook workbook = getWorkbook(inputStream, excelFilePath);
+        if (workbook != null) {
+            //get sheet
+            Sheet sheet = workbook.getSheetAt(0);
 
-        //get sheet
-        Sheet sheet = workbook.getSheetAt(0);
+            //get all rows
+            Iterator<Row> interator = sheet.iterator();
+            System.out.println(sheet.getLastRowNum());
 
-        //get all rows
-        Iterator<Row> interator = sheet.iterator();
-        while (interator.hasNext()) {
-            Row nextRow = interator.next();
-            if (nextRow.getRowNum() == 0) {
-                //ignore header
-                continue;
-            }
+            if (sheet.getLastRowNum() < 1) {
+                workbook.close();
+                inputStream.close();
+                throw new Exception("Sheet is empty");
+            } else {
+                studentList = new ArrayList<>();
+                while (interator.hasNext()) {
+                    Row nextRow = interator.next();
 
-            //get all cells
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
+                    if (nextRow.getRowNum() == 0) {
+                        //ignore header
+                        continue;
+                    }
 
-            //read cells and set value for tblStudentDTO object
-            TblStudentDTO student = new TblStudentDTO();
-            TblAccountDTO account = new TblAccountDTO();
-            while (cellIterator.hasNext()) {
-                //read cell
-                Cell cell = cellIterator.next();
-                
-                //set value for tblaccountDTO object
-                int columnIndex = cell.getColumnIndex();
-                switch(columnIndex) {
-                    case 0:
-                        String studentCode = cell.toString();
-                        student.setStudentCode(studentCode);
-                        break;
-                    case 1:
-                        String fullName = cell.toString();
-                        account.setName(fullName);
-                        break;
-                    case 2:
-                        String major = cell.toString();
-                        student.setMajor(major);
-                        break;
-                    case 3:
-                        String email = cell.toString();
-                        account.setEmail(email);
-                    case 4:
-                        String phone = cell.toString();
-                        student.setPhone(phone);
-                        break;
-                    case 5:
-                        int credit = (int) cell.getNumericCellValue();
-                        student.setNumberOfCredits(credit);
-                        break;
-                    default:
-                        break;
+                    //get all cells
+                    Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+                    //read cells and set value for tblStudentDTO object
+                    TblStudentDTO student = new TblStudentDTO();
+                    TblAccountDTO account = new TblAccountDTO();
+                    while (cellIterator.hasNext()) {
+                        //read cell
+                        Cell cell = cellIterator.next();
+                        //set value for tblaccountDTO object
+                        int columnIndex = cell.getColumnIndex();
+                        switch (columnIndex) {
+                            case 0:
+                                String studentCode = cell.toString();
+                                student.setStudentCode(studentCode);
+                                break;
+                            case 1:
+                                String fullName = cell.toString();
+                                account.setName(fullName);
+                                break;
+                            case 2:
+                                String major = cell.toString();
+                                student.setMajor(major);
+                                break;
+                            case 3:
+                                String email = cell.toString();
+                                account.setEmail(email);
+                                break;
+                            case 4:
+                                String phone = cell.toString();
+                                student.setPhone(phone);
+                                break;
+                            case 5:
+                                int credit = (int) cell.getNumericCellValue();
+                                student.setNumberOfCredits(credit);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    student.setAccount(account);
+                    studentList.add(student);
                 }
             }
-            student.setAccount(account);
-            studentList.add(student);
+            workbook.close();
+            inputStream.close();
         }
-        workbook.close();
-        inputStream.close();
         return studentList;
     }
-    
+
+
     private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
         Workbook workbook = null;
         if (excelFilePath.endsWith("xlsx")) {
             workbook = new XSSFWorkbook(inputStream);
         } else {
+            inputStream.close();
             throw new IllegalArgumentException("The specified file is not Excel file");
         }
         return workbook;
     }
-    
+
     public static void writeHeaderLine(Sheet sheet, int rowIndex) {
         //create cellstyle 
         CellStyle cellStyle = createStyleForHeader(sheet);
 
         //create row 
         Row row = sheet.createRow(rowIndex);
-         
+
         //create cells
         Cell cell = row.createCell(0);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Stdudent Code");
-        
 
         cell = row.createCell(1);
         cell.setCellStyle(cellStyle);
@@ -276,7 +289,7 @@ public class MyApplicationHelper {
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Status");
     }
-    
+
     private static CellStyle createStyleForHeader(Sheet sheet) {
         // Create font
         Font font = sheet.getWorkbook().createFont();
@@ -293,7 +306,7 @@ public class MyApplicationHelper {
         cellStyle.setBorderBottom(BorderStyle.THIN);
         return cellStyle;
     }
-    
+
     public static void writeStudentEvaluation(TblApplicationDTO application, Row row) {
         short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
         // DataFormat df = workbook.createDataFormat();
@@ -303,32 +316,27 @@ public class MyApplicationHelper {
         Workbook workbook = row.getSheet().getWorkbook();
         cellStyleFormatNumber = workbook.createCellStyle();
         cellStyleFormatNumber.setDataFormat(format);
-        
+
         Cell cell = row.createCell(0);
         cell.setCellValue(application.getStudent().getStudentCode());
-        
+
         cell = row.createCell(1);
         cell.setCellValue(application.getStudent().getMajor());
-        
-        
+
         cell = row.createCell(2);
         cell.setCellValue(application.getCompanyPost().getCompany()
                 .getAccount().getName());
-        
-        
+
         cell = row.createCell(3);
         cell.setCellValue(application.getCompanyPost().
                 getMajor().getMajorName());
-        
-        
+
         cell = row.createCell(4);
         cell.setCellValue(application.getGrade());
-        
-        
+
         cell = row.createCell(5);
         cell.setCellValue(application.getEvaluation());
-        
-        
+
         if (application.isIsPass() == true) {
             cell = row.createCell(6);
             cell.setCellValue("Passed");
@@ -336,9 +344,9 @@ public class MyApplicationHelper {
             cell = row.createCell(6);
             cell.setCellValue("Not Pass");
         }
-        
+
     }
-    
+
     public static void createExcelFile(Workbook workbook, String excelPath) throws FileNotFoundException, IOException {
         FileOutputStream outputStream = new FileOutputStream(excelPath);
         workbook.write(outputStream);
