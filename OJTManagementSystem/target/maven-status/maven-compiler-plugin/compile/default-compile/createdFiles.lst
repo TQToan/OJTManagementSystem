@@ -1,10 +1,7 @@
 com\se1625\controller\LoginGoogleServlet.class
 com\se1625\controller\SearchCompanyStudentHomeServlet.class
 com\se1625\tblaccount\RegisterCompanyAccountError.class
-<<<<<<< HEAD
 com\se1625\tblfollowing_post\TblFollowing_PostDTO.class
-=======
->>>>>>> bee8428da5a125bb55daa1e38d89b53ff54a5338
 com\se1625\tblstudent\TblStudentDAO.class
 com\se1625\utils\MyApplicationConstants$RegisterCompanyFeature.class
 com\se1625\controller\ExportEvalutionExcelFileServlet.class

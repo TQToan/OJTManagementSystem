@@ -215,7 +215,7 @@ public class MyApplicationHelper {
                         break;
                     case 5:
                         int credit = (int) cell.getNumericCellValue();
-                        student.setNumberOfCredits(credit);
+                        student.setNumberOfCredit(credit);
                         break;
                     default:
                         break;
