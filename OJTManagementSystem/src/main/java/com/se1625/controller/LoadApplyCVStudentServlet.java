@@ -50,7 +50,7 @@ public class LoadApplyCVStudentServlet extends HttpServlet {
             //if (session != null) {
             //    TblStudentDTO student = (TblStudentDTO) session.getAttribute("");
                 TblStudentDAO dao = new TblStudentDAO();
-                TblStudentDTO student = dao.getStudent("SE151252");
+                TblStudentDTO student = dao.getStudentInformation("SE151252");
                 if (student != null) {
                     //2. load thong tin sinh vien 
                     TblStudentDAO studentDAO = new TblStudentDAO();

@@ -235,4 +235,5 @@ public class TblCompanyDAO implements Serializable {
         }
         return company;
     }
+
 }

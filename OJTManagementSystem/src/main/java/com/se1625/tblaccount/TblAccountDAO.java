@@ -124,7 +124,7 @@ public class TblAccountDAO implements Serializable {
         }
         return false;
     }
-    public boolean checkLogin(String username, String password) throws NamingException, SQLException {
+    public boolean checkLoginForCompanyAccount(String username, String password) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;

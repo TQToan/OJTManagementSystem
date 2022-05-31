@@ -32,7 +32,7 @@ public class TblFollowing_PostDAO implements Serializable {
         return followingPostByFilter;
     }
 
-    public void getFollowingPost()throws SQLException, NamingException {
+    public void getFollowingPost(String studentCode) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -43,9 +43,11 @@ public class TblFollowing_PostDAO implements Serializable {
                         + "FROM tblCompany_Post as post INNER JOIN tblCompany as cm ON (post.companyID = cm.companyID) "
                         + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
                         + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
-                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) ";
+                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) "
+                        + "WHERE stu.studentCode = ?";
                 stm = con.prepareCall(sql);
-                System.out.println("Chay o TblFollowing_PostDAO");
+                stm.setString(1, studentCode);
+                System.out.println("RUN getFollowingPost");
                 rs = stm.executeQuery();
                 while (rs.next()) {
 
@@ -55,7 +57,7 @@ public class TblFollowing_PostDAO implements Serializable {
                     Date exprirationDate = rs.getDate("expirationDate");
                     String workLocation = rs.getNString("workLocation");
                     String company_Name = rs.getNString("name");
-                    String studentCode = rs.getString("studentCode");
+                    studentCode = rs.getString("studentCode");
 //
 //                    TblAccountDTO account = new TblAccountDTO();
 //                    account.setName(company_Name);
@@ -98,8 +100,68 @@ public class TblFollowing_PostDAO implements Serializable {
         }
     }
 
-    public void searchPostByFilter(String tittlePost,
-            String companyName, String nameLocation) throws SQLException, NamingException {
+    public boolean checkExitsFollowingPost(int postID, String studentCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "Select post.title_Post, acc.name, post.workLocation, post.postingDate, post.expirationDate, stu.studentCode, post.postID "
+                        + "FROM tblCompany_Post as post INNER JOIN tblCompany as cm ON (post.companyID = cm.companyID) "
+                        + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
+                        + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
+                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) "
+                        + "WHERE post.postID = ? and stu.studentCode = ? ";
+                stm = con.prepareCall(sql);
+                stm.setInt(1, postID);
+                stm.setString(2, studentCode);
+                rs = stm.executeQuery();
+                System.out.println("RUN checkExitsFollowingPost");
+                while (rs.next()) {
+
+                    postID = rs.getInt("postID");
+                    String title_Post = rs.getNString("title_Post");
+                    Date postingDate = rs.getDate("postingDate");
+                    Date exprirationDate = rs.getDate("expirationDate");
+                    String workLocation = rs.getNString("workLocation");
+                    String company_Name = rs.getNString("name");
+                    studentCode = rs.getString("studentCode");
+                    
+
+                    TblFollowing_PostDTO post = new TblFollowing_PostDTO();
+                    post.setStudentID(studentCode);
+                    post.setPostID(postID);
+                    post.setExprirationDate(exprirationDate);
+                    post.setTittle_Post(title_Post);
+                    post.setPostingDate(postingDate);
+                    post.setWorkLocation(workLocation);
+                    post.setCompanyName(company_Name);
+                    if (followingPostByFilter == null) {
+                        followingPostByFilter = new ArrayList<>();
+                    }
+
+                    followingPostByFilter.add(post);
+
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public void searchFollowingPostByFilter(String tittlePost,
+            String companyName, String nameLocation, String studentCode) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -119,68 +181,80 @@ public class TblFollowing_PostDAO implements Serializable {
 //                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) ";
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == true) {
-                    sql = "Select post.title_Post, acc.name, post.workLocation, post.postingDate, post.expirationDate, stu.studentCode, post.postID "
-                            + "FROM tblCompany_Post as post INNER JOIN tblCompany as cm ON (post.companyID = cm.companyID) "
-                            + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
-                            + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
-                            + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) ";
+                    sql += " WHERE stu.studentCode = ?";
                     stm = con.prepareCall(sql);
+                    stm.setString(1, studentCode);
                     System.out.println("loi o day 0");
                 }
 
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == false) {
-                    sql += " WHERE post.title_Post like ? and acc.name like ? and post.workLocation LIKE ?";
+                    sql += " WHERE post.title_Post like ? and acc.name like ? and post.workLocation LIKE ? "
+                            + "and stu.studentCode = ?";
                     stm = con.prepareCall(sql);
                     System.out.println("loi o day 1");
                     stm.setNString(1, "%" + tittlePost + "%");
-                    stm.setString(2, "%" + companyName + "%");
+                    stm.setNString(2, "%" + companyName + "%");
                     stm.setNString(3, "%" + nameLocation + "%");
+                    stm.setString(4, studentCode);
                 }
-                if (tittlePost.isEmpty() == false && companyName.isEmpty() == true
+                if (tittlePost.isEmpty() == false && companyName.isEmpty() == true ////////////
                         && nameLocation.isEmpty() == false) {
-                    sql += "WHERE acc.name like ?  and post.workLocation LIKE ?";
+                    sql += "WHERE post.title_Post LIKE ? and post.workLocation LIKE ? "
+                            + "and stu.studentCode = ?";
                     System.out.println("loi o day 2");
                     stm = con.prepareCall(sql);
-                    stm.setString(1, "%" + companyName + "%");
+                    stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
+                    stm.setString(3, studentCode);
                 }
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == true) {
-                    sql += "WHERE post.title_Post like ? and acc.name like ? ";
+                    sql += "WHERE post.title_Post like ? and acc.name like ? "
+                            + "and stu.studentCode = ?";
                     System.out.println("loi o day 3");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
-                    stm.setString(2, "%" + companyName + "%");
+                    stm.setNString(2, "%" + companyName + "%");
+                    stm.setString(3, studentCode);
+
                 }
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == true) {
-                    sql += "WHERE post.title_Post like ? ";
+                    sql += "WHERE post.title_Post like ? "
+                            + "and stu.studentCode = ?";
                     System.out.println("loi o day 4");
                     stm = con.prepareCall(sql);
-                    stm.setNString(1, "%" + tittlePost + "%");;
+                    stm.setNString(1, "%" + tittlePost + "%");
+                    stm.setString(2, studentCode);
                 }
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == false) {
-                    sql += "WHERE acc.name like ? and post.workLocation LIKE ?";
+                    sql += "WHERE acc.name like ? and post.workLocation LIKE ?"
+                            + " and stu.studentCode = ?";
                     System.out.println("loi o day 5");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
+                    stm.setString(3, studentCode);
                 }
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == true) {
-                    sql += "WHERE post.majorID = ? ";
+                    sql += "WHERE post.majorID = ? "
+                            + "and stu.studentCode = ?";
                     System.out.println("loi o day 6");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
+                    stm.setString(2, studentCode);
                 }
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == false) {
-                    sql += "WHERE post.workLocation LIKE ? ";
+                    sql += "WHERE post.workLocation LIKE ? "
+                            + "and stu.studentCode = ?";
                     System.out.println("loi o day 7");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + nameLocation + "%");
+                    stm.setString(2, studentCode);
                 }
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -191,7 +265,7 @@ public class TblFollowing_PostDAO implements Serializable {
                     Date exprirationDate = rs.getDate("expirationDate");
                     String workLocation = rs.getNString("workLocation");
                     String company_Name = rs.getNString("name");
-                    String studentCode = rs.getString("studentCode");
+                    studentCode = rs.getString("studentCode");
 //
 //                    TblAccountDTO account = new TblAccountDTO();
 //                    account.setName(company_Name);
@@ -243,6 +317,39 @@ public class TblFollowing_PostDAO implements Serializable {
         return listPage;
     }
 
+    public boolean deleteFollowingPost(int idPost, String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "DELETE FROM tblFollowing_Post "
+                        + "WHERE postID = ? and studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, idPost);
+                stm.setString(2, studentCode);
+                int rows = stm.executeUpdate();
+                System.out.println("RUN deleteFollowingPost");
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
     public boolean addFollowingPost(int idPost, String studentCode)
             throws SQLException, NamingException {
 //        TblFollowing_PostDTO dto = new TblFollowing_PostDTO();
@@ -255,7 +362,7 @@ public class TblFollowing_PostDAO implements Serializable {
                 String sql = "INSERT INTO tblFollowing_Post (studentCode, postID) "
                         + "VALUES (?, ?) ";
                 stm = con.prepareStatement(sql);
-
+                System.out.println("RUN addFollowingPost");
                 stm.setString(1, studentCode);
                 stm.setInt(2, idPost);
 

@@ -13,6 +13,7 @@ public class TblAccountError {
 
     private String accountError;
     private String userEmailEmpty;
+    private String userEmailFormatError;
     private String userPasswordEmpty;
     private String userEmailNotAllow;
     
@@ -26,6 +27,7 @@ public class TblAccountError {
         this.userEmailNotAllow = userEmailNotAllow;
     }
   
+    
 
     public String getAccountError() {
         return accountError;
@@ -57,6 +59,20 @@ public class TblAccountError {
 
     public void setUserEmailNotAllow(String userEmailNotAllow) {
         this.userEmailNotAllow = userEmailNotAllow;
+    }
+
+    /**
+     * @return the userEmailFormatError
+     */
+    public String getUserEmailFormatError() {
+        return userEmailFormatError;
+    }
+
+    /**
+     * @param userEmailFormatError the userEmailFormatError to set
+     */
+    public void setUserEmailFormatError(String userEmailFormatError) {
+        this.userEmailFormatError = userEmailFormatError;
     }
     
     

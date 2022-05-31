@@ -67,7 +67,7 @@ return dto;
 
     
 
-    public TblStudentDTO getStudent(String studentCode) throws SQLException, NamingException {
+    public TblStudentDTO getStudent(String username) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -77,12 +77,13 @@ return dto;
             if (con != null) {
                 String sql = "SELECT studentCode, major, birthDay, address, gender, phone, is_Intern, numberOfCredit "
                         + "FROM tblStudent "
-                        + "WHERE studentCode = ? ";
+                        + "WHERE username = ? ";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, studentCode);
+                stm.setString(1, username);
 
                 rs = stm.executeQuery();
                 if (rs.next()) {
+                    String studentCode = rs.getString("studentCode");
                     String major = rs.getNString("major");
                     Date birthDay = rs.getDate("birthDay");
                     String address = rs.getNString("address");
@@ -90,7 +91,11 @@ return dto;
                     String phone = rs.getString("phone");
                     int is_Itern = rs.getInt("is_Intern");
                     int numberOfCredit = rs.getInt("numberOfCredit");
+                    
+                    TblAccountDAO accountDAO = new TblAccountDAO();
+                    TblAccountDTO account = accountDAO.getAccount(username);
                     student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
+                    student.setAccount(account);
 //                    student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
                 }
             }

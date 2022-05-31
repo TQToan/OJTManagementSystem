@@ -48,25 +48,24 @@
                             <h5 class="text-danger">
                                 <c:set var="error" value="${requestScope.ERROR}"></c:set>
                                 <c:if test="${not empty error}">
-                                    <font color="red">
                                     ${error.accountError}
-                                    </font>
                                 </c:if>
                             </h5>
                             <input type="text" class="form-input" name="txtEmail" value="${param.txtEmail}" placeholder="Enter your email"> <br>
                             <h5 class="text-danger">
                                 <c:if test="${not empty error}">
-                                    <font color="red">
                                     ${error.userEmailEmpty}
-                                    </font>
+                                </c:if>
+                            </h5>
+                            <h5 class="text-danger">
+                                <c:if test="${not empty error}">
+                                    ${error.userEmailFormatError}
                                 </c:if>
                             </h5>
                             <input type="password" class="form-input" name="txtPassword" value="" placeholder="Enter your password">
                             <h5 class="text-danger">
                                 <c:if test="${not empty error}">
-                                    <font color="red">
                                     ${error.userPasswordEmpty}
-                                    </font>
                                 </c:if>
                             </h5>
                             <!-- <div class="checkbox-btn">
@@ -101,9 +100,7 @@
                     <h5 class="text-danger text-center">
                         <c:set var="error" value="${requestScope.ERROR}"></c:set>
                         <c:if test="${not empty error}">
-                            <font color="red">
                             ${error.userEmailNotAllow}
-                            </font>
                         </c:if>
                     </h5>
                     <a href="${loginGoogle}" class="google-btn row">

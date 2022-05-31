@@ -22,11 +22,5 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-css-prep.sass_2e_enabled>true</org-netbeans-modules-css-prep.sass_2e_enabled>
         <org-netbeans-modules-css-prep.sass_2e_mappings>/scss:/css</org-netbeans-modules-css-prep.sass_2e_mappings>
     </properties>
-<<<<<<< HEAD
-    <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-        <word>tbl</word>
-        <word>tglb</word>
-    </spellchecker-wordlist>
-=======
->>>>>>> bee8428da5a125bb55daa1e38d89b53ff54a5338
+    
 </project-shared-configuration>
