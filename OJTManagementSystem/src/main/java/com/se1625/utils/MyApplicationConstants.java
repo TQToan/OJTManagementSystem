@@ -60,7 +60,7 @@ public class MyApplicationConstants {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
-        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
+        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
     }
 

@@ -74,7 +74,7 @@ public class LoginGoogleServlet extends HttpServlet {
                     if (dto != null) {
                         if (session != null) {
                             session.setAttribute("ACCOUNT", dto);
-                            url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
+                            url = MyApplicationConstants.LoginGoogleFeture.STUDENT_HOME_PAGE;
                             response.sendRedirect(url);
                         }
                     } else {

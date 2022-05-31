@@ -63,8 +63,8 @@ public class ShowStudentProfileServlet extends HttpServlet {
                     TblStudentDTO dto = dao.getStudent(studentCode);
                     
                     dto.setAccount(account);
-                    
-                    request.setAttribute("STUDENT_PROFILE", dto);
+
+                    request.setAttribute("STUDENT_PROFILE", dto);                 
                     url = prop.getProperty(MyApplicationConstants.ShowStudentProfileFeature.STUDENT_PROFILE_PAGE);
                 }
                 
