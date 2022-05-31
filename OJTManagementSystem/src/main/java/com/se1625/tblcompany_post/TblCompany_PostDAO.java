@@ -38,7 +38,76 @@ public class TblCompany_PostDAO implements Serializable{
         return companyPostByFilter;
     }
     
-    
+    public void getListRecomendPost(String major) throws SQLException, NamingException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT TOP 6 cp.postID, cp.title_Post, "
+                        + " cp.postingDate, cp.quantityInterns, "
+                        + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
+                        + "m.majorName, ac.name, ac.avatar \n" +
+                        "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n" +
+                        " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
+                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username) " +
+                        " WHERE m.majorName = ? " +
+                        "ORDER BY cp.expirationDate DESC";
+                stm = con.prepareCall(sql);
+                stm.setNString(1, major);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int postID = rs.getInt("postID");
+                    String title_Post = rs.getNString("title_Post");
+                    Date postingDate = rs.getDate("postingDate");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    int quantityInterns = rs.getInt("quantityInterns");
+                    boolean school_confirm = rs.getBoolean("school_confirm");
+                    int statusPost = rs.getInt("statusPost");
+                    String workLocation = rs.getNString("workLocation");
+                    String majorName = rs.getNString("majorName");
+                    String companyName = rs.getNString("name");
+                    String avatar = rs.getString("avatar");
+                    
+                    
+                    if (school_confirm == true && statusPost == 1) {
+                        TblCompany_PostDTO dto = new TblCompany_PostDTO();
+                        dto.setPostID(postID);
+                        dto.setTitle_Post(title_Post);
+                        dto.setPostingDate(postingDate);
+                        dto.setExpirationDate(expirationDate);
+                        dto.setQuantityIterns(quantityInterns);
+                        dto.setWorkLocation(workLocation);
+                        dto.setMajorName(majorName);
+                        
+                        TblAccountDTO account = new TblAccountDTO();
+                        account.setName(companyName);
+                        account.setAvatar(avatar);
+                        
+                        TblCompanyDTO company = new TblCompanyDTO();
+                        company.setAccount(account);
+                        
+                        dto.setCompany(company);
+                        if (companyPostListHome == null) {
+                            companyPostListHome = new ArrayList<>();
+                        }
+                        companyPostListHome.add(dto);
+                    }
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
     
     
     public void getListPostHome() throws SQLException, NamingException{

@@ -225,14 +225,14 @@ public class MyApplicationHelper {
                                 break;
                             case 5:
                                 int credit = (int) cell.getNumericCellValue();
-                                student.setNumberOfCredits(credit);
+                                student.setNumberOfCredit(credit);
                                 break;
                             default:
                                 break;
                         }
+                        student.setAccount(account);
+                        studentList.add(student);
                     }
-                    student.setAccount(account);
-                    studentList.add(student);
                 }
             }
             workbook.close();
@@ -240,7 +240,6 @@ public class MyApplicationHelper {
         }
         return studentList;
     }
-
 
     private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
         Workbook workbook = null;
