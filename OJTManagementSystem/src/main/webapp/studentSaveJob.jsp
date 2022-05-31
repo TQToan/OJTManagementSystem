@@ -32,7 +32,7 @@
                 <a href="studentProfile.html" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     <c:if test="${not empty user}">
-                        ${user.getName()}
+                        ${user.name}
                     </c:if>
                 </a>
 
@@ -60,7 +60,7 @@
                                 <c:param name="txtJob" value=""/>
                                 <c:param name="txtCompany" value=""/>
                                 <c:param name="nameLocation" value=""/>
-                                
+                                <c:param name="studentCode" value="${student.studentCode}"/>
                             </c:url>
                             <a href="${urlSaveJob}" class="nav__item__dropdown--link">
                                 Saved Jobs
@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -91,6 +91,7 @@
                     <div class="main-body-save ">
                         <div class="main-body-save__header">
                             Save Jobs*
+
                         </div>
 
 
@@ -102,7 +103,7 @@
                                 </div>
                                 <div class="col-4">
                                     <input type="text" name="txtCompany" value="${param.txtCompany}" id="" placeholder="Company">
-                                    
+
                                 </div>
                                 <div class="col-2">
                                     <select id="city" name="nameLocation"   >
@@ -146,18 +147,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <c:forEach items="${result}" var="post" varStatus="counter">
+                                            <c:set var="student1" value="${requestScope.STUDENT_CODE}" />
                                             <tr>
                                                 <td>${counter.count}</td>
                                                 <td>
                                                     <a href="homeCPostDetail.html">${post.getTittle_Post()}</a>
                                                 </td>
-                                                <td>${post.getCompanyName()}</td>
-                                                <td>${post.getWorkLocation()}</td>
-                                                <td>${post.getPostingDate()}</td>
-                                                <td>${post.getExprirationDate()}</td>
+                                                <td>${post.companyName}</td>
+                                                <td>${post.workLocation}</td>
+                                                <td>${post.postingDate}</td>
+                                                <td>${post.exprirationDate}</td>
+
                                                 <td>
-                                                    <a href="" >Delete</a>
+                                                    <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
+                                                        <c:param name="postID" value="${post.postID}"/>
+                                                        <c:param name="studentCode" value="${student1.studentCode}"/>
+                                                    </c:url>
+                                                    <a href="${urlDeleteSaveJob}" >Delete</a>
+                                                    <!--                                                    <form action="StudentDeleteSaveJobController" >
+                                                                                                            <input type="hidden" name="postID" value="${post.getPostID()}" />
+                                                                                                            <input type="hidden" name="studentCode" value="${student1.getStudentCode()}" />
+                                                                                                            <input type="submit" value="Delete" class="far fa-heart save-btn save-btn-active" />
+                                                                                                        </form>-->
                                                 </td>
                                             </tr>
                                         </c:forEach>

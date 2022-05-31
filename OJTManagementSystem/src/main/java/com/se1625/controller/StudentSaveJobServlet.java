@@ -61,17 +61,20 @@ public class StudentSaveJobServlet extends HttpServlet {
                 //Info student
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("LOGIN_SUCESS");
                 TblFollowing_PostDAO dao = new TblFollowing_PostDAO();
+                boolean checkExits = dao.checkExitsFollowingPost(postID, studentCode);
+                if (checkExits != true) {
+                    boolean check = dao.addFollowingPost(postID, studentCode);
 
-                boolean check = dao.addFollowingPost(postID, studentCode);
-
-                if (check) {
-                    TblFollowing_PostDTO dto = new TblFollowing_PostDTO();
-                    dto.setPostID(postID);
-                    dto.setStudentID(studentCode);
+                    if (check) {
+                        TblFollowing_PostDTO dto = new TblFollowing_PostDTO();
+                        dto.setPostID(postID);
+                        dto.setStudentID(studentCode);
+                        
 //                    RequestDispatcher rd = request.getRequestDispatcher(url);
 //                    rd.forward(request, response);
+                    }
                 }
-
+                request.setAttribute("FOLLOWING", checkExits);
             }
         } catch (SQLException ex) {
             log("SQL Exception occurs in process at StudentSaveJobController", ex.getCause());

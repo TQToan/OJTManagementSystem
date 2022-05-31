@@ -20,6 +20,8 @@ public class MyApplicationConstants {
     public class StudentSaveJobFeature {
         public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
         public static final String STUDENT_SAVE_JOB_CONTROLLER = "StudentSaveJobController";
+        public static final String STUDENT_SEARCH_SAVE_JOB_CONTROLLER = "SearchSaveJobController";
+        public static final String STUDENT_DELETE_SAVE_JOB_CONTROLLER = "StudentDeleteSaveJobController";
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
     }
@@ -66,7 +68,9 @@ public class MyApplicationConstants {
         public static final String COMPANY_DASHBOARD_PAGE = "companyDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
     }
-
+    public class LogoutFeture {
+        public static final String LOGIN_PAGE = "loginPage";
+    }
     public class LoginGoogleFeture {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";

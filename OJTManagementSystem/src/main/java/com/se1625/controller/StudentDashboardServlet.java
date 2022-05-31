@@ -5,7 +5,6 @@
  */
 package com.se1625.controller;
 
-import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
@@ -15,7 +14,6 @@ import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -62,10 +60,10 @@ public class StudentDashboardServlet extends HttpServlet {
 //            String mail = (String) session.getAttribute("EMAIL_USER");
                 TblStudentDAO dao = new TblStudentDAO();
                 TblStudentDTO student = dao.showStudentInfo(dto.getEmail());
-                System.out.println(dto.getEmail());
+//                System.out.println(dto.getEmail());
                 request.setAttribute("STUDENT", student);
                 TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
-                followPostDao.getFollowingPost();
+                followPostDao.getFollowingPost(student.getStudentCode());
                 List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter = followPostDao.getFollowingPostByFilter();
                 if (listFollowingCompanyPostByFilter != null) {
                     size = listFollowingCompanyPostByFilter.size();

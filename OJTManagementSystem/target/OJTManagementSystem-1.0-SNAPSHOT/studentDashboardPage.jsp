@@ -24,6 +24,7 @@
 
         <main class="row">
             <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
+            <c:set var="student" value="${requestScope.STUDENT}" />
             <nav class="col-2  nav-fixed">
                 <a href="home.html" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -32,7 +33,7 @@
                     <i class="fas fa-user-circle nav__infor--icon"></i>
 
                     <c:if test="${not empty user}">
-                        ${user.getName()}
+                        ${user.name}
                     </c:if> 
                 </a>
 
@@ -60,6 +61,7 @@
                                 <c:param name="txtJob" value=""/>
                                 <c:param name="txtCompany" value=""/>
                                 <c:param name="nameLocation" value=""/>
+                                <c:param name="studentCode" value="${student.studentCode}"/>
 
                             </c:url>
                             <a href="${urlSaveJob}" class="nav__item__dropdown--link">
@@ -77,7 +79,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -86,13 +88,14 @@
 
             </nav>
             <div class="main-body  offset-2 col-10">
-                <c:set var="student" value="${requestScope.STUDENT}" />
+
                 <div class="row">
                     <div class="dashboard-card offset-3 col-2">
                         <c:url var="urlSaveJob" value="SearchSaveJobController">
                             <c:param name="txtJob" value=""/>
                             <c:param name="txtCompany" value=""/>
                             <c:param name="nameLocation" value=""/>
+                            <c:param name="studentCode" value="${student.studentCode}"/>
                         </c:url>
                         <a href="${urlSaveJob}" class="dashboard-card--link">
                             <div class="save-jobs">
@@ -135,14 +138,14 @@
                             </div>
                             <div class="card-visit__body row">
                                 <div class="card-visit--img offset-1 col-3">
-                                    <img src="./avatars/${user.getAvatar()}" alt="${user.getAvatar()}">
+                                    <img src="./avatars/${user.avatar}" alt="${user.avatar}">
                                 </div>
                                 <div class="card-vist__content offset-1 col-7">
-                                    <h3>${user.getName()}</h3>
-                                    <p>Date of birth: ${student.getBirthDay()}</p>
-                                    <p>Job: ${student.getMajor()}</p>
-                                    <p>Email: ${user.getEmail()}</p>
-<!--                                    <p>CODE: ${student.getStudentCode()}</p>-->
+                                    <h3>${user.name}</h3>
+                                    <p>Date of birth: ${student.birthDay}</p>
+                                    <p>Job: ${student.major}</p>
+                                    <p>Email: ${user.email}</p>
+
 
 
                                 </div>
@@ -180,22 +183,31 @@
                                         <p>${dto.workLocation}</p>
                                         <p>Date: ${dto.postingDate}</p>
 
+
                                         <form action="StudentSaveJobController" method="POST">
-                                            <input type="hidden" name="postID" value="${dto.getPostID()}" />
-                                            <input type="hidden" name="studentCode" value="${student.getStudentCode()}" />
+                                            <input type="hidden" name="postID" value="${dto.postID}" />
+                                            <input type="hidden" name="studentCode" value="${student.studentCode}" />
                                             <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
                                         </form>
-                                        <%--<c:url var="urlSaveJob" value="StudentSaveJobController">
-                                            <c:param name="postID" value="${dto.postID}"/>
-                                            <c:param name="studentCode" value="${student.studentCode}"/>
-                                            
-                                        </c:url>
-                                        <p>
-                                            <a href="${urlSaveJob}">
-                                                <i class="far fa-heart save-btn save-btn-active"></i>
-                                                Save Job
-                                            </a>
-                                        </p>--%>
+
+                                        <%--
+
+                                            <c:if test="${requestScope.FOLLOWING == true}" var="following">
+                                                       hidden="hidden"
+                                                   </c:if>
+                                                       
+
+                                                <c:url var="urlSaveJob" value="StudentSaveJobController">
+                                                <c:param name="postID" value="${dto.postID}"/>
+                                                <c:param name="studentCode" value="${student.studentCode}"/>
+                                                
+                                            </c:url>
+                                            <p>
+                                                <a href="${urlSaveJob}">
+                                                    <i class="far fa-heart save-btn save-btn-active"></i>
+                                                    Save Job
+                                                </a>
+                                            </p>--%>
                                     </div>
                                 </div>
                             </div>

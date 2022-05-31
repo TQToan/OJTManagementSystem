@@ -14,6 +14,8 @@ import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblstudent.TblStudentDAO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,13 +67,16 @@ public class SearchSaveJobServlet extends HttpServlet {
         int end;
         HttpSession session = request.getSession(false);
         try {
-            TblAccountDTO dto = (TblAccountDTO) session.getAttribute("LOGIN_SUCESS");
-
+            TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("LOGIN_SUCESS");
+            //lay studentCode
+                TblStudentDAO studentDAO = new TblStudentDAO();
+                TblStudentDTO studentDTO = studentDAO.showStudentInfo(accountDTO.getEmail());
+                
+//                request.setAttribute("STUDENT_CODE", studentDTO);
 //            if (company.isEmpty() == false || job.isEmpty() == false
 //                    || nameLocation.isEmpty() == false) {
             TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
-//                followPostDao.getFollowingPost();
-            followPostDao.searchPostByFilter(job, company, nameLocation);
+            followPostDao.searchFollowingPostByFilter(job, company, nameLocation, studentDTO.getStudentCode());
             List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter = followPostDao.getFollowingPostByFilter();
             if (listFollowingCompanyPostByFilter != null) {
                 size = listFollowingCompanyPostByFilter.size();
