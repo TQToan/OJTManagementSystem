@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -52,6 +53,7 @@ public class LoginGoogleServlet extends HttpServlet {
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
         String url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.LOGIN_PAGE);
         String email = userInfo.getEmail();
+        HttpSession session = request.getSession();
         try {
             TblAccountError error;
             TblAccountDAO dao = new TblAccountDAO();
@@ -67,6 +69,7 @@ public class LoginGoogleServlet extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
                 }
+                session.setAttribute("LOGIN_SUCESS", dto);
             } else {
                 if (dto != null) {
                     int role = dto.getIs_Admin();
