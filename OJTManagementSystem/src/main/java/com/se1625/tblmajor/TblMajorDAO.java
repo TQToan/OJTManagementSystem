@@ -102,7 +102,7 @@ public class TblMajorDAO implements Serializable{
         }
         return major;
     }
-    
+
     
     // hàm tìm majorID bằng majorName
     // nơi dùng: HomeShowCompanyDetailServlet
@@ -139,4 +139,5 @@ public class TblMajorDAO implements Serializable{
         }
         return 0;
     }
+
 }

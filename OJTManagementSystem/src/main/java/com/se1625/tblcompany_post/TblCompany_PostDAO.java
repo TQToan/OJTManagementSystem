@@ -310,6 +310,7 @@ public class TblCompany_PostDAO implements Serializable{
         return listPage;
     }
     
+    
      // hàm tìm bài post bằng postID, trả ra tất cả fields của tblCompanyPost 
     // (postID, title_Post, job_Description, job_Requirement, remuneration,workLoaction, 
     // quantityInterns, postingDate, expirationDate, school_confirm, statusPost, 
@@ -368,6 +369,7 @@ public class TblCompany_PostDAO implements Serializable{
             return null;
     }
     
+
 
 
     public TblCompany_PostDTO getCompanyPost(int postID) throws SQLException, NamingException {
