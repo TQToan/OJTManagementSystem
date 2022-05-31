@@ -22,8 +22,8 @@ public class TblStudentDTO implements Serializable{
     private int isInterns;
     private int numberOfCredits;
     private String major;
-    private TblAccountDTO account;
-    
+    private TblAccountDTO account;   
+
 
     public TblStudentDTO() {
     }
@@ -38,8 +38,8 @@ public class TblStudentDTO implements Serializable{
         this.numberOfCredits = numberOfCredits;
         this.major = major;
     }
-    
-    
+   
+        
     /**
      * @return the studentCode
      */
@@ -166,5 +166,5 @@ public class TblStudentDTO implements Serializable{
         this.account = account;
     }
     
-    
+     
 }

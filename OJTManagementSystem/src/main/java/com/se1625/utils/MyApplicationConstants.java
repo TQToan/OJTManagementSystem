@@ -72,4 +72,14 @@ public class MyApplicationConstants {
     public class ImportStudentExcelFileFeature{
         public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
     }
+    
+    public class ShowStudentProfileFeature {
+        public static final String STUDENT_PROFILE_PAGE = "StudentProfilePage";
+        public static final String LOGIN_PAGE = "loginPage";
+    }
+    
+    public class UpdateStudentProfileFeature {
+        public static final String SHOW_STUDENT_PROFILE_SERVLET = "ShowStudentProfileController";
+        public static final String LOGIN_PAGE = "loginPage";
+    }
 }

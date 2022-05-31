@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,47 +46,70 @@ public class LoginGoogleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String code = request.getParameter("code");
+        //get user google
         String accessToken = MyApplicationHelper.getToken(code);
         UserGoogleDTO userInfo = MyApplicationHelper.getUserInfo(accessToken);
 
+        //get properties
         ServletContext context = this.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
+        
         String url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.LOGIN_PAGE);
+
         String email = userInfo.getEmail();
+
         try {
-            TblAccountError error;
-            TblAccountDAO dao = new TblAccountDAO();
-            TblAccountDTO dto;
-            dto = dao.getAccount(email);
-            if (email.contains("@fpt.edu.vn")) {
-                if (dto != null) {
-                    url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
-                    response.sendRedirect(url);
-                } else {
-                    request.setAttribute("USER_GOOGLE", userInfo);
-                    url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.ADD_STUDENT_CONTROLLER);
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
-                }
-            } else {
-                if (dto != null) {
-                    int role = dto.getIs_Admin();
-                    if (role == 1) {
-                        url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
-                        response.sendRedirect(url);
+
+            //check user google
+            if (userInfo != null) {
+                TblAccountError error;
+                TblAccountDAO dao = new TblAccountDAO();
+                TblAccountDTO dto;
+                dto = dao.getAccount(email);
+                HttpSession session = request.getSession();
+                
+                //check format email
+                if (email.contains("@fpt.edu.vn")) {
+                    //student
+                    if (dto != null) {
+                        if (session != null) {
+                            session.setAttribute("ACCOUNT", dto);
+                            url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
+                            response.sendRedirect(url);
+                        }
                     } else {
+                        request.setAttribute("USER_GOOGLE", userInfo);
+                        url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.ADD_STUDENT_CONTROLLER);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    }
+                } else {
+                    if (dto != null) {
+                        int role = dto.getIs_Admin();
+                        if (role == 1) {
+                            //admin
+                            if (session != null) {
+                                session.setAttribute("ACCOUNT", dto);
+                                url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
+                                response.sendRedirect(url);
+                            }
+
+                        } else {
+                            //regular user
+                            error = new TblAccountError();
+                            error.setUserEmailNotAllow("Your account is not allowed to login the system");
+                            request.setAttribute("ERROR", error);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        //regular user
                         error = new TblAccountError();
                         error.setUserEmailNotAllow("Your account is not allowed to login the system");
                         request.setAttribute("ERROR", error);
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
                     }
-                } else {
-                    error = new TblAccountError();
-                    error.setUserEmailNotAllow("Your account is not allowed to login the system");
-                    request.setAttribute("ERROR", error);
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
                 }
             }
         } catch (NamingException ex) {

@@ -6,6 +6,7 @@
 package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDAO;
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblaccount.TblAccountError;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,14 +44,21 @@ public class LoginAccountsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        
         String username = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
         String remember = request.getParameter("AutoLogin");
+        
+        //get properties
         ServletContext context = this.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
+        
         String url = siteMap.getProperty(
                 MyApplicationConstants.LoginFeture.LOGIN_PAGE);
+        
         try {
+            
+            //check format input login
             TblAccountError error = new TblAccountError();
             boolean foundError = false;
             if (username.trim().length() == 0) {
@@ -61,23 +70,35 @@ public class LoginAccountsServlet extends HttpServlet {
                 foundError = true;
             }
 
+            
             if (foundError) {
                 request.setAttribute("ERROR", error);
             } else {
-                TblAccountDAO dao = new TblAccountDAO();
-                boolean result = dao.checkLogin(username, password);
-                if (result) {
-                    if (remember != null) {
-                        Cookie cookie = new Cookie(username, password);
-                        cookie.setMaxAge(60);
-                        response.addCookie(cookie);
+                HttpSession session = request.getSession();
+                if (session != null) {
+                    
+                    //check login
+                    TblAccountDAO dao = new TblAccountDAO();
+                    boolean result = dao.checkLogin(username, password);
+                    if (result) {
+                        if (remember != null) {
+                            //add cookie
+                            Cookie cookie = new Cookie(username, password);
+                            cookie.setMaxAge(60);
+                            response.addCookie(cookie);
+                        }
+                        
+                        // set session
+                        TblAccountDTO dto = dao.getAccount(username);
+                        session.setAttribute("ACCOUNT", dto);
+                        url = siteMap.getProperty(
+                                MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE);
+                    } else {
+                        error.setAccountError("Your email or password may be incorrect");
+                        request.setAttribute("ERROR", error);
                     }
-                    url = siteMap.getProperty(
-                            MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE);
-                } else {
-                    error.setAccountError("Your email or password may be incorrect");
-                    request.setAttribute("ERROR", error);
                 }
+
             }
         } catch (NamingException ex) {
             log("LoginAccountServlet_NamingException " + ex.getMessage());

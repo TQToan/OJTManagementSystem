@@ -7,6 +7,7 @@ com\se1625\controller\ExportEvalutionExcelFileServlet.class
 com\se1625\utils\MyApplicationConstants$LoginFeture.class
 com\se1625\tblmajor\TblMajorDTO.class
 com\se1625\usergoogle\UserGoogleDTO.class
+com\se1625\utils\MyApplicationConstants$UpdateStudentProfileFeature.class
 com\se1625\tblapplication\TblApplicationDAO.class
 com\se1625\tblaccount\TblAccountError.class
 com\se1625\controller\LoginAccountsServlet.class
@@ -17,6 +18,7 @@ com\se1625\controller\RegisterCompanyServlet.class
 com\se1625\tblapplication\TblApplicationDTO.class
 com\se1625\utils\DBHelper.class
 com\se1625\utils\MyApplicationHelper$1.class
+com\se1625\controller\ShowStudentProfileServlet.class
 com\se1625\utils\MyApplicationConstants$ShowStudentHomeFeature.class
 com\se1625\controller\RegisterCompanyDetailsServlet.class
 com\se1625\utils\MyApplicationHelper.class
@@ -25,6 +27,7 @@ com\se1625\tblmajor\TblMajorDAO.class
 com\se1625\utils\MyApplicationConstants$ImportStudentExcelFileFeature.class
 com\se1625\controller\AddStudentServlet.class
 com\se1625\utils\MyApplicationConstants$LoginGoogleFeture.class
+com\se1625\controller\StudentReviewInternshipServlet.class
 com\se1625\tblstudent\TblStudentDTO.class
 com\se1625\utils\MyApplicationConstants$Constants.class
 com\se1625\utils\MyApplicationConstants.class
@@ -33,8 +36,11 @@ com\se1625\tblcompany\TblCompanyDTO.class
 com\se1625\utils\MyApplicationConstants$SearchComanyStudentHomeFeature.class
 com\se1625\controller\EmailVerificationServlet.class
 com\se1625\tblcompany_post\TblCompany_PostDTO.class
+com\se1625\tblstudent\TblStudentError.class
+com\se1625\controller\UpdateStudentProfileServlet.class
 com\se1625\tblcompany\TblCompanyDAO.class
 com\se1625\tblaccount\TblAccountDTO.class
 com\se1625\listener\MyApplicationListener.class
 com\se1625\tblcompany_post\TblCompany_PostDAO.class
 com\se1625\filter\DispatchFilter.class
+com\se1625\utils\MyApplicationConstants$ShowStudentProfileFeature.class
