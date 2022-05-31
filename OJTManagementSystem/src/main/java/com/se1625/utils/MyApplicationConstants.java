@@ -79,4 +79,8 @@ public class MyApplicationConstants {
 
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
     }
+    
+    public class ImportStudentExcelFileFeature{
+        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
+    }
 }

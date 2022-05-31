@@ -6,6 +6,7 @@
 package com.se1625.tblcompany_post;
 
 import com.se1625.tblcompany.TblCompanyDTO;
+import com.se1625.tblmajor.TblMajorDTO;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -27,6 +28,7 @@ public class TblCompany_PostDTO implements Serializable{
     private int statusPost;
     private TblCompanyDTO company;
     private String majorName;
+    private TblMajorDTO major;
 
     public TblCompany_PostDTO() {
     }
@@ -231,6 +233,20 @@ public class TblCompany_PostDTO implements Serializable{
      */
     public void setMajorName(String majorName) {
         this.majorName = majorName;
+    }
+
+    /**
+     * @return the major
+     */
+    public TblMajorDTO getMajor() {
+        return major;
+    }
+
+    /**
+     * @param major the major to set
+     */
+    public void setMajor(TblMajorDTO major) {
+        this.major = major;
     }
     
     

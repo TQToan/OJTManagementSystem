@@ -25,6 +25,11 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
+            <form action="ImportStudentExcelFileController" method="POST" enctype="multipart/form-data">
+                <input type="file" name="Import File" />
+                <input type="submit" value="Import File" name="btAction" />
+            </form>
+            <a href="ExportEvalutionExcelFileController">Export File</a>
             <div class="row main-body">
                 <div class="container-left offset-1 col-4">
                     <h2 class="container__heading">*Company</h2>
