@@ -5,6 +5,7 @@
  */
 package com.se1625.tblcompany;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.DBHelper;
@@ -194,6 +195,9 @@ public class TblCompanyDAO implements Serializable {
     }
     
     
+
+    
+    
     // hàm tìm thông tin company bằng companyID 
     //( companyID, address, city, phone, company_Description, is_Signed, tblAccount(name, mail, avatar)
     // nơi dùng : HomeShowCompanyDetailServlet, 
@@ -238,7 +242,54 @@ public class TblCompanyDAO implements Serializable {
                 con.close();
             }
         }
-        return null;
-        
+         return null;
+           
+}
+
+    public TblCompanyDTO getCompany(String companyID) throws SQLException, NamingException {
+        Connection con = null; 
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblCompanyDTO company = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT companyID, address, city, phone, company_Description, is_Signed, username "
+                        + "FROM tblCompany "
+                        + "WHERE companyID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, companyID);
+                
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String address = rs.getNString("address");
+                    String city = rs.getNString("city");
+                    String phone = rs.getString("phone");
+                    String company_Description = rs.getNString("company_Description");
+                    boolean is_Signed = rs.getBoolean("is_Signed");
+                    String username = rs.getString("username");
+                    
+                    TblAccountDAO accountDAO = new TblAccountDAO();
+                    TblAccountDTO companyAccount = accountDAO.getAccount(username);
+                    
+                    company = new TblCompanyDTO(companyID, address, city, phone,
+                            company_Description, is_Signed, companyAccount);
+                    
+                    
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return company;
     }
 }

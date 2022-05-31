@@ -5,6 +5,7 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
@@ -25,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -60,7 +62,9 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
         int start;
         int size;
         int end;
+        HttpSession session = request.getSession(false);
         try {
+            TblAccountDTO dto = (TblAccountDTO) session.getAttribute("LOGIN_SUCESS");
             int idMajor;
             if (majorID.isEmpty()) {
                 idMajor = 0;

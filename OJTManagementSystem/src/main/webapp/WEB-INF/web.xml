@@ -16,6 +16,22 @@
         <description>ServletContextListener</description>
         <listener-class>com.se1625.listener.MyApplicationListener</listener-class>
     </listener>
+    <servlet>
+        <servlet-name>ImportStudentExcelFileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ImportStudentExcelFileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExportEvalutionExcelFileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ExportEvalutionExcelFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImportStudentExcelFileServlet</servlet-name>
+        <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportEvalutionExcelFileServlet</servlet-name>
+        <url-pattern>/ExportEvalutionExcelFileServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

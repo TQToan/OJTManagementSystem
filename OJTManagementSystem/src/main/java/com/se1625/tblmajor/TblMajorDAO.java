@@ -65,7 +65,48 @@ public class TblMajorDAO implements Serializable{
         }
     }
     
-    public int getMajorIDByMajorName (String majorName) throws NamingException, SQLException{
+
+    public TblMajorDTO getMajor(int majorID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblMajorDTO major = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT major.majorName "
+                        + "FROM tblMajor AS major "
+                        + "WHERE majorID = ?";
+                stm = con.prepareCall(sql);
+                stm.setInt(1, majorID);
+                
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String majorName = rs.getNString("majorName");
+                    
+                    major = new TblMajorDTO(majorID, majorName);
+
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return major;
+    }
+    
+    
+    // hàm tìm majorID bằng majorName
+    // nơi dùng: HomeShowCompanyDetailServlet
+    public int getMajorIDByMajorName(String majorName) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -73,14 +114,15 @@ public class TblMajorDAO implements Serializable{
             con = DBHelper.makeConnection();
             if (con != null) {
                 String sql = "SELECT majorID "
-                        + "FROM tblMajor "
-                        + "WHERE majorName = ? ";
+                        + "FROM tblMajor  "
+                        + "WHERE majorName = ?";
                 stm = con.prepareCall(sql);
-                stm.setNString(1, majorName);
-                rs = stm.executeQuery();
+                stm.setString(1, majorName);
                 
-                if (rs.next()){
-                    return rs.getInt("majorID");
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    int majorID = rs.getInt("majorID");
+                    return majorID;
                 }
                 
             }
@@ -96,5 +138,5 @@ public class TblMajorDAO implements Serializable{
             }
         }
         return 0;
-    } 
+    }
 }

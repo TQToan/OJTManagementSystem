@@ -1,8 +1,0 @@
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:55:54 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:55:55 +0700] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-3 0
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:56:05 +0700] "GET /OJTManagementSystem/LoginGoogleServlet?code=4/0AX4XfWjdf-Wog0rEjLe93-iuWD2NZjiiTDA6MCdkk2OhRObMRRNSlm8MkVpW9WMD6LuaLA&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile%20openid&authuser=1&hd=fpt.edu.vn&prompt=consent HTTP/1.1" 302 - http-bio-8080-exec-4 5145
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:56:13 +0700] "GET /OJTManagementSystem/ShowStudentHomeController HTTP/1.1" 200 27410 http-bio-8080-exec-5 507
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:56:17 +0700] "GET /OJTManagementSystem/SearchCompanyStudentHomeController?nameCompany=&nameMajor=5&nameLocation= HTTP/1.1" 200 20974 http-bio-8080-exec-6 137
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:56:19 +0700] "GET /OJTManagementSystem/HomeShowCompanyDetail?postID=378 HTTP/1.1" 200 13566 http-bio-8080-exec-7 84
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:56:27 +0700] "GET /OJTManagementSystem/HomeShowCompanyDetail?postID= HTTP/1.1" 200 13914 http-bio-8080-exec-8 3
-0:0:0:0:0:0:0:1 - - [31/May/2022:13:58:24 +0700] "GET /OJTManagementSystem/home.html HTTP/1.1" 404 1009 http-bio-8080-exec-10 3

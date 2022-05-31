@@ -16,6 +16,19 @@ public class MyApplicationConstants {
         public static final String STUDENT_HOME_PAGE = "StudentHomePage";
 
     }
+    
+    public class StudentSaveJobFeature {
+        public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
+        public static final String STUDENT_SAVE_JOB_CONTROLLER = "StudentSaveJobController";
+        public static final String STUDENT_SEARCH_SAVE_JOB_CONTROLLER = "SearchSaveJobController";
+        public static final String STUDENT_DELETE_SAVE_JOB_CONTROLLER = "StudentDeleteSaveJobController";
+        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
+        public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
+    }
+    
+    public class StudentDasboardFeature {
+        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
+    }
 
     public class SearchComanyStudentHomeFeature {
         // trang home, xem thông tin company detail (servelet,jsp)
@@ -57,17 +70,23 @@ public class MyApplicationConstants {
         public static final String COMPANY_DASHBOARD_PAGE = "companyDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
     }
-
+    public class LogoutFeture {
+        public static final String LOGIN_PAGE = "loginPage";
+    }
     public class LoginGoogleFeture {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
-        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
+        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
     }
 
     public class AddStudentFeture {
 
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
+    }
+    
+    public class ImportStudentExcelFileFeature{
+        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
     }
 }
