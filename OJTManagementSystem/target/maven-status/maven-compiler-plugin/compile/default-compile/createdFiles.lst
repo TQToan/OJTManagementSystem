@@ -3,6 +3,7 @@ com\se1625\controller\SearchCompanyStudentHomeServlet.class
 com\se1625\tblaccount\RegisterCompanyAccountError.class
 com\se1625\utils\MyApplicationConstants$RegisterCompanyFeature.class
 com\se1625\utils\MyApplicationConstants$LoginFeture.class
+com\se1625\controller\HomeShowCompanyDetailServlet.class
 com\se1625\tblmajor\TblMajorDTO.class
 com\se1625\usergoogle\UserGoogleDTO.class
 com\se1625\tblaccount\TblAccountError.class

@@ -18,7 +18,9 @@ public class MyApplicationConstants {
     }
 
     public class SearchComanyStudentHomeFeature {
-
+        // trang home, xem thông tin company detail (servelet,jsp)
+        public static final String HOME_SHOW_COMPANY_DETAIL_JSP = "HomeShowCompanyDetailJSP";
+        public static final String HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetail";
 
 
         public static final String STUDENT_HOME_PAGE = "ShowStudentHomeController";

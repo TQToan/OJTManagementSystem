@@ -64,4 +64,37 @@ public class TblMajorDAO implements Serializable{
             }
         }
     }
+    
+    public int getMajorIDByMajorName (String majorName) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT majorID "
+                        + "FROM tblMajor "
+                        + "WHERE majorName = ? ";
+                stm = con.prepareCall(sql);
+                stm.setNString(1, majorName);
+                rs = stm.executeQuery();
+                
+                if (rs.next()){
+                    return rs.getInt("majorID");
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return 0;
+    } 
 }
