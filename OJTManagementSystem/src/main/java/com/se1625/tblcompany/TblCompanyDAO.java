@@ -7,9 +7,11 @@ package com.se1625.tblcompany;
 
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -192,6 +194,58 @@ public class TblCompanyDAO implements Serializable {
         return false;
     }
 
+    
+
+    
+    
+    // hàm tìm thông tin company bằng companyID 
+    //( companyID, address, city, phone, company_Description, is_Signed, tblAccount(name, mail, avatar)
+    // nơi dùng : HomeShowCompanyDetailServlet, 
+    public TblCompanyDTO searchCompanyByCompanyID(String companyID) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try{
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT com.address, com.city, com.phone, com.company_Description,com.is_Signed, acc.username,acc.name, acc.avatar "
+                        + "FROM tblCompany com JOIN tblAccount acc on com.username = acc.username "
+                        + "WHERE com.companyID = ?";
+                stm = con.prepareCall(sql);
+                stm.setString(1, companyID);
+                rs = stm.executeQuery();
+                if (rs.next()){
+                    String address = rs.getNString("address");
+                    String city = rs.getNString("city");
+                    String phone = rs.getString("phone");
+                    String com_Description = rs.getNString("company_Description");
+                    boolean is_Signed = rs.getBoolean("is_Signed");
+                    String username = rs.getString("username");
+                    String name = rs.getNString("name");
+                    String avatar = rs.getString("avatar");
+                    TblAccountDTO account = new TblAccountDTO();
+                    account.setName(name);
+                    account.setAvatar(avatar);
+                    account.setEmail(username);
+                    TblCompanyDTO company = new TblCompanyDTO(companyID, address, city, phone, com_Description, is_Signed, account);
+                    return company;
+                }
+            }
+        }finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+         return null;
+           
+}
+
     public TblCompanyDTO getCompany(String companyID) throws SQLException, NamingException {
         Connection con = null; 
         PreparedStatement stm = null;
@@ -228,6 +282,9 @@ public class TblCompanyDAO implements Serializable {
         } finally {
             if (rs != null) {
                 rs.close();
+            }
+            if (stm != null) {
+                stm.close();
             }
             if (con != null) {
                 con.close();

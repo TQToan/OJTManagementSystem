@@ -4,6 +4,7 @@ com\se1625\tblstudent\TblStudentDAO.class
 com\se1625\utils\MyApplicationConstants$RegisterCompanyFeature.class
 com\se1625\controller\ExportEvalutionExcelFileServlet.class
 com\se1625\utils\MyApplicationConstants$LoginFeture.class
+com\se1625\controller\HomeShowCompanyDetailServlet.class
 com\se1625\tblmajor\TblMajorDTO.class
 com\se1625\controller\LoginAccountsServlet.class
 com\se1625\utils\MyApplicationConstants$StudentDasboardFeature.class

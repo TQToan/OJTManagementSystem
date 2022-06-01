@@ -58,9 +58,6 @@
                         </div>
                         <div class="nav__item__dropdown">
                             <c:url var="urlSaveJob" value="SearchSaveJobController">
-                                <c:param name="txtJob" value=""/>
-                                <c:param name="txtCompany" value=""/>
-                                <c:param name="nameLocation" value=""/>
                                 <c:param name="studentCode" value="${student.studentCode}"/>
                             </c:url>
                             <a href="${urlSaveJob}" class="nav__item__dropdown--link">
@@ -92,7 +89,6 @@
                     <div class="main-body-save ">
                         <div class="main-body-save__header">
                             Save Jobs*
-
                         </div>
 
 
@@ -100,7 +96,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <input type="text" name="txtJob" value="${param.txtJob}" id="" placeholder="Job">
-<!--                                    <input type="hidden" name="job" value="${tittle_Post}" />-->
+<%--                                    <input type="hidden" name="job" value="${tittle_Post}" />--%>
                                 </div>
                                 <div class="col-4">
                                     <input type="text" name="txtCompany" value="${param.txtCompany}" id="" placeholder="Company">

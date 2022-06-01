@@ -35,6 +35,7 @@ E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\utils\M
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\LoginAccountsServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDTO.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\SearchSaveJobServlet.java
+E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\HomeShowCompanyDetailServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationConstants.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyStudentHomeServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblfollowing_post\TblFollowing_PostDTO.java

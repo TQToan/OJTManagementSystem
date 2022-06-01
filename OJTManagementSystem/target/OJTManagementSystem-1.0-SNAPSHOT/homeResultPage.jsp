@@ -126,7 +126,10 @@
                                                 ${counter.count}
                                             </td>
                                             <td>
-                                                <a href="homeCPostDetail.html">
+                                                <c:url var="showDetail" value="HomeShowCompanyDetail">
+                                                    <c:param name="postID" value="${post.postID}"/>
+                                                </c:url>
+                                                <a href="${showDetail}">
                                                     ${post.majorName}
                                                 </a>
                                             </td>

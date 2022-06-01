@@ -73,6 +73,7 @@ public class SearchSaveJobServlet extends HttpServlet {
             if (session != null) {
 
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                
                 if (student != null) {
 //                request.setAttribute("STUDENT_CODE", studentDTO);
 //            if (company.isEmpty() == false || job.isEmpty() == false
