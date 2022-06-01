@@ -53,11 +53,12 @@ public class LoginGoogleServlet extends HttpServlet {
         //get properties
         ServletContext context = this.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
-        
+
         String url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.LOGIN_PAGE);
 
         String email = userInfo.getEmail();
 
+        HttpSession session = request.getSession();
         try {
 
             //check user google
@@ -66,34 +67,52 @@ public class LoginGoogleServlet extends HttpServlet {
                 TblAccountDAO dao = new TblAccountDAO();
                 TblAccountDTO dto;
                 dto = dao.getAccount(email);
-                HttpSession session = request.getSession();
-                
+
                 //check format email
                 if (email.contains("@fpt.edu.vn")) {
                     //student
                     if (dto != null) {
-                        if (session != null) {
-                            session.setAttribute("ACCOUNT", dto);
-                            url = MyApplicationConstants.LoginGoogleFeture.STUDENT_HOME_PAGE;
-                            response.sendRedirect(url);
-                        }
+                        url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
+                        response.sendRedirect(url);
                     } else {
                         request.setAttribute("USER_GOOGLE", userInfo);
                         url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.ADD_STUDENT_CONTROLLER);
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
                     }
+                    //update new name session
+                    session.setAttribute("ACCOUNT", dto);
                 } else {
                     if (dto != null) {
                         int role = dto.getIs_Admin();
                         if (role == 1) {
-                            //admin
-                            if (session != null) {
-                                session.setAttribute("ACCOUNT", dto);
-                                url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
-                                response.sendRedirect(url);
-                            }
+                            url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
+                            response.sendRedirect(url);
+                        } else {
+                            request.setAttribute("USER_GOOGLE", userInfo);
+                            url = siteMap.getProperty(MyApplicationConstants.LoginGoogleFeture.ADD_STUDENT_CONTROLLER);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        if (dto != null) {
+                            int role = dto.getIs_Admin();
+                            if (role == 1) {
+                                //admin
+                                if (session != null) {
+                                    session.setAttribute("ACCOUNT", dto);
+                                    url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
+                                    response.sendRedirect(url);
+                                }
 
+                            } else {
+                                //regular user
+                                error = new TblAccountError();
+                                error.setUserEmailNotAllow("Your account is not allowed to login the system");
+                                request.setAttribute("ERROR", error);
+                                RequestDispatcher rd = request.getRequestDispatcher(url);
+                                rd.forward(request, response);
+                            }
                         } else {
                             //regular user
                             error = new TblAccountError();
@@ -102,13 +121,6 @@ public class LoginGoogleServlet extends HttpServlet {
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);
                         }
-                    } else {
-                        //regular user
-                        error = new TblAccountError();
-                        error.setUserEmailNotAllow("Your account is not allowed to login the system");
-                        request.setAttribute("ERROR", error);
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
                     }
                 }
             }

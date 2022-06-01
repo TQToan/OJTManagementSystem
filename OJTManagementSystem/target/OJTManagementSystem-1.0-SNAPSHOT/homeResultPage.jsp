@@ -21,16 +21,20 @@
     <body>
         <header class="header ">
             <div class="navbar header__nav_cus">
+                
                 <a href="home.html" class="header__logo">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        Hi, Toàn
-                        <i class="fas fa-angle-down icon-down"></i>
+                        <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
+                        <c:if test="${not empty user}">
+                            Hi, ${user.getName()}
+                        </c:if>                         
+                            <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
-                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
+                        <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
                         <a href="login.html" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
@@ -122,7 +126,10 @@
                                                 ${counter.count}
                                             </td>
                                             <td>
-                                                <a href="homeCPostDetail.html">
+                                                <c:url var="showDetail" value="HomeShowCompanyDetail">
+                                                    <c:param name="postID" value="${post.postID}"/>
+                                                </c:url>
+                                                <a href="${showDetail}">
                                                     ${post.majorName}
                                                 </a>
                                             </td>

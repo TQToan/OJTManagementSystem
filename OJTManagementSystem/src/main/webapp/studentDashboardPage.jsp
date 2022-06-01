@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -18,33 +19,42 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/student.css">
     </head>
+
     <body>
         <header></header>
 
         <main class="row">
+            <%--Thanh fix new name session--%>
+            <c:set var="user" value="${sessionScope.ACCOUNT}"/>
+            <c:set var="student" value="${requestScope.STUDENT}" />
             <nav class="col-2  nav-fixed">
                 <a href="home.html" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="studentProfile.html" class=" nav__infor--link text-truncate">
+                  
+                <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    Thái Quốc Toàn
+                    <c:if test="${not empty user}">
+                        ${user.name}
+                    </c:if> 
                 </a>
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="#" class="nav__item--link">
+
+                        <a href="studentDashboardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav__items">
+
                         <c:url var="studentProfile" value="ShowStudentProfileController">                           
                         </c:url>
                         <a href="${studentProfile}" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
-                        </a>
+                        </a> 
                     </li>
                     <li class="nav__items">
                         <div  class="nav__item--link nav__item--dropdown">
@@ -53,7 +63,15 @@
                             <i class="fas fa-angle-down icon-down"></i>
                         </div>
                         <div class="nav__item__dropdown">
-                            <a href="studentSaveJob.html" class="nav__item__dropdown--link">
+
+                            <c:url var="urlSaveJob" value="SearchSaveJobController">
+                                <c:param name="txtJob" value=""/>
+                                <c:param name="txtCompany" value=""/>
+                                <c:param name="nameLocation" value=""/>
+                                <c:param name="studentCode" value="${student.studentCode}"/>
+
+                            </c:url>
+                            <a href="${urlSaveJob}" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
                             <a href="studentApplJob.html" class="nav__item__dropdown--link">
@@ -68,7 +86,8 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -76,49 +95,68 @@
                 </ul>
 
             </nav>
-            <c:set var="account" value="${sessionScope.ACCOUNT}"/>
-            <c:if test="${not empty account}">
-                <div class="main-body  offset-2 col-10">
-                    <div class="row">
-                        <div class="dashboard-card offset-3 col-2">
-                            <a href="studentSaveJob.html" class="dashboard-card--link">
-                                <div class="save-jobs">
-                                    100
-                                </div>
-                                <div class="dashboard-card__content">
-                                    Save Jobs
-                                </div>
-                            </a>
 
-                        </div>
+            <div class="main-body  offset-2 col-10">
 
-                        <div class="dashboard-card offset-2 col-2 ">
-                            <a href="studentApplJob.html" class="dashboard-card--link">
-                                <div class="applied-jobs ">
-                                    200
-                                </div>
-                                <div class="dashboard-card__content">
-                                    Applied Jobs
-                                </div>
-                        </div>
+                <div class="row">
+                    <div class="dashboard-card offset-3 col-2">
+                        <c:url var="urlSaveJob" value="SearchSaveJobController">
+                            <c:param name="txtJob" value=""/>
+                            <c:param name="txtCompany" value=""/>
+                            <c:param name="nameLocation" value=""/>
+                            <c:param name="studentCode" value="${student.studentCode}"/>
+                        </c:url>
+                        <a href="${urlSaveJob}" class="dashboard-card--link">
+                            <div class="save-jobs">
+                                ${requestScope.SIZE_OF_LIST_DASHBOARD}
+                            </div>
+                            <div class="dashboard-card__content">
+                                Save Jobs
+                            </div>
+                        </a>
 
+                        <!--                        <a href="StudentSaveJobController" class="dashboard-card--link">
+                                                    <div class="save-jobs">
+                        ${requestScope.SIZE_OF_LIST_DASHBOARD}
+                    </div>
+                    <div class="dashboard-card__content">
+                        Save Jobs
+                    </div>
+                </a>-->
 
                     </div>
 
-                    <div class="row">
+                    <div class="dashboard-card offset-2 col-2 ">
+                        <a href="studentApplJob.html" class="dashboard-card--link">
+                            <div class="applied-jobs ">
+                                200
+                            </div>
+                            <div class="dashboard-card__content">
+                                Applied Jobs
+                            </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <form action="studentDashboardController">
                         <div class="card-visit offset-3 col-6">
                             <div class="card-visit__header">
                                 Student Profile
                             </div>
                             <div class="card-visit__body row">
                                 <div class="card-visit--img offset-1 col-3">
-                                    <img src="./assets/img/person.jpg" alt="">
+
+                                    <img src="./avatars/${user.avatar}" alt="${user.avatar}">
                                 </div>
                                 <div class="card-vist__content offset-1 col-7">
-                                    <h3>Thái Quốc Toàn</h3>
-                                    <p>Date of Birth: 19/04/2001</p>
-                                    <p>Job: Software Engineering</p>
-                                    <p>Email: toantqse151272@fpt.edu.vn</p>
+                                    <h3>${user.name}</h3>
+                                    <p>Date of birth: ${student.birthDay}</p>
+                                    <p>Job: ${student.major}</p>
+                                    <p>Email: ${user.email}</p>
+
+
                                 </div>
 
                             </div>
@@ -128,157 +166,85 @@
                             </a>
 
                         </div>
+
+                    </form>
+                </div>
+
+
+                <div class="recom-jobs">
+                    <div class="recom-header">
+                        Recommended Jobs
                     </div>
 
-
-                    <div class="recom-jobs">
-                        <div class="recom-header">
-                            Recommended Jobs
-                        </div>
-
-                        <div class="row row-cols-2">
-
+                    <div class="row row-cols-2">
+                        <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto">
                             <div class="col">
                                 <div class="recom-box row ">
                                     <a href="homeCPostDetail.html">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
+                                        <h3>${dto.title_Post}</h3>
+                                        <h3>${dto.company.account.name}</h3>
                                     </a>
                                     <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
+                                        <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}">
                                     </div>
                                     <div class="recom-box-content col-8">
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn save-btn-active"></i>
-                                            Save Job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
-                                    </div>
-                                    <div class="recom-box-content col-8">
+                                        <p>Quantity: ${dto.quantityIterns}</p>
+                                        <p>${dto.workLocation}</p>
+                                        <p>Date: ${dto.postingDate}</p>
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn save-btn-active"></i>
-                                            Save Job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
-                                    </div>
-                                    <div class="recom-box-content col-8">
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn "></i>
-                                            Save Job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
-                                    </div>
-                                    <div class="recom-box-content col-8">
+                                        <form action="StudentSaveJobController" method="POST">
+                                            <input type="hidden" name="postID" value="${dto.postID}" />
+                                            <input type="hidden" name="studentCode" value="${student.studentCode}" />
+                                            <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
+                                        </form>
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn save-btn-active"></i>
-                                            Save Job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
-                                    </div>
-                                    <div class="recom-box-content col-8">
+                                        <%--
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn "></i>
-                                            Save Job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="">
-                                        <h3>Thực tập sinh (Lập trình viên BACKEND) FPT Software 
-                                            Chi nhánh Công ty Cổ Phần Viễn Thông FPT
-                                        </h3>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./assets/img/FPTSoftware.jpg" alt="">
-                                    </div>
-                                    <div class="recom-box-content col-8">
+                                            <c:if test="${requestScope.FOLLOWING == true}" var="following">
+                                                       hidden="hidden"
+                                                   </c:if>
+                                                       
 
-                                        <p>Quantity: 7</p>
-                                        <p>TP.HCM</p>
-                                        <p>Date: 14/5/2022</p>
-                                        <p>
-                                            <i class="far fa-heart save-btn "></i>
-                                            Save Job</p>
+                                                <c:url var="urlSaveJob" value="StudentSaveJobController">
+                                                <c:param name="postID" value="${dto.postID}"/>
+                                                <c:param name="studentCode" value="${student.studentCode}"/>
+                                                
+                                            </c:url>
+                                            <p>
+                                                <a href="${urlSaveJob}">
+                                                    <i class="far fa-heart save-btn save-btn-active"></i>
+                                                    Save Job
+                                                </a>
+                                            </p>--%>
                                     </div>
                                 </div>
                             </div>
 
 
 
-                        </div>
 
-                        <div class="recom__see-more--btn row">
-                            <a href="homeResultPage.html" class="recom--more--btn offset-10 col-2">
-                                See More 
-                                <i class="fas fa-arrow-right"></i>
-                            </a> 
-                        </div>
+                        </c:forEach>
+
+
 
                     </div>
+
+                    <div class="recom__see-more--btn row">
+                        <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
+                            <c:param name="nameCompany" value="${companyID}"/>
+                            <c:param name="nameMajor" value="${majorID}"/>
+                            <c:param name="nameLocation" value="${nameLocation}"/>
+                        </c:url>
+                        <a href="${urlSearchHome}" class="recom--more--btn offset-10 col-2">
+                            See More 
+                            <i class="fas fa-arrow-right"></i>
+                        </a> 
+                    </div>
+
                 </div>
-            </c:if>
+            </div>
         </main>
 
         <footer class="footer">

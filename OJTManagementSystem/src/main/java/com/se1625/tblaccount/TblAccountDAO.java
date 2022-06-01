@@ -265,7 +265,7 @@ public class TblAccountDAO implements Serializable {
                 stm.setString(2, student.getAccount().getEmail());                
                 stm.setNString(3, student.getMajor());                
                 stm.setString(4, student.getPhone());                
-                stm.setInt(5, student.getNumberOfCredits());                
+                stm.setInt(5, student.getNumberOfCredit());                
                 int effectRow2 = stm.executeUpdate();
                 
                 con.commit();

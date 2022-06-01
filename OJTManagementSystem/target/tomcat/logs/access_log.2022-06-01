@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:41 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:41 +0700] "GET /OJTManagementSystem/ HTTP/1.1" 304 - http-bio-8080-exec-2 12
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:41 +0700] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:48 +0700] "GET /OJTManagementSystem/LoginGoogleServlet?code=4/0AX4XfWgNyt85KNaYkcsQE9O-9_8dJ6K5NZL8OAxjl864h0dSx-XxRY1ERPyW7uAvY1tQxg&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile%20openid&authuser=1&hd=fpt.edu.vn&prompt=consent HTTP/1.1" 302 - http-bio-8080-exec-5 1318
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/studentDashboardController HTTP/1.1" 200 16451 http-bio-8080-exec-6 634
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/avatars/https://lh3.googleusercontent.com/a/AATXAJxcNUuZPHrQwLU3OmGD6gucqpkVg9Jm8u_P0ajy=s96-c HTTP/1.1" 404 1179 http-bio-8080-exec-7 3
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/avatars/SAMSUNG.png HTTP/1.1" 304 - http-bio-8080-exec-10 2
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/avatars/VTI.jpg HTTP/1.1" 304 - http-bio-8080-exec-9 2
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/avatars/NASHTECH.jpg HTTP/1.1" 304 - http-bio-8080-exec-8 3
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:44:49 +0700] "GET /OJTManagementSystem/avatars/VietThai.png HTTP/1.1" 304 - http-bio-8080-exec-4 3
+0:0:0:0:0:0:0:1 - - [01/Jun/2022:08:45:08 +0700] "GET /OJTManagementSystem/SearchSaveJobController?txtJob=&txtCompany=&nameLocation=&studentCode=SE151252 HTTP/1.1" 200 6964 http-bio-8080-exec-8 84

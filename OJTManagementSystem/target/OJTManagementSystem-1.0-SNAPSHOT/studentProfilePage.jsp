@@ -35,7 +35,7 @@
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="#" class="nav__item--link">
+                        <a href="studentDashboardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
@@ -55,7 +55,14 @@
                             <i class="fas fa-angle-down icon-down"></i>
                         </div>
                         <div class="nav__item__dropdown">
-                            <a href="studentSaveJob.html" class="nav__item__dropdown--link">
+                            <c:url var="urlSaveJob" value="SearchSaveJobController">
+                                <c:param name="txtJob" value=""/>
+                                <c:param name="txtCompany" value=""/>
+                                <c:param name="nameLocation" value=""/>
+                                <c:param name="studentCode" value="${student.studentCode}"/>
+
+                            </c:url>
+                            <a href="${urlSaveJob}" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
                             <a href="studentApplJob.html" class="nav__item__dropdown--link">
@@ -89,7 +96,7 @@
 
                             <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
                             <c:if test="${not empty studentProfile}">
-                                <form action="UpdateStudentProfileController" method="POST">
+                                <form action="UpdateStudentProfileController">
                                     <c:set var="errorUpdate" value="${requestScope.ERROR_UPDATE_STUDENTPROFILE}" />
                                     <div class="profile__input row">
                                         <label class="col-4 profile--label" for="studentCode">Student Code</label>

@@ -11,7 +11,11 @@ import java.sql.Date;
 
 /**
  *
+<<<<<<< HEAD
+ * @author ThanhTy
+=======
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
+>>>>>>> bee8428da5a125bb55daa1e38d89b53ff54a5338
  */
 public class TblStudentDTO implements Serializable{
     private String studentCode;
@@ -19,62 +23,72 @@ public class TblStudentDTO implements Serializable{
     private String address;
     private boolean gender;
     private String phone;
-    private int isInterns;
-    private int numberOfCredits;
+    private int isIntern;
+    private int numberOfCredit;
     private String major;
+
     private TblAccountDTO account;   
 
 
-    public TblStudentDTO() {
-    }
-
-    public TblStudentDTO(String studentCode, Date birthDay, String address, boolean gender, String phone, int isInterns, int numberOfCredits, String major) {
+    public TblStudentDTO(String studentCode, Date birthDay, String address, boolean gender, String phone, int isIntern, int numberOfCredit, String major) {
         this.studentCode = studentCode;
         this.birthDay = birthDay;
         this.address = address;
         this.gender = gender;
         this.phone = phone;
-        this.isInterns = isInterns;
-        this.numberOfCredits = numberOfCredits;
+        this.isIntern = isIntern;
+        this.numberOfCredit = numberOfCredit;
         this.major = major;
     }
+
    
         
+ 
+    public TblStudentDTO() {
+    }
+
+    public TblStudentDTO(Date birthDay, String major) {
+        this.birthDay = birthDay;
+        this.major = major;
+    }
+
+    public TblAccountDTO getAccount() {
+        return account;
+    }
+
+    public void setAccount(TblAccountDTO account) {
+        this.account = account;
+    }
     /**
      * @return the studentCode
      */
     public String getStudentCode() {
         return studentCode;
     }
-
     /**
      * @param studentCode the studentCode to set
      */
     public void setStudentCode(String studentCode) {
         this.studentCode = studentCode;
     }
-
     /**
      * @return the birthDay
      */
     public Date getBirthDay() {
         return birthDay;
     }
-
     /**
      * @param birthDay the birthDay to set
      */
     public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
     }
-
     /**
      * @return the address
      */
     public String getAddress() {
         return address;
     }
-
     /**
      * @param address the address to set
      */
@@ -95,76 +109,41 @@ public class TblStudentDTO implements Serializable{
     public void setGender(boolean gender) {
         this.gender = gender;
     }
-
     /**
      * @return the phone
      */
     public String getPhone() {
         return phone;
     }
-
     /**
      * @param phone the phone to set
      */
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    /**
-     * @return the isInterns
-     */
-    public int getIsInterns() {
-        return isInterns;
+    public int getIsIntern() {
+        return isIntern;
     }
 
-    /**
-     * @param isInterns the isInterns to set
-     */
-    public void setIsInterns(int isInterns) {
-        this.isInterns = isInterns;
+    public void setIsIntern(int isIntern) {
+        this.isIntern = isIntern;
     }
 
-    /**
-     * @return the numberOfCredits
-     */
-    public int getNumberOfCredits() {
-        return numberOfCredits;
+    public int getNumberOfCredit() {
+        return numberOfCredit;
     }
 
-    /**
-     * @param numberOfCredits the numberOfCredits to set
-     */
-    public void setNumberOfCredits(int numberOfCredits) {
-        this.numberOfCredits = numberOfCredits;
+    public void setNumberOfCredit(int numberOfCredit) {
+        this.numberOfCredit = numberOfCredit;
     }
 
-    /**
-     * @return the major
-     */
     public String getMajor() {
         return major;
     }
 
-    /**
-     * @param major the major to set
-     */
     public void setMajor(String major) {
         this.major = major;
     }
 
-    /**
-     * @return the account
-     */
-    public TblAccountDTO getAccount() {
-        return account;
-    }
-
-    /**
-     * @param account the account to set
-     */
-    public void setAccount(TblAccountDTO account) {
-        this.account = account;
-    }
     
-     
 }

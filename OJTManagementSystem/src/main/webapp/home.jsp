@@ -26,11 +26,14 @@
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        Hi, Toàn
+                        <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
+                        <c:if test="${not empty user}">
+                            Hi, ${user.getName()}
+                        </c:if>
                         <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
-                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
+                        <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
                         <a href="login.html" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
