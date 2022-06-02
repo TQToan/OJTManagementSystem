@@ -16,8 +16,9 @@ public class MyApplicationConstants {
         public static final String STUDENT_HOME_PAGE = "StudentHomePage";
 
     }
-    
+
     public class StudentSaveJobFeature {
+
         public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
         public static final String STUDENT_SAVE_JOB_CONTROLLER = "StudentSaveJobController";
         public static final String STUDENT_SEARCH_SAVE_JOB_CONTROLLER = "SearchSaveJobController";
@@ -25,16 +26,17 @@ public class MyApplicationConstants {
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
     }
-    
+
     public class StudentDasboardFeature {
+
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
     }
 
     public class SearchComanyStudentHomeFeature {
+
         // trang home, xem thông tin company detail (servelet,jsp)
         public static final String HOME_SHOW_COMPANY_DETAIL_JSP = "HomeShowCompanyDetailJSP";
         public static final String HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetail";
-
 
         public static final String STUDENT_HOME_PAGE = "ShowStudentHomeController";
         public static final String SEARCH_COMPANY_POST_PAGE = "HomeResultPageJSP";
@@ -70,15 +72,18 @@ public class MyApplicationConstants {
         public static final String COMPANY_DASHBOARD_PAGE = "companyDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
     }
+
     public class LogoutFeture {
+
         public static final String LOGIN_PAGE = "loginPage";
     }
+
     public class LoginGoogleFeture {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
 
-        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
+        public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
 
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
@@ -86,20 +91,29 @@ public class MyApplicationConstants {
 
     public class AddStudentFeture {
 
+        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
     }
-    
-    public class ImportStudentExcelFileFeature{
+
+    public class ImportStudentExcelFileFeature {
+
         public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
     }
-    
+
     public class ShowStudentProfileFeature {
+
         public static final String STUDENT_PROFILE_PAGE = "StudentProfilePage";
         public static final String LOGIN_PAGE = "loginPage";
     }
-    
+
     public class UpdateStudentProfileFeature {
+
         public static final String SHOW_STUDENT_PROFILE_SERVLET = "ShowStudentProfileController";
         public static final String LOGIN_PAGE = "loginPage";
+    }
+
+    public class ReviewInternShipServletFeature {
+
+        public static final String STUDENT_REVIEW_INTERNSHIP_PAGE = "StudentReviewPage";
     }
 }

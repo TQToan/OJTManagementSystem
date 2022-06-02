@@ -72,7 +72,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 if (email.contains("@fpt.edu.vn")) {
                     //student
                     if (dto != null) {
-                        url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
+                        url = MyApplicationConstants.LoginGoogleFeture.SHOW_STUDENT_HOME_PAGE;
                         response.sendRedirect(url);
                     } else {
                         request.setAttribute("USER_GOOGLE", userInfo);

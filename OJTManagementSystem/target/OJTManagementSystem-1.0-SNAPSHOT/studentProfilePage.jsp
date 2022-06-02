@@ -23,7 +23,7 @@
 
         <main class="row">
             <nav class="col-2  nav-fixed">
-                <a href="home.jsp" class="nav__logo ">
+                <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
                 <c:url var="studentProfile" value="ShowStudentProfileController">                           
@@ -71,13 +71,13 @@
                         </div>
                     </li>
                     <li class="nav__items">
-                        <a href="studentReview.html" class="nav__item--link">
+                        <a href="ReviewInternShipController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Review Internship
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -119,6 +119,7 @@
                                         <h5 class="text-danger offset-4 col-8 text-start">
                                             <c:if test="${not empty errorUpdate}">
                                                 ${errorUpdate.errorDateInvalid}
+                                                ${errorUpdate.errorDateEmpty}
                                             </c:if>
                                         </h5>
                                     </div>

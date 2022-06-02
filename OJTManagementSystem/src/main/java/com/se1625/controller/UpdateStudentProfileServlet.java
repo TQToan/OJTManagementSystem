@@ -51,11 +51,14 @@ public class UpdateStudentProfileServlet extends HttpServlet {
         String stringGender = request.getParameter("genderUpdate");
         String address = request.getParameter("addressUpdate");
         String stringPhone = request.getParameter("phoneUpdate");
-      
+
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
         String url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE);
-        
+
+        TblStudentError error = new TblStudentError();
+        boolean checkError = false;
+
         //get session
         HttpSession session = request.getSession(false);
         try {
@@ -63,8 +66,6 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("ACCOUNT");
                 //check session account
                 if (account != null) {
-                    TblStudentError error = new TblStudentError();
-                    boolean checkError = false;
 
                     //get Date Now
                     LocalDate today = LocalDate.now();
@@ -76,13 +77,13 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         error.setErrorDateInvalid("Invalid date with current date");
                         checkError = true;
                     }
-                    
+
                     //check address input format
-                    if(address.trim().length() == 0){
+                    if (address.trim().length() == 0) {
                         error.setErrorAddressLength("Please enter your address");
                         checkError = true;
                     }
-                    
+
                     //check phone number update
                     if (stringPhone.trim().length() < 10 || stringPhone.trim().length() > 11) {
                         error.setErrorPhoneNumberLength("Please enter 10-11 numbers");
@@ -102,12 +103,16 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         Date birthday = Date.valueOf(date);
                         //update
                         boolean result = dao.updateStudent(studentCode, birthday, address, gender, stringPhone);
-                        if(result){
+                        if (result) {
                             url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
                         }
                     }
                 }
             }
+        } catch (IllegalArgumentException ex) {
+            error.setErrorDateEmpty("Please, enter your birthday");
+            request.setAttribute("ERROR_UPDATE_STUDENTPROFILE", error);
+            url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
         } catch (NamingException ex) {
             log("UpdateStudentProfileServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {

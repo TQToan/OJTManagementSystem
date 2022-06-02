@@ -27,7 +27,7 @@
             <%--Thanh fix new name session--%>
             <c:set var="user" value="${sessionScope.ACCOUNT}"/>
             <nav class="col-2  nav-fixed">
-                <a href="home.html" class="nav__logo ">
+                <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
                 <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate">
@@ -74,7 +74,7 @@
                         </div>
                     </li>
                     <li class="nav__items">
-                        <a href="studentReview.html" class="nav__item--link">
+                        <a href="ReviewInternShipController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Review Internship
                         </a>

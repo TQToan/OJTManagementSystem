@@ -26,7 +26,7 @@
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
+                        <c:set var="user" value="${sessionScope.ACCOUNT}"/>
                         <c:if test="${not empty user}">
                             Hi, ${user.getName()}
                         </c:if>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="header__name--hidden">
                         <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
-                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                        <a href="logoutController" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
 

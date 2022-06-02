@@ -47,7 +47,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         + "WHERE stu.studentCode = ?";
                 stm = con.prepareCall(sql);
                 stm.setString(1, studentCode);
-                System.out.println("RUN getFollowingPost");
+                
                 rs = stm.executeQuery();
                 while (rs.next()) {
 
@@ -117,7 +117,7 @@ public class TblFollowing_PostDAO implements Serializable {
                 stm.setInt(1, postID);
                 stm.setString(2, studentCode);
                 rs = stm.executeQuery();
-                System.out.println("RUN checkExitsFollowingPost");
+                
                 while (rs.next()) {
 
                     postID = rs.getInt("postID");
@@ -184,7 +184,7 @@ public class TblFollowing_PostDAO implements Serializable {
                     sql += " WHERE stu.studentCode = ?";
                     stm = con.prepareCall(sql);
                     stm.setString(1, studentCode);
-                    System.out.println("loi o day 0");
+                    
                 }
 
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == false
@@ -192,7 +192,7 @@ public class TblFollowing_PostDAO implements Serializable {
                     sql += " WHERE post.title_Post like ? and acc.name like ? and post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
                     stm = con.prepareCall(sql);
-                    System.out.println("loi o day 1");
+                    
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
                     stm.setNString(3, "%" + nameLocation + "%");
@@ -202,7 +202,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == false) {
                     sql += "WHERE post.title_Post LIKE ? and post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
-                    System.out.println("loi o day 2");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -212,7 +212,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == true) {
                     sql += "WHERE post.title_Post like ? and acc.name like ? "
                             + "and stu.studentCode = ?";
-                    System.out.println("loi o day 3");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
@@ -223,7 +223,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == true) {
                     sql += "WHERE post.title_Post like ? "
                             + "and stu.studentCode = ?";
-                    System.out.println("loi o day 4");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setString(2, studentCode);
@@ -232,7 +232,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == false) {
                     sql += "WHERE acc.name like ? and post.workLocation LIKE ?"
                             + " and stu.studentCode = ?";
-                    System.out.println("loi o day 5");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -242,7 +242,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == true) {
                     sql += "WHERE post.majorID = ? "
                             + "and stu.studentCode = ?";
-                    System.out.println("loi o day 6");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setString(2, studentCode);
@@ -251,7 +251,7 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == false) {
                     sql += "WHERE post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
-                    System.out.println("loi o day 7");
+                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + nameLocation + "%");
                     stm.setString(2, studentCode);
@@ -331,7 +331,7 @@ public class TblFollowing_PostDAO implements Serializable {
                 stm.setInt(1, idPost);
                 stm.setString(2, studentCode);
                 int rows = stm.executeUpdate();
-                System.out.println("RUN deleteFollowingPost");
+                
                 if (rows > 0) {
                     return true;
                 }
@@ -362,7 +362,7 @@ public class TblFollowing_PostDAO implements Serializable {
                 String sql = "INSERT INTO tblFollowing_Post (studentCode, postID) "
                         + "VALUES (?, ?) ";
                 stm = con.prepareStatement(sql);
-                System.out.println("RUN addFollowingPost");
+                
                 stm.setString(1, studentCode);
                 stm.setInt(2, idPost);
 

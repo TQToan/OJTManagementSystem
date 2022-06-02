@@ -23,15 +23,14 @@ import javax.naming.NamingException;
  *
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
-public class TblApplicationDAO implements Serializable{
-    
+public class TblApplicationDAO implements Serializable {
+
     private List<TblApplicationDTO> listApplication;
 
     public List<TblApplicationDTO> getListApplication() {
         return listApplication;
     }
-    
-    
+
     public void getApplication() throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -56,10 +55,10 @@ public class TblApplicationDAO implements Serializable{
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
                     boolean isPass = rs.getBoolean("is_Pass");
-                    
+
                     TblStudentDTO student = studentDAO.getStudent(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
-                    
+
                     TblApplicationDTO application = new TblApplicationDTO();
                     application.setApplicationID(applicationID);
                     application.setGrade(grade);
@@ -67,14 +66,13 @@ public class TblApplicationDAO implements Serializable{
                     application.setEvaluation(evaluation);
                     application.setCompanyPost(companyPost);
                     application.setStudent(student);
-                    
-                    if (listApplication == null)
-                    {
+
+                    if (listApplication == null) {
                         listApplication = new ArrayList<>();
                     }
                     listApplication.add(application);
                 }
-                
+
             }
         } finally {
             if (rs != null) {
@@ -88,4 +86,60 @@ public class TblApplicationDAO implements Serializable{
             }
         }
     }
+
+    public TblApplicationDTO getApplication(String studentCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblStudentDAO studentDAO = new TblStudentDAO();
+        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass "
+                        + "FROM tblApplication "
+                        + "WHERE student_Confirm = ? and school_Confirm = ? and company_Confirm = ? and studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, true);
+                stm.setBoolean(2, true);
+                stm.setBoolean(3, true);
+                stm.setString(4, studentCode);
+                rs = stm.executeQuery();
+                if(rs.next()){
+                    
+                    int postID = rs.getInt("postID");
+                    float grade = rs.getFloat("grade");
+                    String evaluation = rs.getNString("evaluation");
+                    int applicationID = rs.getInt("applicationID");
+                    boolean isPass = rs.getBoolean("is_Pass");
+                    
+                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    
+                    TblApplicationDTO application = new TblApplicationDTO();
+                    application.setApplicationID(applicationID);
+                    application.setEvaluation(evaluation);
+                    application.setIsPass(isPass);
+                    application.setCompanyPost(companyPost);
+                    application.setStudent(student);
+                    application.setGrade(grade);                   
+                    
+                    return application;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+
+
 }

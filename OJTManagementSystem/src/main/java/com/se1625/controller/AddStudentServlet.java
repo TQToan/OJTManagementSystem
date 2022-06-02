@@ -39,7 +39,7 @@ public class AddStudentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String url = MyApplicationConstants.AddStudentFeture.STUDENT_DASHBOARD_PAGE;
+        String url = MyApplicationConstants.AddStudentFeture.STUDENT_HOME_PAGE;
         try {
             UserGoogleDTO user = (UserGoogleDTO) request.getAttribute("USER_GOOGLE");
             TblAccountDAO dao = new TblAccountDAO();

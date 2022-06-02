@@ -47,8 +47,11 @@ public class StudentSaveJobServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         String studentCode = request.getParameter("studentCode");
         int postID = Integer.parseInt(request.getParameter("postID"));
+        System.out.println(studentCode + postID);
+                
         //1. get servletContext 
         ServletContext context = this.getServletContext();
         //2. get properties
