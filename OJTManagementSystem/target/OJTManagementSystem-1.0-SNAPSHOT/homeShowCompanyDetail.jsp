@@ -21,17 +21,18 @@
     <body>
         <header class="header ">
             <div class="navbar header__nav_cus">
-                <a href="home.html" class="header__logo">
+                <a href="ShowStudentHomeController" class="header__logo">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
+                <c:set var="student" value="${sessionScope.STUDENT_ROLE}" />
                 <div class="header__name">
                     <div class="header__name--show">
-                        Hi, Toàn
+                        Hi, ${student.account.name}
                         <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
-                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
-                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                        <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
+                        <a href="logoutController" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
 
@@ -43,21 +44,37 @@
         <main class="main">
             <div class="main__search">
                 <h2>Search Jobs</h2>
-                <form action="" class="main__search-form">
+                <form action="SearchCompanyStudentHomeController" class="main__search-form">
                     <div class="row">
                         <div class="col-4">
-                            <input type="text" name="" id="" placeholder="Company">
+                            <!--                            <input type="text" name="nameCompany" value="" id="" placeholder="Company">-->
+                            <select name="nameCompany">
+                                <option value="">Company Name</option>
+                                <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
+                                    <option value="${company.companyID}" <c:if test="${company.companyID eq companyID}">
+                                            selected="selected"
+                                        </c:if> >${company.account.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="col-4">
-                            <input type="text" name="" id="" placeholder="Job">
+                            <!--                            <input type="text" name="nameMajor" value="" id="" placeholder="Job">-->
+                            <select name="nameMajor">
+                                <option value="">Major</option>
+                                <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
+                                    <option value="${major.majorID}" <c:if test="${major.majorID eq majorID}">
+                                            selected="selected"
+                                        </c:if> >${major.majorName}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="col-2">
-                            <select id="city" name="city"  class="main__search_select" >
-                                <option value="" disabled selected>Location</option>
+                            <select id="city" name="nameLocation"  class="main__search_select" >
+                                <option value="">Location</option>
                                 <option value="TP.HCM">TP.HCM</option>
-                                <option value="Dong Nai">Dong Nai</option>
-                                <option value="Tay Ninh">Tay Ninh</option>
-                                <option value="Binh Duong">Binh Duong</option>
+                                <option value="Dong Nai">Đồng Nai</option>
+                                <option value="Tay Ninh">Tây Ninh</option>
+                                <option value="Binh Duong">Bình Dương</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -122,7 +139,7 @@
 
                 </div>
                 <c:set var="listOther" value="${requestScope.LIST_OTHER}"/>
-                    
+
                 <div class="col-5">
                     <div class="hComApplDetail__right">
                         <div class="hComApplDetail__right--header">
@@ -132,31 +149,31 @@
                             <c:forEach items="${listOther}" var="postOther" varStatus="counter">
                                 <c:if test="${not empty listOther}">
                                     <c:if test="${counter.count lt 4}">
-                                            <c:if test="${postOther.postID ne postDetail.postID}">
-                                                <c:url var="linkOther" value="HomeShowCompanyDetail">
-                                                    <c:param name="postID" value="${post.postID}"/>
-                                                </c:url>
-                                                <a href="${linkOther}" class="hComApplDetail__right--card">
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <div class="right--card-header">${postOther.company.account.name}</div>
-                                                            <div class="right--card-body">
-                                                                <p>Job: ${postOther.title_Post}</p>
-                                                                <p>Quantity: ${postOther.quantityIterns}</p>
-                                                                <p>Location: ${postOther.workLocation}</p>
-                                                                <p>Date: ${postOther.expirationDate}</p>
-                                                            </div>
+                                        <c:if test="${postOther.postID ne postDetail.postID}">
+                                            <c:url var="linkOther" value="HomeShowCompanyDetail">
+                                                <c:param name="postID" value="${post.postID}"/>
+                                            </c:url>
+                                            <a href="${linkOther}" class="hComApplDetail__right--card">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="right--card-header">${postOther.company.account.name}</div>
+                                                        <div class="right--card-body">
+                                                            <p>Job: ${postOther.title_Post}</p>
+                                                            <p>Quantity: ${postOther.quantityIterns}</p>
+                                                            <p>Location: ${postOther.workLocation}</p>
+                                                            <p>Date: ${postOther.expirationDate}</p>
                                                         </div>
                                                     </div>
-                                                    <i class="far fa-heart right--card-save save-btn "></i>
-                                                </a>
-                                            </c:if>
+                                                </div>
+                                                <i class="far fa-heart right--card-save save-btn "></i>
+                                            </a>
                                         </c:if>
-                                    </c:if> 
-                                </c:forEach>
+                                    </c:if>
+                                </c:if> 
+                            </c:forEach>
 
                         </div>
 
@@ -183,8 +200,9 @@
                         </div>
                     </div>
                 </div>
-                        
+
             </div>
+
 
         </main>
 
@@ -195,6 +213,5 @@
             </div>
 
         </footer>
-
     </body>
 </html>

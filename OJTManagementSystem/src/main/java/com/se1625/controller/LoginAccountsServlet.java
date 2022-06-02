@@ -10,15 +10,12 @@ import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblaccount.TblAccountError;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +25,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name = "LoginAccountsServlet", urlPatterns = {"/LoginAccountsServlet"})
 public class LoginAccountsServlet extends HttpServlet {
 
     /**
@@ -44,22 +40,23 @@ public class LoginAccountsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //get parameters 
         String username = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
-        
         ServletContext context = this.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
+
         String url = siteMap.getProperty(
                 MyApplicationConstants.LoginFeture.LOGIN_PAGE);
-        
+
         HttpSession session = request.getSession();
         try {
+
+            //check format input login
             TblAccountError error = new TblAccountError();
             boolean foundError = false;
 
-            
             if (username.trim().length() == 0) {
                 error.setUserEmailEmpty("Please enter your email!");
                 foundError = true;
@@ -78,6 +75,8 @@ public class LoginAccountsServlet extends HttpServlet {
 
             if (foundError) {
                 request.setAttribute("ERROR", error);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
             } //throw error if error is found
             else {
                 TblAccountDAO dao = new TblAccountDAO();
@@ -85,21 +84,21 @@ public class LoginAccountsServlet extends HttpServlet {
                 if (result) {
                     TblAccountDTO account = dao.getAccount(username);
                     session.setAttribute("COMPANY_ROLE", account);
-                    url = siteMap.getProperty(
-                            MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE);
+                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
+                    response.sendRedirect(url);
                 } //check username and password exist
                 else {
                     error.setAccountError("Your email or password is invalid!");
                     request.setAttribute("ERROR", error);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
                 }// if account don't exist throw error
             } // if don't have error
+
         } catch (NamingException ex) {
             log("LoginAccountServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("LoginAccountServlet_SQLException " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
         }
     }
 

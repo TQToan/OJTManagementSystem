@@ -21,21 +21,19 @@
     <body>
         <header class="header ">
             <div class="navbar header__nav_cus">
-                
-                <a href="home.html" class="header__logo">
+
+                <a href="ShowStudentHomeController" class="header__logo">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
-                        <c:if test="${not empty user}">
-                            Hi, ${user.getName()}
-                        </c:if>                         
-                            <i class="fas fa-angle-down icon-down"></i>
+                        <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
+                        Hi, ${student.account.name}             
+                        <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
                         <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
-                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                        <a href="logoutController" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
 
@@ -82,13 +80,13 @@
                                     </c:if>>TP.HCM</option>
                                 <option value="Dong Nai" <c:if test="${nameLocation eq 'Dong Nai'}">
                                         selected="selected"
-                                    </c:if>>Dong Nai</option>
+                                    </c:if>>Đồng Nai</option>
                                 <option value="Tay Ninh" <c:if test="${nameLocation eq 'Tay Ninh'}">
                                         selected="selected"
-                                    </c:if>>Tay Ninh</option>
+                                    </c:if>>Tây Ninh</option>
                                 <option value="Binh Duong" <c:if test="${nameLocation eq 'Binh Duong'}">
                                         selected="selected"
-                                    </c:if>>Binh Duong</option>
+                                    </c:if>>Bình Dương</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -126,7 +124,7 @@
                                                 ${counter.count}
                                             </td>
                                             <td>
-                                                <c:url var="showDetail" value="HomeShowCompanyDetail">
+                                                <c:url var="showDetail" value="HomeShowCompanyDetailController">
                                                     <c:param name="postID" value="${post.postID}"/>
                                                 </c:url>
                                                 <a href="${showDetail}">
@@ -163,25 +161,9 @@
                                     <c:param name="nameLocation" value="${nameLocation}"/>
                                 </c:url>
                                 <%--<a href="${url}">${i}</a>--%>
-                                <div class="main__pagination">
+                                <div style="display: inline-block" class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
-
-                                        <!--                                        <li class="page-item">
-                                                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                                                        <span aria-hidden="true">&laquo;</span>
-                                                                                    </a>
-                                                                                </li>-->
-
                                         <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                        <!--                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-
-                                        <!--                                        <li class="page-item">
-                                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                                    </a>
-                                                                                </li>-->
-
                                     </ul>
                                 </div>
                             </c:forEach>

@@ -14,6 +14,7 @@ public class MyApplicationConstants {
     public class ShowStudentHomeFeature {
 
         public static final String STUDENT_HOME_PAGE = "StudentHomePage";
+        public static final String LOGIN_PAGE = "";
 
     }
     
@@ -36,6 +37,7 @@ public class MyApplicationConstants {
         // trang home, xem thông tin company detail (servelet,jsp)
         public static final String HOME_SHOW_COMPANY_DETAIL_JSP = "HomeShowCompanyDetailJSP";
         public static final String HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetail";
+        public static final String LOGIN_PAGE = "";
 
 
         public static final String STUDENT_HOME_PAGE = "ShowStudentHomeController";
@@ -73,12 +75,15 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "loginPage";
     }
     public class LogoutFeture {
-        public static final String LOGIN_PAGE = "loginPage";
+        public static final String LOGIN_PAGE = "";
     }
     public class LoginGoogleFeture {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
+
+        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
+
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
     }
@@ -100,5 +105,16 @@ public class MyApplicationConstants {
     public class ApplyCVStudentFeature{
         public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
         public static final String STUDENT_APPLIED_JOB_PAGE = "StudentApplJobPage";
+    }
+    
+    public class ShowStudentProfileFeature {
+        public static final String STUDENT_PROFILE_PAGE = "StudentProfilePage";
+        public static final String LOGIN_PAGE = "loginPage";
+    }
+    
+    public class UpdateStudentProfileFeature {
+        public static final String SHOW_STUDENT_PROFILE_SERVLET = "ShowStudentProfileController";
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
     }
 }

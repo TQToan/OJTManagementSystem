@@ -38,7 +38,7 @@ public class TblCompany_PostDAO implements Serializable{
         return companyPostByFilter;
     }
     
-    public void getListRecomendPost(String major) throws SQLException, NamingException{
+    public void getListRecomendPost(String majorName) throws SQLException, NamingException{
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -48,14 +48,15 @@ public class TblCompany_PostDAO implements Serializable{
                 String sql = "SELECT TOP 6 cp.postID, cp.title_Post, "
                         + " cp.postingDate, cp.quantityInterns, "
                         + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
-                        + "m.majorName, ac.name, ac.avatar \n" +
-                        "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n" +
-                        " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
-                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username) " +
-                        " WHERE m.majorName = ? " +
-                        "ORDER BY cp.expirationDate DESC";
+                        + "m.majorID, m.majorName, ac.name, ac.avatar " 
+                        + "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) " 
+                        + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
+                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username) " 
+                        + " WHERE m.majorName = ? and com.is_Signed = ? " 
+                        + "ORDER BY cp.expirationDate DESC ";
                 stm = con.prepareCall(sql);
-                stm.setNString(1, major);
+                stm.setNString(1, majorName);
+                stm.setBoolean(2, true);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int postID = rs.getInt("postID");
@@ -66,7 +67,8 @@ public class TblCompany_PostDAO implements Serializable{
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int statusPost = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
-                    String majorName = rs.getNString("majorName");
+                    int majorID = rs.getInt("majorID");
+                    String nameMajor = rs.getNString("majorName");
                     String companyName = rs.getNString("name");
                     String avatar = rs.getString("avatar");
                     
@@ -79,7 +81,11 @@ public class TblCompany_PostDAO implements Serializable{
                         dto.setExpirationDate(expirationDate);
                         dto.setQuantityIterns(quantityInterns);
                         dto.setWorkLocation(workLocation);
-                        dto.setMajorName(majorName);
+                        
+                        TblMajorDTO major = new TblMajorDTO();
+                        major.setMajorID(majorID);
+                        major.setMajorName(nameMajor);
+                        dto.setMajor(major);
                         
                         TblAccountDTO account = new TblAccountDTO();
                         account.setName(companyName);
@@ -87,8 +93,8 @@ public class TblCompany_PostDAO implements Serializable{
                         
                         TblCompanyDTO company = new TblCompanyDTO();
                         company.setAccount(account);
-                        
                         dto.setCompany(company);
+                        
                         if (companyPostListHome == null) {
                             companyPostListHome = new ArrayList<>();
                         }
@@ -117,7 +123,7 @@ public class TblCompany_PostDAO implements Serializable{
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT TOP 6 cp.postID, cp.title_Post, "
+                String sql = "SELECT TOP 8 cp.postID, cp.title_Post, "
                         + " cp.postingDate, cp.quantityInterns, "
                         + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
                         + "m.majorName, ac.name, ac.avatar \n" +
@@ -195,9 +201,9 @@ public class TblCompany_PostDAO implements Serializable{
                         + "ON (post.majorID = major.majorID) ";
                 if (companyID.isEmpty() == false && MajorID != 0 
                         && nameLocation.isEmpty() == false ) {
-                    sql += " WHERE post.companyID = ? and post.majorID = ? and post.workLocation LIKE ?";
+                    sql += " WHERE post.companyID = ? and post.majorID = ? "
+                            + "and post.workLocation LIKE ?";
                     stm = con.prepareCall(sql);
-                    System.out.println("loi o day 1");
                     stm.setString(1, companyID);
                     stm.setInt(2, MajorID);
                     stm.setNString(3, "%" + nameLocation + "%");
@@ -205,7 +211,6 @@ public class TblCompany_PostDAO implements Serializable{
                 if (companyID.isEmpty() == false && MajorID == 0 
                         && nameLocation.isEmpty() == false ) {
                     sql += "WHERE post.companyID = ? and post.workLocation LIKE ?";
-                    System.out.println("loi o day 2");
                     stm = con.prepareCall(sql);
                     stm.setString(1, companyID);
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -213,7 +218,6 @@ public class TblCompany_PostDAO implements Serializable{
                 if (companyID.isEmpty() == false && MajorID != 0 
                         && nameLocation.isEmpty() == true ) {
                     sql += "WHERE post.companyID = ? and post.majorID = ? ";
-                    System.out.println("loi o day 3");
                     stm = con.prepareCall(sql);
                     stm.setString(1, companyID);
                     stm.setInt(2, MajorID);
@@ -221,14 +225,12 @@ public class TblCompany_PostDAO implements Serializable{
                 if (companyID.isEmpty() == false && MajorID == 0 
                         && nameLocation.isEmpty() == true ) {
                     sql += "WHERE post.companyID = ?  ";
-                    System.out.println("loi o day 4");
                     stm = con.prepareCall(sql);
                     stm.setString(1, companyID);
                 } 
                 if (companyID.isEmpty() == true && MajorID != 0 
                         && nameLocation.isEmpty() == false ) {
                     sql += "WHERE post.majorID = ? and post.workLocation LIKE ?";
-                    System.out.println("loi o day 5");
                     stm = con.prepareCall(sql);
                     stm.setInt(1, MajorID);
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -236,16 +238,19 @@ public class TblCompany_PostDAO implements Serializable{
                 if (companyID.isEmpty() == true && MajorID != 0 
                         && nameLocation.isEmpty() == true ) {
                     sql += "WHERE post.majorID = ? ";
-                    System.out.println("loi o day 6");
                     stm = con.prepareCall(sql);
                     stm.setInt(1, MajorID);
                 } 
                 if (companyID.isEmpty() == true && MajorID == 0 
                         && nameLocation.isEmpty() == false ) {
                     sql += "WHERE post.workLocation LIKE ? ";
-                    System.out.println("loi o day 7");
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + nameLocation + "%");
+                }
+                
+                if (companyID.isEmpty() == true && MajorID == 0
+                        && nameLocation.isEmpty() == true) {
+                    stm = con.prepareCall(sql);
                 }
                 rs = stm.executeQuery();
                 while (rs.next()) {

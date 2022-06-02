@@ -7,10 +7,7 @@ package com.se1625.controller;
 
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +17,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThanhTy
  */
-@WebServlet(name = "LogoutAccountServlet", urlPatterns = {"/LogoutAccountServlet"})
 public class LogoutAccountServlet extends HttpServlet {
 
     /**

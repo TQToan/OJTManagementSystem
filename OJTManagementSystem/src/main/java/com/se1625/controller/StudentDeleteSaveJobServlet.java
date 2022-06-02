@@ -5,21 +5,17 @@
  */
 package com.se1625.controller;
 
-import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +25,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThanhTy
  */
-@WebServlet(name = "StudentDeleteSaveJobServlet", urlPatterns = {"/StudentDeleteSaveJobServlet"})
 public class StudentDeleteSaveJobServlet extends HttpServlet {
 
     /**
@@ -44,43 +39,40 @@ public class StudentDeleteSaveJobServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-//        String studentCode = request.getParameter("studentCode");
         int postID = Integer.parseInt(request.getParameter("postID"));
-        //1. get servletContext 
+        String unSave = request.getParameter("unSave");
+
         ServletContext context = this.getServletContext();
-        //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_SAVE_JOB_PAGE);
+        String url = MyApplicationConstants.StudentSaveJobFeature.LOGIN_PAGE;
+
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                //lay session
-                TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("LOGIN_SUCESS");
-                TblFollowing_PostDAO followPostDAO = new TblFollowing_PostDAO();
-                //lay studentCode
-                TblStudentDAO studentDAO = new TblStudentDAO();
-                TblStudentDTO studentDTO = studentDAO.showStudentInfo(accountDTO.getEmail());
-                
-                request.setAttribute("STUDENT_CODE", studentDTO);
-                System.out.println(studentDTO.getStudentCode());
-                boolean delete = followPostDAO.deleteFollowingPost(postID, studentDTO.getStudentCode());
-                if (delete) {
-                    url = MyApplicationConstants.StudentSaveJobFeature.STUDENT_SEARCH_SAVE_JOB_CONTROLLER
-                            +"?txtJob=&txtCompany&nameLocation";
-                }
-
-            }
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                if (student != null) {
+                    TblFollowing_PostDAO followPostDAO = new TblFollowing_PostDAO();
+                    boolean delete = followPostDAO.deleteFollowingPost(postID, student.getStudentCode());
+                    if (delete) {
+                        if (unSave != null) {
+                            url = MyApplicationConstants.StudentSaveJobFeature.STUDENT_DASHBOARD_CONTROLLER;
+                        } else {
+                            url = MyApplicationConstants.StudentSaveJobFeature.STUDENT_SEARCH_SAVE_JOB_CONTROLLER;
+                        }
+                        
+                    }
+                }//if student is created
+            }//if session existe
         } catch (SQLException ex) {
             log("SQL Exception occurs in process at DeleteServlet", ex.getCause());
         } catch (NamingException ex) {
             log("Naming Exception occurs in process at DeleteServlet", ex.getCause());
         } finally {
             response.sendRedirect(url);
-//            RequestDispatcher rd = request.getRequestDispatcher(url);
-//            rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

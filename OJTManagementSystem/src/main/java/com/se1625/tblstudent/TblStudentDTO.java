@@ -22,19 +22,9 @@ public class TblStudentDTO implements Serializable{
     private int isIntern;
     private int numberOfCredit;
     private String major;
-    private TblAccountDTO account;
 
-    public TblStudentDTO(String studentCode, Date birthDay, String address, boolean gender, String phone, int isIntern, int numberOfCredit, String major, TblAccountDTO account) {
-        this.studentCode = studentCode;
-        this.birthDay = birthDay;
-        this.address = address;
-        this.gender = gender;
-        this.phone = phone;
-        this.isIntern = isIntern;
-        this.numberOfCredit = numberOfCredit;
-        this.major = major;
-        this.account = account;
-    }
+    private TblAccountDTO account;   
+
 
     public TblStudentDTO(String studentCode, Date birthDay, String address, boolean gender, String phone, int isIntern, int numberOfCredit, String major) {
         this.studentCode = studentCode;
@@ -46,6 +36,9 @@ public class TblStudentDTO implements Serializable{
         this.numberOfCredit = numberOfCredit;
         this.major = major;
     }
+
+   
+        
  
     public TblStudentDTO() {
     }

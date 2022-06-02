@@ -21,15 +21,13 @@
     <body>
         <header class="header ">
             <div class="navbar header__nav_cus">
-                <a href="#" class="header__logo">
+                <a href="ShowStudentHomeController" class="header__logo">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        <c:set var="user" value="${sessionScope.LOGIN_SUCESS}"/>
-                        <c:if test="${not empty user}">
-                            Hi, ${user.getName()}
-                        </c:if>
+                        <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
+                            Hi, ${student.account.name}
                         <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
@@ -70,9 +68,9 @@
                             <select id="city" name="nameLocation" class="form__select"  >
                                 <option value="">Location</option>
                                 <option value="TP.HCM">TP.HCM</option>
-                                <option value="Dong Nai">Dong Nai</option>
-                                <option value="Tay Ninh">Tay Ninh</option>
-                                <option value="Binh Duong">Binh Duong</option>
+                                <option value="Đồng Nai">Đồng Nai</option>
+                                <option value="Tây Ninh">Tây Ninh</option>
+                                <option value="Bình Dương">Bình Dương</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -89,7 +87,7 @@
                         <div class="col">
                             <div class="card-company">
                                 <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img img-responsive">
-                                <a href="homeResultPage.html" class="card-company-header">
+                                <a href="HomeShowCompanyDetailController?postID=${dto.postID}" class="card-company-header">
                                     ${dto.company.account.name}
                                 </a>
                                 <div class="card-company-body">

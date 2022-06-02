@@ -133,7 +133,6 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
             log("Exception occurs ImportStudentExcelFileServlet " + ex.getMessage());
             if ("Sheet is empty".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is empty. Please check again!");
-//                Files.deleteIfExists(Paths.get(fileError));
                 String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.DEMP_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);

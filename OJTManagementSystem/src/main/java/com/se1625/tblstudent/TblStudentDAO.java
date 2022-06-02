@@ -158,4 +158,36 @@ return dto;
         }
         return student;
     }
+    public boolean updateStudent(String studentCode, Date birthday, String address, boolean gender, String number) throws SQLException, NamingException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        try{
+            con = DBHelper.makeConnection();
+            if(con != null){
+                String sql = "UPDATE tblStudent "
+                        + "SET birthDay = ?, address = ?, gender = ?, phone = ? "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setDate(1, birthday);
+                stm.setString(2, address);               
+                stm.setBoolean(3, gender);
+                stm.setString(4, number);
+                stm.setString(5, studentCode);
+                int effectRows = stm.executeUpdate();
+                
+                if(effectRows > 0){
+                    return true;
+                }
+            }
+        }finally{
+            if(stm != null){
+                stm.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        
+        return false;
+    }
 }

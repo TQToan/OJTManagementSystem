@@ -5,12 +5,10 @@
  */
 package com.se1625.controller;
 
-import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
-import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +28,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThanhTy
  */
-@WebServlet(name = "StudentDashboardServlet", urlPatterns = {"/StudentDashboardServlet"})
 public class StudentDashboardServlet extends HttpServlet {
 
     /**
@@ -46,51 +42,63 @@ public class StudentDashboardServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //1. get servletContext 
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        
         ServletContext context = this.getServletContext();
-        //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.StudentDasboardFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.StudentDasboardFeature.LOGIN_PAGE;
+        
         HttpSession session = request.getSession(false);
-        int size = 0;
+        
+        int numberOfFollowingPost = 0;
         try {
             if (session != null) {
-                //Info student
-                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                //get student from session
+                TblStudentDTO student = (TblStudentDTO) 
+                        session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
-                    url = properties.getProperty(MyApplicationConstants.StudentDasboardFeature.STUDENT_DASHBOARD_PAGE);
-//            String mail = (String) session.getAttribute("EMAIL_USER");
-//                TblStudentDAO dao = new TblStudentDAO();
-//                TblStudentDTO student = dao.showStudentInfo(dto.getEmail());
-//                System.out.println(dto.getEmail());
-//                request.setAttribute("STUDENT", student);
+                    url = properties.getProperty(MyApplicationConstants.
+                            StudentDasboardFeature.STUDENT_DASHBOARD_PAGE);
 
                     TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
                     followPostDao.getFollowingPost(student.getStudentCode());
 
-                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter = followPostDao.getFollowingPostByFilter();
+                    //get number of following post of student
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                            = followPostDao.getFollowingPostByFilter();
 
                     if (listFollowingCompanyPostByFilter != null) {
-                        size = listFollowingCompanyPostByFilter.size();
+                        numberOfFollowingPost = listFollowingCompanyPostByFilter.size();
                     }
-                    
-                    request.setAttribute("SIZE_OF_LIST_DASHBOARD", size);
-                    //Recomend post
-                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                    //lấy 6 bài post
-                    companyPostDAO.getListRecomendPost(student.getMajor());
-                    List<TblCompany_PostDTO> listPostHome = companyPostDAO.getCompanyPostListHome();
-                    request.setAttribute("LIST_POST_HOME", listPostHome);
 
-                }
-            }
+                    request.setAttribute("NUMBER_OF_FOLLOWING_POST", numberOfFollowingPost);
+                    
+                    //get 6 Recomend post has longest expiration date
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    companyPostDAO.getListRecomendPost(student.getMajor());
+                    List<TblCompany_PostDTO> listRecommendPost = companyPostDAO.
+                            getCompanyPostListHome();
+                    request.setAttribute("LIST_RECOMMEND_POST", listRecommendPost);
+                    
+                    //get list post that student followed
+                    request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
+
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                }// if attribute exist in session
+                else {
+                    response.sendRedirect(url);
+                } //if attribute does not exist in session
+            }//if session is created
+            else {
+                response.sendRedirect(url);
+            }//if session is not created
         } catch (SQLException ex) {
-            log("SQL Exception occurs in process at StudentDashboardController", ex.getCause());
+            log("SQL Exception at StudentDashboardController " + ex.getMessage());
         } catch (NamingException ex) {
-            log("Naming Exception occurs in process at StudentDashboardController", ex.getCause());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            log("Naming Exception at StudentDashboardController" + ex.getMessage());
         }
     }
 

@@ -21,7 +21,7 @@
         <header class="header ">
 
             <div class="navbar">
-                <a href="#" class="header__logo ">
+                <a href="" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
@@ -38,7 +38,7 @@
                 <div class="container-left offset-1 col-4">
                     <h2 class="container__heading">*Company</h2>
                     <div class="heading-btn">
-                        <a href="#" class="heading-btn--btn">Login</a>
+                        <a href="" class="heading-btn--btn">Login</a>
 
                         <a href="RegisterPage1" class="heading-btn--btn">Sign Up</a>
                     </div>
@@ -103,7 +103,7 @@
                             ${error.userEmailNotAllow}
                         </c:if>
                     </h5>
-                    <a href="${loginGoogle}" class="google-btn row">
+                            <a href="${loginGoogle}" class="google-btn row">
 
                         <i class="fab fa-google google-logo col-2 "></i>
                         <span class="google-content col-10 ">Login email @fpt.edu.vn</span>

@@ -15,7 +15,6 @@ import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -154,7 +153,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
                         found = true;
                         errors.setFileUploadTypeError("File is required .doc, .docx, .pdf");
                     }
-                    System.out.println(fileLength);
                     fileLength = (fileLength / (1024*1024));
                     long sizeMax =  1;
                     if (fileLength > sizeMax) {
