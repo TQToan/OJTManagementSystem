@@ -3,7 +3,7 @@
     padding-top: 30px;
     background: url("../img/fpt.jpg")  no-repeat center ;
     background-size: cover;
-    height: calc(100vh -  var(--height-header));
+    min-height: calc(100vh -  var(--height-header));
     margin-bottom: 0px;
 }
     
@@ -23,6 +23,7 @@
 
 .main-body{
     margin-top: 50px;
+    padding-bottom: 30px;
 }
 /* main header-------------------------END--------------------------------------- */
 
@@ -31,7 +32,7 @@
 .container-left{
     background-color: var(--background-white);
     border-radius: 10px;
-    height: 450px;
+    min-height: 440px;
     position: relative;
 }
 
@@ -50,7 +51,11 @@
     padding-right: 70px; 
     color: var(--text-color-black);
     padding-bottom: 7px;
-    animation: moveLefttoRight ease-in 5s;
+}
+
+.heading-btn--btn--active{
+    border-bottom: 5px solid var(--text-color-orange);
+    color: var(--text-color-orange);
 }
 
 .heading-btn--btn:hover{
@@ -90,7 +95,7 @@
 }
 
 .login-btn{
-    padding: 10px;
+    padding: 5px;
     font-size: 2rem;
     font-weight: 700;
     text-align: center;
@@ -118,18 +123,22 @@
     border-radius: 10px;
     position: relative;
 }
-.google-btn{
-    background-color: var(--background-red);
-    color: var(--text-color-white);
-    font-size: 2rem;
-    padding: 10px;
-    font-weight: 700;
-    border:none;
-    border-radius: 10px;
+.gg-btn{
     position: absolute;
     bottom: 40px;
     left: 70px;
     right: 70px;
+}
+
+.google-btn{
+    background-color: var(--background-red);
+    color: var(--text-color-white);
+    font-size: 2rem;
+    padding: 5px;
+    font-weight: 700;
+    border:1px solid transparent;
+    border-radius: 10px;
+   
     text-decoration: none;
     text-align: left;
 }
@@ -148,7 +157,8 @@
 .google-logo{
     font-size: 2.4rem;
     border-right: 2px solid var(--text-color-white);
-    padding: 5px 20px;
+    padding: 0px 20px;
+    line-height: 3rem;
 }
 
 .google-content{
@@ -161,5 +171,9 @@
     line-height: 60px;
     text-align: left;
     margin-left: 20px;
+    margin-bottom:  80px;
 }
 /* Container-right----------------------------END------------------------------------------- */
+
+
+

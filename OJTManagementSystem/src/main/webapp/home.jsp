@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/home.css">
+        <link rel="stylesheet" href="./assets/css/home-responsive.css">
     </head>
     <body>
         <header class="header ">
@@ -84,11 +85,11 @@
 
             <div class="main__company">
                 <h2>Company</h2>
-                <div class="row row-cols-4">
+                <div class="row row-cols-2 row-cols-lg-3 row-cols-md-3 row-cols-xl-4">
                     <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto">
                         <div class="col">
                             <div class="card-company">
-                                <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img img-responsive">
+                                <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img">
                                 <a href="homeResultPage.html" class="card-company-header">
                                     ${dto.company.account.name}
                                 </a>
@@ -99,7 +100,7 @@
                                     <p>Expiration Date: ${dto.expirationDate}</p>
                                 </div>
                                 <div class="card-company-btn">
-                                    <a href="homeCPostDetail.html" class="primary-btn">Apply Now</a>
+                                    <a href="homeCPostDetail.html" class="primary-btn hApply-btn">Apply Now</a>
                                     <a href="#">
                                         <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
                                     </a>
@@ -113,9 +114,9 @@
             <div class="main__company-icon">
                 <div class="row row-cols-7">
                     <c:forEach items="${requestScope.LIST_AVATAR_SIGNED_COMPANY}" var="avatar">
-                        <div class="col">
+                        <div class="col company__click">
                             <a href="homeResultPage.html" class="">
-                                <img src="./avatars/${avatar.account.avatar}" alt="${avatar.account.avatar}" class="main__company-img img-responsive">
+                                <img src="./avatars/${avatar.account.avatar}" alt="${avatar.account.avatar}" class="main__company-img ">
                             </a>
                         </div>
                         <%--${avatar.companyID}

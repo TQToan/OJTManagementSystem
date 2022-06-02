@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/home.css">
+        <link rel="stylesheet" href="./assets/css/home-responsive.css">
     </head>
     <body>
         <header class="header ">
@@ -67,25 +68,9 @@
                 </form>
             </div>
 
-            <div class="hCompanyInfor">
-                <div class="hCompanyInfor__header">
-                    Company Information
-                </div>
-                <div class="hCompanyInfor__body">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="./avatars/${postDetail.company.account.avatar}" alt="" >
-                            <h3>${postDetail.company.account.name}</h3>
-                        </div>
-                        <div class="col-9 hCompanyInfor__content">
-                            ${postDetail.company.company_Description}    
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+      
             <div class="hComApplDetail row">
-                <div class="col-7">
+                <div class="col-md-7">
                     <div class="hComApplDetail__left">
                         <div class="hComApplDetail__left--header">
                             Application Information:
@@ -123,7 +108,7 @@
                 </div>
                 <c:set var="listOther" value="${requestScope.LIST_OTHER}"/>
                     
-                <div class="col-5">
+                <div class="col-md-5">
                     <div class="hComApplDetail__right">
                         <div class="hComApplDetail__right--header">
                             Other Company
@@ -185,7 +170,22 @@
                 </div>
                         
             </div>
-
+            <div class="hCompanyInfor">
+                <div class="hCompanyInfor__header">
+                    Company Information
+                </div>
+                <div class="hCompanyInfor__body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="./avatars/${postDetail.company.account.avatar}" alt="" >
+                            <h3>${postDetail.company.account.name}</h3>
+                        </div>
+                        <div class="col-9 hCompanyInfor__content">
+                            ${postDetail.company.company_Description}    
+                        </div>
+                    </div>
+                </div>
+            </div>    
         </main>
 
 

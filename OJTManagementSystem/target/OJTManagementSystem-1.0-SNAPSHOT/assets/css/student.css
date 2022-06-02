@@ -112,6 +112,7 @@
     padding: 20px;
     padding-right: 0px;
     border-bottom: 1px solid var(--background-gray);
+    height: 250px;
 }
 
 .recom-box-content{
@@ -186,6 +187,16 @@
 .profile--input:hover{
     padding-bottom: 1px;
     border-bottom: 5px solid var(--text-color-orange);
+}
+
+.profile--input-none-hover{
+    text-align: center;
+    outline: none;
+    border: none;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--text-color-orange);
+    font-weight: 500;
+    cursor: none;
 }
 .profile--label{
     text-align: left;

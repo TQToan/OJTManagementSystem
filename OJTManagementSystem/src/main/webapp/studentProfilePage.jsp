@@ -100,7 +100,8 @@
                                     <c:set var="errorUpdate" value="${requestScope.ERROR_UPDATE_STUDENTPROFILE}" />
                                     <div class="profile__input row">
                                         <label class="col-4 profile--label" for="studentCode">Student Code</label>
-                                        <input type="text" readonly class="col-8 profile--input" name="" id="studentCode" value="${studentProfile.studentCode}">
+                                        <!--<input type="text" readonly class="col-8 profile--input" name="" id="studentCode" value="${studentProfile.studentCode}">-->
+                                        <div class="col-8  profile--input-none-hover ">${studentProfile.studentCode}</div>
                                         <input type="hidden" name="studentCode" value="${studentProfile.studentCode}" />
                                         <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
                                                                                 your error
@@ -108,7 +109,8 @@
                                     </div>
                                     <div class="profile__input row">
                                         <label class="col-4 profile--label" for="fullName">Full Name</label>
-                                        <input type="text" readonly class="col-8 profile--input " name="" id="fullName" value="${studentProfile.account.name}">
+                                        <div class="col-8  profile--input-none-hover  ">${studentProfile.account.name}</div>
+                                        <!--<input type="text" readonly class="col-8 profile--input " name="" id="fullName" value="${studentProfile.account.name}">-->
                                         <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
                                                                                 your error
                                                                             </h5>-->
@@ -171,8 +173,9 @@
                                     </div>
                                     <div class="profile__input row">
                                         <label class="col-4 profile--label" for="major">Major</label>
-                                        <input type="text" readonly class="col-8 profile--input " name="" id="major"
-                                               value="${studentProfile.major}">
+                                        <div class="col-8  profile--input-none-hover ">${studentProfile.major}</div>
+<!--                                        <input type="text" readonly class="col-8 profile--input " name="" id="major"
+                                               value="${studentProfile.major}">-->
                                         <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
                                                                                 your error
                                                                             </h5>-->
