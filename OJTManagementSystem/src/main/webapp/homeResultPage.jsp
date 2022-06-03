@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/home.css">
+        <link rel="stylesheet" href="./assets/css/home-responsive.css">
     </head>
     <body>
         <header class="header ">

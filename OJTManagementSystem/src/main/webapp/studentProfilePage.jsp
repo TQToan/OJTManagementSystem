@@ -98,6 +98,7 @@
                                                                         your error
                                                                     </h5>-->
                             </div>
+<<<<<<< HEAD
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="fullName">Full Name</label>
                                 <input type="text" readonly class="col-8 profile--input " name="fullName" id="fullName" value="${studentProfile.account.name}">
@@ -164,6 +165,100 @@
                                 <h5 class="text-danger offset-4 col-8 text-start">
                                     ${errorUpdate.errorFileLength}
                                 </h5>
+=======
+
+                            <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
+                            <c:if test="${not empty studentProfile}">
+                                <form action="UpdateStudentProfileController">
+                                    <c:set var="errorUpdate" value="${requestScope.ERROR_UPDATE_STUDENTPROFILE}" />
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="studentCode">Student Code</label>
+                                        <!--<input type="text" readonly class="col-8 profile--input" name="" id="studentCode" value="${studentProfile.studentCode}">-->
+                                        <div class="col-8  profile--input-none-hover ">${studentProfile.studentCode}</div>
+                                        <input type="hidden" name="studentCode" value="${studentProfile.studentCode}" />
+                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                                your error
+                                                                            </h5>-->
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="fullName">Full Name</label>
+                                        <div class="col-8  profile--input-none-hover  ">${studentProfile.account.name}</div>
+                                        <!--<input type="text" readonly class="col-8 profile--input " name="" id="fullName" value="${studentProfile.account.name}">-->
+                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                                your error
+                                                                            </h5>-->
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="birthday">Birthday</label>
+                                        <input type="date" class="col-8 profile--input " name="dateUpdate" id="birthday" value="${studentProfile.birthDay}">
+                                        <h5 class="text-danger offset-4 col-8 text-start">
+                                            <c:if test="${not empty errorUpdate}">
+                                                ${errorUpdate.errorDateInvalid}
+                                                ${errorUpdate.errorDateEmpty}
+                                            </c:if>
+                                        </h5>
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="gender">Gender</label>
+                                        <c:if test="${studentProfile.gender}">
+                                            <select name="genderUpdate" class="col-8 profile--input">
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </c:if>
+                                        <c:if test="${not studentProfile.gender}">
+                                            <select name="genderUpdate" class="col-8 profile--input">
+                                                <option>Female</option>
+                                                <option>Male</option>
+                                            </select>
+                                        </c:if>
+
+<!--<input type="text" class="col-8 profile--input " name="" id="gender" value="${studentProfile.gender}">-->
+                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                                your error
+                                                                            </h5>-->
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="email">Email</label>
+                                        <input type="email" readonly class="col-8 profile--input " name="" id="email"
+                                               value="${studentProfile.account.email}">
+                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                                your error
+                                                                            </h5>-->
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="address">Address</label>
+                                        <input type="text" class="col-8 profile--input " name="addressUpdate" id="address" value="${studentProfile.address}">
+                                        <h5 class="text-danger offset-4 col-8 text-start ">
+                                            <c:if test="${not empty errorUpdate}">
+                                                ${errorUpdate.errorAddressLength}
+                                            </c:if>
+                                        </h5>
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="phone">Phone Number</label>
+                                        <input type="number" class="col-8 profile--input " name="phoneUpdate" id="phone" value="${studentProfile.phone}">
+                                        <h5 class="text-danger offset-4 col-8 text-start ">
+                                            <c:if test="${not empty errorUpdate}">
+                                                ${errorUpdate.errorPhoneNumberLength}
+                                            </c:if>
+                                        </h5>
+                                    </div>
+                                    <div class="profile__input row">
+                                        <label class="col-4 profile--label" for="major">Major</label>
+                                        <div class="col-8  profile--input-none-hover ">${studentProfile.major}</div>
+<!--                                        <input type="text" readonly class="col-8 profile--input " name="" id="major"
+                                               value="${studentProfile.major}">-->
+                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                                your error
+                                                                            </h5>-->
+                                    </div>
+                                    <div class="profile-edit-btn primary-btn">
+                                        <i class="fas fa-edit"></i>
+                                        <input type="submit" class="profile-edit--input" value="Edit">
+                                    </div>
+                                </form>
+>>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
                             </c:if>
 
                             <div class="profile-edit-btn primary-btn">

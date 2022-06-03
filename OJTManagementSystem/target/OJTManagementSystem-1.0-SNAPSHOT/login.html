@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/login.css">
+        <link rel="stylesheet" href="./assets/css/login-responsive.css">
     </head>
     <body>
         <header class="header ">
@@ -30,11 +31,11 @@
                 <input type="submit" value="Import File" name="btAction" />
             </form>
             <a href="ExportEvalutionExcelFileController">Export File</a>
-            <div class="row main-body">
-                <div class="container-left offset-1 col-4">
+            <div class="row main-body row-cols-sm-1">
+                <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
                     <h2 class="container__heading">*Company</h2>
                     <div class="heading-btn">
-                        <a href="" class="heading-btn--btn">Login</a>
+                        <a href="" class="heading-btn--btn heading-btn--btn--active">Login</a>
 
                         <a href="RegisterPage1" class="heading-btn--btn">Sign Up</a>
                     </div>
@@ -57,20 +58,21 @@
                     </div>
                 </div>
 
-                <div class="container-right offset-1 col-5">
+                <div class="container-right order-1 offset-xl-1 col-xl-5 order-xl-2 offset-md-4 col-md-7  col-12">
                     <h2 class="container__heading">*FPT University</h2>
                     <p class="container__content">
                         Job information page for FPT university students: <br>
                         - More than 60 companies <br>
-                        - Many Professions in all fields <br>
-                        - Moderated by the school
+                        - Moderated by the school <br>
+                        - Major: SE, English, ......
                     </p>
-
-                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/OJTManagementSystem/LoginGoogleServlet&response_type=code&client_id=206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com&approval_prompt=force" 
-                       class="google-btn row">
-                        <i class="fab fa-google google-logo col-2 "></i>
-                        <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
-                    </a>
+                    <div class="gg-btn">
+                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/OJTManagementSystem/LoginGoogleServlet&response_type=code&client_id=206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com&approval_prompt=force" 
+                           class="google-btn row">
+                            <i class="fab fa-google google-logo col-2 "></i>
+                            <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
+                        </a>
+                    </div>
                 </div>
             </div> 
         </div>

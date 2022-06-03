@@ -40,10 +40,12 @@ com\se1625\tblaccount\RegisterCompanyAccountError.class
 com\se1625\tblfollowing_post\TblFollowing_PostDTO.class
 com\se1625\controller\StudentDeleteSaveJobServlet.class
 com\se1625\tblapplication\ApplyCVStudentError.class
+com\se1625\utils\MyApplicationConstants$CancleApplyCVFeature.class
 com\se1625\utils\MyApplicationConstants$StudentSaveJobFeature.class
 com\se1625\usergoogle\UserGoogleDTO.class
 com\se1625\utils\MyApplicationConstants$UpdateStudentProfileFeature.class
 com\se1625\tblapplication\TblApplicationDAO.class
+com\se1625\controller\CancleApplyCVServlet.class
 com\se1625\tblaccount\TblAccountError.class
 com\se1625\utils\MyApplicationConstants$AddStudentFeture.class
 com\se1625\controller\LoadApplyCVStudentServlet.class

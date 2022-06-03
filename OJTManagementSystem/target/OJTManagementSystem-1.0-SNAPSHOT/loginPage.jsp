@@ -16,21 +16,22 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/login.css">
+        <link rel="stylesheet" href="./assets/css/login-responsive.css">
+
     </head>
     <body>
         <header class="header ">
-
             <div class="navbar">
                 <a href="" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-
             </div>
         </header>
 
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
+<<<<<<< HEAD
             <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
                 ${requestScope.ERROR_IMPORT_EXCEL}
             </c:if>
@@ -40,6 +41,13 @@
                     <div class="heading-btn">
                         <a href="" class="heading-btn--btn">Login</a>
 
+=======
+            <div class="row main-body row-cols-sm-1">
+                <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
+                    <h2 class="container__heading">*Company</h2>
+                    <div class="heading-btn">
+                        <a href="#" class="heading-btn--btn heading-btn--btn--active">Login</a>
+>>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
                         <a href="RegisterPage1" class="heading-btn--btn">Sign Up</a>
                     </div>
 
@@ -80,13 +88,13 @@
                     </div>
                 </div>
 
-                <div class="container-right offset-1 col-5">
+                <div class="container-right order-1 offset-xl-1 col-xl-5 order-xl-2 offset-md-4 col-md-7  col-12">
                     <h2 class="container__heading">*FPT University</h2>
                     <p class="container__content">
                         Job information page for FPT university students: <br>
                         - More than 60 companies <br>
-                        - Many Professions in all fields <br>
-                        - Moderated by the school
+                        - Moderated by the school <br>
+                        - Major: SE, English, ......
                     </p>
 
                     <c:url var="loginGoogle" value="https://accounts.google.com/o/oauth2/auth">
@@ -97,6 +105,7 @@
                                  value="206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com" />
                         <c:param name="approval_prompt" value="force" />
                     </c:url>
+<<<<<<< HEAD
                     <h5 class="text-danger text-center">
                         <c:set var="error" value="${requestScope.ERROR}"></c:set>
                         <c:if test="${not empty error}">
@@ -104,10 +113,23 @@
                         </c:if>
                     </h5>
                             <a href="${loginGoogle}" class="google-btn row">
+=======
+                    <div class="gg-btn">
+                        <h5 class="text-danger text-center">
+                            <c:set var="error" value="${requestScope.ERROR}"></c:set>
+                            <c:if test="${not empty error}">
+                                <font color="red">
+                                ${error.userEmailNotAllow}
+                                </font>
+                            </c:if>
+                        </h5>
+                        <a href="${loginGoogle}" class="google-btn row">
+>>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
 
-                        <i class="fab fa-google google-logo col-2 "></i>
-                        <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
-                    </a>
+                            <i class="fab fa-google google-logo col-2 "></i>
+                            <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
