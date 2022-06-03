@@ -18,9 +18,11 @@ E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblmajo
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\ApplyCVStudentServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentError.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\listener\MyApplicationListener.java
+E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\SearchStudentAppliedJobServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\LoginAccountsServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDTO.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\SearchSaveJobServlet.java
+E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CompanyPostDetailError.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationConstants.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\controller\UpdateStudentProfileServlet.java
 E:\OJTManagementSystem_Main\OJTManagementSystem\src\main\java\com\se1625\tblcompany\RegisterCompanyError.java

@@ -31,8 +31,11 @@ public class CustomTag {
     }
 
     public static String changeDateFormat(java.sql.Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateString = dateFormat.format(date);
-        return dateString;
+        if (date != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String dateString = dateFormat.format(date);
+            return dateString;
+        }
+        return null;
     }
 }

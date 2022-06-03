@@ -17,6 +17,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
@@ -63,7 +66,18 @@ public class TblCompany_PostDAO implements Serializable {
                     String title_Post = rs.getNString("title_Post");
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (expirationDate.before(currentDate)) {
+                        continue;
+                    }
                     int quantityInterns = rs.getInt("quantityInterns");
+                    if (quantityInterns == 0) {
+                        continue;
+                    }
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int statusPost = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
@@ -136,7 +150,18 @@ public class TblCompany_PostDAO implements Serializable {
                     String title_Post = rs.getNString("title_Post");
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (expirationDate.before(currentDate)) {
+                        continue;
+                    }
                     int quantityInterns = rs.getInt("quantityInterns");
+                    if (quantityInterns == 0) {
+                        continue;
+                    }
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int statusPost = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
@@ -254,8 +279,19 @@ public class TblCompany_PostDAO implements Serializable {
                     int postID = rs.getInt("postID");
                     String title_Post = rs.getNString("title_Post");
                     int quanityItens = rs.getInt("quantityInterns");
+                    if (quanityItens == 0) {
+                        continue;
+                    }
                     Date postingDate = rs.getDate("postingDate");
-                    Date exprirationDate = rs.getDate("expirationDate");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (expirationDate.before(currentDate)) {
+                        continue;
+                    }
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int status_Post = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
@@ -273,7 +309,7 @@ public class TblCompany_PostDAO implements Serializable {
                         TblCompany_PostDTO post = new TblCompany_PostDTO();
                         post.setCompany(company);
                         post.setMajorName(majorName);
-                        post.setExpirationDate(exprirationDate);
+                        post.setExpirationDate(expirationDate);
                         post.setPostID(postID);
                         post.setPostingDate(postingDate);
                         post.setWorkLocation(workLocation);
@@ -336,9 +372,10 @@ public class TblCompany_PostDAO implements Serializable {
                     String job_Description = rs.getNString("job_Description");
                     String job_Requirement = rs.getNString("job_Requirement");
                     String remuneration = rs.getNString("remuneration");
-                    int quanityItens = rs.getInt("quantityInterns");
+                    int quanityIntens = rs.getInt("quantityInterns");
+                    
                     Date postingDate = rs.getDate("postingDate");
-                    Date exprirationDate = rs.getDate("expirationDate");
+                    Date expirationDate = rs.getDate("expirationDate");
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int status_Post = rs.getInt("statusPost");
                     String workLocation = rs.getNString("workLocation");
@@ -349,7 +386,7 @@ public class TblCompany_PostDAO implements Serializable {
                     company.setCompanyID(companyID);
 
                     TblCompany_PostDTO post = new TblCompany_PostDTO(postID, title_Post, job_Description, job_Requirement, remuneration,
-                            workLocation, quanityItens, postingDate, exprirationDate, school_confirm, status_Post, company, majorName);
+                            workLocation, quanityIntens, postingDate, expirationDate, school_confirm, status_Post, company, majorName);
                     return post;
                 }
             }

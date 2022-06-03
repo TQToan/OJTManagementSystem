@@ -61,7 +61,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE;
-
+        TblStudentError error = new TblStudentError();
         //get session
         HttpSession session = request.getSession(false);
         try {
@@ -73,7 +73,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                     LocalDate today = LocalDate.now();
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String nowDate = format.format(today);
-                    TblStudentError error = new TblStudentError();
+
                     boolean checkError = false;
 
                     DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -110,8 +110,9 @@ public class UpdateStudentProfileServlet extends HttpServlet {
 
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
+                                } else {
+                                    item.write(uploadFile);
                                 }
-                                item.write(uploadFile);
                                 fileLength = Files.size(Paths.get(filePath));
                             }
                         }
@@ -167,20 +168,22 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         //update
                         boolean resultIpdateStudent = dao.updateStudent(studentCode, birthday, address, gender, stringPhone);
                         TblAccountDAO accountDAO = new TblAccountDAO();
-                        String oldAvatar = student.getAccount().getAvatar();
-                        boolean resultUpdateAccount =  accountDAO.updateAccount(email, avatarName);
-                        
-                        if (resultIpdateStudent == true && resultUpdateAccount == true) {
-                             TblStudentDTO newInforStudent = dao.getStudent(student.getAccount().getEmail());
-                            session.setAttribute("STUDENT_ROLE", newInforStudent);
-                            if (oldAvatar != null || "".equals(oldAvatar) == false) {
-                                String oldAvatarPath = request.getServletContext().
-                                        getRealPath("/avatars") + "/" + oldAvatar;
-                                Files.deleteIfExists(Paths.get(oldAvatarPath));
+                        if (fileName.equals("") == false) {
+                            String oldAvatar = student.getAccount().getAvatar();
+                            boolean resultUpdateAccount = accountDAO.updateAccount(email, avatarName);
+
+                            if (resultIpdateStudent == true && resultUpdateAccount == true) {
+                                if (oldAvatar != null || "".equals(oldAvatar) == false) {
+                                    String oldAvatarPath = request.getServletContext().
+                                            getRealPath("/avatars") + "/" + oldAvatar;
+                                    Files.deleteIfExists(Paths.get(oldAvatarPath));
+                                }
                             }
-                            url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
-                            response.sendRedirect(url);
                         }
+                        TblStudentDTO newInforStudent = dao.getStudent(student.getAccount().getEmail());
+                        session.setAttribute("STUDENT_ROLE", newInforStudent);
+                        url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
+                        response.sendRedirect(url);
                     }
                 } //if student is created
                 else {
@@ -190,6 +193,13 @@ public class UpdateStudentProfileServlet extends HttpServlet {
             else {
                 response.sendRedirect(url);
             }
+        } catch (IllegalArgumentException ex) {
+            log("IllegalArgumentException at UpdateStudentProfileServlet " + ex.getMessage());
+            error.setErrorDateEmpty("Please, enter your birthday");
+            request.setAttribute("ERROR_UPDATE_STUDENTPROFILE", error);
+            url = properties.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         } catch (FileUploadException ex) {
             log("FileUploadException at UpdateStudentProfileServlet " + ex.getMessage());
         } catch (NamingException ex) {

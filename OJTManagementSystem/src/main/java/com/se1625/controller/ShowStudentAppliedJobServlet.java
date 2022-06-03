@@ -46,7 +46,11 @@ public class ShowStudentAppliedJobServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-
+        
+        String jobName = request.getParameter("nameTypeJob");
+        String companyName = request.getParameter("nameCompany");
+        String nameLocation = request.getParameter("nameLocation");
+        String statusName = request.getParameter("nameStatus");
         String xpage = request.getParameter("page");
 
         String url = MyApplicationConstants.ShowStudentAppliedJobFeature.LOGIN_PAGE;

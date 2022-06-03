@@ -100,6 +100,10 @@
         <servlet-name>CancleApplyCVServlet</servlet-name>
         <servlet-class>com.se1625.controller.CancleApplyCVServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
+        <servlet-class>com.se1625.controller.SearchStudentAppliedJobServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -184,6 +188,10 @@
         <servlet-name>CancleApplyCVServlet</servlet-name>
         <url-pattern>/CancleApplyCVServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
+        <url-pattern>/SearchStudentAppliedJobServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -193,6 +201,7 @@
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <el-ignored>false</el-ignored>
+            <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
     <resource-ref>

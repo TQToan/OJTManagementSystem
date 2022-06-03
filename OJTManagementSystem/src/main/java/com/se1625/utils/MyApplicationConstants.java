@@ -152,4 +152,10 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
     }
+    
+    public class SearchStudentAppliedJobFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
+        public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
+    }
 }

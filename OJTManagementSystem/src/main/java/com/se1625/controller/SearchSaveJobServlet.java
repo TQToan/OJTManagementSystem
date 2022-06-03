@@ -5,7 +5,6 @@
  */
 package com.se1625.controller;
 
-
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblstudent.TblStudentDTO;
@@ -45,10 +44,11 @@ public class SearchSaveJobServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String jobName = request.getParameter("txtJob");
+
         String companyName = request.getParameter("txtCompany");
+
         String nameLocation = request.getParameter("nameLocation");
         String xpage = request.getParameter("page");
-
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.StudentSaveJobFeature.LOGIN_PAGE;
@@ -83,7 +83,7 @@ public class SearchSaveJobServlet extends HttpServlet {
                     } //get list saved job for search saved job by filter
                     if (listFollowingCompanyPostByFilter != null) {
                         sizeOfList = listFollowingCompanyPostByFilter.size();
-                        
+
                         if (xpage == null) {
                             page = 1;
                         } // load page save job 

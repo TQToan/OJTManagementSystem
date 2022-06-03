@@ -7,6 +7,7 @@ package com.se1625.controller;
 
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
+import com.se1625.tblcompany_post.CompanyPostDetailError;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
@@ -17,7 +18,10 @@ import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -68,6 +72,8 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                CompanyPostDetailError error = new CompanyPostDetailError();
+                boolean found = false;
                 if (student != null) {
                     url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.HOME_SHOW_COMPANY_DETAIL_JSP);
                     int nPostID = Integer.parseInt(postID);
@@ -80,6 +86,23 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
 
                     companyDTO = companyDAO.searchCompanyByCompanyID(companyPostDTO.getCompany().getCompanyID());
                     companyPostDTO.setCompany(companyDTO);
+                    if (companyPostDTO.getQuantityIterns() == 0) {
+                        found = true;
+                        error.setQuantitytInternsNotEngough("This post has recruited enough interns.");
+                    }
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (companyPostDTO.getExpirationDate().before(currentDate)) {
+                        found = true;
+                        error.setExpirationDateError("This post has expired.");
+                    }
+                    
+                    if (found == true) {
+                        request.setAttribute("ERROR_COMPANY_POST", error);
+                    }
                     request.setAttribute("POST_DETAIL", companyPostDTO);
 
                     // get majorID from majorName

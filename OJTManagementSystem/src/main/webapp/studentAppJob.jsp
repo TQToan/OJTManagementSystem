@@ -85,39 +85,49 @@
 
 
                         <div class="main-body-appl__search">
-                            <form action="">
+                            <form action="SearchStudentAppliedJobController" method="POST">
                                 <table class="table">
                                     <tbody>
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input type="text" name="" id="" placeholder="Type Job">
+                                                <input type="text" name="nameTypeJob" value="${param.nameTypeJob}" id="" placeholder="Type Job">
                                             </td>
                                             <td>
-                                                <input type="text" name="" id="" placeholder="Company">
+                                                <input type="text" name="nameCompany"  value="${param.nameCompany}" id="" placeholder="Company">
                                             </td>
                                             <td>
-                                                <select id="city" name="city"  class="" >
-                                                    <option value=""  disabled selected>Location</option>
-                                                    <option value="TP.HCM">TP.HCM</option>
-                                                    <option value="Dong Nai">Dong Nai</option>
-                                                    <option value="Tay Ninh">Tay Ninh</option>
-                                                    <option value="Binh Duong">Binh Duong</option>
+                                                <select id="city" name="nameLocation"   >
+                                                    <option value="">Location</option>
+                                                    <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
+                                                            selected="selected"
+                                                        </c:if>>TP.HCM</option>
+                                                    <option value="Dong Nai" <c:if test="${param.nameLocation eq 'Dong Nai'}">
+                                                            selected="selected"
+                                                        </c:if>>Dong Nai</option>
+                                                    <option value="Tay Ninh" <c:if test="${param.nameLocation eq 'Tay Ninh'}">
+                                                            selected="selected"
+                                                        </c:if>>Tay Ninh</option>
+                                                    <option value="Binh Duong" <c:if test="${param.nameLocation eq 'Binh Duong'}">
+                                                            selected="selected"
+                                                        </c:if>>Binh Duong</option>
                                                 </select>
                                             </td>
-                                            <td> 
-                                                <input type="text" name="" id="" placeholder="Creation Date">     
-                                            </td>
                                             <td>
-                                                <input type="text" name="" id="" placeholder="Expiration Date">     
-                                            </td>
-
-                                            <td>
-                                                <select id="city" name="city"  class="" >
-                                                    <option value="" disabled selected>Status</option>
-                                                    <option value="Denied" class="text-danger">Denied</option>
-                                                    <option value="Waiting" class="text-warning">Waiting</option>
-                                                    <option value="Success" class="text-success">Success</option>
+                                                <select id="city" name="nameStatus"  class="" >
+                                                    <option value="" selected>Status</option>
+                                                    <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
+                                                            selected="selected"
+                                                        </c:if>>Denied</option>
+                                                    <option value="Waiting" class="text-warning" <c:if test="${param.nameStatus eq 'Waiting'}">
+                                                            selected="selected"
+                                                        </c:if>>Waiting</option>
+                                                    <option value="Success" class="text-success" <c:if test="${param.nameStatus eq 'Success'}">
+                                                            selected="selected"
+                                                        </c:if>>Success</option>
+                                                    <option value="Canceled" class="text-success" <c:if test="${param.nameStatus eq 'Canceled'}">
+                                                            selected="selected"
+                                                        </c:if>>Canceled</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -157,7 +167,14 @@
                                                 <td>${appliedJob.companyPost.company.account.name}</td>
                                                 <td>${appliedJob.companyPost.workLocation}</td>
                                                 <td>${my:changeDateFormat(appliedJob.companyPost.expirationDate)}</td>
-                                                <c:if test="${ appliedJob.schoolConfirm eq -1 and appliedJob.companyConfirm == -1}">
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1 and appliedJob.companyConfirm eq -1}">
+                                                    <td class="text-warning">
+                                                        <strong>
+                                                            Waiting
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1}">
                                                     <td class="text-warning">
                                                         <strong>
                                                             Waiting
@@ -185,14 +202,26 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${ appliedJob.schoolConfirm eq -1 and appliedJob.companyConfirm == -1}">
-                                                    <td>
-                                                        <a href="">Cancel</a>
+                                                <c:if test="${appliedJob.studentConfirm eq false}">
+                                                    <td class="text-truncate">
+                                                        <strong>
+                                                            Canceled
+                                                        </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1}" >
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1 and appliedJob.companyConfirm eq -1}">
                                                     <td>
                                                         <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1}">
+                                                    <td>
+                                                        <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${appliedJob.studentConfirm eq false and appliedJob.schoolConfirm ne -1 and appliedJob.companyConfirm ne -1}">
+                                                    <td>
+
                                                     </td>
                                                 </c:if>
                                             </tr>

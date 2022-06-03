@@ -86,7 +86,7 @@
                 </form>
             </div>
 
-      
+
             <div class="hComApplDetail row">
                 <div class="col-md-7">
                     <div class="hComApplDetail__left">
@@ -115,39 +115,49 @@
                                 ${my:changeDateFormat(postDetail.expirationDate)}
                             </p>
                         </div>
-                        <div class="hComApplDetail-btn">
-                            <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
-                            <c:url var="urlSaveJob" value="StudentSaveJobController" >
-                                <c:param name="save" value="homeShowCompanyDetail" />
-                                <c:param name="postID" value="${postDetail.postID}" />
-                            </c:url>
-                            <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
-                                <c:param name="unSave" value="homeShowCompanyDetail" />
-                                <c:param name="postID" value="${postDetail.postID}" />
-                            </c:url>
-                            <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postDetail.postID)}" />
-                            <c:if test="${statusFollowing eq true}">
-                                <a href="${urlUnSaveJob}">
-                                    <i class="far fa-heart save-btn save-btn-active "></i>
-                                </a>
+                        <c:set var="errorCompanyPost" value="${requestScope.ERROR_COMPANY_POST}" />
+                        <c:if test="${empty errorCompanyPost}" >
+                            <div class="hComApplDetail-btn">
+                                <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
+                                <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                    <c:param name="save" value="homeShowCompanyDetail" />
+                                    <c:param name="postID" value="${postDetail.postID}" />
+                                </c:url>
+                                <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                    <c:param name="unSave" value="homeShowCompanyDetail" />
+                                    <c:param name="postID" value="${postDetail.postID}" />
+                                </c:url>
+                                <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postDetail.postID)}" />
+                                <c:if test="${statusFollowing eq true}">
+                                    <a href="${urlUnSaveJob}">
+                                        <i class="far fa-heart save-btn save-btn-active "></i>
+                                    </a>
+                                </c:if>
+                                <c:if test="${statusFollowing eq false}">
+                                    <a href="${urlSaveJob}">
+                                        <i class="far fa-heart save-btn"></i>
+                                    </a>
+                                </c:if>
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty errorCompanyPost}" >
+
+                            <c:if test="${not empty errorCompanyPost.quantitytInternsNotEngough}" >
+                                <font>
+                                ${errorCompanyPost.quantitytInternsNotEngough}
+                                </font>
                             </c:if>
-                            <c:if test="${statusFollowing eq false}">
-                                <a href="${urlSaveJob}">
-                                    <i class="far fa-heart save-btn"></i>
-                                </a>
+                            <c:if test="${not empty errorCompanyPost.expirationDateError}" >
+                                <font>
+                                ${errorCompanyPost.expirationDateError}
+                                </font>
                             </c:if>
-                        </div>
+                        </c:if>
                     </div>
                 </div>
-<<<<<<< HEAD
                 <c:set var="listOtherCompanies" value="${requestScope.LIST_OTHER_COMPANIES}"/>
 
                 <div class="col-5">
-=======
-                <c:set var="listOther" value="${requestScope.LIST_OTHER}"/>
-                    
-                <div class="col-md-5">
->>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
                     <div class="hComApplDetail__right">
                         <div class="hComApplDetail__right--header">
                             Other Company
@@ -235,10 +245,6 @@
                 </div>
 
             </div>
-<<<<<<< HEAD
-
-
-=======
             <div class="hCompanyInfor">
                 <div class="hCompanyInfor__header">
                     Company Information
@@ -254,8 +260,7 @@
                         </div>
                     </div>
                 </div>
-            </div>    
->>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
+            </div>
         </main>
 
 

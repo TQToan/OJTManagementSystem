@@ -1,6 +1,8 @@
 com\se1625\controller\LoginGoogleServlet.class
 com\se1625\controller\SearchCompanyStudentHomeServlet.class
+com\se1625\controller\SearchStudentAppliedJobServlet.class
 com\se1625\tblstudent\TblStudentDAO.class
+com\se1625\utils\MyApplicationConstants$SearchStudentAppliedJobFeature.class
 com\se1625\utils\MyApplicationConstants$RegisterCompanyFeature.class
 com\se1625\controller\ExportEvalutionExcelFileServlet.class
 com\se1625\utils\MyApplicationConstants$LoginFeture.class
@@ -34,6 +36,7 @@ com\se1625\tblcompany\TblCompanyDAO.class
 com\se1625\controller\ReviewInternShipServlet.class
 com\se1625\utils\MyApplicationConstants$ApplyCVStudentFeature.class
 com\se1625\tblcompany_post\TblCompany_PostDAO.class
+com\se1625\tblcompany_post\CompanyPostDetailError.class
 com\se1625\utils\MyApplicationConstants$ShowStudentProfileFeature.class
 com\se1625\utils\MyApplicationConstants$ShowStudentAppliedJobFeature.class
 com\se1625\tblaccount\RegisterCompanyAccountError.class
