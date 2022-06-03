@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,39 +21,43 @@
         <link rel="stylesheet" href="./assets/css/home.css">
     </head>
     <body>
+        <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <header class="header ">
             <div class="navbar header__nav_cus">
-                <a href="home.html" class="header__logo">
+                <a href="ShowStudentHomeController" class="header__logo">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
                 <div class="header__name">
                     <div class="header__name--show">
-                        Hi, Toàn
+                        Hi, ${student.account.name}
                         <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
-                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
-                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                        <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
+                        <a href="logoutController" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
 
             </div>
 
         </header>
+
         <form action="ApplyCVStudentConTroller" method="POST" enctype="multipart/form-data">
             <main class="main">
+                <c:set var="companyPost" value="${requestScope.POST_COMPANY_INFOR}" />
                 <div class="main-body">
                     <div class="main-body-cViewStu">
-                        <c:set var="student" value="${requestScope.STUDENT_INFORMATION}" />
-                        <%--<c:set var="portID" value="${param.postID}" />--%>
-                        <c:set var="portID" value="${1}" />
-                        <input type="hidden" name="postID" value="${portID}" />
 
-                        <div class="main-body-cViewStu__header">
-                            Student Information
-                        </div>
+                        <input type="hidden" name="postID" value="${companyPost.postID}" />
+                        <h1 class="main-body-cViewStu__header">
+                            ${companyPost.company.account.name} 
+                        </h1>
+
                         <div class="row">
                             <div class="inforStu-left col-3">
+                                <font class="inforStu-right__header">
+                                Student Information
+                                </font>
                                 <c:if test="${not empty student.account.avatar}">
                                     <img src="./avatars/${student.account.avatar}" alt="" class="inforStu-left--img img-responsive">
                                 </c:if>
@@ -61,7 +66,7 @@
                                 </c:if>
                                 <div class="inforStu-left__content">
                                     <p>Name: ${student.account.name} </p>
-                                    <p>Birthday: ${student.birthDay}</p>
+                                    <p>Birthday: ${my:changeDateFormat(student.birthDay)}</p>
                                     <p>Gender: <c:if test="${student.gender eq true}">
                                             Male
                                         </c:if>
@@ -111,12 +116,28 @@
                                         <c:if test="${not empty errors.otherSkillsLengthError}" >
                                             ${errors.otherSkillsLengthError}
                                         </c:if>
+                                    <div class="file-input">
+                                        <label for="myfile" >
+                                            Your CV: 
+                                        </label>
+                                        <input type="file" id="myfile" name="myfile" value="${application.attachmentPath}">
+                                        <c:if test="${not empty errors.fileUploadError}" >
+                                            ${errors.fileUploadError}
+                                        </c:if>
+                                        <c:if test="${not empty errors.fileUploadTypeError}">
+                                            ${errors.fileUploadTypeError}
+                                        </c:if>
+                                        <c:if test="${not empty errors.fileUploadLengthError}" >
+                                            ${errors.fileUploadLengthError}
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
 
                     </div>
+
 
                 </div>
 
@@ -128,23 +149,10 @@
                     <%--<c:if test="${not empty requestScope.EDIT}">
                         <input type="submit" value="Edit" name="btAction" class="primary-btn upload-btn">
                     </c:if>--%>
-                    <a href="home.html" class= " primary-btn exit-btn">Exit</a>
-                </div>
-
-                <div class="file-input">
-                    <label for="myfile" >
-                        Your CV: 
-                    </label>
-                    <input type="file" id="myfile" name="myfile" value="${application.attachmentPath}">
-                    <c:if test="${not empty errors.fileUploadError}" >
-                        ${errors.fileUploadError}
-                    </c:if>
-                    <c:if test="${not empty errors.fileUploadTypeError}">
-                        ${errors.fileUploadTypeError}
-                    </c:if>
-                    <c:if test="${not empty errors.fileUploadLengthError}" >
-                        ${errors.fileUploadLengthError}
-                    </c:if>
+                    <c:url var="linkOther" value="HomeShowCompanyDetailController">
+                        <c:param name="postID" value="${companyPost.postID}"/>
+                    </c:url>
+                    <a href="${linkOther}" class= " primary-btn exit-btn">Exit</a>
                 </div>
 
 

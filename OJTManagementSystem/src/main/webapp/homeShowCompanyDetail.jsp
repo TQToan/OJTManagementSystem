@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -123,22 +124,37 @@
                                 ${postDetail.workLocation}
                             </p>
                             <p><strong>Posting Date:</strong>
-                                ${postDetail.postingDate}
+                                ${my:changeDateFormat(postDetail.postingDate)}
                             </p>
                             <p><strong>Expiration Date:</strong>
-                                ${postDetail.expirationDate}
+                                ${my:changeDateFormat(postDetail.expirationDate)}
                             </p>
                         </div>
                         <div class="hComApplDetail-btn">
-                            <a href="homeAfterclick1.html" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
-                            <a href="">
-                                <i class="far fa-heart hComApplDetail-btn-save save-btn "></i>
-                            </a>
+                            <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
+                            <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                <c:param name="save" value="homeShowCompanyDetail" />
+                                <c:param name="postID" value="${postDetail.postID}" />
+                            </c:url>
+                            <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                <c:param name="unSave" value="homeShowCompanyDetail" />
+                                <c:param name="postID" value="${postDetail.postID}" />
+                            </c:url>
+                            <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postDetail.postID)}" />
+                            <c:if test="${statusFollowing eq true}">
+                                <a href="${urlUnSaveJob}">
+                                    <i class="far fa-heart save-btn save-btn-active "></i>
+                                </a>
+                            </c:if>
+                            <c:if test="${statusFollowing eq false}">
+                                <a href="${urlSaveJob}">
+                                    <i class="far fa-heart save-btn"></i>
+                                </a>
+                            </c:if>
                         </div>
                     </div>
-
                 </div>
-                <c:set var="listOther" value="${requestScope.LIST_OTHER}"/>
+                <c:set var="listOtherCompanies" value="${requestScope.LIST_OTHER_COMPANIES}"/>
 
                 <div class="col-5">
                     <div class="hComApplDetail__right">
@@ -146,58 +162,84 @@
                             Other Company
                         </div>
                         <div class="hComApplDetail__right--body">
-                            <c:forEach items="${listOther}" var="postOther" varStatus="counter">
-                                <c:if test="${not empty listOther}">
-                                    <c:if test="${counter.count lt 4}">
-                                        <c:if test="${postOther.postID ne postDetail.postID}">
-                                            <c:url var="linkOther" value="HomeShowCompanyDetail">
-                                                <c:param name="postID" value="${post.postID}"/>
-                                            </c:url>
-                                            <a href="${linkOther}" class="hComApplDetail__right--card">
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <div class="right--card-header">${postOther.company.account.name}</div>
-                                                        <div class="right--card-body">
-                                                            <p>Job: ${postOther.title_Post}</p>
-                                                            <p>Quantity: ${postOther.quantityIterns}</p>
-                                                            <p>Location: ${postOther.workLocation}</p>
-                                                            <p>Date: ${postOther.expirationDate}</p>
-                                                        </div>
-                                                    </div>
+                            <c:forEach items="${listOtherCompanies}" var="postOther" varStatus="counter">
+                                <c:if test="${postOther.postID ne postDetail.postID}">
+                                    <c:url var="linkOther" value="HomeShowCompanyDetailController">
+                                        <c:param name="postID" value="${postOther.postID}"/>
+                                    </c:url>
+                                    <a href="${linkOther}" class="hComApplDetail__right--card">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="right--card-header">${postOther.company.account.name}</div>
+                                                <div class="right--card-body">
+                                                    <p>Job: ${postOther.title_Post}</p>
+                                                    <p>Quantity: ${postOther.quantityIterns}</p>
+                                                    <p>Location: ${postOther.workLocation}</p>
+                                                    <p>Date: ${my:changeDateFormat(postOther.expirationDate)}</p>
                                                 </div>
-                                                <i class="far fa-heart right--card-save save-btn "></i>
+                                            </div>
+                                        </div>
+                                        <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                            <c:param name="save" value="homeShowCompanyDetail" />
+                                            <c:param name="postIDOther" value="${postOther.postID}" />
+                                            <c:param name="postID" value="${postDetail.postID}" />
+                                        </c:url>
+                                        <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                            <c:param name="unSave" value="homeShowCompanyDetail" />
+                                            <c:param name="postIDOther" value="${postOther.postID}" />
+                                            <c:param name="postID" value="${postDetail.postID}" />
+                                        </c:url>
+                                        <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postOther.postID)}" />
+                                        <c:if test="${statusFollowing eq true}">
+                                            <a href="${urlUnSaveJob}">
+                                                <i class="far fa-heart save-btn save-btn-active "></i>
                                             </a>
                                         </c:if>
-                                    </c:if>
-                                </c:if> 
+                                        <c:if test="${statusFollowing eq false}">
+                                            <a href="${urlSaveJob}">
+                                                <i class="far fa-heart save-btn"></i>
+                                            </a>
+                                        </c:if>
+                                    </a>
+                                </c:if>
                             </c:forEach>
-
+                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                <c:url var="url" value="HomeShowCompanyDetailController">
+                                    <c:param name="page" value="${i}"/>
+                                    <c:param name="postID" value="${postDetail.postID}" />
+                                </c:url>
+                                <div style="display: inline-block" class="main__pagination">
+                                    <ul class="pagination main_cus__pagination">
+                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    </ul>
+                                </div>
+                            </c:forEach>
                         </div>
 
-                        <div class="main__pagination">
-                            <ul class="pagination main_cus__pagination">
-
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
+                        <!--                        <div class="main__pagination">
+                                                    <ul class="pagination main_cus__pagination">
+                        
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                        
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                        
+                                                    </ul>
+                                                </div>-->
                     </div>
                 </div>
 

@@ -84,6 +84,22 @@
         <servlet-name>StudentSaveJobServlet</servlet-name>
         <servlet-class>com.se1625.controller.StudentSaveJobServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReviewInternShipServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ReviewInternShipServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowStudentAppliedJobServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowStudentAppliedJobServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowApplyCVServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowApplyCVServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancleApplyCVServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CancleApplyCVServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -151,6 +167,22 @@
     <servlet-mapping>
         <servlet-name>StudentSaveJobServlet</servlet-name>
         <url-pattern>/StudentSaveJobServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewInternShipServlet</servlet-name>
+        <url-pattern>/ReviewInternShipServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowStudentAppliedJobServlet</servlet-name>
+        <url-pattern>/ShowStudentAppliedJobServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowApplyCVServlet</servlet-name>
+        <url-pattern>/ShowApplyCVServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancleApplyCVServlet</servlet-name>
+        <url-pattern>/CancleApplyCVServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

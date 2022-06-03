@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
@@ -58,13 +59,13 @@
                             <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
                     </li>
                     <li class="nav__items">
-                        <a href="studentReview.html" class="nav__item--link">
+                        <a href="ReviewInternShipController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Review Internship
                         </a>
@@ -145,12 +146,12 @@
                                             <tr>
                                                 <td>${counter.count}</td>
                                                 <td>
-                                                    <a href="homeCPostDetail.html">${post.getTittle_Post()}</a>
+                                                    <a href="HomeShowCompanyDetailController?postID=${post.postID}">${post.getTittle_Post()}</a>
                                                 </td>
                                                 <td>${post.companyName}</td>
                                                 <td>${post.workLocation}</td>
-                                                <td>${post.postingDate}</td>
-                                                <td>${post.exprirationDate}</td>
+                                                <td>${my:changeDateFormat(post.postingDate)}</td>
+                                                <td>${my:changeDateFormat(post.exprirationDate)}</td>
 
                                                 <td>
                                                     <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">

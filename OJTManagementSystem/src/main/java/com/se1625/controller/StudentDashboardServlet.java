@@ -5,6 +5,8 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
@@ -75,6 +77,15 @@ public class StudentDashboardServlet extends HttpServlet {
 
                     request.setAttribute("NUMBER_OF_FOLLOWING_POST", numberOfFollowingPost);
                     
+                    //get number of applied post of student
+                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                    List<TblApplicationDTO> listAppliedJob = applicationDAO.getApplicationOfAStudent(student);
+                    int numberOfAppliedJob = 0;
+                    if (listAppliedJob != null) {
+                        numberOfAppliedJob = listAppliedJob.size();
+                    }
+                    
+                    request.setAttribute("NUMBER_OF_APLLIED_JOB", numberOfAppliedJob);
                     //get 6 Recomend post has longest expiration date
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                     companyPostDAO.getListRecomendPost(student.getMajor());

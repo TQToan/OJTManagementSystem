@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:15:48 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:15:52 +0700] "GET /OJTManagementSystem/LoginGoogleServlet?code=4/0AX4XfWh9GkgAIBoHipW4hFY7-89brOT5lyB_QvqFz0wpSQ2DXG_pOG5gXdVs7JMxmCyTQQ&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile%20openid&authuser=0&hd=fpt.edu.vn&prompt=consent HTTP/1.1" 302 - http-bio-8080-exec-3 1159
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:15:52 +0700] "GET /OJTManagementSystem/studentDashboardController HTTP/1.1" 200 17769 http-bio-8080-exec-4 612
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:15:55 +0700] "GET /OJTManagementSystem/HomeShowCompanyDetailController?postID=424 HTTP/1.1" 200 28095 http-bio-8080-exec-5 141
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:15:57 +0700] "GET /OJTManagementSystem/ShowApplyCVController?postID=424 HTTP/1.1" 200 5978 http-bio-8080-exec-6 81
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:16:07 +0700] "POST /OJTManagementSystem/ApplyCVStudentConTroller HTTP/1.1" 200 - http-bio-8080-exec-7 122
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:16:11 +0700] "POST /OJTManagementSystem/ApplyCVStudentConTroller HTTP/1.1" 200 5948 http-bio-8080-exec-8 13
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:16:34 +0700] "POST /OJTManagementSystem/ApplyCVStudentConTroller HTTP/1.1" 200 19032 http-bio-8080-exec-9 107
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:17:14 +0700] "POST /OJTManagementSystem/ApplyCVStudentConTroller HTTP/1.1" 200 5948 http-bio-8080-exec-10 12
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:17:19 +0700] "GET /OJTManagementSystem/studentDashboardController HTTP/1.1" 200 17769 http-bio-8080-exec-10 24
+0:0:0:0:0:0:0:1 - - [03/Jun/2022:07:17:21 +0700] "GET /OJTManagementSystem/ShowStudentAppliedJobController HTTP/1.1" 200 17468 http-bio-8080-exec-10 13

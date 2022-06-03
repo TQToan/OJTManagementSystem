@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,34 +45,79 @@ public class StudentDeleteSaveJobServlet extends HttpServlet {
 
         int postID = Integer.parseInt(request.getParameter("postID"));
         String unSave = request.getParameter("unSave");
+        String stringPostIDOther = request.getParameter("postIDOther");
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.StudentSaveJobFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.studentDeleteSaveJobFeature.LOGIN_PAGE;
 
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
-                    TblFollowing_PostDAO followPostDAO = new TblFollowing_PostDAO();
-                    boolean delete = followPostDAO.deleteFollowingPost(postID, student.getStudentCode());
-                    if (delete) {
-                        if (unSave != null) {
-                            url = MyApplicationConstants.StudentSaveJobFeature.STUDENT_DASHBOARD_CONTROLLER;
-                        } else {
-                            url = MyApplicationConstants.StudentSaveJobFeature.STUDENT_SEARCH_SAVE_JOB_CONTROLLER;
+                    TblFollowing_PostDAO followingPostDAO = new TblFollowing_PostDAO();
+                    
+                    boolean checkExisted = false;
+
+                    if (stringPostIDOther != null) {
+                        int postIDOther = Integer.parseInt(stringPostIDOther);
+                        boolean checkExistedFollowingPostOther = followingPostDAO.
+                            checkExitsFollowingPost(postIDOther, student.getStudentCode());
+                        if (checkExistedFollowingPostOther == true) {
+                            boolean statusDeleteFollowingPostOther = 
+                                    followingPostDAO.deleteFollowingPost(postIDOther, student.getStudentCode());
+                            if (statusDeleteFollowingPostOther) {
+                                if (unSave.equals("homeShowCompanyDetail")) {
+                                    url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER);
+                                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                                    rd.forward(request, response);
+                                }
+                            }
                         }
-                        
+                    } else {
+                        checkExisted = followingPostDAO.
+                            checkExitsFollowingPost(postID, student.getStudentCode());
+                    }
+                    
+                    if (checkExisted == true) {
+                        boolean statusDelete = followingPostDAO.
+                                deleteFollowingPost(postID, student.getStudentCode());
+                        if (statusDelete) {
+                            if (unSave != null) {
+                                if (unSave.equals("studentReviewPage")) {
+                                    url = MyApplicationConstants.studentDeleteSaveJobFeature.STUDENT_REVIEW_INTERNSHIP_CONTROLLER;
+                                    response.sendRedirect(url);
+                                } else if (unSave.equals("studentDashboardPage")) {
+                                    url = MyApplicationConstants.studentDeleteSaveJobFeature.STUDENT_DASHBOARD_CONTROLLER;
+                                    response.sendRedirect(url);
+                                } else if (unSave.equals("homePage")) {
+                                    url = MyApplicationConstants.studentDeleteSaveJobFeature.STUDENT_HOME_CONTROLLER;
+                                    response.sendRedirect(url);
+                                } else if (unSave.equals("homeShowCompanyDetail")) {
+                                    url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER);
+                                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                                    rd.forward(request, response);
+                                }
+                            } else {
+                                url = MyApplicationConstants.studentDeleteSaveJobFeature.STUDENT_SEARCH_SAVE_JOB_CONTROLLER;
+                                response.sendRedirect(url);
+                            }
+
+                        }
                     }
                 }//if student is created
+                else {
+                    response.sendRedirect(url);
+                }
             }//if session existe
+            else {
+                response.sendRedirect(url);
+            }
         } catch (SQLException ex) {
-            log("SQL Exception occurs in process at DeleteServlet", ex.getCause());
+            log("SQLException at DeleteServlet" + ex.getMessage());
         } catch (NamingException ex) {
-            log("Naming Exception occurs in process at DeleteServlet", ex.getCause());
-        } finally {
-            response.sendRedirect(url);
+            log("NamingException at DeleteServlet" + ex.getMessage());
         }
     }
 

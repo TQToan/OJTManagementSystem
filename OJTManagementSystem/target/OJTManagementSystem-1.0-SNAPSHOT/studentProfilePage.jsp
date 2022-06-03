@@ -57,13 +57,13 @@
                             <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
                     </li>
                     <li class="nav__items">
-                        <a href="studentReview.html" class="nav__item--link">
+                        <a href="ReviewInternShipController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Review Internship
                         </a>

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,12 +28,12 @@
                 <div class="header__name">
                     <div class="header__name--show">
                         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
-                            Hi, ${student.account.name}
+                        Hi, ${student.account.name}
                         <i class="fas fa-angle-down icon-down"></i>
                     </div>
                     <div class="header__name--hidden">
                         <a href="studentDashboardController" class="header__name--hidden-content">Dashboard</a>
-                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                        <a href="logoutController" class="header__name--hidden-content">Logout</a>
                     </div>
                 </div>
 
@@ -94,13 +95,29 @@
                                     <p>Jobs: ${dto.title_Post}</p>
                                     <p>Quantity: ${dto.quantityIterns}</p>
                                     <p>Location: ${dto.workLocation}</p>
-                                    <p>Expiration Date: ${dto.expirationDate}</p>
+                                    <p>Expiration Date: ${my:changeDateFormat(dto.expirationDate)}</p>
                                 </div>
                                 <div class="card-company-btn">
-                                    <a href="homeCPostDetail.html" class="primary-btn">Apply Now</a>
-                                    <a href="#">
-                                        <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                    </a>
+                                    <a href="homeAfterclick1PageJSP" class="primary-btn">Apply Now</a>
+                                    <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                        <c:param name="save" value="homePage" />
+                                        <c:param name="postID" value="${dto.postID}" />
+                                    </c:url>
+                                    <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                        <c:param name="unSave" value="homePage" />
+                                        <c:param name="postID" value="${dto.postID}" />
+                                    </c:url>
+                                    <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
+                                    <c:if test="${statusFollowing eq true}">
+                                        <a href="${urlUnSaveJob}">
+                                            <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${statusFollowing eq false}">
+                                        <a href="${urlSaveJob}">
+                                            <i class="far fa-heart card-company-btn-save save-btn"></i>
+                                        </a>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

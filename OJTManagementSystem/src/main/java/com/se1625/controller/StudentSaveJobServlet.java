@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,8 @@ public class StudentSaveJobServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         int postID = Integer.parseInt(request.getParameter("postID"));
+        String save = request.getParameter("save");
+        String stringPostIDOther = request.getParameter("postIDOther");
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
@@ -55,25 +58,69 @@ public class StudentSaveJobServlet extends HttpServlet {
                 TblStudentDTO student = (TblStudentDTO) session.
                         getAttribute("STUDENT_ROLE");
                 if (student != null) {
-                    TblFollowing_PostDAO dao = new TblFollowing_PostDAO();
-                    boolean checkExits = dao.
+                    TblFollowing_PostDAO followingPostDAO = new TblFollowing_PostDAO();
+                    
+                    boolean checkExisted = true;
+                    
+                    if (stringPostIDOther != null) {
+                        int postIDOther = Integer.parseInt(stringPostIDOther);
+                        boolean checkExistedFollowingPostOther = followingPostDAO.
+                                checkExitsFollowingPost(postIDOther, student.getStudentCode());
+                        if (checkExistedFollowingPostOther == false) {
+                            boolean statusAddFollowingPostOther = followingPostDAO.
+                                    addFollowingPost(postIDOther, student.getStudentCode());
+                            if (statusAddFollowingPostOther == true) {
+                                if (save.equals("homeShowCompanyDetail")) {
+                                    url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER);
+                                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                                    rd.forward(request, response);
+                                }
+                            }
+                        }
+                    } else {
+                        checkExisted = followingPostDAO.
                             checkExitsFollowingPost(postID, student.getStudentCode());
-                    if (checkExits == false) {
-                        boolean check = dao.
+                    }
+                    
+                    if (checkExisted == false) {
+                        boolean statusAdd = followingPostDAO.
                                 addFollowingPost(postID, student.getStudentCode());
-                        if (check == true) {
-                            url =MyApplicationConstants.
-                                    StudentSaveJobFeature.STUDENT_DASHBOARD_CONTROLLER;
+                        if (statusAdd == true) {
+                            if (save != null) {
+                                if (save.equals("studentReviewPage")) {
+                                    url = MyApplicationConstants.StudentSaveJobFeature.
+                                            STUDENT_REVIEW_INTERNSHIP_CONTROLLER;
+                                    response.sendRedirect(url);
+                                } else if (save.equals("homePage")) {
+                                    url = MyApplicationConstants.StudentSaveJobFeature.
+                                            STUDENT_HOME_CONTROLLER;
+                                    response.sendRedirect(url);
+                                } else if (save.equals("homeShowCompanyDetail")) {
+                                    url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.
+                                            STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER);
+                                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                                    rd.forward(request, response);
+                                }
+                            } else {
+                                url = MyApplicationConstants.StudentSaveJobFeature.
+                                        STUDENT_DASHBOARD_CONTROLLER;
+                                response.sendRedirect(url);
+                            }
+
                         }
                     }
                 }//if student is created
+                else {
+                    response.sendRedirect(url);
+                }
             }//if session existed
+            else {
+                response.sendRedirect(url);
+            }
         } catch (SQLException ex) {
-            log("SQL Exception occurs in process at StudentSaveJobController", ex.getCause());
+            log("SQLException at StudentSaveJobController " + ex.getMessage());
         } catch (NamingException ex) {
-            log("Naming Exception occurs in process at StudentSaveJobController", ex.getCause());
-        } finally {
-            response.sendRedirect(url);
+            log("NamingException at StudentSaveJobController " + ex.getMessage());
         }
     }
 

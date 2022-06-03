@@ -122,6 +122,7 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
                     request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    
                     url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.SEARCH_COMPANY_POST_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);

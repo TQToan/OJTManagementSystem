@@ -12,33 +12,42 @@ package com.se1625.utils;
 public class MyApplicationConstants {
 
     public class ShowStudentHomeFeature {
-
         public static final String STUDENT_HOME_PAGE = "StudentHomePage";
         public static final String LOGIN_PAGE = "";
 
     }
-    
+
     public class StudentSaveJobFeature {
         public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
-        public static final String STUDENT_SAVE_JOB_CONTROLLER = "StudentSaveJobController";
-        public static final String STUDENT_SEARCH_SAVE_JOB_CONTROLLER = "SearchSaveJobController";
-        public static final String STUDENT_DELETE_SAVE_JOB_CONTROLLER = "StudentDeleteSaveJobController";
-        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
         public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_REVIEW_INTERNSHIP_CONTROLLER = "ReviewInternShipController";
+        public static final String STUDENT_HOME_CONTROLLER = "ShowStudentHomeController";
+        public static final String STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetailController";
     }
     
+    public class studentDeleteSaveJobFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_REVIEW_INTERNSHIP_CONTROLLER = "ReviewInternShipController";
+        public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
+        public static final String STUDENT_HOME_CONTROLLER = "ShowStudentHomeController";
+        public static final String STUDENT_SEARCH_SAVE_JOB_CONTROLLER = "SearchSaveJobController";
+        public static final String STUDENT_HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetailController";
+    }   
+    
+
     public class StudentDasboardFeature {
+
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
         public static final String LOGIN_PAGE = "";
     }
 
     public class SearchComanyStudentHomeFeature {
+
         // trang home, xem thông tin company detail (servelet,jsp)
         public static final String HOME_SHOW_COMPANY_DETAIL_JSP = "HomeShowCompanyDetailJSP";
         public static final String HOME_SHOW_COMPANY_DETAIL_CONTROLLER = "HomeShowCompanyDetail";
         public static final String LOGIN_PAGE = "";
-
 
         public static final String STUDENT_HOME_PAGE = "ShowStudentHomeController";
         public static final String SEARCH_COMPANY_POST_PAGE = "HomeResultPageJSP";
@@ -74,15 +83,17 @@ public class MyApplicationConstants {
         public static final String COMPANY_DASHBOARD_PAGE = "companyDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
     }
+
     public class LogoutFeture {
         public static final String LOGIN_PAGE = "";
     }
+
     public class LoginGoogleFeture {
 
         public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
         public static final String LOGIN_PAGE = "loginPage";
 
-        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
+        public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
 
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
@@ -90,10 +101,12 @@ public class MyApplicationConstants {
 
     public class AddStudentFeture {
 
+        public static final String STUDENT_HOME_PAGE = "StudentHomePage";
         public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardPage";
     }
-    
-    public class ImportStudentExcelFileFeature{
+
+    public class ImportStudentExcelFileFeature {
+
         public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
         public static final String DEMP_PAGE = "loginPage";
     }
@@ -104,17 +117,39 @@ public class MyApplicationConstants {
     
     public class ApplyCVStudentFeature{
         public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
-        public static final String STUDENT_APPLIED_JOB_PAGE = "StudentApplJobPage";
+        public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
     }
-    
+
     public class ShowStudentProfileFeature {
+
         public static final String STUDENT_PROFILE_PAGE = "StudentProfilePage";
         public static final String LOGIN_PAGE = "loginPage";
     }
-    
+
     public class UpdateStudentProfileFeature {
+
         public static final String SHOW_STUDENT_PROFILE_SERVLET = "ShowStudentProfileController";
         public static final String LOGIN_PAGE = "";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
+    }
+
+    public class ReviewInternShipFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_REVIEW_INTERNSHIP_PAGE = "StudentReviewPage";
+    }
+    
+    public class ShowStudentAppliedJobFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
+    }
+    
+    public class ShowAppluCVFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String APPLY_CV_PAGE_JSP = "homeAfterclick1PageJSP";
+    }
+    
+    public class CancleApplyCVFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
     }
 }

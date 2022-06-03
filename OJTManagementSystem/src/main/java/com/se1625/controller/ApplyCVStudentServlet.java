@@ -53,6 +53,8 @@ public class ApplyCVStudentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
@@ -61,9 +63,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
         String url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.HOME_AFTER_CLICK1_PAGE);
         try {
             if (session != null) {
-              TblStudentDTO student = (TblStudentDTO) session.getAttribute("ACCOUNT");
-//            TblStudentDAO dao = new TblStudentDAO();
-//            TblStudentDTO student = dao.getStudent("SE151252");
+              TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
             if (student != null) {
                 // get parameters
                 // Create a factory for disk-based file items
@@ -196,11 +196,12 @@ public class ApplyCVStudentServlet extends HttpServlet {
             }
             }
         } catch (SQLException ex) {
-            log("SQLException occurs ApplyCVStudentServlet " + ex.getMessage());
+            log("SQLException at ApplyCVStudentServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException occurs ApplyCVStudentServlet " + ex.getMessage());
+            log("NamingException at ApplyCVStudentServlet " + ex.getMessage());
         } catch (Exception ex) {
-            log("Exception occurs ApplyCVStudentServlet " + ex.getMessage());
+            log("Exception at ApplyCVStudentServlet " + ex.getMessage());
+            ex.getCause();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

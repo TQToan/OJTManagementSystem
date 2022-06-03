@@ -190,4 +190,34 @@ return dto;
         
         return false;
     }
+    
+    public boolean updateStudent(String studentCode) throws SQLException, NamingException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        try{
+            con = DBHelper.makeConnection();
+            if(con != null){
+                String sql = "UPDATE tblStudent "
+                        + "SET is_Intern = ? "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, false);
+                stm.setString(2, studentCode);
+                int effectRows = stm.executeUpdate();
+                
+                if(effectRows > 0){
+                    return true;
+                }
+            }
+        }finally{
+            if(stm != null){
+                stm.close();
+            }
+            if(con != null){
+                con.close();
+            }
+        }
+        
+        return false;
+    }
 }

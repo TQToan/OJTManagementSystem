@@ -58,7 +58,6 @@ public class UpdateStudentProfileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE;

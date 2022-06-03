@@ -53,7 +53,6 @@ public class TblStudentError implements Serializable{
     public void setErrorPhoneNumberLength(String errorPhoneNumberLength) {
         this.errorPhoneNumberLength = errorPhoneNumberLength;
     }
-
     /**
      * @return the errorFileLength
      */
@@ -67,6 +66,4 @@ public class TblStudentError implements Serializable{
     public void setErrorFileLength(String errorFileLength) {
         this.errorFileLength = errorFileLength;
     }
-    
-    
 }

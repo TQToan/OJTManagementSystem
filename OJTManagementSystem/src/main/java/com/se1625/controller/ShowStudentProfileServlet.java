@@ -47,6 +47,7 @@ public class ShowStudentProfileServlet extends HttpServlet {
             TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
             //check session account
             if (student != null) {
+                request.setAttribute("SERVLET_CONTEXT", context);
                 request.setAttribute("STUDENT_PROFILE", student);
                 url = properties.getProperty(MyApplicationConstants.ShowStudentProfileFeature.STUDENT_PROFILE_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);

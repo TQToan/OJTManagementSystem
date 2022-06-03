@@ -60,13 +60,13 @@
                             <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
                     </li>
                     <li class="nav__items">
-                        <a href="studentReview.html" class="nav__item--link">
+                        <a href="ReviewInternShipController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Review Internship
                         </a>
@@ -97,9 +97,9 @@
                     </div>
 
                     <div class="dashboard-card offset-2 col-2 ">
-                        <a href="studentApplJob.html" class="dashboard-card--link">
+                        <a href="ShowStudentAppliedJobController" class="dashboard-card--link">
                             <div class="applied-jobs ">
-                                200
+                                ${requestScope.NUMBER_OF_APLLIED_JOB}
                             </div>
                             <div class="dashboard-card__content">
                                 Applied Jobs
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="card-vist__content offset-1 col-7">
                                     <h3>${student.account.name}</h3>
-                                    <p>Date of birth: ${student.birthDay}</p>
+                                    <p>Date of birth: ${my:changeDateFormat(student.birthDay)}</p>
                                     <p>Major: ${student.major}</p>
                                     <p>Email: ${student.account.email}</p>
                                 </div>
@@ -160,14 +160,14 @@
 
                                         <p>Quantity: ${recommendPost.quantityIterns}</p>
                                         <p>Location: ${recommendPost.workLocation}</p>
-                                        <p>Expiration Date: ${recommendPost.expirationDate}</p>
+                                        <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
                                         
                                         <c:set var="listFollowingPost" value="${requestScope.LIST_FOLLOWING_POST}"/>
                                         <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
                                         
                                             <c:if test="${statusFollowingPost eq true}">
                                                 <form action="StudentDeleteSaveJobController" method="POST">
-                                                    <input type="hidden" name="unSave" value="true" />
+                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
                                                     <input type="hidden" name="postID" value="${recommendPost.postID}" />
                                                     <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
                                                 </form>

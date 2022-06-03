@@ -9,6 +9,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.tblstudent.TblStudentDTO;
@@ -79,6 +81,16 @@ public class ShowStudentHomeServlet extends HttpServlet {
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
                     request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    
+                    TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                    followPostDao.getFollowingPost(student.getStudentCode());
+
+                    //get number of following post of student
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                            = followPostDao.getFollowingPostByFilter();
+                    
+                    request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
+                    
                     url = properties.getProperty(MyApplicationConstants.ShowStudentHomeFeature.STUDENT_HOME_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);

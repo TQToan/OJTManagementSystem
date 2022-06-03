@@ -9,6 +9,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.tblstudent.TblStudentDTO;
@@ -51,12 +53,18 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String postID = request.getParameter("postID");
+        String xpage = request.getParameter("page");
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.SearchComanyStudentHomeFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
+        int page;
+        int numberRowsPerPage = 4;
+        int start;
+        int end;
+        int sizeOfList;
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
@@ -79,10 +87,34 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                     TblMajorDAO majorDAO = new TblMajorDAO();
                     int majorID = majorDAO.getMajorIDByMajorName(companyPostDTO.getMajorName());
                     companyPostDAO.searchPostByFilter("", majorID, "");
-                    List<TblCompany_PostDTO> listCompanyDTO = companyPostDAO.getCompanyPostByFilter();
+                    List<TblCompany_PostDTO> listOtherCompanies = companyPostDAO.getCompanyPostByFilter();
 
-                    request.setAttribute("LIST_OTHER", listCompanyDTO);
+                    sizeOfList = listOtherCompanies.size();
+                    if (xpage == null) {
+                            page = 1;
+                        } // load page save job 
+                        else {
+                            page = Integer.parseInt(xpage);
+                        } // when choose number of page
 
+                        int numberPage = sizeOfList % numberRowsPerPage;
+
+                        if (numberPage == 0) {
+                            numberPage = sizeOfList / numberRowsPerPage;
+                        } else {
+                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                        }
+                        start = (page - 1) * numberRowsPerPage;
+                        end = Math.min(page * numberRowsPerPage, sizeOfList);
+                        
+                        List<TblCompany_PostDTO> listOtherCompaniesPerPage = companyPostDAO.
+                                getListByPage(listOtherCompanies, start, end);
+                        
+                        request.setAttribute("LIST_OTHER_COMPANIES", listOtherCompaniesPerPage);
+                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                        request.setAttribute("page", page);
+                        request.setAttribute("numberPage", numberPage);
+                        
                     companyDAO.getNameCompanies();
                     List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
                     request.setAttribute("COMPANY_NAME", listNameCompany);
@@ -90,6 +122,15 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
                     request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    
+                    TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                    followPostDao.getFollowingPost(student.getStudentCode());
+
+                    //get number of following post of student
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                            = followPostDao.getFollowingPostByFilter();
+                    
+                    request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
 
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);

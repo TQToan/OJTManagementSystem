@@ -27,4 +27,11 @@
           java.lang.Boolean getStatusSaveJob(java.util.List, java.lang.Integer)
       </function-signature>
   </function>
+  <function>
+      <name>changeDateFormat</name>
+      <function-class>com.se1625.customtag.CustomTag</function-class>
+      <function-signature>
+          java.lang.String changeDateFormat(java.sql.Date)
+      </function-signature>
+  </function>
 </taglib>

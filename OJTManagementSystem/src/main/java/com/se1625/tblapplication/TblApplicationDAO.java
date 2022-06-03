@@ -5,6 +5,7 @@
  */
 package com.se1625.tblapplication;
 
+import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblstudent.TblStudentDAO;
@@ -23,15 +24,14 @@ import javax.naming.NamingException;
  *
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
-public class TblApplicationDAO implements Serializable{
-    
+public class TblApplicationDAO implements Serializable {
+
     private List<TblApplicationDTO> listApplication;
 
     public List<TblApplicationDTO> getListApplication() {
         return listApplication;
     }
-    
-    
+
     public void getApplication() throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -59,7 +59,7 @@ public class TblApplicationDAO implements Serializable{
                     
                     TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
-                    
+
                     TblApplicationDTO application = new TblApplicationDTO();
                     application.setApplicationID(applicationID);
                     application.setGrade(grade);
@@ -67,14 +67,13 @@ public class TblApplicationDAO implements Serializable{
                     application.setEvaluation(evaluation);
                     application.setCompanyPost(companyPost);
                     application.setStudent(student);
-                    
-                    if (listApplication == null)
-                    {
+
+                    if (listApplication == null) {
                         listApplication = new ArrayList<>();
                     }
                     listApplication.add(application);
                 }
-                
+
             }
         } finally {
             if (rs != null) {
@@ -125,6 +124,60 @@ public class TblApplicationDAO implements Serializable{
         return false;
     }
 
+    public TblApplicationDTO getApplication(String studentCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblStudentDAO studentDAO = new TblStudentDAO();
+        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass "
+                        + "FROM tblApplication "
+                        + "WHERE student_Confirm = ? and school_Confirm = ? and company_Confirm = ? and studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, true);
+                stm.setInt(2, 1);
+                stm.setInt(3, 1);
+                stm.setString(4, studentCode);
+                rs = stm.executeQuery();
+                if(rs.next()){
+                    
+                    int postID = rs.getInt("postID");
+                    float grade = rs.getFloat("grade");
+                    String evaluation = rs.getNString("evaluation");
+                    int applicationID = rs.getInt("applicationID");
+                    boolean isPass = rs.getBoolean("is_Pass");
+                    
+                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    
+                    TblApplicationDTO application = new TblApplicationDTO();
+                    application.setApplicationID(applicationID);
+                    application.setEvaluation(evaluation);
+                    application.setIsPass(isPass);
+                    application.setCompanyPost(companyPost);
+                    application.setStudent(student);
+                    application.setGrade(grade);                   
+                    
+                    return application;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+
     public boolean updateApplication(TblApplicationDTO application) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -160,5 +213,179 @@ public class TblApplicationDAO implements Serializable{
             }
         }
         return false;
+    }
+
+    public List<TblApplicationDTO> getApplicationOfAStudent(TblStudentDTO student) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApplicationOfAStudent = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID, attachmentPath, expected_Job, "
+                        + "technology, experience, foreign_Language, otherSkills, "
+                        + "evaluation, grade, is_Pass, student_Confirm, school_Confirm, "
+                        + "company_Confirm, studentCode, postID "
+                        + "FROM tblApplication "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, student.getStudentCode());
+                
+                rs = stm.executeQuery();
+                
+                while (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    String attachmentPath = rs.getString("attachmentPath");
+                    String expectedJob = rs.getNString("expected_Job");
+                    String technology = rs.getNString("technology");
+                    String experience = rs.getNString("experience");
+                    String foreign_Language = rs.getNString("foreign_Language");
+                    String otherSkills = rs.getNString("otherSkills");
+                    String evaluation = rs.getNString("evaluation");
+                    float grade = rs.getFloat("grade");
+                    boolean isPass = rs.getBoolean("is_Pass");
+                    boolean studentConfirm = rs.getBoolean("student_Confirm");
+                    int schoolConfirm = rs.getInt("school_Confirm");
+                    int companyConfirm = rs.getInt("company_Confirm");
+                    
+                    int postID = rs.getInt("postID");
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    
+                    TblApplicationDTO applicationDTO = new TblApplicationDTO();
+                    applicationDTO.setApplicationID(applicationID);
+                    applicationDTO.setAttachmentPath(attachmentPath);
+                    applicationDTO.setExpected_job(expectedJob);
+                    applicationDTO.setTechnology(technology);
+                    applicationDTO.setExperience(experience);
+                    applicationDTO.setForeign_Language(foreign_Language);
+                    applicationDTO.setOtherSkills(otherSkills);
+                    applicationDTO.setEvaluation(evaluation);
+                    applicationDTO.setGrade(grade);
+                    applicationDTO.setIsPass(isPass);
+                    applicationDTO.setStudentConfirm(studentConfirm);
+                    applicationDTO.setSchoolConfirm(schoolConfirm);
+                    applicationDTO.setCompanyConfirm(companyConfirm);
+                    applicationDTO.setStudent(student);
+                    applicationDTO.setCompanyPost(companyPost);
+                    
+                    if (listApplicationOfAStudent == null) {
+                        listApplicationOfAStudent = new ArrayList<>();
+                    }
+                    
+                    listApplicationOfAStudent.add(applicationDTO);
+                }
+                return listApplicationOfAStudent;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+    
+    public List<TblApplicationDTO> getListByPage(List<TblApplicationDTO> list, int start, int end) {
+        List<TblApplicationDTO> listPage = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            listPage.add(list.get(i));
+        }
+        return listPage;
+    }
+    
+    public boolean updateApplyCV (int applicationID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblApplication "
+                        + "SET student_Confirm = ?"
+                        + "WHERE applicationID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, false);
+                stm.setInt(2, applicationID);
+                
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public TblApplicationDTO getApplication(int applicationCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblStudentDAO studentDAO = new TblStudentDAO();
+        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass, "
+                        + "student_Confirm, school_Confirm, company_Confirm "
+                        + "FROM tblApplication "
+                        + "WHERE applicationId = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, applicationCode);
+                
+                rs = stm.executeQuery();
+                if(rs.next()){
+                    
+                    int postID = rs.getInt("postID");
+                    float grade = rs.getFloat("grade");
+                    String evaluation = rs.getNString("evaluation");
+                    int applicationID = rs.getInt("applicationID");
+                    boolean isPass = rs.getBoolean("is_Pass");
+                    String studentCode = rs.getString("studentCode");
+                    boolean studentConfirm = rs.getBoolean("student_Confirm");
+                    int schoolConfirm = rs.getInt("school_Confirm");
+                    int company_Confirm = rs.getInt("company_Confirm");
+                    
+                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    
+                    TblApplicationDTO application = new TblApplicationDTO();
+                    application.setApplicationID(applicationID);
+                    application.setEvaluation(evaluation);
+                    application.setIsPass(isPass);
+                    application.setCompanyPost(companyPost);
+                    application.setStudent(student);
+                    application.setGrade(grade);
+                    application.setStudentConfirm(studentConfirm);
+                    application.setCompanyConfirm(company_Confirm);
+                    application.setSchoolConfirm(schoolConfirm);
+                    
+                    return application;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
     }
 }
