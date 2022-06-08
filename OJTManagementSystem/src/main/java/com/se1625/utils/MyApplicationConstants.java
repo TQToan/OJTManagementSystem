@@ -17,6 +17,17 @@ public class MyApplicationConstants {
 
     }
 
+    public class AdminShowPostManagementFeature {
+        public static final String  ADMIN_POST_MANAGE_PAGE="AdminPostManagePage";
+        public static final String  ADMIN_DASHBOARD_MANAGE_PAGE="adminDashboardPage";
+        public static final String  ADMIN_SHOW_POST_MANAGE_CONTROLLER="AdminShowPostManagementController";
+        public static final String  ADMIN_VIEW_POST_MANAGE_PAGE="AdminViewPostPage";
+        public static final String  ADMIN_VIEW_POST_DETAIL_CONTROLLER="AdminViewPostDetailController";
+        public static final String  ADMIN_SEARCH_POST_MANAGE_CONTROLLER="AdminSearchCompanyPostController";
+        public static final String  ADMIN_UPDATE_POST_MANAGE_CONTROLLER="AdminUpdatePostController";
+        
+    }
+    
     public class StudentSaveJobFeature {
         public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
