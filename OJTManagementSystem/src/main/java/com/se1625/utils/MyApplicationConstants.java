@@ -106,7 +106,7 @@ public class MyApplicationConstants {
 
         public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
 
-        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
+        public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
     }
 
@@ -168,5 +168,20 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
         public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
+    }
+    
+    public class AdminCompanyManagerFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
+    }
+    
+    public class AdminUpdateStatusCompanyFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_CONTROLLER = "AdminCompanyManagerController";
+    }
+    
+    public class SearchCompanyAdminManagerFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
     }
 }

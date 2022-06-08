@@ -90,7 +90,7 @@ public class TblApplicationDAO implements Serializable {
             }
         }
     }
-
+    
     public boolean addApplication(TblApplicationDTO application) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -146,7 +146,6 @@ public class TblApplicationDAO implements Serializable {
                 stm.setString(4, studentCode);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-
                     int postID = rs.getInt("postID");
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");

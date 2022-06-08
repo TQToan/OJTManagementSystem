@@ -31,6 +31,10 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
             <div class="row main-body row-cols-sm-1">
                 <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
                     <h2 class="container__heading">*Company</h2>
@@ -104,7 +108,10 @@
                             </c:if>
                         </h5>
                         <a href="${loginGoogle}" class="google-btn row">
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
                             <i class="fab fa-google google-logo col-2 "></i>
                             <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
                         </a>
