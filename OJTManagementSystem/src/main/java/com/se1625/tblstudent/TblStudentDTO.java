@@ -6,6 +6,7 @@
 package com.se1625.tblstudent;
 
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -22,7 +23,7 @@ public class TblStudentDTO implements Serializable{
     private int isIntern;
     private int numberOfCredit;
     private String major;
-
+    private TblSemesterDTO semester;
     private TblAccountDTO account;   
 
 
@@ -36,8 +37,6 @@ public class TblStudentDTO implements Serializable{
         this.numberOfCredit = numberOfCredit;
         this.major = major;
     }
-
-   
         
  
     public TblStudentDTO() {
@@ -47,6 +46,8 @@ public class TblStudentDTO implements Serializable{
         this.birthDay = birthDay;
         this.major = major;
     }
+    
+    
 
     public TblAccountDTO getAccount() {
         return account;
@@ -139,6 +140,20 @@ public class TblStudentDTO implements Serializable{
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    /**
+     * @return the semester
+     */
+    public TblSemesterDTO getSemester() {
+        return semester;
+    }
+
+    /**
+     * @param semester the semester to set
+     */
+    public void setSemester(TblSemesterDTO semester) {
+        this.semester = semester;
     }
 
     

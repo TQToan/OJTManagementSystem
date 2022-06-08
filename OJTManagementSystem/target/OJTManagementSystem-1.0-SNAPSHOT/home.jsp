@@ -126,7 +126,7 @@
                     </c:forEach>
                 </div>
             </div>
-
+            <
             <div class="main__company-icon">
                 <div class="row row-cols-7">
                     <c:forEach items="${requestScope.LIST_AVATAR_SIGNED_COMPANY}" var="avatar">
@@ -138,6 +138,7 @@
                     </c:forEach>
                 </div>
             </div>
+            
         </main>
 
         <footer class="footer">

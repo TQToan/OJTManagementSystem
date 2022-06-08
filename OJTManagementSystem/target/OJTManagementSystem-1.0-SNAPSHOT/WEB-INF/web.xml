@@ -4,6 +4,10 @@
         <param-name>SITE_MAPS_FILE_PATH</param-name>
         <param-value>/WEB-INF/siteMaps.properties</param-value>
     </context-param>
+    <context-param>
+        <param-name>SEMESTER_DATE_FILE_PATH</param-name>
+        <param-value>/WEB-INF/SemesterDate.properties</param-value>
+    </context-param>
     <filter>
         <filter-name>DispatchFilter</filter-name>
         <filter-class>com.se1625.filter.DispatchFilter</filter-class>
@@ -15,6 +19,10 @@
     <listener>
         <description>ServletContextListener</description>
         <listener-class>com.se1625.listener.MyApplicationListener</listener-class>
+    </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>com.se1625.listener.AutoCreateSemesterServletListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -104,6 +112,26 @@
         <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
         <servlet-class>com.se1625.controller.SearchStudentAppliedJobServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowAdminStudentManagementServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowAdminStudentManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStudentByAdminServlet</servlet-name>
+        <servlet-class>com.se1625.controller.SearchStudentByAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStudentInforMationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.UpdateStudentInforMationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowStudentEvaluationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowStudentEvaluationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchStudentEvaluationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.SearchStudentEvaluationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -192,6 +220,26 @@
         <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
         <url-pattern>/SearchStudentAppliedJobServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowAdminStudentManagementServlet</servlet-name>
+        <url-pattern>/ShowAdminStudentManagementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentByAdminServlet</servlet-name>
+        <url-pattern>/SearchStudentByAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStudentInforMationServlet</servlet-name>
+        <url-pattern>/UpdateStudentInforMationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowStudentEvaluationServlet</servlet-name>
+        <url-pattern>/ShowStudentEvaluationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentEvaluationServlet</servlet-name>
+        <url-pattern>/SearchStudentEvaluationServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -201,7 +249,6 @@
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <el-ignored>false</el-ignored>
-            <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
     <resource-ref>

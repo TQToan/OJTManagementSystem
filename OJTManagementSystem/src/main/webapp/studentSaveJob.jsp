@@ -102,16 +102,16 @@
                                 <div class="col-2">
                                     <select id="city" name="nameLocation"   >
                                         <option value="">Location</option>
-                                        <option value="TP.HCM" <c:if test="${nameLocation eq 'TP.HCM'}">
+                                        <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
                                                 selected="selected"
                                             </c:if>>TP.HCM</option>
-                                        <option value="Dong Nai" <c:if test="${nameLocation eq 'Dong Nai'}">
+                                        <option value="Dong Nai" <c:if test="${param.nameLocation eq 'Dong Nai'}">
                                                 selected="selected"
                                             </c:if>>Dong Nai</option>
-                                        <option value="Tay Ninh" <c:if test="${nameLocation eq 'Tay Ninh'}">
+                                        <option value="Tay Ninh" <c:if test="${param.nameLocation eq 'Tay Ninh'}">
                                                 selected="selected"
                                             </c:if>>Tay Ninh</option>
-                                        <option value="Binh Duong" <c:if test="${nameLocation eq 'Binh Duong'}">
+                                        <option value="Binh Duong" <c:if test="${param.nameLocation eq 'Binh Duong'}">
                                                 selected="selected"
                                             </c:if>>Binh Duong</option>
                                     </select>

@@ -97,7 +97,7 @@
                                                 <input type="text" name="nameCompany"  value="${param.nameCompany}" id="" placeholder="Company">
                                             </td>
                                             <td>
-                                                <select id="city" name="nameLocation"   >
+                                                <select id="city" name="nameLocation">
                                                     <option value="">Location</option>
                                                     <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
                                                             selected="selected"

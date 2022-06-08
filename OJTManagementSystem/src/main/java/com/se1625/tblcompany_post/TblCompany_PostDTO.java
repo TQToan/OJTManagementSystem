@@ -29,6 +29,8 @@ public class TblCompany_PostDTO implements Serializable{
     private TblCompanyDTO company;
     private String majorName;
     private TblMajorDTO major;
+    private String vacancy;
+    
 
     public TblCompany_PostDTO() {
     }
@@ -247,6 +249,20 @@ public class TblCompany_PostDTO implements Serializable{
      */
     public void setMajor(TblMajorDTO major) {
         this.major = major;
+    }
+
+    /**
+     * @return the vacancy
+     */
+    public String getVacancy() {
+        return vacancy;
+    }
+
+    /**
+     * @param vacancy the vacancy to set
+     */
+    public void setVacancy(String vacancy) {
+        this.vacancy = vacancy;
     }
     
     

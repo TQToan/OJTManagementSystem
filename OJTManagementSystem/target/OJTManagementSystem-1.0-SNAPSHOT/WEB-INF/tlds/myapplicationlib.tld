@@ -34,4 +34,11 @@
           java.lang.String changeDateFormat(java.sql.Date)
       </function-signature>
   </function>
+  <function>
+      <name>getError</name>
+      <function-class>com.se1625.customtag.CustomTag</function-class>
+      <function-signature>
+          java.lang.String getError (java.lang.String, java.lang.String)
+      </function-signature>
+  </function>
 </taglib>

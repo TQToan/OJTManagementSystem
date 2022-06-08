@@ -415,7 +415,7 @@ public class TblCompany_PostDAO implements Serializable {
                 String sql = "SELECT postID, title_Post, job_Description, "
                         + "job_Requirement, remuneration, workLocation, "
                         + "quantityInterns, postingDate, expirationDate, "
-                        + "school_Confirm, statusPost, companyID, majorID "
+                        + "school_Confirm, statusPost, companyID, majorID, vacancy "
                         + "FROM tblCompany_Post "
                         + "WHERE postID = ? ";
                 stm = con.prepareStatement(sql);
@@ -438,6 +438,7 @@ public class TblCompany_PostDAO implements Serializable {
                     int statusPost = rs.getInt("statusPost");
                     String companyID = rs.getString("companyID");
                     int majorID = rs.getInt("majorID");
+                    String vacancy = rs.getNString("vacancy");
 
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     TblCompanyDTO company = companyDAO.getCompany(companyID);
@@ -459,6 +460,7 @@ public class TblCompany_PostDAO implements Serializable {
                     companyPost.setStatusPost(statusPost);
                     companyPost.setCompany(company);
                     companyPost.setMajor(major);
+                    companyPost.setVacancy(vacancy);
                 }
 
             }

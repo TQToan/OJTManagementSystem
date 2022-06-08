@@ -5,6 +5,7 @@
  */
 package com.se1625.tblapplication;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
@@ -817,7 +818,7 @@ public class TblApplicationDAO implements Serializable {
                     Date expirationDate = rs.getDate("expirationDate");
                     int postID = rs.getInt("postID");
                     String nameCompany = rs.getNString("name");
-                    
+
                     if (nameStatus.equals("Waiting") && schoolConfirm == 0 && companyConfirm == -1) {
                         continue;
                     }
@@ -862,5 +863,510 @@ public class TblApplicationDAO implements Serializable {
             }
         }
         return listApplicationByFilter;
+    }
+
+    public boolean deleteApplicationOfStudent(String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "DELETE FROM tblApplication "
+                        + "WHERE studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public List<String> getAttachmentOfStudent(String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<String> listAttachment = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT attachmentPath "
+                        + "FROM tblApplication "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String attachmentPath = rs.getString("attachmentPath");
+                    if (listAttachment == null) {
+                        listAttachment = new ArrayList<>();
+                    }
+                    listAttachment.add(attachmentPath);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listAttachment;
+    }
+
+    public List<TblApplicationDTO> getListStudentApplications(int currentSemesterID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApplication = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID, attachmentPath, expected_Job, "
+                        + "technology, experience, foreign_Language, otherSkills, "
+                        + "evaluation, grade, is_Pass, student_Confirm, "
+                        + "school_Confirm, company_Confirm, student.studentCode, postID "
+                        + "FROM tblApplication AS app "
+                        + "INNER JOIN tblStudent AS student "
+                        + "ON (app.studentCode = student.studentCode) "
+                        + "INNER JOIN tblSemester_Student AS semester "
+                        + "ON (semester.studentCode = student.studentCode) "
+                        + "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                        + "and school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, false);
+                stm.setBoolean(2, true);
+                stm.setInt(3, 1);
+                stm.setInt(4, 1);
+                stm.setInt(5, currentSemesterID);
+
+                rs = stm.executeQuery();
+
+                while (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    String attachmentPath = rs.getString("attachmentPath");
+                    String expected_Job = rs.getNString("expected_Job");
+                    String technology = rs.getNString("technology");
+                    String experience = rs.getNString("experience");
+                    String foreign_Language = rs.getNString("foreign_Language");
+                    String otherSkills = rs.getNString("otherSkills");
+                    String evaluation = rs.getNString("evaluation");
+                    float grade = rs.getFloat("grade");
+                    boolean is_Pass = rs.getBoolean("is_Pass");
+                    boolean student_Confirm = rs.getBoolean("student_Confirm");
+                    int school_Confirm = rs.getInt("school_Confirm");
+                    int company_Confirm = rs.getInt("company_Confirm");
+                    String studentCode = rs.getString("studentCode");
+                    int postID = rs.getInt("postID");
+
+                    if (grade >= 0 && evaluation != null) {
+                        TblApplicationDTO application = new TblApplicationDTO();
+                        application.setApplicationID(applicationID);
+                        application.setAttachmentPath(attachmentPath);
+                        application.setCompanyConfirm(company_Confirm);
+                        application.setEvaluation(evaluation);
+                        application.setExpected_job(expected_Job);
+                        application.setExperience(experience);
+                        application.setForeign_Language(foreign_Language);
+                        application.setGrade(grade);
+                        application.setIsPass(is_Pass);
+                        application.setOtherSkills(otherSkills);
+                        application.setSchoolConfirm(school_Confirm);
+                        application.setStudentConfirm(student_Confirm);
+                        application.setTechnology(technology);
+
+                        TblStudentDAO studentDAO = new TblStudentDAO();
+                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        application.setStudent(student);
+
+                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                        application.setCompanyPost(companyPost);
+
+                        if (listApplication == null) {
+                            listApplication = new ArrayList<>();
+                        }
+
+                        listApplication.add(application);
+                    }
+
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listApplication;
+    }
+
+    public List<TblApplicationDTO> searchListStudentApplicationByFilter(int currentSemesterID,
+            float grade, String studentCode, String companyID, String isPass)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApplication = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID, attachmentPath, expected_Job, "
+                        + "technology, experience, foreign_Language, otherSkills, "
+                        + "evaluation, grade, is_Pass, student_Confirm, "
+                        + "app.school_Confirm, company_Confirm, student.studentCode, app.postID, post.companyID "
+                        + "FROM tblApplication AS app "
+                        + "INNER JOIN tblStudent AS student "
+                        + "ON (app.studentCode = student.studentCode) "
+                        + "INNER JOIN tblSemester_Student AS semester "
+                        + "ON (semester.studentCode = student.studentCode) "
+                        + "INNER JOIN tblCompany_Post AS post "
+                        + "ON (app.postID = post.postID) ";
+
+                if (grade != -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == false && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and grade = ? and is_Pass = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    stm.setFloat(7, grade);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(8, true);
+                    } else {
+                        stm.setBoolean(8, false);
+                    }
+                    stm.setString(9, companyID);
+                }
+
+                if (grade == -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == false && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and is_Pass = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(7, true);
+                    } else {
+                        stm.setBoolean(7, false);
+                    }
+                    stm.setString(8, companyID);
+                }
+
+                if (grade != -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == false && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + " and grade = ? and is_Pass = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setFloat(6, grade);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(7, true);
+                    } else {
+                        stm.setBoolean(7, false);
+                    }
+                    stm.setString(8, companyID);
+                }
+
+                if (grade != -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == true && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and grade = ? and is_Pass = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    stm.setFloat(7, grade);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(8, true);
+                    } else {
+                        stm.setBoolean(8, false);
+                    }
+                }
+
+                if (grade != -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == false && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and grade = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    stm.setFloat(7, grade);
+                    stm.setString(8, companyID);
+                }
+
+                if (grade == -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == false && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + " and is_Pass = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(6, true);
+                    } else {
+                        stm.setBoolean(6, false);
+                    }
+                    stm.setString(7, companyID);
+                }
+
+                if (grade == -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == true && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and is_Pass = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(7, true);
+                    } else {
+                        stm.setBoolean(7, false);
+                    }
+                }
+
+                if (grade == -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == false && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    stm.setString(7, companyID);
+                }
+
+                if (grade != -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == true && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and grade = ? and is_Pass = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setFloat(6, grade);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(7, true);
+                    } else {
+                        stm.setBoolean(7, false);
+                    }
+                }
+
+                if (grade != -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == false && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + " and grade = ? and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setFloat(6, grade);
+                    stm.setString(7, companyID);
+                }
+
+                if (grade != -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == true && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? and grade = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                    stm.setFloat(7, grade);
+                }
+
+                if (grade == -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == true && "".equals(isPass) == false) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and is_Pass = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    if (isPass.equals("true")) {
+                        stm.setBoolean(6, true);
+                    } else {
+                        stm.setBoolean(6, false);
+                    }
+                }
+
+                if (grade == -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == false && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + " and post.companyID = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, companyID);
+                }
+
+                if (grade == -1 && "".equals(studentCode) == false
+                        && "".equals(companyID) == true && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + "and student.studentCode = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setString(6, studentCode);
+                }
+
+                if (grade != -1 && "".equals(studentCode) == true
+                        && "".equals(companyID) == true && "".equals(isPass) == true) {
+                    sql += "WHERE student.is_Disabled = ? and student_Confirm = ? "
+                            + "and app.school_Confirm = ? and company_Confirm = ? and semester.semesterID = ? "
+                            + " and grade = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setBoolean(2, true);
+                    stm.setInt(3, 1);
+                    stm.setInt(4, 1);
+                    stm.setInt(5, currentSemesterID);
+                    stm.setFloat(6, grade);
+                }
+
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    String attachmentPath = rs.getString("attachmentPath");
+                    String expected_Job = rs.getNString("expected_Job");
+                    String technology = rs.getNString("technology");
+                    String experience = rs.getNString("experience");
+                    String foreign_Language = rs.getNString("foreign_Language");
+                    String otherSkills = rs.getNString("otherSkills");
+                    String evaluation = rs.getNString("evaluation");
+                    float gradeApplication = rs.getFloat("grade");
+                    boolean is_Pass = rs.getBoolean("is_Pass");
+                    boolean student_Confirm = rs.getBoolean("student_Confirm");
+                    int school_Confirm = rs.getInt("school_Confirm");
+                    int company_Confirm = rs.getInt("company_Confirm");
+                    String student_Code = rs.getString("studentCode");
+                    int postID = rs.getInt("postID");
+                    String company_ID = rs.getString("companyID");
+
+                    TblApplicationDTO application = new TblApplicationDTO();
+                    application.setApplicationID(applicationID);
+                    application.setAttachmentPath(attachmentPath);
+                    application.setCompanyConfirm(company_Confirm);
+                    application.setEvaluation(evaluation);
+                    application.setExpected_job(expected_Job);
+                    application.setExperience(experience);
+                    application.setForeign_Language(foreign_Language);
+                    application.setGrade(gradeApplication);
+                    application.setIsPass(is_Pass);
+                    application.setOtherSkills(otherSkills);
+                    application.setSchoolConfirm(school_Confirm);
+                    application.setStudentConfirm(student_Confirm);
+                    application.setTechnology(technology);
+
+                    TblStudentDAO studentDAO = new TblStudentDAO();
+                    TblStudentDTO student = studentDAO.getStudentInformation(student_Code);
+                    application.setStudent(student);
+                    
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    TblCompanyDTO company = companyDAO.getCompany(company_ID);
+
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    companyPost.setCompany(company);
+                    application.setCompanyPost(companyPost);
+                    
+                    if (listApplication == null) {
+                        listApplication = new ArrayList<>();
+                    }
+                    
+                    listApplication.add(application);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listApplication;
     }
 }

@@ -6,12 +6,9 @@
 package com.se1625.customtag;
 
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import javax.servlet.ServletContext;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -35,6 +32,20 @@ public class CustomTag {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = dateFormat.format(date);
             return dateString;
+        }
+        return null;
+    }
+
+    public static String getError(String Error, String studentCode) {
+        if (Error != null || "".equals(Error) == false) {
+            StringTokenizer stk = new StringTokenizer(Error, "_");
+            if (stk.hasMoreTokens()) {
+                String message = stk.nextToken();
+                String studentRoll = stk.nextToken();
+                if (studentRoll.equals(studentCode)) {
+                    return message;
+                }
+            }
         }
         return null;
     }

@@ -90,7 +90,7 @@ public class MyApplicationConstants {
 
     public class LoginGoogleFeture {
 
-        public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
+        public static final String ADMIN_DASHBOARD_PAGE = "ShowAdminStudentManagementController";
         public static final String LOGIN_PAGE = "loginPage";
 
         public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
@@ -107,8 +107,7 @@ public class MyApplicationConstants {
 
     public class ImportStudentExcelFileFeature {
 
-        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
-        public static final String DEMP_PAGE = "loginPage";
+        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "ShowAdminStudentManagementController";
     }
     
     public class LoadApplyCVStudentFeature{
@@ -158,4 +157,32 @@ public class MyApplicationConstants {
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
         public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
     }
+    
+    public class ShowAdminStudentManagementFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_PAGE = "adminManagementStudentPage";
+    }
+    public class SearchStudentByAdminFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_PAGE = "adminManagementStudentPage";
+        public static final String ADMIN_MANAGEMENT_STUDENT_CONTROLLER = "ShowAdminStudentManagementController";
+    }
+    
+    public class UpdateStudentInforMationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_CONTROLLER = "ShowAdminStudentManagementController";
+    }
+    
+    
+    public class ShowStudentEvaluationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_EVALUATION_PAGE = "adminEvaluationPage";
+    }
+    
+    public class SearchStudentEvaluationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_STUDENT_EVALUATION_CONTROLLER ="ShowStudentEvaluationController";
+        public static final String ADMIN_STUDENT_EVALUATION_PAGE = "adminEvaluationPage";
+    }
+    
 }
