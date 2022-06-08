@@ -9,21 +9,79 @@
     <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
     <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/base.css">
-       <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
     <header></header>
 
+    <div class="navbar navbar-expand-md navbar-sm-cus ">
+        <a href="#" class="header__logo ">
+            <img src="./assets/img/logo.png" alt="" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <i class="fa-solid fa-bars nav__respo--btn"></i>
+        </button>
+        <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+            <a href="" class=" nav__infor--link text-truncate text-center">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                FPT University HCM
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="adminStuManage.html" class="nav__item--link">
+                        <i class="fas fa-university"></i>
+                        Student Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="adminComManage.html" class="nav__item--link">
+                        <i class="far fa-building"></i>
+                        Company Management
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        Post Management
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminInterAppl.html" class="nav__item--link">
+                        <i class="fas fa-clipboard-check"></i>
+                        Internship Application
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminEval.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                        Evaluation
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
     <main class="row">
-        <nav class="col-2  nav-fixed">
+        <nav class="col-xl-2  nav-fixed col-md-3">
             <a href="#" class="nav__logo ">
                 <img src="./assets/img/logo.png" alt="" class="nav--logo">
             </a>
-                <a href="#" class=" nav__infor--link text-truncate">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                    FPT University HCM
-                </a>
+            <a href="#" class=" nav__infor--link text-truncate">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                FPT University HCM
+            </a>
 
             <ul class="nav__content">
                 <li class="nav__items">
@@ -53,7 +111,7 @@
                 <li class="nav__items">
                     <a href="adminEval.html" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
-                       Evalution
+                        Evaluation
                     </a>
                 </li>
                 <li class="nav__items">
@@ -66,56 +124,62 @@
 
         </nav>
 
-        <div class="main-body  offset-2 col-10">
+        <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
             <div class="row">
                 <div class="main-body-aStuManage ">
                     <div class="main-body-aStuManage__header">
-                        Post Management
+                        Student Management
                     </div>
 
+                    <div class="admin__import-file-stu">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <label for="Import-File">Import Excel: </label>
+                            <input type="file" name="Import File" id="Import-File"/>
+                            <input type="submit" value="Import File" name="btAction" />
+                        </form>
+                    </div>
 
                     <div class="main-body-aStuManage__search">
                         <form action="">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <input type="text" name="" id="" placeholder="ID">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="" id="" placeholder="Full name">
-                                        </td>
-                                        <td>
-                                            <input type="email" name="" id="" placeholder="Email">     
-                                        </td>
-                                        <td> 
-                                            <input type="text" name="" id="" placeholder="Credits">     
-                                        </td>
-                                        <td> 
-                                            <input type="text" name="" id="" placeholder="Major">     
-                                        </td>
-                                        <td> 
-                                            <select id="city" name="city"  class="" >
-                                                <option value="" disabled selected>Status</option>
-                                                <option value="Success" class="text-success">
-                                                    Working
-                                                </option>
-                                                <option value="Waiting" class="text-warning">
-                                                    Finished
-                                                </option>
-                                                <option value="Denied" class="text-danger">
-                                                    Not Yet
-                                                </option>
-                                            </select>                                        
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Search" class=" aStuManage-search-btn">
-                                        </td> 
-                                    </tr>
-                                </tbody>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <input type="text" name="" id="" placeholder="ID" class="admin--input">
+                                </div>
                                 
-                            </table>
+
+                                <div class="col-4">
+                                    <select id="major" name="major" class="admin--select">
+                                        <option value="" selected>Major</option>
+                                        <option value="Success" class="text-success">
+                                            Software Engineering
+                                        </option>
+                                        <option value="Denied" class="text-danger">
+                                            Ngon ngu Anh
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" name="" id="" placeholder="Credits" class="admin--input">
+                                </div>
+                                <div class="col-2">
+                                    <select id="status" name="status" class="admin--select">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Success" class="text-success">
+                                            Working
+                                        </option>
+                                        <option value="Waiting" class="text-warning">
+                                            Finished
+                                        </option>
+                                        <option value="Denied" class="text-danger">
+                                            Not Yet
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <input type="submit" value="Search" class=" admin-search-btn">
+                                </div>
+                            </div>
                         </form>
                     </div>
 
@@ -130,174 +194,100 @@
                                     <th>ID</th>
                                     <th>Full Name</th>
                                     <th>Email</th>
-                                    <th>Credits</th>
                                     <th>Major</th>
+                                    <th>Credits</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-success">
-                                        <strong>
-                                            Working
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-success">
-                                        <strong>
-                                            Working
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-danger">
-                                        <strong>
-                                            Not Yet
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-danger">
-                                        <strong>
-                                            Not Yet
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-warning">
-                                        <strong>
-                                            Finished
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-warning">
-                                        <strong>
-                                            Finished
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-success">
-                                        <strong>
-                                            Working
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-danger">
-                                        <strong>
-                                            Not Yet
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-danger">
-                                        <strong>
-                                            Not Yet
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>SE151272</td>
-                                    <td>Thái Quốc Toàn</td>
-                                    <td>thanhnhse151252@fpt.edu.vn</td>
-                                    <td>90</td>
-                                    <td class="text-success">
-                                        <strong>
-                                            Working
-                                        </strong>
-                                    </td>
-                                    <td>Software Engineering</td>
-                                    <td>
-                                        <a href="" >Update</a>
-                                    </td>
-                                </tr>
-                                
+                                <form action="">
+                                    <tr>
+
+                                        <td>2</td>
+                                        <td>SE151272</td>
+                                        <td>Thái Quốc Toàn</td>
+                                        <td>thanhnhse151252@fpt.edu.vn</td>
+                                        <td>Software Engineering</td>
+
+                                        <td>
+                                            <input type="text" name="" id="" value="90">
+                                        </td>
+                                        <td>
+                                            <select id="status" name="status">
+                                                <option value="Denied" selected class="text-danger">
+                                                    Not Yet
+                                                </option>
+                                                <option value="Success" class="text-success">
+                                                    Working
+                                                </option>
+                                                <option value="Waiting" class="text-warning">
+                                                    Finished
+                                                </option>
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Update">
+                                        </td>
+                                    </tr>
+                                </form>
+                                <form action="">
+                                    <tr>
+
+                                        <td>3</td>
+                                        <td>SE151272</td>
+                                        <td>Thái Quốc Toàn</td>
+                                        <td>thanhnhse151252@fpt.edu.vn</td>
+                                        <td>Software Engineering</td>
+                                        <td>
+                                            <input type="text" name="" id="" value="90">
+                                        </td>
+                                        <td>
+                                            <select id="status" name="status">
+                                                <option value="Denied" selected class="text-danger">
+                                                    Not Yet
+                                                </option>
+                                                <option value="Success" class="text-success">
+                                                    Working
+                                                </option>
+                                                <option value="Waiting" class="text-warning">
+                                                    Finished
+                                                </option>
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Update">
+                                        </td>
+                                    </tr>
+                                </form>
+                                <form action="">
+                                    <tr>
+
+                                        <td>1</td>
+                                        <td>SE151272</td>
+                                        <td>Thái Quốc Toàn</td>
+                                        <td>thanhnhse151252@fpt.edu.vn</td>
+                                        <td>Software Engineering</td>
+
+                                        <td>
+                                            <input type="text" name="" id="" value="90">
+                                        </td>
+                                        <td>
+                                            <select id="status" name="status">
+                                                <option value="Denied" selected class="text-danger">
+                                                    Not Yet
+                                                </option>
+                                                <option value="Success" class="text-success">
+                                                    Working
+                                                </option>
+                                                <option value="Waiting" class="text-warning">
+                                                    Finished
+                                                </option>
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Update">
+                                        </td>
+                                    </tr>
+                                </form>
+                               
                             </tbody>
 
                         </table>
@@ -334,9 +324,9 @@
     </main>
 
     <footer class="footer">
-            <div class="footer__content">
-                @copyright 2022
-            </div>
+        <div class="footer__content">
+            <i class="fa-regular fa-copyright"></i> Copyright 2022
+        </div>
 
     </footer>
 

@@ -104,6 +104,14 @@
         <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
         <servlet-class>com.se1625.controller.SearchStudentAppliedJobServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminShowInternApplicationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminShowInternApplicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminChangeStatusInternApplicationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminChangeStatusInternApplicationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>SearchStudentAppliedJobServlet</servlet-name>
         <url-pattern>/SearchStudentAppliedJobServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminShowInternApplicationServlet</servlet-name>
+        <url-pattern>/AdminShowInternApplicationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminChangeStatusInternApplicationServlet</servlet-name>
+        <url-pattern>/AdminChangeStatusInternApplicationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

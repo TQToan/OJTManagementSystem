@@ -31,23 +31,15 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
-<<<<<<< HEAD
             <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
                 ${requestScope.ERROR_IMPORT_EXCEL}
             </c:if>
-            <div class="row main-body">
-                <div class="container-left offset-1 col-4">
-                    <h2 class="container__heading">*Company</h2>
-                    <div class="heading-btn">
-                        <a href="" class="heading-btn--btn">Login</a>
 
-=======
             <div class="row main-body row-cols-sm-1">
                 <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
                     <h2 class="container__heading">*Company</h2>
                     <div class="heading-btn">
                         <a href="#" class="heading-btn--btn heading-btn--btn--active">Login</a>
->>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
                         <a href="RegisterPage1" class="heading-btn--btn">Sign Up</a>
                     </div>
 
@@ -105,27 +97,15 @@
                                  value="206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com" />
                         <c:param name="approval_prompt" value="force" />
                     </c:url>
-<<<<<<< HEAD
-                    <h5 class="text-danger text-center">
-                        <c:set var="error" value="${requestScope.ERROR}"></c:set>
-                        <c:if test="${not empty error}">
-                            ${error.userEmailNotAllow}
-                        </c:if>
-                    </h5>
-                            <a href="${loginGoogle}" class="google-btn row">
-=======
+
                     <div class="gg-btn">
                         <h5 class="text-danger text-center">
                             <c:set var="error" value="${requestScope.ERROR}"></c:set>
                             <c:if test="${not empty error}">
-                                <font color="red">
                                 ${error.userEmailNotAllow}
-                                </font>
                             </c:if>
                         </h5>
                         <a href="${loginGoogle}" class="google-btn row">
->>>>>>> 68003b16caa7f8c0dfed4b2ebaa94bed9051d3ed
-
                             <i class="fab fa-google google-logo col-2 "></i>
                             <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
                         </a>
@@ -135,7 +115,7 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
     </body>
