@@ -25,15 +25,18 @@ public class TblApplicationDTO implements Serializable{
     private float grade;
     private boolean isPass;
     private boolean studentConfirm;
-    private boolean schoolConfirm;
-    private boolean companyConfirm;
+    private int schoolConfirm;
+    private int companyConfirm;
     private TblStudentDTO student;
     private TblCompany_PostDTO companyPost;
 
     public TblApplicationDTO() {
     }
 
-    public TblApplicationDTO(int applicationID, String attachmentPath, String expected_job, String technology, String experience, String foreign_Language, String otherSkills, String evaluation, float grade, boolean isPass, boolean studentConfirm, boolean schoolConfirm, boolean companyConfirm) {
+    public TblApplicationDTO(int applicationID, String attachmentPath, String expected_job, 
+            String technology, String experience, String foreign_Language, String otherSkills, 
+            String evaluation, float grade, boolean isPass, boolean studentConfirm, 
+            int schoolConfirm, int companyConfirm) {
         this.applicationID = applicationID;
         this.attachmentPath = attachmentPath;
         this.expected_job = expected_job;
@@ -206,28 +209,28 @@ public class TblApplicationDTO implements Serializable{
     /**
      * @return the schoolConfirm
      */
-    public boolean isSchoolConfirm() {
+    public int getSchoolConfirm() {
         return schoolConfirm;
     }
 
     /**
      * @param schoolConfirm the schoolConfirm to set
      */
-    public void setSchoolConfirm(boolean schoolConfirm) {
+    public void setSchoolConfirm(int schoolConfirm) {
         this.schoolConfirm = schoolConfirm;
     }
 
     /**
      * @return the companyConfirm
      */
-    public boolean isCompanyConfirm() {
+    public int getCompanyConfirm() {
         return companyConfirm;
     }
 
     /**
      * @param companyConfirm the companyConfirm to set
      */
-    public void setCompanyConfirm(boolean companyConfirm) {
+    public void setCompanyConfirm(int companyConfirm) {
         this.companyConfirm = companyConfirm;
     }
 

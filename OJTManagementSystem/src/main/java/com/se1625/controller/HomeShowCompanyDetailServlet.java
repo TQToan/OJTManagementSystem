@@ -7,13 +7,21 @@ package com.se1625.controller;
 
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
+import com.se1625.tblcompany_post.CompanyPostDetailError;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
+import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -22,16 +30,15 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Thanh Huy
  */
-@WebServlet(name = "HomeShowCompanyDetailServlet", urlPatterns = {"/HomeShowCompanyDetailServlet"})
 public class HomeShowCompanyDetailServlet extends HttpServlet {
 
     /**
@@ -46,52 +53,124 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String sPostID = request.getParameter("postID");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-        //1. get servletContext 
+        String postID = request.getParameter("postID");
+        String xpage = request.getParameter("page");
+
         ServletContext context = this.getServletContext();
-        //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.HOME_SHOW_COMPANY_DETAIL_JSP);
+        String url = MyApplicationConstants.SearchComanyStudentHomeFeature.LOGIN_PAGE;
 
+        HttpSession session = request.getSession(false);
+        int page;
+        int numberRowsPerPage = 4;
+        int start;
+        int end;
+        int sizeOfList;
         try {
-            if (sPostID.isEmpty()) {
-                url = "homeCPostDetail.html"; // đưa tạm lỗi ra trang .html
-            } else {
-                int nPostID = Integer.parseInt(sPostID);
-                TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                TblCompanyDAO companyDAO = new TblCompanyDAO();
-                TblCompanyDTO companyDTO = new TblCompanyDTO();
-                
-                TblCompany_PostDTO companyPostDTO = new TblCompany_PostDTO();
-                companyPostDTO = companyPostDAO.searchPostByPostID(nPostID);
-                
-                companyDTO = companyDAO.searchCompanyByCompanyID(companyPostDTO.getCompany().getCompanyID());
-                companyPostDTO.setCompany(companyDTO);
-                request.setAttribute("POST_DETAIL",companyPostDTO);
-                
-                
-                // get majorID từ majorName;
-                // gọi hàm searchPostByFilter;
-                TblMajorDAO majorDAO = new TblMajorDAO();
-                int majorID = majorDAO.getMajorIDByMajorName(companyPostDTO.getMajorName());
-                companyPostDAO.searchPostByFilter("",majorID,"");
-                List<TblCompany_PostDTO> listCompanyDTO = companyPostDAO.getCompanyPostByFilter();
-                request.setAttribute("LIST_OTHER", listCompanyDTO);
-            }
-            
-        }
-        catch (NumberFormatException ex) {
-            log("NumberFormatException occurs at HomeShowCompanyDetailServlet " + ex.getMessage());
+            if (session != null) {
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                CompanyPostDetailError error = new CompanyPostDetailError();
+                boolean found = false;
+                if (student != null) {
+                    url = properties.getProperty(MyApplicationConstants.SearchComanyStudentHomeFeature.HOME_SHOW_COMPANY_DETAIL_JSP);
+                    int nPostID = Integer.parseInt(postID);
+
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    TblCompanyDTO companyDTO;
+
+                    TblCompany_PostDTO companyPostDTO = companyPostDAO.searchPostByPostID(nPostID);
+
+                    companyDTO = companyDAO.searchCompanyByCompanyID(companyPostDTO.getCompany().getCompanyID());
+                    companyPostDTO.setCompany(companyDTO);
+                    if (companyPostDTO.getQuantityIterns() == 0) {
+                        found = true;
+                        error.setQuantitytInternsNotEngough("This post has recruited enough interns.");
+                    }
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (companyPostDTO.getExpirationDate().before(currentDate)) {
+                        found = true;
+                        error.setExpirationDateError("This post has expired.");
+                    }
+                    
+                    if (found == true) {
+                        request.setAttribute("ERROR_COMPANY_POST", error);
+                    }
+                    request.setAttribute("POST_DETAIL", companyPostDTO);
+
+                    // get majorID from majorName
+                    // call searchPostByFilter()
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    int majorID = majorDAO.getMajorIDByMajorName(companyPostDTO.getMajorName());
+                    companyPostDAO.searchPostByFilter("", majorID, "");
+                    List<TblCompany_PostDTO> listOtherCompanies = companyPostDAO.getCompanyPostByFilter();
+
+                    sizeOfList = listOtherCompanies.size();
+                    if (xpage == null) {
+                            page = 1;
+                        } // load page save job 
+                        else {
+                            page = Integer.parseInt(xpage);
+                        } // when choose number of page
+
+                        int numberPage = sizeOfList % numberRowsPerPage;
+
+                        if (numberPage == 0) {
+                            numberPage = sizeOfList / numberRowsPerPage;
+                        } else {
+                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                        }
+                        start = (page - 1) * numberRowsPerPage;
+                        end = Math.min(page * numberRowsPerPage, sizeOfList);
+                        
+                        List<TblCompany_PostDTO> listOtherCompaniesPerPage = companyPostDAO.
+                                getListByPage(listOtherCompanies, start, end);
+                        
+                        request.setAttribute("LIST_OTHER_COMPANIES", listOtherCompaniesPerPage);
+                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                        request.setAttribute("page", page);
+                        request.setAttribute("numberPage", numberPage);
+                        
+                    companyDAO.getNameCompanies();
+                    List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                    request.setAttribute("COMPANY_NAME", listNameCompany);
+
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                    request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    
+                    TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                    followPostDao.getFollowingPost(student.getStudentCode());
+
+                    //get number of following post of student
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                            = followPostDao.getFollowingPostByFilter();
+                    
+                    request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
+
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                }// if student is created
+                else {
+                    response.sendRedirect(url);
+                } //if student is not created
+            }// if session exist
+            else {
+                response.sendRedirect(url);
+            } // if session does not exist
+        } catch (NumberFormatException ex) {
+            log("NumberFormatException at HomeShowCompanyDetailServlet " + ex.getMessage());
         } catch (SQLException ex) {
-            log("SQLException occurs at SearchCompanyStudentHomeServlet " + ex.getMessage());
+            log("SQLException at SearchCompanyStudentHomeServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException occurs at SearchCompanyStudentHomeServlet " + ex.getMessage());
-        } 
-        
-        finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            log("NamingException at SearchCompanyStudentHomeServlet " + ex.getMessage());
         }
 
     }

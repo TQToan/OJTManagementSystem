@@ -27,7 +27,6 @@ import javax.ws.rs.core.Response;
  *
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
-@MultipartConfig
 public class DispatchFilter implements Filter {
 
     private static final boolean debug = true;
@@ -111,6 +110,7 @@ public class DispatchFilter implements Filter {
         HttpServletResponse responseObject = (HttpServletResponse) response;
 
         responseObject.setContentType("text/html; charset=UTF-8");
+        requestObject.setCharacterEncoding("UTF-8");
         requestObject.setCharacterEncoding("UTF-8");
         //2. get UR from requestObject
         String uri = requestObject.getRequestURI();

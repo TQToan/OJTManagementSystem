@@ -6,11 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student - Save Jobs</title>
@@ -24,17 +26,15 @@
         <header></header>
 
         <main class="row">
-            <%--Thanh fix new name session--%>
-            <c:set var="user" value="${sessionScope.ACCOUNT}"/>
+            <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
+            <c:set var="page" value="${requestScope.page}"/>
             <nav class="col-2  nav-fixed">
                 <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
                 <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    <c:if test="${not empty user}">
-                        ${user.name}
-                    </c:if>
+                    ${student.account.name}
                 </a>
 
                 <ul class="nav__content">
@@ -45,9 +45,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <c:url var="studentProfile" value="ShowStudentProfileController">                           
-                        </c:url>
-                        <a href="${studentProfile}" class="nav__item--link">
+                        <a href="ShowStudentProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>   
@@ -59,16 +57,10 @@
                             <i class="fas fa-angle-down icon-down"></i>
                         </div>
                         <div class="nav__item__dropdown">
-                            <c:url var="urlSaveJob" value="SearchSaveJobController">
-                                <c:param name="txtJob" value=""/>
-                                <c:param name="txtCompany" value=""/>
-                                <c:param name="nameLocation" value=""/>
-                                <c:param name="studentCode" value="${student.studentCode}"/>
-                            </c:url>
-                            <a href="${urlSaveJob}" class="nav__item__dropdown--link">
+                            <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
@@ -94,15 +86,14 @@
                     <div class="main-body-save ">
                         <div class="main-body-save__header">
                             Save Jobs*
-
                         </div>
 
 
-                        <form action="SearchSaveJobController" class="main__search-form">
+                        <form action="SearchSaveJobController" method="POST" class="main__search-form">
                             <div class="row">
                                 <div class="col-4">
                                     <input type="text" name="txtJob" value="${param.txtJob}" id="" placeholder="Job">
-<!--                                    <input type="hidden" name="job" value="${tittle_Post}" />-->
+                                    <%--                                    <input type="hidden" name="job" value="${tittle_Post}" />--%>
                                 </div>
                                 <div class="col-4">
                                     <input type="text" name="txtCompany" value="${param.txtCompany}" id="" placeholder="Company">
@@ -135,7 +126,7 @@
                             <div class="resultpage__header">
                                 Result : ${requestScope.SIZE_OF_LIST}
                             </div>
-                            <c:set var="result" value="${requestScope.LIST_RESULT}"/>
+                            <c:set var="result" value="${requestScope.LIST_SAVED_POSTS_RESULT}"/>
                             <c:if test="${not empty result}">
                                 <table class="table table-bordered table-hover">
                                     <thead>
@@ -156,32 +147,41 @@
                                             <tr>
                                                 <td>${counter.count}</td>
                                                 <td>
-                                                    <a href="homeCPostDetail.html">${post.getTittle_Post()}</a>
+                                                    <a href="HomeShowCompanyDetailController?postID=${post.postID}">${post.getTittle_Post()}</a>
                                                 </td>
                                                 <td>${post.companyName}</td>
                                                 <td>${post.workLocation}</td>
-                                                <td>${post.postingDate}</td>
-                                                <td>${post.exprirationDate}</td>
+                                                <td>${my:changeDateFormat(post.postingDate)}</td>
+                                                <td>${my:changeDateFormat(post.exprirationDate)}</td>
 
                                                 <td>
                                                     <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
                                                         <c:param name="postID" value="${post.postID}"/>
-                                                        <c:param name="studentCode" value="${student1.studentCode}"/>
                                                     </c:url>
-                                                    <a href="${urlDeleteSaveJob}" >Delete</a>
-                                                    <!--                                                    <form action="StudentDeleteSaveJobController" >
+                                                    <a href="${urlDeleteSaveJob}" >Unsave</a>
+                                                    <%--                                                    <form action="StudentDeleteSaveJobController" >
                                                                                                             <input type="hidden" name="postID" value="${post.getPostID()}" />
                                                                                                             <input type="hidden" name="studentCode" value="${student1.getStudentCode()}" />
                                                                                                             <input type="submit" value="Delete" class="far fa-heart save-btn save-btn-active" />
-                                                                                                        </form>-->
+                                                                                                        </form>--%>
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
-
                                     </tbody>
-
                                 </table>
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="SearchSaveJobController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="txtJob" value="${param.txtJob}"/>
+                                        <c:param name="txtCompany" value="${param.txtCompany}"/>
+                                        <c:param name="nameLocation" value="${param.nameLocation}"/>
+                                    </c:url>
+                                    <div class="main__pagination">
+                                        <ul class="pagination main_cus__pagination">
+                                            <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                        </ul>
+                                    </div>
+                                </c:forEach>
                             </c:if>
                             <c:if test="${empty result}">
                                 <p3>
@@ -191,27 +191,29 @@
                         </div>
 
 
-                        <div class="main__pagination">
-                            <ul class="pagination main_cus__pagination">
 
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
 
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
+                        <!--                        <div class="main__pagination">
+                                                    <ul class="pagination main_cus__pagination">
+                        
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                        
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                        
+                                                    </ul>
+                                                </div>-->
 
 
                     </div>

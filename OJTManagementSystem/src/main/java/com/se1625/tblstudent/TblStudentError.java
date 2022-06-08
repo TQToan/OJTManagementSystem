@@ -15,16 +15,19 @@ public class TblStudentError implements Serializable{
     private String errorAddressLength;
     private String errorPhoneNumberLength;
     private String errorDateInvalid;
+    private String errorFileLength;
     private String errorDateEmpty;
+    
     public TblStudentError() {
     }
 
-    public TblStudentError(String errorAddressLength, String errorPhoneNumberLength, String errorDateInvalid, String errorDateEmpty) {
+    public TblStudentError(String errorAddressLength, String errorPhoneNumberLength, String errorDateInvalid) {
         this.errorAddressLength = errorAddressLength;
         this.errorPhoneNumberLength = errorPhoneNumberLength;
         this.errorDateInvalid = errorDateInvalid;
-        this.errorDateEmpty = errorDateEmpty;
     }
+    
+    
 
     public String getErrorDateInvalid() {
         return errorDateInvalid;
@@ -51,12 +54,31 @@ public class TblStudentError implements Serializable{
     public void setErrorPhoneNumberLength(String errorPhoneNumberLength) {
         this.errorPhoneNumberLength = errorPhoneNumberLength;
     }
+    /**
+     * @return the errorFileLength
+     */
+    public String getErrorFileLength() {
+        return errorFileLength;
+    }
 
+    /**
+     * @param errorFileLength the errorFileLength to set
+     */
+    public void setErrorFileLength(String errorFileLength) {
+        this.errorFileLength = errorFileLength;
+    }
+
+    /**
+     * @return the errorDateEmpty
+     */
     public String getErrorDateEmpty() {
         return errorDateEmpty;
     }
 
+    /**
+     * @param errorDateEmpty the errorDateEmpty to set
+     */
     public void setErrorDateEmpty(String errorDateEmpty) {
         this.errorDateEmpty = errorDateEmpty;
-    }  
+    }
 }

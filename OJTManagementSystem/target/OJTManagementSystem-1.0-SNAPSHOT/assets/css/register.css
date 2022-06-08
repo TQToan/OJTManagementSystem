@@ -25,6 +25,7 @@
 }
 
 .container-left--img{
+    padding: 20px;
     width: 100%;
 
 }
@@ -32,7 +33,6 @@
 .container-right{
     margin-top: auto ;
     margin-bottom: auto;
-    position: relative;
 }
 
 .header-right{
@@ -48,6 +48,7 @@
 
 .right-form{
     margin: 50px;
+    position: relative;
 }
 
 .right-form__input{
@@ -81,7 +82,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     position: absolute;
-    right: 90px;
+    right: 0px;
 }
 .end-form-btn{
     margin-top: 20px;
@@ -101,6 +102,9 @@
     border: 1px solid var(--text-color-gray);
 }
 
+input[type=file]{
+    display: none;
+}
 
 .input-file{
     display: inline-block;

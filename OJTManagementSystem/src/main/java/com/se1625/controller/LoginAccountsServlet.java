@@ -10,15 +10,12 @@ import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblaccount.TblAccountError;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +25,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name = "LoginAccountsServlet", urlPatterns = {"/LoginAccountsServlet"})
 public class LoginAccountsServlet extends HttpServlet {
 
     /**
@@ -44,70 +40,65 @@ public class LoginAccountsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        //get parameters 
         String username = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
-        String remember = request.getParameter("AutoLogin");
-        
-        //get properties
         ServletContext context = this.getServletContext();
         Properties siteMap = (Properties) context.getAttribute("SITE_MAPS");
-        
+
         String url = siteMap.getProperty(
                 MyApplicationConstants.LoginFeture.LOGIN_PAGE);
-        
+
+        HttpSession session = request.getSession();
         try {
-            
+
             //check format input login
             TblAccountError error = new TblAccountError();
             boolean foundError = false;
+
             if (username.trim().length() == 0) {
-                error.setUserEmailEmpty("Please enter your email");
+                error.setUserEmailEmpty("Please enter your email!");
                 foundError = true;
+            }// check username is not empty
+            else {
+                String pattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+                if (username.trim().matches(pattern) == false) {
+                    foundError = true;
+                    error.setUserEmailFormatError("Your email is invalid format!");
+                }
             }
             if (password.trim().length() == 0) {
-                error.setUserPasswordEmpty("Please enter your password");
+                error.setUserPasswordEmpty("Please enter your password!");
                 foundError = true;
-            }
+            }//check password is not empty
 
-            
             if (foundError) {
                 request.setAttribute("ERROR", error);
-            } else {
-                HttpSession session = request.getSession();
-                if (session != null) {
-                    
-                    //check login
-                    TblAccountDAO dao = new TblAccountDAO();
-                    boolean result = dao.checkLogin(username, password);
-                    if (result) {
-                        if (remember != null) {
-                            //add cookie
-                            Cookie cookie = new Cookie(username, password);
-                            cookie.setMaxAge(60);
-                            response.addCookie(cookie);
-                        }
-                        
-                        // set session
-                        TblAccountDTO dto = dao.getAccount(username);
-                        session.setAttribute("ACCOUNT", dto);
-                        url = siteMap.getProperty(
-                                MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE);
-                    } else {
-                        error.setAccountError("Your email or password may be incorrect");
-                        request.setAttribute("ERROR", error);
-                    }
-                }
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+            } //throw error if error is found
+            else {
+                TblAccountDAO dao = new TblAccountDAO();
+                boolean result = dao.checkLoginForCompanyAccount(username, password);
+                if (result) {
+                    TblAccountDTO account = dao.getAccount(username);
+                    session.setAttribute("COMPANY_ROLE", account);
+                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
+                    response.sendRedirect(url);
+                } //check username and password exist
+                else {
+                    error.setAccountError("Your email or password is invalid!");
+                    request.setAttribute("ERROR", error);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                }// if account don't exist throw error
+            } // if don't have error
 
-            }
         } catch (NamingException ex) {
             log("LoginAccountServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("LoginAccountServlet_SQLException " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-
         }
     }
 

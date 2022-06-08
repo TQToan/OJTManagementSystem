@@ -47,7 +47,6 @@ public class TblFollowing_PostDAO implements Serializable {
                         + "WHERE stu.studentCode = ?";
                 stm = con.prepareCall(sql);
                 stm.setString(1, studentCode);
-                
                 rs = stm.executeQuery();
                 while (rs.next()) {
 
@@ -58,18 +57,6 @@ public class TblFollowing_PostDAO implements Serializable {
                     String workLocation = rs.getNString("workLocation");
                     String company_Name = rs.getNString("name");
                     studentCode = rs.getString("studentCode");
-//
-//                    TblAccountDTO account = new TblAccountDTO();
-//                    account.setName(company_Name);
-//
-//                    TblCompany_PostDTO comPost = new TblCompany_PostDTO();
-//                    comPost.setExpirationDate(exprirationDate);
-//                    comPost.setTitle_Post(title_Post);
-//                    comPost.setPostingDate(postingDate);
-//                    comPost.setWorkLocation(workLocation);
-//
-//                    TblCompanyDTO company = new TblCompanyDTO();
-//                    company.setAccount(account);
 
                     TblFollowing_PostDTO post = new TblFollowing_PostDTO();
                     post.setStudentID(studentCode);
@@ -107,42 +94,15 @@ public class TblFollowing_PostDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "Select post.title_Post, acc.name, post.workLocation, post.postingDate, post.expirationDate, stu.studentCode, post.postID "
-                        + "FROM tblCompany_Post as post INNER JOIN tblCompany as cm ON (post.companyID = cm.companyID) "
-                        + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
-                        + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
-                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) "
-                        + "WHERE post.postID = ? and stu.studentCode = ? ";
+                String sql = "SELECT postID, studentCode "
+                        + "FROM tblFollowing_Post "
+                        + "WHERE postID = ? and studentCode = ?";
                 stm = con.prepareCall(sql);
                 stm.setInt(1, postID);
                 stm.setString(2, studentCode);
                 rs = stm.executeQuery();
-                
-                while (rs.next()) {
-
-                    postID = rs.getInt("postID");
-                    String title_Post = rs.getNString("title_Post");
-                    Date postingDate = rs.getDate("postingDate");
-                    Date exprirationDate = rs.getDate("expirationDate");
-                    String workLocation = rs.getNString("workLocation");
-                    String company_Name = rs.getNString("name");
-                    studentCode = rs.getString("studentCode");
-                    
-
-                    TblFollowing_PostDTO post = new TblFollowing_PostDTO();
-                    post.setStudentID(studentCode);
-                    post.setPostID(postID);
-                    post.setExprirationDate(exprirationDate);
-                    post.setTittle_Post(title_Post);
-                    post.setPostingDate(postingDate);
-                    post.setWorkLocation(workLocation);
-                    post.setCompanyName(company_Name);
-                    if (followingPostByFilter == null) {
-                        followingPostByFilter = new ArrayList<>();
-                    }
-
-                    followingPostByFilter.add(post);
-
+                if (rs.next()) {
+                    return true;
                 }
 
             }
@@ -173,18 +133,11 @@ public class TblFollowing_PostDAO implements Serializable {
                         + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
                         + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
                         + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) ";
-//                String sql = "Select post.postID, post.title_Post, post.quantityInterns, major.majorName, acc.name, post.workLocation, post.postingDate, post.expirationDate, "
-//                            + "post.school_confirm, post.statusPost "
-//                        + "FROM tblCompany_Post as post INNER JOIN tblCompany as cm ON (post.companyID = cm.companyID) "
-//                        + "INNER JOIN tblFollowing_Post as flp ON (flp.postID = post.postID) "
-//                        + "INNER JOIN tblStudent as stu ON (stu.studentCode = flp.studentCode) "
-//                        + "INNER JOIN tblAccount as acc ON (acc.username = cm.username) ";
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == true) {
                     sql += " WHERE stu.studentCode = ?";
                     stm = con.prepareCall(sql);
                     stm.setString(1, studentCode);
-                    
                 }
 
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == false
@@ -192,17 +145,15 @@ public class TblFollowing_PostDAO implements Serializable {
                     sql += " WHERE post.title_Post like ? and acc.name like ? and post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
                     stm = con.prepareCall(sql);
-                    
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
                     stm.setNString(3, "%" + nameLocation + "%");
                     stm.setString(4, studentCode);
                 }
-                if (tittlePost.isEmpty() == false && companyName.isEmpty() == true ////////////
+                if (tittlePost.isEmpty() == false && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == false) {
                     sql += "WHERE post.title_Post LIKE ? and post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -212,7 +163,6 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == true) {
                     sql += "WHERE post.title_Post like ? and acc.name like ? "
                             + "and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
@@ -221,18 +171,16 @@ public class TblFollowing_PostDAO implements Serializable {
                 }
                 if (tittlePost.isEmpty() == false && companyName.isEmpty() == true
                         && nameLocation.isEmpty() == true) {
-                    sql += "WHERE post.title_Post like ? "
+                    sql += "WHERE post.title_Post LIKE ? "
                             + "and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + tittlePost + "%");
                     stm.setString(2, studentCode);
                 }
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == false) {
-                    sql += "WHERE acc.name like ? and post.workLocation LIKE ?"
+                    sql += "WHERE acc.name LIKE ? and post.workLocation LIKE ?"
                             + " and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setNString(2, "%" + nameLocation + "%");
@@ -240,9 +188,8 @@ public class TblFollowing_PostDAO implements Serializable {
                 }
                 if (tittlePost.isEmpty() == true && companyName.isEmpty() == false
                         && nameLocation.isEmpty() == true) {
-                    sql += "WHERE post.majorID = ? "
+                    sql += "WHERE acc.name LIKE ? "
                             + "and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setString(2, studentCode);
@@ -251,7 +198,6 @@ public class TblFollowing_PostDAO implements Serializable {
                         && nameLocation.isEmpty() == false) {
                     sql += "WHERE post.workLocation LIKE ? "
                             + "and stu.studentCode = ?";
-                    
                     stm = con.prepareCall(sql);
                     stm.setNString(1, "%" + nameLocation + "%");
                     stm.setString(2, studentCode);
@@ -266,18 +212,6 @@ public class TblFollowing_PostDAO implements Serializable {
                     String workLocation = rs.getNString("workLocation");
                     String company_Name = rs.getNString("name");
                     studentCode = rs.getString("studentCode");
-//
-//                    TblAccountDTO account = new TblAccountDTO();
-//                    account.setName(company_Name);
-//
-//                    TblCompany_PostDTO comPost = new TblCompany_PostDTO();
-//                    comPost.setExpirationDate(exprirationDate);
-//                    comPost.setTitle_Post(title_Post);
-//                    comPost.setPostingDate(postingDate);
-//                    comPost.setWorkLocation(workLocation);
-//
-//                    TblCompanyDTO company = new TblCompanyDTO();
-//                    company.setAccount(account);
 
                     TblFollowing_PostDTO post = new TblFollowing_PostDTO();
                     post.setStudentID(studentCode);
@@ -331,7 +265,6 @@ public class TblFollowing_PostDAO implements Serializable {
                 stm.setInt(1, idPost);
                 stm.setString(2, studentCode);
                 int rows = stm.executeUpdate();
-                
                 if (rows > 0) {
                     return true;
                 }
@@ -352,7 +285,6 @@ public class TblFollowing_PostDAO implements Serializable {
 
     public boolean addFollowingPost(int idPost, String studentCode)
             throws SQLException, NamingException {
-//        TblFollowing_PostDTO dto = new TblFollowing_PostDTO();
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -362,7 +294,6 @@ public class TblFollowing_PostDAO implements Serializable {
                 String sql = "INSERT INTO tblFollowing_Post (studentCode, postID) "
                         + "VALUES (?, ?) ";
                 stm = con.prepareStatement(sql);
-                
                 stm.setString(1, studentCode);
                 stm.setInt(2, idPost);
 

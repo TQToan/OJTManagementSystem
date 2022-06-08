@@ -1,3 +1,7 @@
+/* mobile: none <567 px 
+    table: md > 768px
+    laptop: xl > 1200px */
+
 *{
     margin: 0;
     padding: 0;
@@ -25,7 +29,7 @@
 
     --height-header: 100px;
     --height-footer: 100px;
-
+    --width-nav: 300px;
 }
 
 html{
@@ -48,6 +52,7 @@ html{
 /* Modify html------------------------------------------ */
 img{
     width: 100%;
+    object-fit: contain;
 }
 main{
     min-height: 100vh;
@@ -103,7 +108,7 @@ main{
     top: 0;
     bottom: 0;
     right: 0;
-    width: 250px;
+    width: 20%;
     cursor: pointer;
 }
 
@@ -116,7 +121,7 @@ main{
 
 .header__name--show{
     text-align: center;
-    margin: 35px 0px ;
+    line-height: var(--height-header);
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-color-white);
@@ -124,7 +129,7 @@ main{
 
 .header__name--hidden{
     position: absolute;
-    background-color: var(--background-white);
+    background-color: var(--background-gray);
     width: 100%;
     top: var(--height-header);
     display: none;
@@ -294,9 +299,12 @@ main{
 
 .main_cus__pagination{
     justify-content: center;
-    margin-top: 30px;
 }
 
+.main__pagination{
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
 
 .save-btn{
     color: var(--text-color-gray);
@@ -325,3 +333,50 @@ main{
     font-weight: 600;
 }
 /* General -------------------END----------------------------- */
+
+/* Responsive ----------------mobile xl  min-widt: 768px------------- */
+@media (max-width: 767px) {
+    :root{
+        --height-header: 50px;
+        --height-footer: 50px;
+    }
+    html{
+        font-size: 40%;   
+        line-height: 1.3rem;
+    }
+    .primary-btn{
+        padding: 3px;
+        min-width: 60px;
+        max-width: 120px;
+    }
+    .header__name{
+        width: 30%;
+    }
+    .main__pagination{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    
+}
+/* Responsive ----------------mmobile xl  min-widt: 768px----------END--- */
+
+/* Responsive ----------------table xl  min-widt: 1200px------------- */
+@media (min-width: 768px) and (max-width: 1199px) {
+    :root{
+        --height-header: 70px;
+        --height-footer: 70px;
+    }
+    html{
+        font-size: 55%;   
+        line-height: 1.3rem;
+    }
+    .primary-btn{
+        padding: 5px;
+        min-width: 50px;
+        max-width: 100px;
+    }
+
+}
+/* Responsive ----------------table xl  min-widt: 1200px---------END---- */
+
+

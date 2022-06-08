@@ -43,6 +43,8 @@
     border-radius: 30px;
     border: 2px solid var(--background-black);
     margin: 20px;
+    position: relative;
+    padding: 20px;
 }
 
 .card-company:hover{
@@ -64,22 +66,23 @@
 
 .card-company--img{
     height: 150px;
-    padding: 0px 30px;
     border-radius: 20px;
 }
 
 .card-company-btn{
-    position: relative;
     margin-bottom: 20px;
 }
 
 .card-company-btn-save{
     position: absolute;
-    top: 13px;
-    right: 50px;
+    bottom: 20px;
+    right: 20px;
 
 }
 
+.hApply-btn{
+    max-width: 50%;
+}
 
 
 
@@ -101,6 +104,10 @@
     border-radius: 100% ;
 }
 
+.company__click{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .main__company-img:hover{
     transform: scale(1.05);
 }
@@ -196,8 +203,8 @@
 }
 
 .hCompanyInfor__body{
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--text-color-orange);
+    padding-top: 20px;
+    border-top: 1px solid var(--text-color-orange);
 }
 
 .hCompanyInfor__content{
@@ -229,6 +236,7 @@
 
 .hComApplDetail-btn--app{
     margin: 0px;
+    min-width: 100px;
     
 }
 .hComApplDetail-btn-save{
@@ -407,6 +415,4 @@ input[type=file]{
 
 
 
-.main__pagination{
-    margin-bottom: 50px;
-}
+

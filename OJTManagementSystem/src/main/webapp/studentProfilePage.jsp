@@ -22,15 +22,14 @@
         <header></header>
 
         <main class="row">
+            <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
             <nav class="col-2  nav-fixed">
                 <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
-                </a>
-                <c:url var="studentProfile" value="ShowStudentProfileController">                           
-                </c:url>               
-                <a href="${studentProfile}" class=" nav__infor--link text-truncate">
+                </a>              
+                <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    ${requestScope.STUDENT_PROFILE.account.name}
+                    ${student.account.name}
                 </a>
 
                 <ul class="nav__content">
@@ -55,17 +54,10 @@
                             <i class="fas fa-angle-down icon-down"></i>
                         </div>
                         <div class="nav__item__dropdown">
-                            <c:url var="urlSaveJob" value="SearchSaveJobController">
-                                <c:param name="txtJob" value=""/>
-                                <c:param name="txtCompany" value=""/>
-                                <c:param name="nameLocation" value=""/>
-                                <c:param name="studentCode" value="${student.studentCode}"/>
-
-                            </c:url>
-                            <a href="${urlSaveJob}" class="nav__item__dropdown--link">
+                            <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
@@ -85,118 +77,109 @@
                 </ul>
 
             </nav>
-            <c:set var="account" value="${sessionScope.ACCOUNT}"/>
-            <c:if test="${not empty account}">
-                <div class="main-body  offset-2 col-10 ">
-                    <div class="row">
-                        <div class="main-body-profile offset-3 col-6">
-                            <div class="main-body-profile__header">
-                                Personal Profile*
+
+            <div class="main-body  offset-2 col-10 ">
+                <div class="row">
+                    <div class="main-body-profile offset-3 col-6">
+                        <div class="main-body-profile__header">
+                            Personal Profile*
+                        </div>
+
+                        <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
+
+                        <form action="UpdateStudentProfileController" method="POST" enctype="multipart/form-data">
+                            <c:set var="errorUpdate" value="${requestScope.ERROR_UPDATE_STUDENTPROFILE}" />
+
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="studentCode">Student Code</label>
+                                <div class="col-8  profile--input-none-hover ">${studentProfile.studentCode}</div>
+                                <input type="hidden" name="studentCode" value="${studentProfile.studentCode}" />
+                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                        your error
+                                                                    </h5>-->
                             </div>
-
-                            <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
-                            <c:if test="${not empty studentProfile}">
-                                <form action="UpdateStudentProfileController">
-                                    <c:set var="errorUpdate" value="${requestScope.ERROR_UPDATE_STUDENTPROFILE}" />
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="studentCode">Student Code</label>
-                                        <input type="text" readonly class="col-8 profile--input" name="" id="studentCode" value="${studentProfile.studentCode}">
-                                        <input type="hidden" name="studentCode" value="${studentProfile.studentCode}" />
-                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                                your error
-                                                                            </h5>-->
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="fullName">Full Name</label>
-                                        <input type="text" readonly class="col-8 profile--input " name="" id="fullName" value="${studentProfile.account.name}">
-                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                                your error
-                                                                            </h5>-->
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="birthday">Birthday</label>
-                                        <input type="date" class="col-8 profile--input " name="dateUpdate" id="birthday" value="${studentProfile.birthDay}">
-                                        <h5 class="text-danger offset-4 col-8 text-start">
-                                            <c:if test="${not empty errorUpdate}">
-                                                ${errorUpdate.errorDateInvalid}
-                                                ${errorUpdate.errorDateEmpty}
-                                            </c:if>
-                                        </h5>
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="gender">Gender</label>
-                                        <c:if test="${studentProfile.gender}">
-                                            <select name="genderUpdate" class="col-8 profile--input">
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                            </select>
-                                        </c:if>
-                                        <c:if test="${not studentProfile.gender}">
-                                            <select name="genderUpdate" class="col-8 profile--input">
-                                                <option>Female</option>
-                                                <option>Male</option>
-                                            </select>
-                                        </c:if>
-
-<!--<input type="text" class="col-8 profile--input " name="" id="gender" value="${studentProfile.gender}">-->
-                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                                your error
-                                                                            </h5>-->
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="email">Email</label>
-                                        <input type="email" readonly class="col-8 profile--input " name="" id="email"
-                                               value="${studentProfile.account.email}">
-                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                                your error
-                                                                            </h5>-->
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="address">Address</label>
-                                        <input type="text" class="col-8 profile--input " name="addressUpdate" id="address" value="${studentProfile.address}">
-                                        <h5 class="text-danger offset-4 col-8 text-start ">
-                                            <c:if test="${not empty errorUpdate}">
-                                                ${errorUpdate.errorAddressLength}
-                                            </c:if>
-                                        </h5>
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="phone">Phone Number</label>
-                                        <input type="number" class="col-8 profile--input " name="phoneUpdate" id="phone" value="${studentProfile.phone}">
-                                        <h5 class="text-danger offset-4 col-8 text-start ">
-                                            <c:if test="${not empty errorUpdate}">
-                                                ${errorUpdate.errorPhoneNumberLength}
-                                            </c:if>
-                                        </h5>
-                                    </div>
-                                    <div class="profile__input row">
-                                        <label class="col-4 profile--label" for="major">Major</label>
-                                        <input type="text" readonly class="col-8 profile--input " name="" id="major"
-                                               value="${studentProfile.major}">
-                                        <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                                your error
-                                                                            </h5>-->
-                                    </div>
-                                    <div class="profile-edit-btn primary-btn">
-                                        <i class="fas fa-edit"></i>
-                                        <input type="submit" class="profile-edit--input" value="Edit">
-                                    </div>
-                                </form>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="fullName">Full Name</label>
+                                <div class="col-8  profile--input-none-hover  ">${studentProfile.account.name}</div>
+                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                        your error
+                                                                    </h5>-->
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="birthday">Birthday</label>
+                                <input type="date" class="col-8 profile--input " name="dateUpdate" id="birthday" value="${studentProfile.birthDay}">
+                                <h5 class="text-danger offset-4 col-8 text-start">
+                                    <c:if test="${not empty errorUpdate}">
+                                        ${errorUpdate.errorDateInvalid}
+                                        ${errorUpdate.errorDateEmpty}
+                                    </c:if>
+                                </h5>
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="gender">Gender</label>
+                                <select name="genderUpdate" class="col-8 profile--input">
+                                    <option <c:if test="${studentProfile.gender eq false}">
+                                            selected="selected"
+                                        </c:if>>Female</option>
+                                    <option <c:if test="${studentProfile.gender eq true}">
+                                            selected="selected"
+                                        </c:if>>Male</option>
+                                </select>
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="email">Email</label>
+                                <input type="email" readonly class="col-8 profile--input " name="email" id="email"
+                                       value="${studentProfile.account.email}">
+                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
+                                                                        your error
+                                                                    </h5>-->
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="address">Address</label>
+                                <input type="text" class="col-8 profile--input " name="addressUpdate" id="address" value="${studentProfile.address}">
+                                <h5 class="text-danger offset-4 col-8 text-start ">
+                                    <c:if test="${not empty errorUpdate}">
+                                        ${errorUpdate.errorAddressLength}
+                                    </c:if>
+                                </h5>
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="phone">Phone Number</label>
+                                <input type="number" class="col-8 profile--input " name="phoneUpdate" id="phone" value="${studentProfile.phone}">
+                                <h5 class="text-danger offset-4 col-8 text-start ">
+                                    <c:if test="${not empty errorUpdate}">
+                                        ${errorUpdate.errorPhoneNumberLength}
+                                    </c:if>
+                                </h5>
+                            </div>
+                            <div class="profile__input row">
+                                <label class="col-4 profile--label" for="major">Major</label>
+                                <input type="text" readonly class="col-8 profile--input " name="" id="major"
+                                       value="${studentProfile.major}">
+                            </div>
+                            <div class="profile__input row"> 
+                                <label class="col-4 profile--label" for="avatar">Avatar</label>
+                                <input type="file" name="avatar" class="col-8" value="" id="avatar" />
+                            </div>
+                            <c:if test="${not empty errorUpdate.errorFileLength}">
+                                <h5 class="text-danger offset-4 col-8 text-start">
+                                    ${errorUpdate.errorFileLength}
+                                </h5>
                             </c:if>
 
-
-                        </div>
+                            <div class="profile-edit-btn primary-btn">
+                                <i class="fas fa-edit"></i>
+                                <input type="submit" class="profile-edit--input" value="Edit">
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </c:if>
+            </div>
         </main>
-
         <footer class="footer">
             <div class="footer__content">
                 @copyright 2022
             </div>
-
         </footer>
-
     </body>
 </html>

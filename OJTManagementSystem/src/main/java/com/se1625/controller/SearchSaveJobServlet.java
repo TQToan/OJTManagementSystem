@@ -5,20 +5,11 @@
  */
 package com.se1625.controller;
 
-import com.se1625.tblaccount.TblAccountDTO;
-import com.se1625.tblcompany.TblCompanyDAO;
-import com.se1625.tblcompany.TblCompanyDTO;
-import com.se1625.tblcompany_post.TblCompany_PostDAO;
-import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
-import com.se1625.tblmajor.TblMajorDAO;
-import com.se1625.tblmajor.TblMajorDTO;
-import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -26,7 +17,6 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +26,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThanhTy
  */
-@WebServlet(name = "SearchSaveJobServlet", urlPatterns = {"/SearchSaveJobServlet"})
 public class SearchSaveJobServlet extends HttpServlet {
 
     /**
@@ -51,76 +40,97 @@ public class SearchSaveJobServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String job = request.getParameter("txtJob");
-        String company = request.getParameter("txtCompany");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String jobName = request.getParameter("txtJob");
+
+        String companyName = request.getParameter("txtCompany");
+
         String nameLocation = request.getParameter("nameLocation");
-
-        //1. get servletContext 
+        String xpage = request.getParameter("page");
         ServletContext context = this.getServletContext();
-        //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_SAVE_JOB_PAGE);
+        String url = MyApplicationConstants.StudentSaveJobFeature.LOGIN_PAGE;
+
         int page;
-        int numberProductPage = 10;
+        int numberRowsPerPage = 10;
         int start;
-        int size;
         int end;
+        int sizeOfList;
         HttpSession session = request.getSession(false);
+
         try {
-            
-            //Thanh fix new name session
-            TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("ACCOUNT");
-            //lay studentCode
-                TblStudentDAO studentDAO = new TblStudentDAO();
-                TblStudentDTO studentDTO = studentDAO.showStudentInfo(accountDTO.getEmail());
-                
-//                request.setAttribute("STUDENT_CODE", studentDTO);
-//            if (company.isEmpty() == false || job.isEmpty() == false
-//                    || nameLocation.isEmpty() == false) {
-            TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
-            followPostDao.searchFollowingPostByFilter(job, company, nameLocation, studentDTO.getStudentCode());
-            List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter = followPostDao.getFollowingPostByFilter();
-            if (listFollowingCompanyPostByFilter != null) {
-                size = listFollowingCompanyPostByFilter.size();
-//                    System.out.println(size);
-                String xpage = request.getParameter("page");
-                if (xpage == null) {
-                    page = 1;
-                } else {
-                    page = Integer.parseInt(xpage);
-                }
-                int numberPage = size % numberProductPage;
-                if (numberPage == 0) {
-                    numberPage = size / numberProductPage;
-                } else {
-                    numberPage = (size / numberProductPage) + 1;
-                }
-                start = (page - 1) * numberProductPage;
-                end = Math.min(page * numberProductPage, size);
-                List<TblFollowing_PostDTO> followingPostPerPage = followPostDao.
-                        getListByPage(listFollowingCompanyPostByFilter, start, end);
+            if (session != null) {
 
-                request.setAttribute("LIST_RESULT", followingPostPerPage);
-                request.setAttribute("SIZE_OF_LIST", size);
-                request.setAttribute("page", page);
-                request.setAttribute("numberPage", numberPage);
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
 
-            } else {
-                size = 0;
-                request.setAttribute("SIZE_OF_LIST", size);
+                if (student != null) {
+                    TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter = null;
+                    if (jobName == null && companyName == null && nameLocation == null) {
+                        followPostDao.searchFollowingPostByFilter("", "",
+                                "", student.getStudentCode());
+                        listFollowingCompanyPostByFilter
+                                = followPostDao.getFollowingPostByFilter();
+                    } //get list saved jobs for saved job page
+                    else {
+                        followPostDao.searchFollowingPostByFilter(jobName, companyName,
+                                nameLocation, student.getStudentCode());
 
-            }
-            url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_SAVE_JOB_PAGE);
-            //}
+                        listFollowingCompanyPostByFilter
+                                = followPostDao.getFollowingPostByFilter();
+                    } //get list saved job for search saved job by filter
+                    if (listFollowingCompanyPostByFilter != null) {
+                        sizeOfList = listFollowingCompanyPostByFilter.size();
+
+                        if (xpage == null) {
+                            page = 1;
+                        } // load page save job 
+                        else {
+                            page = Integer.parseInt(xpage);
+                        } // when choose number of page
+
+                        int numberPage = sizeOfList % numberRowsPerPage;
+
+                        if (numberPage == 0) {
+                            numberPage = sizeOfList / numberRowsPerPage;
+                        } else {
+                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                        }
+                        start = (page - 1) * numberRowsPerPage;
+                        end = Math.min(page * numberRowsPerPage, sizeOfList);
+
+                        List<TblFollowing_PostDTO> followingPostPerPage = followPostDao.
+                                getListByPage(listFollowingCompanyPostByFilter, start, end);
+
+                        request.setAttribute("LIST_SAVED_POSTS_RESULT", followingPostPerPage);
+                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                        request.setAttribute("page", page);
+                        request.setAttribute("numberPage", numberPage);
+
+                    } else {
+                        sizeOfList = 0;
+                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
+
+                    }
+                    url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_SAVE_JOB_PAGE);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                }//if student is created
+                else {
+                    response.sendRedirect(url);
+                }// if student is not created
+            }//if session exist
+            else {
+                response.sendRedirect(url);
+            }//if session does not exist
         } catch (SQLException ex) {
-            log("SQLException occurs at SearchSaveJobController " + ex.getMessage());
+            log("SQLException at SearchSaveJobController " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException occurs at SearchSaveJobController " + ex.getMessage());
+            log("NamingException at SearchSaveJobController " + ex.getMessage());
         } catch (NumberFormatException ex) {
-            log("NumberFormatException occurs at SearchSaveJobController " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            log("NumberFormatException at SearchSaveJobController " + ex.getMessage());
         }
 
     }

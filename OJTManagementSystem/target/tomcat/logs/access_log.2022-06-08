@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:34 +0700] "GET /OJTManagementSystem HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:38 +0700] "GET /OJTManagementSystem/LoginGoogleServlet?code=4%2F0AX4XfWjV5HQ2Iw8yTIdcQxizZtfcTaT3NA_YxbFyI3RqE6yYdzG9vXML4zJb32DNrgKJAw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=2&prompt=consent HTTP/1.1" 302 - http-bio-8080-exec-3 1003
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:39 +0700] "GET /OJTManagementSystem/AdminCompanyManagerController HTTP/1.1" 200 45868 http-bio-8080-exec-4 568
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:42 +0700] "GET /OJTManagementSystem/SearchCompanyAdminManagerController?selectCompany=&txtEmail=&selectStatus=Success HTTP/1.1" 200 45804 http-bio-8080-exec-5 11
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:44 +0700] "GET /OJTManagementSystem/SearchCompanyAdminManagerController?selectCompany=&txtEmail=&selectStatus=Denied HTTP/1.1" 200 28375 http-bio-8080-exec-6 8
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:47 +0700] "GET /OJTManagementSystem/SearchCompanyAdminManagerController?selectCompany=FPT001&txtEmail=&selectStatus= HTTP/1.1" 200 23914 http-bio-8080-exec-7 4
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:49 +0700] "GET /OJTManagementSystem/SearchCompanyAdminManagerController?selectCompany=FPT001&txtEmail=&selectStatus=Denied HTTP/1.1" 200 23920 http-bio-8080-exec-8 5
+0:0:0:0:0:0:0:1 - - [08/Jun/2022:19:46:50 +0700] "GET /OJTManagementSystem/SearchCompanyAdminManagerController?selectCompany=FPT001&txtEmail=&selectStatus=Success HTTP/1.1" 200 20093 http-bio-8080-exec-9 3

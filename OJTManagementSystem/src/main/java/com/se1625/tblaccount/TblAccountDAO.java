@@ -124,7 +124,7 @@ public class TblAccountDAO implements Serializable {
         }
         return false;
     }
-    public boolean checkLogin(String username, String password) throws NamingException, SQLException {
+    public boolean checkLoginForCompanyAccount(String username, String password) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -284,6 +284,35 @@ public class TblAccountDAO implements Serializable {
             }
         }        
         
+        return false;
+    }
+
+    public boolean updateAccount(String username, String avatar) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblAccount "
+                        + "SET avatar = ? "
+                        + "WHERE username = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, avatar);
+                stm.setString(2, username);
+                
+                int rows = stm.executeUpdate();
+                if(rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
         return false;
     }
 

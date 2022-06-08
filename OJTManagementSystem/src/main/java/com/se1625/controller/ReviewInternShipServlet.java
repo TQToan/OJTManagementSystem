@@ -12,6 +12,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
@@ -34,7 +36,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name = "ReviewInternShipServlet", urlPatterns = {"/ReviewInternShipServlet"})
 public class ReviewInternShipServlet extends HttpServlet {
 
     /**
@@ -49,43 +50,42 @@ public class ReviewInternShipServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         ServletContext context = this.getServletContext();
-        Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url = prop.getProperty(MyApplicationConstants.ReviewInternShipServletFeature.STUDENT_REVIEW_INTERNSHIP_PAGE);
+        Properties properties = (Properties) context.getAttribute("SITE_MAPS");
+        String url = MyApplicationConstants.ReviewInternShipFeature.LOGIN_PAGE;
+
         HttpSession session = request.getSession(false);
         try {
             if (session != null) {
                 //lấy Account của Student
-                TblAccountDTO dtoAccount = (TblAccountDTO) session.getAttribute("ACCOUNT");
-                if (dtoAccount != null) {
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                if (student != null) {
+                    url = properties.getProperty(MyApplicationConstants.ReviewInternShipFeature.STUDENT_REVIEW_INTERNSHIP_PAGE);
                     //lấy profile của Student 
-                    String userName = dtoAccount.getEmail();
-                    TblStudentDAO daoStudent = new TblStudentDAO();
-                    TblStudentDTO dtoStudent = daoStudent.showStudentInfo(userName);
-                    dtoStudent.setAccount(dtoAccount);
                     //set Attribute
-                    request.setAttribute("STUDENT_PROFILE", dtoStudent);
+                    request.setAttribute("STUDENT_PROFILE", student);
+
+                    //lấy Application của Student apply đã được Company và school và student duyệt
+                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                    TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode());
                     
-                    //lấy Application của Student apply đã được Company duyệt
-                    TblApplicationDAO daoApp = new TblApplicationDAO();
-                    TblApplicationDTO dtoApp = daoApp.getApplication(dtoStudent.getStudentCode());
-
-                    if (dtoApp != null) {
-
+                    if (application != null) {
                         //set Attribute
-                        request.setAttribute("STUDENT_APP", dtoApp);
+                        request.setAttribute("STUDENT_APPLICATION", application);
 
                         //get bài post của Company mà Student apply
-                        TblCompany_PostDAO daoPost = new TblCompany_PostDAO();
-                        TblCompany_PostDTO dtoPost = daoPost.searchPostByPostID(dtoApp.getCompanyPost().getPostID());
+                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPost = companyPostDAO.searchPostByPostID(application.getCompanyPost().getPostID());
                         //set Attribute
-                        request.setAttribute("COMPANY_POST", dtoPost);
+                        request.setAttribute("COMPANY_POST_APPLIED_BY_STUDENT", companyPost);
 
-                        if (dtoPost != null) {
+                        if (companyPost != null) {
 
                             //get Company đăng bài Post 
-                            String companyID = dtoPost.getCompany().getCompanyID();
+                            String companyID = companyPost.getCompany().getCompanyID();
                             TblCompanyDAO daoCompany = new TblCompanyDAO();
                             TblCompanyDTO dtoCompany = daoCompany.getCompany(companyID);//set Attribute
 
@@ -94,25 +94,40 @@ public class ReviewInternShipServlet extends HttpServlet {
                             //          System.out.println(nameCompany);
                             //set attribute
                             request.setAttribute("COMPANY_PROFILE", dtoCompany);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
                         }
                     } else {
                         //Recomend post
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                         //lấy 6 bài post
-                        companyPostDAO.getListRecomendPost(dtoStudent.getMajor());
+                        companyPostDAO.getListRecomendPost(student.getMajor());
                         List<TblCompany_PostDTO> listPostHome = companyPostDAO.getCompanyPostListHome();
-                        request.setAttribute("LIST_POST_HOME", listPostHome);
+                        request.setAttribute("LIST_RECOMMEND_POST", listPostHome);
+
+                        TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                        followPostDao.getFollowingPost(student.getStudentCode());
+                        List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                                = followPostDao.getFollowingPostByFilter();
+                        request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     }
 
-                }
-            }
+                } //if student is created
+                else {
+                    response.sendRedirect(url);
+                } // if student is not created
+            }//if session exist
+            else {
+                response.sendRedirect(url);
+            }// if session does not exist
         } catch (NamingException ex) {
             log("ReviewInternShipServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("ReviewInternShipServlet_SQLException " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+
         }
     }
 

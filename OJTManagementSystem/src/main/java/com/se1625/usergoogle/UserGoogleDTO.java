@@ -5,11 +5,13 @@
  */
 package com.se1625.usergoogle;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ASUS
  */
-public class UserGoogleDTO {
+public class UserGoogleDTO implements Serializable{
 
     private String id;
     private String email;

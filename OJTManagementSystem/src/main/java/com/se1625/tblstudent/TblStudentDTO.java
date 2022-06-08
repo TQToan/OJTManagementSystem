@@ -10,12 +10,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- *
-<<<<<<< HEAD
- * @author ThanhTy
-=======
- * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
->>>>>>> bee8428da5a125bb55daa1e38d89b53ff54a5338
+
+ @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 public class TblStudentDTO implements Serializable{
     private String studentCode;

@@ -19,7 +19,9 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,8 +50,11 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        ServletContext context = this.getServletContext();
+        Properties properties = (Properties) context.getAttribute("SITE_MAPS");
+        String fileError = "";
         try {
+
             // Create a factory for disk-based file items
             DiskFileItemFactory factory = new DiskFileItemFactory();
 
@@ -68,6 +73,7 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
             String filePath = "";
             String fileName = "";
             String fileImportPath = "";
+
             while (iter.hasNext()) {
                 FileItem item = iter.next();
 
@@ -87,34 +93,52 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
                             Files.createDirectories(Paths.get(realPath));
                         }
                         item.write(uploadFile);
+                        fileError = fileImportPath;
                     }
                 }
             }
+            //check size của file
             List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
-
-            TblAccountDAO dao = new TblAccountDAO();
-            int i = 0;
-            for (TblStudentDTO student : studentList) {
-                System.out.println(i++ + " " + dao.checkExistedAccount(student.getAccount().getEmail()));
-                if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
-                    dao.addStudentAccount(student);
+            if (studentList != null) {
+                TblAccountDAO dao = new TblAccountDAO();
+                int i = 0;
+                for (TblStudentDTO student : studentList) {
+                    System.out.println(i++ + " " + dao.checkExistedAccount(student.getAccount().getEmail()));
+                    if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
+                        dao.addStudentAccount(student);
+                    }
                 }
-            }
-            Files.deleteIfExists(Paths.get(fileImportPath));
-            String url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
-            response.sendRedirect(url);
-
+                Files.deleteIfExists(Paths.get(fileImportPath));
+                String url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
+                response.sendRedirect(url);
+            } 
         } catch (FileUploadException ex) {
-            log("FileUploadException " + ex.getMessage());
+            log("FileUploadException occurs ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (IOException ex) {
-            log("IOException " + ex.getMessage());
+            log("IOException occurs ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (SQLException ex) {
-            log("SQLException " + ex.getMessage());
+            log("SQLException occurs ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException " + ex.getMessage());
+            log("NamingException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            log("IllegalArgumentException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            if ("The specified file is not Excel file".equals(ex.getMessage())) {
+                request.setAttribute("ERROR_IMPORT_EXCEL", "This file is not a excel(.xlsx) file. Please check again!");
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.DEMP_PAGE);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+                Files.deleteIfExists(Paths.get(fileError));
+            }
         } catch (Exception ex) {
-            log("Exception " + ex.getMessage());
-        }
+            log("Exception occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            if ("Sheet is empty".equals(ex.getMessage())) {
+                request.setAttribute("ERROR_IMPORT_EXCEL", "This file is empty. Please check again!");
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.DEMP_PAGE);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+                Files.deleteIfExists(Paths.get(fileError));
+            }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

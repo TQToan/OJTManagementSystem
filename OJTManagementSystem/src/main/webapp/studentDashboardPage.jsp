@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,19 +25,15 @@
         <header></header>
 
         <main class="row">
-            <%--Thanh fix new name session--%>
-            <c:set var="user" value="${sessionScope.ACCOUNT}"/>
-            <c:set var="student" value="${requestScope.STUDENT}" />
+            <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
             <nav class="col-2  nav-fixed">
                 <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                  
+
                 <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    <c:if test="${not empty user}">
-                        ${user.name}
-                    </c:if> 
+                    ${student.account.name}
                 </a>
 
                 <ul class="nav__content">
@@ -48,10 +45,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-
-                        <c:url var="studentProfile" value="ShowStudentProfileController">                           
-                        </c:url>
-                        <a href="${studentProfile}" class="nav__item--link">
+                        <a href="ShowStudentProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a> 
@@ -63,18 +57,10 @@
                             <i class="fas fa-angle-down icon-down"></i>
                         </div>
                         <div class="nav__item__dropdown">
-
-                            <c:url var="urlSaveJob" value="SearchSaveJobController">
-                                <c:param name="txtJob" value=""/>
-                                <c:param name="txtCompany" value=""/>
-                                <c:param name="nameLocation" value=""/>
-                                <c:param name="studentCode" value="${student.studentCode}"/>
-
-                            </c:url>
-                            <a href="${urlSaveJob}" class="nav__item__dropdown--link">
+                            <a href="SearchSaveJobController" class="nav__item__dropdown--link">
                                 Saved Jobs
                             </a>
-                            <a href="studentApplJob.html" class="nav__item__dropdown--link">
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
                                 Applied Jobs
                             </a>
                         </div>
@@ -100,43 +86,26 @@
 
                 <div class="row">
                     <div class="dashboard-card offset-3 col-2">
-                        <c:url var="urlSaveJob" value="SearchSaveJobController">
-                            <c:param name="txtJob" value=""/>
-                            <c:param name="txtCompany" value=""/>
-                            <c:param name="nameLocation" value=""/>
-                            <c:param name="studentCode" value="${student.studentCode}"/>
-                        </c:url>
-                        <a href="${urlSaveJob}" class="dashboard-card--link">
+                        <a href="SearchSaveJobController" class="dashboard-card--link">
                             <div class="save-jobs">
-                                ${requestScope.SIZE_OF_LIST_DASHBOARD}
+                                ${requestScope.NUMBER_OF_FOLLOWING_POST}
                             </div>
                             <div class="dashboard-card__content">
                                 Save Jobs
                             </div>
                         </a>
-
-                        <!--                        <a href="StudentSaveJobController" class="dashboard-card--link">
-                                                    <div class="save-jobs">
-                        ${requestScope.SIZE_OF_LIST_DASHBOARD}
-                    </div>
-                    <div class="dashboard-card__content">
-                        Save Jobs
-                    </div>
-                </a>-->
-
                     </div>
 
                     <div class="dashboard-card offset-2 col-2 ">
-                        <a href="studentApplJob.html" class="dashboard-card--link">
+                        <a href="ShowStudentAppliedJobController" class="dashboard-card--link">
                             <div class="applied-jobs ">
-                                200
+                                ${requestScope.NUMBER_OF_APLLIED_JOB}
                             </div>
                             <div class="dashboard-card__content">
                                 Applied Jobs
                             </div>
+                        </a>
                     </div>
-
-
                 </div>
 
                 <div class="row">
@@ -147,26 +116,25 @@
                             </div>
                             <div class="card-visit__body row">
                                 <div class="card-visit--img offset-1 col-3">
-
-                                    <img src="./avatars/${user.avatar}" alt="${user.avatar}">
+                                    <c:if test="${empty student.account.avatar}">
+                                        <img class="img-responsive" src="./avatars/person.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty student.account.avatar}">
+                                        <img class="img-responsive" src="./avatars/${student.account.avatar}" alt="${student.account.avatar}">
+                                    </c:if>
                                 </div>
                                 <div class="card-vist__content offset-1 col-7">
-                                    <h3>${user.name}</h3>
-                                    <p>Date of birth: ${student.birthDay}</p>
-                                    <p>Job: ${student.major}</p>
-                                    <p>Email: ${user.email}</p>
-
-
+                                    <h3>${student.account.name}</h3>
+                                    <p>Date of birth: ${my:changeDateFormat(student.birthDay)}</p>
+                                    <p>Major: ${student.major}</p>
+                                    <p>Email: ${student.account.email}</p>
                                 </div>
-
                             </div>
-                            <a href="studentProfile.html" class="card-visit-btn primary-btn">
+                            <a href="ShowStudentProfileController" class="card-visit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 Edit
                             </a>
-
                         </div>
-
                     </form>
                 </div>
 
@@ -177,28 +145,40 @@
                     </div>
 
                     <div class="row row-cols-2">
-                        <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto">
+                        <c:forEach items="${requestScope.LIST_RECOMMEND_POST}" var="recommendPost">
+                            <c:set var="majorID" value="${recommendPost.major.majorID}"/>
                             <div class="col">
                                 <div class="recom-box row ">
-                                    <a href="homeCPostDetail.html">
-                                        <h3>${dto.title_Post}</h3>
-                                        <h3>${dto.company.account.name}</h3>
+                                    <a href="HomeShowCompanyDetailController?postID=${recommendPost.postID}">
+                                        <h3>${recommendPost.title_Post}</h3>
+                                        <h3>${recommendPost.company.account.name}</h3>
                                     </a>
                                     <div class="recom-box__img col-4">
-                                        <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}">
+                                        <img class="img-responsive" src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
                                     </div>
                                     <div class="recom-box-content col-8">
 
-                                        <p>Quantity: ${dto.quantityIterns}</p>
-                                        <p>${dto.workLocation}</p>
-                                        <p>Date: ${dto.postingDate}</p>
+                                        <p>Quantity: ${recommendPost.quantityIterns}</p>
+                                        <p>Location: ${recommendPost.workLocation}</p>
+                                        <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
+                                        
+                                        <c:set var="listFollowingPost" value="${requestScope.LIST_FOLLOWING_POST}"/>
+                                        <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
+                                        
+                                            <c:if test="${statusFollowingPost eq true}">
+                                                <form action="StudentDeleteSaveJobController" method="POST">
+                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
+                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                    <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
+                                                </form>
+                                            </c:if>
+                                            <c:if test="${statusFollowingPost eq false}">
+                                                <form action="StudentSaveJobController" method="POST">
+                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
+                                                </form>
+                                            </c:if>
 
-
-                                        <form action="StudentSaveJobController" method="POST">
-                                            <input type="hidden" name="postID" value="${dto.postID}" />
-                                            <input type="hidden" name="studentCode" value="${student.studentCode}" />
-                                            <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
-                                        </form>
 
                                         <%--
 
@@ -221,21 +201,14 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </c:forEach>
-
-
-
                     </div>
 
                     <div class="recom__see-more--btn row">
                         <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
-                            <c:param name="nameCompany" value="${companyID}"/>
+                            <c:param name="nameCompany" value=""/>
                             <c:param name="nameMajor" value="${majorID}"/>
-                            <c:param name="nameLocation" value="${nameLocation}"/>
+                            <c:param name="nameLocation" value=""/>
                         </c:url>
                         <a href="${urlSearchHome}" class="recom--more--btn offset-10 col-2">
                             See More 

@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
-        <link rel="stylesheet" href="./assets/css/register.css">
+        <link rel="stylesheet" href="./assets/css/register.css">    
+        <link rel="stylesheet" href="./assets/css/register-responsive.css">
     </head>
     <body>
         <header class="header ">
@@ -30,11 +31,11 @@
         <div class="main">
             <div class="container-fluid ">
                 <div class="row ">
-                    <div class="container-left offset-1 col-4">
+                    <div class="container-left offset-xl-1 col-xl-4 offset-md-0 col-md-4">
                         <img src="./assets/img/ojt.png" alt="" class="container-left--img">
                     </div>
 
-                    <div class="container-right offset-1 col-5">
+                    <div class="container-right offset-2 col-8  offset-xl-1 col-xl-5 offset-md-0 col-md-8">
                         <div class="header-right">COMPANY REGISTRATION</div>
                         <div class="header-right--step">STEP 2: COMPANY INFORMATION </div>
                         <div class="right-form">
@@ -116,7 +117,6 @@
 
             </div>
         </div>
-
         <footer class="footer">
             <div class="footer__content">
                 @copyright 2022

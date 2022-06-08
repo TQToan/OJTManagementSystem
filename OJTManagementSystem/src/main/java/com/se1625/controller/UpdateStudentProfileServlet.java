@@ -5,32 +5,43 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblstudent.TblStudentDAO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.tblstudent.TblStudentError;
 import com.se1625.utils.MyApplicationConstants;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "UpdateStudentProfileServlet", urlPatterns = {"/UpdateStudentProfileServlet"})
 public class UpdateStudentProfileServlet extends HttpServlet {
 
     /**
@@ -45,81 +56,158 @@ public class UpdateStudentProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String studentCode = request.getParameter("studentCode");
-        String date = request.getParameter("dateUpdate");
-        String stringGender = request.getParameter("genderUpdate");
-        String address = request.getParameter("addressUpdate");
-        String stringPhone = request.getParameter("phoneUpdate");
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ServletContext context = this.getServletContext();
-        Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE);
-
+        Properties properties = (Properties) context.getAttribute("SITE_MAPS");
+        String url = MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE;
         TblStudentError error = new TblStudentError();
-        boolean checkError = false;
-
         //get session
         HttpSession session = request.getSession(false);
         try {
             if (session != null) {
-                TblAccountDTO account = (TblAccountDTO) session.getAttribute("ACCOUNT");
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 //check session account
-                if (account != null) {
-
+                if (student != null) {
                     //get Date Now
                     LocalDate today = LocalDate.now();
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String nowDate = format.format(today);
 
+                    boolean checkError = false;
+
+                    DiskFileItemFactory factory = new DiskFileItemFactory();
+                    ServletContext servletContext = this.getServletConfig().getServletContext();
+                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+                    factory.setRepository(repository);
+                    ServletFileUpload upload = new ServletFileUpload(factory);
+                    List<FileItem> items = upload.parseRequest(request);
+
+                    Iterator<FileItem> iter = items.iterator();
+                    HashMap<String, String> params = new HashMap<>();
+                    String name = "";
+                    String value = "";
+                    String fileName = "";
+                    String avatarName = "";
+                    long fileLength = 0;
+                    String filePath = "";
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
+                        if (item.isFormField()) {
+                            name = item.getFieldName();
+                            value = item.getString("UTF-8");
+                            params.put(name, value);
+                        } else {
+                            fileName = item.getName();
+                            if (fileName == null || fileName.equals("")) {
+                                break;
+                            } else {
+                                Path path = Paths.get(fileName);
+                                String realPath = request.getServletContext().getRealPath("/avatars");
+                                avatarName = student.getStudentCode() + "_" + path.getFileName().toString();
+                                File uploadFile = new File(realPath + "/" + avatarName);
+                                filePath = uploadFile.toString();
+
+                                if (Files.exists(Paths.get(realPath)) == false) {
+                                    Files.createDirectories(Paths.get(realPath));
+                                } else {
+                                    item.write(uploadFile);
+                                }
+                                fileLength = Files.size(Paths.get(filePath));
+                            }
+                        }
+                    }
+                    fileLength = (fileLength / (1024));
+                    long sizeMax = 800;
+
+                    String studentCode = params.get("studentCode");
+                    String date = params.get("dateUpdate");
+                    String stringGender = params.get("genderUpdate");
+                    String address = params.get("addressUpdate");
+                    String stringPhone = params.get("phoneUpdate");
+                    String email = params.get("email");
+
                     //Check date update
                     if (date.compareTo(nowDate) > 0) {
-                        error.setErrorDateInvalid("Invalid date with current date");
+                        error.setErrorDateInvalid("Your birthDay is illegal");
                         checkError = true;
                     }
 
                     //check address input format
                     if (address.trim().length() == 0) {
-                        error.setErrorAddressLength("Please enter your address");
+                        error.setErrorAddressLength("Address is required 6-100 characters");
                         checkError = true;
                     }
 
                     //check phone number update
                     if (stringPhone.trim().length() < 10 || stringPhone.trim().length() > 11) {
-                        error.setErrorPhoneNumberLength("Please enter 10-11 numbers");
+                        error.setErrorPhoneNumberLength("Number phone is required 10 characters");
                         checkError = true;
                     }
+
+                    if (fileLength > sizeMax) {
+                        checkError = true;
+                        error.setErrorFileLength("File's size must not exceed 800KB");
+                    }
+
                     if (checkError) {
                         request.setAttribute("ERROR_UPDATE_STUDENTPROFILE", error);
-                        url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
+                        if (avatarName.trim().isEmpty() == false) {
+                            Files.deleteIfExists(Paths.get(filePath));
+                        }
+                        url = properties.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
-                        boolean gender;
+                        boolean gender = false;
                         if ("Male".endsWith(stringGender)) {
                             gender = true;
-                        } else {
-                            gender = false;
                         }
                         TblStudentDAO dao = new TblStudentDAO();
                         Date birthday = Date.valueOf(date);
                         //update
-                        boolean result = dao.updateStudent(studentCode, birthday, address, gender, stringPhone);
-                        if (result) {
-                            url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
+                        boolean resultIpdateStudent = dao.updateStudent(studentCode, birthday, address, gender, stringPhone);
+                        TblAccountDAO accountDAO = new TblAccountDAO();
+                        if (fileName.equals("") == false) {
+                            String oldAvatar = student.getAccount().getAvatar();
+                            boolean resultUpdateAccount = accountDAO.updateAccount(email, avatarName);
+
+                            if (resultIpdateStudent == true && resultUpdateAccount == true) {
+                                if (oldAvatar != null || "".equals(oldAvatar) == false) {
+                                    String oldAvatarPath = request.getServletContext().
+                                            getRealPath("/avatars") + "/" + oldAvatar;
+                                    Files.deleteIfExists(Paths.get(oldAvatarPath));
+                                }
+                            }
                         }
+                        TblStudentDTO newInforStudent = dao.getStudent(student.getAccount().getEmail());
+                        session.setAttribute("STUDENT_ROLE", newInforStudent);
+                        url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
+                        response.sendRedirect(url);
                     }
+                } //if student is created
+                else {
+                    response.sendRedirect(url);
                 }
+            } //if session exist
+            else {
+                response.sendRedirect(url);
             }
         } catch (IllegalArgumentException ex) {
+            log("IllegalArgumentException at UpdateStudentProfileServlet " + ex.getMessage());
             error.setErrorDateEmpty("Please, enter your birthday");
             request.setAttribute("ERROR_UPDATE_STUDENTPROFILE", error);
-            url = prop.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
-        } catch (NamingException ex) {
-            log("UpdateStudentProfileServlet_NamingException " + ex.getMessage());
-        } catch (SQLException ex) {
-            log("UpdateStudentProfileServlet_SQLException " + ex.getMessage());
-        } finally {
+            url = properties.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_STUDENT_PROFILE_SERVLET);
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
+        } catch (FileUploadException ex) {
+            log("FileUploadException at UpdateStudentProfileServlet " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("NamingException at UpdateStudentProfileServlet " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("SQLException at UpdateStudentProfileServlet " + ex.getMessage());
+        } catch (Exception ex) {
+            log("Exception at UpdateStudentProfileServlet " + ex.getMessage());
         }
     }
 

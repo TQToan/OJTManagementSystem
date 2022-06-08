@@ -9,8 +9,11 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
+import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,16 +23,15 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
-@WebServlet(name = "ShowStudentHomeServlet", urlPatterns = {"/ShowStudentHomeServlet"})
 public class ShowStudentHomeServlet extends HttpServlet {
 
     /**
@@ -44,50 +46,67 @@ public class ShowStudentHomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //1. get servletContext 
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
         ServletContext context = this.getServletContext();
-        //2. get properties
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        
-        // check session with role is student 
-        // lấy 6 bài post công ty có ngày hết hạn lâu nhất show ra
-        // lấy các avatar của các công ty đã kí kết với nhà trường
-        // lấy name của các công ty để hiển thị trên filter
-        // lấy các major để hiển thị lên filter
-        
+
+        HttpSession session = request.getSession(false);
+
         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
         TblCompanyDAO companyDAO = new TblCompanyDAO();
         TblMajorDAO majorDAO = new TblMajorDAO();
-        String url = properties.getProperty(MyApplicationConstants.
-                ShowStudentHomeFeature.STUDENT_HOME_PAGE);
+        String url = MyApplicationConstants.ShowStudentHomeFeature.LOGIN_PAGE;
         try {
-            //lấy 6 bài post
-            companyPostDAO.getListPostHome();
-            List<TblCompany_PostDTO> listPostHome = companyPostDAO.getCompanyPostListHome();
-            request.setAttribute("LIST_POST_HOME", listPostHome);
-            
-            //get name của các công ty
-            companyDAO.getNameCompanies();
-            List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
-            request.setAttribute("COMPANY_NAME", listNameCompany);
-            
-            //get avatar của signed công ty
-            companyDAO.getAvatarSignedCompany();
-            List<TblCompanyDTO> listAvatarSignedCompany = companyDAO.getListAvatarSignedCompany();
-            request.setAttribute("LIST_AVATAR_SIGNED_COMPANY", listAvatarSignedCompany);
-            
-            //get major 
-            majorDAO.getNameMajor();
-            List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-            request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
-            
+            if (session != null) {
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                if (student != null) {
+                    //get top 8 of the post
+                    companyPostDAO.getListPostHome();
+                    List<TblCompany_PostDTO> listPostHome = companyPostDAO.getCompanyPostListHome();
+                    request.setAttribute("LIST_POST_HOME", listPostHome);
+
+                    //get name of companies
+                    companyDAO.getNameCompanies();
+                    List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                    request.setAttribute("COMPANY_NAME", listNameCompany);
+
+                    //get avatar of signed companies
+                    companyDAO.getAvatarSignedCompany();
+                    List<TblCompanyDTO> listAvatarSignedCompany = companyDAO.getListAvatarSignedCompany();
+                    request.setAttribute("LIST_AVATAR_SIGNED_COMPANY", listAvatarSignedCompany);
+
+                    //get major 
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                    request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    
+                    TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
+                    followPostDao.getFollowingPost(student.getStudentCode());
+
+                    //get number of following post of student
+                    List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
+                            = followPostDao.getFollowingPostByFilter();
+                    
+                    request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
+                    
+                    url = properties.getProperty(MyApplicationConstants.ShowStudentHomeFeature.STUDENT_HOME_PAGE);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                } //if student is created
+                else {
+                    response.sendRedirect(url);
+                } //if student is not created
+            } //if session exist
+            else {
+                response.sendRedirect(url);
+            }// if session does not exist
+
         } catch (SQLException ex) {
             log("SQLException at processRequest " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at processRequest " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
         }
     }
 
