@@ -816,7 +816,7 @@ public class TblApplicationDAO implements Serializable {
                     Date expirationDate = rs.getDate("expirationDate");
                     int postID = rs.getInt("postID");
                     String nameCompany = rs.getNString("name");
-                    
+
                     if (nameStatus.equals("Waiting") && schoolConfirm == 0 && companyConfirm == -1) {
                         continue;
                     }
@@ -861,5 +861,136 @@ public class TblApplicationDAO implements Serializable {
             }
         }
         return listApplicationByFilter;
+    }
+
+    // nơi dùng: AdminShowInternApplicationServlet
+    public List<TblApplicationDTO> getApplicationByFilterInAdminIternAppl(String studentID,
+            String companyID, String titleJob, String schoolStatus)
+            throws SQLException, NamingException, NumberFormatException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApplicationByFilter = null;
+        int iSchoolStatus = 7; // gắn giá trị khác status(-1:Waiting, 0:Denied, 1:Accept) là đc  
+        
+        if (studentID == null) {
+            studentID = "";
+        }
+        if (companyID == null) {
+            companyID = "";
+        }
+        if (titleJob == null) {
+            titleJob = "";
+        }
+        if (schoolStatus != null && !"".equals(schoolStatus)) {
+            iSchoolStatus = Integer.parseInt(schoolStatus); 
+        }
+
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT app.studentCode, app.student_Confirm, app.school_Confirm, app.company_Confirm,"
+                        + "acc.name, post.title_Post, app.applicationID "
+                        + "FROM tblApplication app JOIN tblCompany_Post post on app.postID = post.postID "
+                        + "JOIN tblCompany com on com.companyID = post.companyID "
+                        + "JOIN tblAccount acc on acc.username = com.username "
+                        + "WHERE app.studentCode Like ? and com.companyID Like ? and post.title_Post Like ? ";
+                if (iSchoolStatus != 7){
+                    sql += "and app.school_Confirm Like ? ";
+                }
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + studentID + "%");
+                stm.setNString(2,"%" + companyID + "%");
+                stm.setNString(3,"%" + titleJob + "%");
+                if (iSchoolStatus != 7){
+                    stm.setInt(4, iSchoolStatus);
+                }                
+                rs = stm.executeQuery();
+                int nu= 0;
+                 while (rs.next()) {
+                    String stuID = rs.getString("studentCode");
+                    String nameCompany = rs.getNString("name");
+                    String titlePost = rs.getNString("title_Post");
+                    boolean studentConfirm = rs.getBoolean("student_Confirm");
+                    int companyConfirm = rs.getInt("company_Confirm");
+                    int schoolConfirm = rs.getInt("school_Confirm");
+                    int applID = rs.getInt("applicationID");
+                    
+                    TblStudentDTO student = new TblStudentDTO();
+                    student.setStudentCode(stuID);
+                    
+                    TblAccountDTO account = new TblAccountDTO();
+                    account.setName(nameCompany);
+                    
+                    TblCompanyDTO company = new TblCompanyDTO();
+                    company.setAccount(account);
+                    
+                    TblCompany_PostDTO post = new TblCompany_PostDTO();
+                    post.setCompany(company);
+                    post.setTitle_Post(titlePost);
+                    
+                    TblApplicationDTO application = new TblApplicationDTO();
+                    application.setApplicationID(applID);
+                    application.setStudent(student);
+                    application.setCompanyPost(post);
+                    application.setStudentConfirm(studentConfirm);
+                    application.setCompanyConfirm(companyConfirm);
+                    application.setSchoolConfirm(schoolConfirm);
+                    
+                   
+                    
+                    if (listApplicationByFilter == null) {
+                        listApplicationByFilter = new ArrayList<>();
+                    }
+                    listApplicationByFilter.add(application);
+                }
+                return listApplicationByFilter;
+            }
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+    
+    public boolean changeStatusSchool (int applID, int schoolStatus) throws SQLException, NamingException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try{
+            con = DBHelper.makeConnection();
+            if (con != null) {
+            String sql = "UPDATE tblApplication "
+                    + "SET school_confirm = ? "
+                    + "WHERE applicationID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, schoolStatus);
+            stm.setInt(2, applID);
+            int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
     }
 }

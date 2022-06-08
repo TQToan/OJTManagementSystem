@@ -27,6 +27,7 @@ com\se1625\utils\MyApplicationConstants$studentDeleteSaveJobFeature.class
 com\se1625\utils\MyApplicationConstants$ImportStudentExcelFileFeature.class
 com\se1625\controller\AddStudentServlet.class
 com\se1625\utils\MyApplicationConstants$LoginGoogleFeture.class
+com\se1625\controller\AdminShowInternApplicationServlet.class
 com\se1625\tblstudent\TblStudentDTO.class
 com\se1625\controller\ShowApplyCVServlet.class
 com\se1625\controller\SearchSaveJobServlet.class
@@ -41,7 +42,11 @@ com\se1625\controller\ReviewInternShipServlet.class
 com\se1625\utils\MyApplicationConstants$AdminShowPostManagementFeature.class
 com\se1625\utils\MyApplicationConstants$ApplyCVStudentFeature.class
 com\se1625\tblcompany_post\TblCompany_PostDAO.class
+<<<<<<< HEAD
+com\se1625\controller\AdminChangeStatusInternApplicationServlet.class
+=======
 com\se1625\utils\MyApplicationConstants$AdminCompanyManagerFeature.class
+>>>>>>> fb0adeaffe160e5ce7974e91e9491f4b1eeabf99
 com\se1625\tblcompany_post\CompanyPostDetailError.class
 com\se1625\controller\AdminViewPostDetailsServlet.class
 com\se1625\utils\MyApplicationConstants$ShowStudentProfileFeature.class
@@ -80,6 +85,7 @@ com\se1625\utils\MyApplicationConstants$SearchComanyStudentHomeFeature.class
 com\se1625\controller\EmailVerificationServlet.class
 com\se1625\tblcompany_post\TblCompany_PostDTO.class
 com\se1625\tblaccount\TblAccountDTO.class
+com\se1625\utils\MyApplicationConstants$AdminInternApplication.class
 com\se1625\listener\MyApplicationListener.class
 com\se1625\controller\LogoutAccountServlet.class
 com\se1625\filter\DispatchFilter.class

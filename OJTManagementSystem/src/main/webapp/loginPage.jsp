@@ -31,10 +31,12 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
-<<<<<<< HEAD
-=======
 
->>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
+            <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
+                ${requestScope.ERROR_IMPORT_EXCEL}
+            </c:if>
+
+
             <div class="row main-body row-cols-sm-1">
                 <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
                     <h2 class="container__heading">*Company</h2>
@@ -98,20 +100,16 @@
                                  value="206603271676-8up4i9nf258hmlcol6khi7hcfkf7ibcn.apps.googleusercontent.com" />
                         <c:param name="approval_prompt" value="force" />
                     </c:url>
+
                     <div class="gg-btn">
                         <h5 class="text-danger text-center">
                             <c:set var="error" value="${requestScope.ERROR}"></c:set>
                             <c:if test="${not empty error}">
-                                <font color="red">
                                 ${error.userEmailNotAllow}
-                                </font>
                             </c:if>
                         </h5>
                         <a href="${loginGoogle}" class="google-btn row">
-<<<<<<< HEAD
 
-=======
->>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
                             <i class="fab fa-google google-logo col-2 "></i>
                             <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
                         </a>
@@ -121,7 +119,7 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
     </body>

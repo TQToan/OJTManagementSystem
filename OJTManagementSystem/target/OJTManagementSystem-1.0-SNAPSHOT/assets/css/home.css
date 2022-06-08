@@ -45,6 +45,7 @@
     margin: 20px;
     position: relative;
     padding: 20px;
+    height: 450px;
 }
 
 .card-company:hover{
@@ -59,7 +60,7 @@
 }
 
 .card-company-body{
-    margin: 10px 0px 20px 30px;
+    margin: 10px 0px 70px 30px;
     font-size: 1.2rem;
     text-align: left;
 }
@@ -67,10 +68,14 @@
 .card-company--img{
     height: 150px;
     border-radius: 20px;
+    object-fit: fill;
 }
 
 .card-company-btn{
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+    right: 0px;
 }
 
 .card-company-btn-save{
@@ -88,6 +93,21 @@
 
 .form__select option:nth-child(1){
     background-color: var(--background-gray-a);
+}
+
+.home_see-more{
+    text-align: right;
+}
+
+.home_see-more--btn{
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color-gray);
+    font-weight: 500;
+}
+
+.home_see-more--btn:hover{
+    color: var(--text-color-orange);
 }
 
 /* main-search-----------------END------------------------------ */
@@ -212,6 +232,9 @@
     text-align: left;
 }
 
+.hCompanyInfor__body h3 {
+    margin-top: 1rem ;
+}
 
 .hComApplDetail{
     margin: 50px;
@@ -227,6 +250,10 @@
 .hComApplDetail__left--content{
     font-size: 1.4rem;
     margin-right: 30px;
+}
+
+.hCompanyInfor__body--img{
+    object-fit: contain;
 }
 
 .hComApplDetail-btn{
@@ -264,6 +291,7 @@
     margin: 10px 20px;
     border-radius: 10px;
     position: relative;
+    display: block;
 }
 
 .right--card-save{
@@ -281,6 +309,22 @@
 .right--card-body{
     font-size: 1.2rem;
 }
+
+.right-card_img{
+    height: 150px;
+    padding: 10px;
+}
+.right--card-img{
+    height: 130px;
+    border-radius: 10px;
+}
+
+.hComApplDetail--header{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
 /* home Company Post Detail---------------END----------------------------- */
 
 
@@ -306,6 +350,7 @@
     width: 100%;
     border-radius: 30px;
     margin: 20px;
+    height: 300px;
 }
 
 

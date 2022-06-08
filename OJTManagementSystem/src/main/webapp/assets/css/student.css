@@ -8,6 +8,40 @@
 /* footer--------------------END------------------------ */
 
 
+/* General----------------------------------------------------  */
+.student-search-btn{
+    font-size: 1.8rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: block;
+}
+
+.student-search-btn:hover{
+    color: var(--background-orange);
+    background-color: var(--text-color-white);
+    border: 1px solid;
+}
+
+.student--select {
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid;
+    width: 100%;
+}
+.student--input{
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* General------------------------END----------------------------  */
+
+
 
 /* Main-body-------------------Dashboard---------------------------------- */
 .main-body{
@@ -71,7 +105,9 @@
 }
 
 .card-visit--img img{
-    border-radius: 5px ;
+    border-radius: 10px ;
+    height: 250px;
+    object-fit: fill;
 }
 
 .card-vist__content{
@@ -141,6 +177,7 @@
     cursor: pointer;
     text-decoration: none;
     color: #808080;
+    margin-right: 10px;
 }
 
 
@@ -148,6 +185,9 @@
     color: var(--text-color-orange);
 }
 
+.recom-box__img img {
+    height: 120px;
+}
 
 /* Main-body-----------Dashboard------END------------------------------------ */
 
@@ -179,6 +219,16 @@
     font-weight: 500;
 }
 
+.profile--input-none-hover{
+    text-align: center;
+    outline: none;
+    border: none;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--text-color-orange);
+    font-weight: 500;
+    cursor: context-menu;
+}
+
 .profile--input:focus{
     padding-bottom: 1px;
     border-bottom: 5px solid var(--text-color-orange);
@@ -187,16 +237,6 @@
 .profile--input:hover{
     padding-bottom: 1px;
     border-bottom: 5px solid var(--text-color-orange);
-}
-
-.profile--input-none-hover{
-    text-align: center;
-    outline: none;
-    border: none;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--text-color-orange);
-    font-weight: 500;
-    cursor: none;
 }
 .profile--label{
     text-align: left;
@@ -246,14 +286,7 @@
     font-size: 1.6rem;
 }
 
-.main-body-save__search input,
-.main-body-save__search select{
-    width: 100%;
-}
-.main-body-save__search select{
-    padding-top: 1px;
-    padding-bottom: 2px;
-}
+
 
 
 .main-body-save__content{
@@ -321,14 +354,6 @@
     font-size: 1.6rem;
 }
 
-.main-body-appl__search input,
-.main-body-appl__search select{
-    width: 100%;
-}
-.main-body-appl__search select{
-    padding-top: 1px;
-    padding-bottom: 2px;
-}
 
 
 .main-body-appl__content{
@@ -360,22 +385,6 @@
     width: 10%;
 }
 
-.appl-search-btn{
-    font-size: 1.8rem;
-    color: var(--text-color-white);
-    background-color: var(--background-orange);
-    border-radius: 10px;
-    padding: 1px;
-    cursor: pointer;
-    border: none;
-}
-
-.appl-search-btn:hover{
-    color: var(--background-orange);
-    background-color: var(--text-color-white);
-    border: 1px solid;
-    padding: 0px;
-}
 
 
 /* Main-body -----------------------Applied Jobs-------END------------------ */

@@ -119,7 +119,7 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
     </body>

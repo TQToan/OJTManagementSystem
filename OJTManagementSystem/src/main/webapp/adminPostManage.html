@@ -10,20 +10,78 @@
     <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
     <header></header>
 
+    <div class="navbar navbar-expand-md navbar-sm-cus ">
+        <a href="#" class="header__logo ">
+            <img src="./assets/img/logo.png" alt="" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <i class="fa-solid fa-bars nav__respo--btn"></i>
+        </button>
+        <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+            <a href="" class=" nav__infor--link text-truncate text-center">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                FPT University HCM
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="adminStuManage.html" class="nav__item--link">
+                        <i class="fas fa-university"></i>
+                        Student Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="adminComManage.html" class="nav__item--link">
+                        <i class="far fa-building"></i>
+                        Company Management
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        Post Management
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminInterAppl.html" class="nav__item--link">
+                        <i class="fas fa-clipboard-check"></i>
+                        Internship Application
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="adminEval.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                        Evaluation
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
     <main class="row">
-        <nav class="col-2  nav-fixed">
+        <nav class="col-xl-2  nav-fixed col-md-3">
             <a href="#" class="nav__logo ">
                 <img src="./assets/img/logo.png" alt="" class="nav--logo">
             </a>
-                <a href="#" class=" nav__infor--link text-truncate">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                    FPT University HCM
-                </a>
+            <a href="#" class=" nav__infor--link text-truncate">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                FPT University HCM
+            </a>
 
             <ul class="nav__content">
                 <li class="nav__items">
@@ -53,7 +111,7 @@
                 <li class="nav__items">
                     <a href="adminEval.html" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
-                       Evalution
+                        Evalution
                     </a>
                 </li>
                 <li class="nav__items">
@@ -65,7 +123,7 @@
             </ul>
 
         </nav>
-        <div class="main-body  offset-2 col-10">
+        <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
             <div class="row">
                 <div class="main-body-aPostManage ">
                     <div class="main-body-aPostManage__header">
@@ -75,40 +133,41 @@
 
                     <div class="main-body-aPostManage__search">
                         <form action="">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <input type="text" name="" id="" placeholder="Title">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="" id="" placeholder="Posting Date">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="" id="" placeholder="Company">
-                                        </td>
-                                        <td>
-                                            <select id="city" name="city" class="">
-                                                <option value="" disabled selected>Status</option>
-                                                <option value="Success" class="text-success">
-                                                    Accept
-                                                </option>
-                                                <option value="Success" class="text-warning">
-                                                    Waiting
-                                                </option>
-                                                <option value="Denied" class="text-danger">
-                                                    Denied
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Search" class=" aPostManage-search-btn">
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="text" name="" id="" placeholder="Title" class="admin--input">
+                                </div>
+                                <div class="col-4">
+                                    <select id="company" name="company" class="admin--select">
+                                        <option value="" selected>Company</option>
+                                        <option value="Success" >
+                                            FPT Software
+                                        </option>
+                                        <option value="Denied" >
+                                            The Gioi Di Dong
+                                        </option>
+                                    </select>
+                                </div>
 
-                            </table>
+                                <div class="col-2">
+                                    <select id="status" name="status" class="admin--select">
+                                        <option value="" selected>Status</option>
+                                        <option value="Success" class="text-success">
+                                            Accept
+                                        </option>
+                                        <option value="Waiting" class="text-warning">
+                                            Waiting
+                                        </option>
+                                        <option value="Denied" class="text-danger">
+                                            Denied
+                                        </option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-2">
+                                    <input type="submit" value="Search" class=" admin-search-btn">
+                                </div>
+                            </div>
                         </form>
                     </div>
 
@@ -141,7 +200,11 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        
+                                        <a href="">
+                                            <strong>
+                                                Cancel
+                                            </strong>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -157,7 +220,18 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        <a href="">view</a>
+                                        <div class="d-flex justify-content-around">
+                                            <a href="" class="text-danger">
+                                                <strong>
+                                                    Reject
+                                                </strong>
+                                            </a>
+                                            <a href="" class="text-success">
+                                                <strong>
+                                                    Accept
+                                                </strong>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,7 +247,7 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -189,7 +263,11 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        
+                                        <a href="">
+                                            <strong>
+                                                Cancel
+                                            </strong>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -205,7 +283,18 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        <a href="">view</a>
+                                        <div class="d-flex justify-content-around">
+                                            <a href="" class="text-danger">
+                                                <strong>
+                                                    Reject
+                                                </strong>
+                                            </a>
+                                            <a href="" class="text-success">
+                                                <strong>
+                                                    Accept
+                                                </strong>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -221,7 +310,18 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        <a href="">view</a>
+                                        <div class="d-flex justify-content-around">
+                                            <a href="" class="text-danger">
+                                                <strong>
+                                                    Reject
+                                                </strong>
+                                            </a>
+                                            <a href="" class="text-success">
+                                                <strong>
+                                                    Accept
+                                                </strong>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -237,7 +337,11 @@
                                         </strong>
                                     </td>
                                     <td>
-                                        
+                                        <a href="">
+                                            <strong>
+                                                Cancel
+                                            </strong>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -268,6 +372,11 @@
                                         </strong>
                                     </td>
                                     <td>
+                                        <a href="">
+                                            <strong>
+                                                Cancel
+                                            </strong>
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,6 +392,11 @@
                                         </strong>
                                     </td>
                                     <td>
+                                        <a href="">
+                                            <strong>
+                                                Cancel
+                                            </strong>
+                                        </a>
                                     </td>
                                 </tr>
 
@@ -323,9 +437,9 @@
     </main>
 
     <footer class="footer">
-            <div class="footer__content">
-                @copyright 2022
-            </div>
+        <div class="footer__content">
+            <i class="fa-regular fa-copyright"></i> Copyright 2022
+        </div>
 
     </footer>
 

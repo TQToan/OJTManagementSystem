@@ -17,6 +17,12 @@ public class MyApplicationConstants {
 
     }
 
+
+    public class AdminInternApplication{
+        public static final String ADMIN_SHOW_INTERN_APPLICATION_CONTROLLER = "AdminShowInternApplicationController";
+        public static final String ADMIN_SHOW_INTERN_APPLICATION_JSP = "AdminShowInternApplicationJSP";
+        public static final String ADMMIN_CHANGE_STATUS_INTERN_APPLICATION_CONTROLLER ="AdminChangeStatusInternApplicationController";
+    }
     public class AdminShowPostManagementFeature {
         public static final String  ADMIN_POST_MANAGE_PAGE="AdminPostManagePage";
         public static final String  ADMIN_DASHBOARD_MANAGE_PAGE="adminDashboardPage";

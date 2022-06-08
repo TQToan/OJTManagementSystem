@@ -1,4 +1,4 @@
-/* Responsive ----------------tablet xl  min-width: 768px------------- */
+/* Responsive ----------------mobile sm max-width: 767px------------- */
 @media (max-width: 767px) {
     
     /* container */
@@ -45,9 +45,9 @@
         bottom: 20px;
     }
 }
-/* Responsive ----------------tablet xl  min-width: 768px----------END--- */
+/* Responsive ----------------mobile sm  max-width: 767px----------END--- */
 
-/* Responsive ----------------laptop xl  min-width: 1200px------------- */
+/* Responsive ----------------tablet md  width: 768px - 1199px------------- */
 @media (min-width: 768px) and (max-width: 1199px) {
     
     /* container */
@@ -80,4 +80,4 @@
     
 
 }
-/* Responsive ----------------laptop xl  min-width: 1200px---------END---- */
+/* Responsive ----------------tablet md  width: 768px - 1199px---------END---- */
