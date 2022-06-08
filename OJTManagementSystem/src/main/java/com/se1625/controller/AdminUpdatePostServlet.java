@@ -48,10 +48,10 @@ public class AdminUpdatePostServlet extends HttpServlet {
         String school_confirm = request.getParameter("school_confirm");
         int statusPost = Integer.parseInt(request.getParameter("statusPost"));
         
-//        //get param load lai trang
-//        String titlePost = request.getParameter("txtTitle");
-//        String companyName = request.getParameter("txtCompanyName");
-//        String nameStatus = request.getParameter("nameStatus");
+        //get param load lai trang
+        String titlePost = request.getParameter("txtTitle");
+        String companyName = request.getParameter("txtCompanyName");
+        String nameStatus = request.getParameter("nameStatus");
         String xpage = request.getParameter("page");
         
         String save = request.getParameter("save");
@@ -78,12 +78,12 @@ public class AdminUpdatePostServlet extends HttpServlet {
                             request.setAttribute("UPDATE_SUSCESS", "Update success");
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);
-                        } else 
-                            if (save.equals("adminPostManagePage")) {
+                        } else if (save.equals("adminPostManagePage") || save.equals("adminSearchCompanyPostPage")) {
                             //url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SHOW_POST_MANAGE_CONTROLLER);
                             
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SEARCH_POST_MANAGE_CONTROLLER)
-                                    +"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
+                                    +"?page=" + xpage + "&txtTitle=" + titlePost + "&txtCompanyName="+ companyName+"&nameStatus=" +nameStatus;
+                                    //+"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
                             request.setAttribute("UPDATE_SUSCESS", "Update success");
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);

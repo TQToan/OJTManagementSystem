@@ -105,7 +105,6 @@
         <servlet-class>com.se1625.controller.SearchStudentAppliedJobServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>AdminShowPostManagementServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminShowPostManagementServlet</servlet-class>
     </servlet>
@@ -120,7 +119,8 @@
     <servlet>
         <servlet-name>AdminUpdatePostServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminUpdatePostServlet</servlet-class>
-=======
+    </servlet>
+    <servlet>    
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>
@@ -135,7 +135,6 @@
     <servlet>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AddminCompanyManagerServlet</servlet-class>
->>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
     </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -226,7 +225,6 @@
         <url-pattern>/SearchStudentAppliedJobServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>AdminShowPostManagementServlet</servlet-name>
         <url-pattern>/AdminShowPostManagementServlet</url-pattern>
     </servlet-mapping>
@@ -241,7 +239,8 @@
     <servlet-mapping>
         <servlet-name>AdminUpdatePostServlet</servlet-name>
         <url-pattern>/AdminUpdatePostServlet</url-pattern>
-=======
+    </servlet-mapping>    
+    <servlet-mapping>
         <servlet-name>AdminUpdateStatusCompanyServlet</servlet-name>
         <url-pattern>/AdminUpdateStatusCompanyServlet</url-pattern>
     </servlet-mapping>
@@ -252,7 +251,6 @@
     <servlet-mapping>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <url-pattern>/AddminCompanyManagerServlet</url-pattern>
->>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
     </servlet-mapping>
     <session-config>
         <session-timeout>

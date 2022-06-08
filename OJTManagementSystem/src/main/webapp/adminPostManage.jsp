@@ -89,32 +89,33 @@
                             <form action="AdminSearchCompanyPostController" >
                                 <table class="table">
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <input type="text" name="txtTitle" value="${param.txtTitle}" placeholder="Title">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtCompanyName" value="${param.txtCompanyName}" placeholder="Company">
-                                            </td>
-                                            <td>
-                                                <select id="city" name="nameStatus" class="">
-                                                    <option value="" selected>Status</option>
-                                                    <option value="Accept" class="text-success" <c:if test="${param.nameStatus eq 'Accept'}">
-                                                            selected="selected"
-                                                        </c:if>>Accept</option>
-                                                    <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
-                                                            selected="selected"
-                                                        </c:if>>Denied</option>
-                                                    <option value="Waiting" class="text-warning" <c:if test="${param.nameStatus eq 'Waiting'}">
-                                                            selected="selected"
-                                                        </c:if>>Waiting</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="submit" value="Search" class=" aPostManage-search-btn">
-                                            </td>
-                                        </tr>
+                                    <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <input type="text" name="txtTitle" value="${param.txtTitle}" placeholder="Title">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="txtCompanyName" value="${param.txtCompanyName}" placeholder="Company">
+                                        </td>
+                                        <td>
+                                            <select id="city" name="nameStatus" class="">
+                                                <option value="" selected>Status</option>
+                                                <option value="Accept" class="text-success" <c:if test="${param.nameStatus eq 'Accept'}">
+                                                        selected="selected"
+                                                    </c:if>>Accept</option>
+                                                <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
+                                                        selected="selected"
+                                                    </c:if>>Denied</option>
+                                                <option value="Waiting" class="text-warning" <c:if test="${param.nameStatus eq 'Waiting'}">
+                                                        selected="selected"
+                                                    </c:if>>Waiting</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Search" class=" aPostManage-search-btn">
+                                        </td>
+                                    </tr>
                                     </tbody>
 
                                 </table>
@@ -152,21 +153,21 @@
                                                 <td>${post.postingDate}</td>
                                                 <td>${post.company.account.name}</td>
 
-                                                <c:if test="${post.statusPost == 2}">
+                                                <c:if test="${post.statusPost eq 2}">
                                                     <td class="text-success">
                                                         <strong>
                                                             Accept
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${post.statusPost == 0}">
+                                                <c:if test="${post.statusPost eq 0 or post.statusPost eq 3}">
                                                     <td class="text-danger">
                                                         <strong>
                                                             Denied
                                                         </strong>
                                                     </td>
                                                 </c:if>  
-                                                <c:if test="${post.statusPost == 1}">
+                                                <c:if test="${post.statusPost eq 1}">
                                                     <td class="text-warning">
                                                         <strong>
                                                             Waiting
@@ -179,29 +180,39 @@
                                                     <c:set var="listCompanyPost" value="${requestScope.COMPANY_POST_LIST}"/>
                                                     <c:set var="statusAcceptCompanyPost" value="${my:getStatusAcceptCompanyPost(listCompanyPost, post.postID)}"/>
                                                     <c:if test="${statusAcceptCompanyPost eq false or post.statusPost eq 1}">
-                                                        <form action="AdminUpdatePostController">
+                                                        <form action="AdminUpdatePostController" method="POST">
                                                             <div>
                                                                 <input type="hidden" name="save" value="adminPostManagePage" />
                                                                 <input type="hidden" name="school_confirm" value="true" />
                                                                 <input type="hidden" name="statusPost" value="2" />
                                                                 <input type="hidden" name="postID" value="${post.postID}" />
                                                                 <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                                 <input type="submit" value="Accept" class="primary-btn accept-btn" 
-                                                                       />
+                                                                       <c:if test="${post.statusPost eq 3}">
+                                                                           hidden
+                                                                       </c:if>/>
                                                             </div>
                                                         </form>
                                                     </c:if>
 
                                                     <c:if test="${statusAcceptCompanyPost eq true or post.statusPost eq 1}">
-                                                        <form action="AdminUpdatePostController">    
+                                                        <form action="AdminUpdatePostController" method="POST">    
                                                             <div>
                                                                 <input type="hidden" name="save" value="adminPostManagePage" />
                                                                 <input type="hidden" name="school_confirm" value="false" />
                                                                 <input type="hidden" name="statusPost" value="0" />
                                                                 <input type="hidden" name="postID" value="${post.postID}" />
                                                                 <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                                 <input type="submit" value="Reject" class="primary-btn reject-btn"
-                                                                       />
+                                                                       <c:if test="${post.statusPost eq 3}">
+                                                                           hidden
+                                                                       </c:if>/>
                                                             </div>
                                                         </form>
                                                     </c:if>
@@ -235,6 +246,7 @@
                                 </table>
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
                                     <c:url var="url" value="AdminSearchCompanyPostController">
+                                        <c:param name="save" value="adminSearchCompanyPostPage" />
                                         <c:param name="page" value="${i}"/>
                                         <c:param name="txtTitle" value="${param.txtTitle}"/>
                                         <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
