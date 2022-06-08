@@ -114,6 +114,9 @@
                                 <input type="hidden" name="statusPost" value="2"/>
                                 <input type="hidden" name="postID" value="${post.postID}" />
                                 <input type="hidden" name="page" value="${requestScope.page}" />
+                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                 <input type="submit" value="Accept" class="primary-btn accept-btn" 
                                        <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 2 or post.statusPost eq 3}">
                                            autocomplete="off" hidden 
@@ -130,6 +133,9 @@
                                 <input type="hidden" name="statusPost" value="0"/>
                                 <input type="hidden" name="postID" value="${post.postID}" />
                                 <input type="hidden" name="page" value="${requestScope.page}" />
+                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                 <input type="submit" value="Reject" class="primary-btn reject-btn"
                                        <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 0 or post.statusPost eq 3}">
                                            autocomplete="off" hidden 
@@ -144,8 +150,17 @@
                             <div class="text-success">${requestScope.UPDATE_SUSCESS}</div>
                             </font>
                         </c:if>
-                        <a href="AdminSearchCompanyPostServlet?page=${requestScope.page}&txtTitle=&txtCompanyName=&nameStatus=">Back</a>
-
+                        
+                        <form action="AdminSearchCompanyPostController" method="POST">
+                                                            <div>
+                                                                
+                                                                <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                                <input type="submit" value="Back" class="back-btn" />
+                                                            </div>
+                                                        </form>
                     </div>
                 </div>
             </div>

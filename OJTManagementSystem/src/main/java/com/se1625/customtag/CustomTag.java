@@ -7,12 +7,8 @@ package com.se1625.customtag;
 
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import javax.servlet.ServletContext;
 
 /**
  *

@@ -42,11 +42,8 @@ com\se1625\controller\ReviewInternShipServlet.class
 com\se1625\utils\MyApplicationConstants$AdminShowPostManagementFeature.class
 com\se1625\utils\MyApplicationConstants$ApplyCVStudentFeature.class
 com\se1625\tblcompany_post\TblCompany_PostDAO.class
-<<<<<<< HEAD
-com\se1625\controller\AdminChangeStatusInternApplicationServlet.class
-=======
 com\se1625\utils\MyApplicationConstants$AdminCompanyManagerFeature.class
->>>>>>> fb0adeaffe160e5ce7974e91e9491f4b1eeabf99
+com\se1625\controller\AdminChangeStatusInternApplicationServlet.class
 com\se1625\tblcompany_post\CompanyPostDetailError.class
 com\se1625\controller\AdminViewPostDetailsServlet.class
 com\se1625\utils\MyApplicationConstants$ShowStudentProfileFeature.class

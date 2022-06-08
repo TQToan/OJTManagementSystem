@@ -86,7 +86,7 @@
 
 
                         <div class="main-body-aPostManage__search">
-                            <form action="AdminSearchCompanyPostController" >
+                            <form action="AdminSearchCompanyPostController" method="POST">
                                 <table class="table">
                                     <tbody>
                                     <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
@@ -147,7 +147,14 @@
                                             <tr>
                                                 <td>${counter.count}</td>
                                                 <td>
-                                                    <a href="AdminViewPostDetailController?postID=${post.postID}&page=${requestScope.page}">${post.title_Post}</a>
+                                                    <c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
+                                                        <c:param name="postID" value="${post.postID}"/>
+                                                        <c:param name="page" value="${requestScope.page}"/>
+                                                        <c:param name="txtTitle" value="${param.txtTitle}"/>
+                                                        <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                        <c:param name="nameStatus" value="${param.nameStatus}"/>
+                                                    </c:url>
+                                                    <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>
                                                 </td>
                                                 <td>${post.vacancy}</td>
                                                 <td>${post.postingDate}</td>

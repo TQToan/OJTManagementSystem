@@ -7,10 +7,8 @@ package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
-import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -49,9 +47,9 @@ public class AdminUpdatePostServlet extends HttpServlet {
         int statusPost = Integer.parseInt(request.getParameter("statusPost"));
         
         //get param load lai trang
-        String titlePost = request.getParameter("txtTitle");
-        String companyName = request.getParameter("txtCompanyName");
-        String nameStatus = request.getParameter("nameStatus");
+        String titlePost = request.getParameter("txtTitle").trim();
+        String companyName = request.getParameter("txtCompanyName").trim();
+        String nameStatus = request.getParameter("nameStatus").trim();
         String xpage = request.getParameter("page");
         
         String save = request.getParameter("save");
