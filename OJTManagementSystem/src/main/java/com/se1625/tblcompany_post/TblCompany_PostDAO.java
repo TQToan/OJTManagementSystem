@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +30,16 @@ import javax.naming.NamingException;
 public class TblCompany_PostDAO implements Serializable {
 
     private List<TblCompany_PostDTO> companyPostListHome;
+    private List<TblCompany_PostDTO> companyPostListAdminPage;
     private List<TblCompany_PostDTO> companyPostByFilter;
 
     public List<TblCompany_PostDTO> getCompanyPostListHome() {
         return companyPostListHome;
+    }
+
+    //lay list post company as ADMIN
+    public List<TblCompany_PostDTO> getCompanyPostListAdminPage() {
+        return companyPostListAdminPage;
     }
 
     public List<TblCompany_PostDTO> getCompanyPostByFilter() {
@@ -338,6 +343,218 @@ public class TblCompany_PostDAO implements Serializable {
         }
     }
 
+    //SEARCH POST AS ADMIN 
+    public void searchPostByFilterAsAdminRole(String titlePost,
+            String companyName, String nameStatus) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT post.postID, post.title_Post, post.quantityInterns, post.postingDate, "
+                        + "post.job_Description, post.job_Requirement, post.remuneration, post.vacancy, "
+                        + "post.expirationDate, post.workLocation, major.majorName, major.majorID, acc.name, acc.avatar, "
+                        + "post.school_confirm, post.statusPost "
+                        + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
+                        + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
+                        + "ON (post.majorID = major.majorID) ";
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
+                        && companyName.isEmpty() == true){
+                    sql += "ORDER BY post.postingDate DESC ";
+                    stm = con.prepareStatement(sql);
+                }
+                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == true
+                        && companyName.isEmpty() == false) {
+                    sql += " WHERE post.title_Post LIKE ? and acc.name LIKE ? ORDER BY post.postingDate DESC ";
+                    stm = con.prepareStatement(sql);
+                    stm.setNString(1, "%" + titlePost + "%");
+                    stm.setNString(2, "%" + companyName + "%");
+                }
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
+                        && companyName.isEmpty() == false) {
+                    sql += "WHERE acc.name LIKE ? ORDER BY post.postingDate DESC ";
+                    stm = con.prepareStatement(sql);
+                    stm.setNString(1, "%" + companyName + "%");
+                }
+                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == true
+                        && companyName.isEmpty() == true) {
+                    sql += "WHERE post.title_Post LIKE ? ORDER BY post.postingDate DESC ";
+                    stm = con.prepareStatement(sql);
+                    stm.setNString(1, "%" + titlePost + "%");
+                }
+
+                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == false) {
+                    sql += "WHERE post.title_Post LIKE ? and acc.name LIKE ? ";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setInt(3, 1);
+
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setInt(3, 2);
+
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setInt(3, 3);
+
+                    }
+                }
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == false) {
+                    sql += "WHERE acc.name LIKE ? ";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setInt(2, 1);
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setInt(2, 2);
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setInt(2, 3);
+                    }
+                }
+                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == true) {
+                    sql += "WHERE post.title_Post LIKE ? ";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setInt(2, 1);
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setInt(2, 2);
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setInt(2, 3);
+                    }
+                }
+
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == true) {
+                    if (nameStatus.equals("Accept")) {
+                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setInt(1, 1);
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setInt(1, 2);
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setInt(1, 3);
+                    }
+                }
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
+                        && companyName.isEmpty() == true) {
+                    stm = con.prepareStatement(sql);
+                }
+
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int postID = rs.getInt("postID");
+                    int majorID = rs.getInt("majorID");
+                    String title_Post = rs.getNString("title_Post");
+                    String job_Requirement = rs.getNString("job_Requirement");
+                    String job_Description = rs.getNString("job_Description");
+                    String remuneration = rs.getNString("remuneration");
+                    String workLocation = rs.getNString("workLocation");
+                    String vacancy = rs.getNString("vacancy");
+                    boolean school_confirm = rs.getBoolean("school_confirm");
+                    int statusPost = rs.getInt("statusPost");
+
+                    String majorName = rs.getNString("majorName");
+                    companyName = rs.getNString("name");
+                    String avatar = rs.getString("avatar");
+
+                    int quanityItens = rs.getInt("quantityInterns");
+                    if (quanityItens == 0) {
+                        continue;
+                    }
+                    Date postingDate = rs.getDate("postingDate");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (expirationDate.before(currentDate)) {
+                        continue;
+                    }
+
+                    TblCompany_PostDTO dto = new TblCompany_PostDTO();
+                    dto.setPostID(postID);
+                    dto.setTitle_Post(title_Post);
+                    dto.setJob_Description(job_Description);
+                    dto.setJob_Requirement(job_Requirement);
+                    dto.setRemuneration(remuneration);
+                    dto.setPostingDate(postingDate);
+                    dto.setExpirationDate(expirationDate);
+                    dto.setQuantityIterns(quanityItens);
+                    dto.setWorkLocation(workLocation);
+                    dto.setMajorName(majorName);
+                    dto.setStatusPost(statusPost);
+                    dto.setVacancy(vacancy);
+                    dto.setSchool_confirm(school_confirm);
+
+                    TblAccountDTO account = new TblAccountDTO();
+                    account.setName(companyName);
+                    account.setAvatar(avatar);
+
+                    TblCompanyDTO company = new TblCompanyDTO();
+                    company.setAccount(account);
+                    dto.setCompany(company);
+
+                    TblMajorDTO major = new TblMajorDTO();
+                    major.setMajorID(majorID);
+                    major.setMajorName(majorName);
+                    dto.setMajor(major);
+
+                    if (companyPostListAdminPage == null) {
+                        companyPostListAdminPage = new ArrayList<>();
+                    }
+
+                    companyPostListAdminPage.add(dto);
+
+                }
+                //return companyPostListAdminPage;
+            }
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
     public List<TblCompany_PostDTO> getListByPage(List<TblCompany_PostDTO> list, int start, int end) {
         List<TblCompany_PostDTO> listPage = new ArrayList<>();
         for (int i = start; i < end; i++) {
@@ -373,7 +590,7 @@ public class TblCompany_PostDAO implements Serializable {
                     String job_Requirement = rs.getNString("job_Requirement");
                     String remuneration = rs.getNString("remuneration");
                     int quanityIntens = rs.getInt("quantityInterns");
-                    
+
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
                     boolean school_confirm = rs.getBoolean("school_confirm");
@@ -474,5 +691,132 @@ public class TblCompany_PostDAO implements Serializable {
             }
         }
         return companyPost;
+    }
+
+    //LAY TAT CA CAC BAI POST AS ADMIN 
+    public void getListPost() throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT cp.postID, cp.title_Post, "
+                        + " cp.postingDate, cp.quantityInterns, cp.job_Description, cp.job_Requirement, cp.remuneration, "
+                        + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, cp.vacancy, "
+                        + "m.majorName, ac.name, ac.avatar \n"
+                        + "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n"
+                        + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
+                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username)\n"
+                        + "ORDER BY cp.postingDate DESC";
+                stm = con.prepareCall(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int postID = rs.getInt("postID");
+                    String title_Post = rs.getNString("title_Post");
+                    Date postingDate = rs.getDate("postingDate");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (expirationDate.before(currentDate)) {
+                        continue;
+                    }
+                    int quantityInterns = rs.getInt("quantityInterns");
+                    if (quantityInterns == 0) {
+                        continue;
+                    }
+                    boolean school_confirm = rs.getBoolean("school_confirm");
+                    int statusPost = rs.getInt("statusPost");
+                    String job_Requirement = rs.getNString("job_Requirement");
+                    String job_Description = rs.getNString("job_Description");
+                    String remuneration = rs.getNString("remuneration");
+                    String vacancy = rs.getNString("vacancy");
+
+                    String workLocation = rs.getNString("workLocation");
+                    String majorName = rs.getNString("majorName");
+                    String companyName = rs.getNString("name");
+                    String avatar = rs.getString("avatar");
+
+                    TblCompany_PostDTO dto = new TblCompany_PostDTO();
+                    dto.setPostID(postID);
+                    dto.setTitle_Post(title_Post);
+                    dto.setJob_Description(job_Description);
+                    dto.setJob_Requirement(job_Requirement);
+                    dto.setRemuneration(remuneration);
+                    dto.setPostingDate(postingDate);
+                    dto.setExpirationDate(expirationDate);
+                    dto.setQuantityIterns(quantityInterns);
+                    dto.setWorkLocation(workLocation);
+                    dto.setMajorName(majorName);
+                    dto.setStatusPost(statusPost);
+                    dto.setVacancy(vacancy);
+                    dto.setSchool_confirm(school_confirm);
+
+                    TblAccountDTO account = new TblAccountDTO();
+                    account.setName(companyName);
+                    account.setAvatar(avatar);
+
+                    TblCompanyDTO company = new TblCompanyDTO();
+                    company.setAccount(account);
+
+                    dto.setCompany(company);
+                    if (companyPostListAdminPage == null) {
+                        companyPostListAdminPage = new ArrayList<>();
+                    }
+                    companyPostListAdminPage.add(dto);
+
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public boolean updateStatusCompanyPostAsAdmin(int postID, String school_confirm,
+            int statusPost)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "update tblCompany_Post "
+                        + "set school_confirm = ? , statusPost = ? "
+                        + "where postID = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, school_confirm);
+                stm.setInt(2, statusPost);
+                stm.setInt(3, postID);
+
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return false;
     }
 }

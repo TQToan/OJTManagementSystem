@@ -5,6 +5,7 @@
  */
 package com.se1625.customtag;
 
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,6 +24,18 @@ public class CustomTag {
         if (listFollowingPost != null) {
             for (TblFollowing_PostDTO tblFollowing_PostDTO : listFollowingPost) {
                 if (tblFollowing_PostDTO.getPostID() == postID) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static Boolean getStatusAcceptCompanyPost(List<TblCompany_PostDTO> listCompanyPost, Integer postID) {
+        if (listCompanyPost != null) {
+            for (TblCompany_PostDTO tblCompany_PostDTO : listCompanyPost) {
+                if (tblCompany_PostDTO.getPostID() == postID) {
+                    if(tblCompany_PostDTO.getStatusPost() == 2)
                     return true;
                 }
             }

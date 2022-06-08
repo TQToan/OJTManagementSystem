@@ -46,7 +46,6 @@ public class LoginGoogleServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        
         String code = request.getParameter("code");
         //get user google
         String accessToken = MyApplicationHelper.getToken(code);
@@ -72,12 +71,12 @@ public class LoginGoogleServlet extends HttpServlet {
                     url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
                     response.sendRedirect(url);
                 } //account's role is admin
-                else if (dto.getIs_Admin() == 2){
+                else if (dto.getIs_Admin() == 2) {                         
                     HttpSession session = request.getSession();
                     TblStudentDAO studentDAO = new TblStudentDAO();
                     TblStudentDTO student = studentDAO.getStudent(dto.getEmail());
                     session.setAttribute("STUDENT_ROLE", student);
-                    url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_PAGE;
+                    url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;
                     response.sendRedirect(url);
                 } //account's role is student
                 else {
@@ -89,11 +88,11 @@ public class LoginGoogleServlet extends HttpServlet {
                 }//account's role is company but this account is not allowed login by email
             } //account exist
             else {
-                    error = new TblAccountError();
-                    error.setUserEmailNotAllow("Your account is not allowed to login into this system by email!");
-                    request.setAttribute("ERROR", error);
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
+                error = new TblAccountError();
+                error.setUserEmailNotAllow("Your account is not allowed to login into this system by email!");
+                request.setAttribute("ERROR", error);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
             } // account don't exist in database
         } catch (NamingException ex) {
             log("LoginGoogleServlet_NamingException at LoginGoogleServlet " + ex.getMessage());

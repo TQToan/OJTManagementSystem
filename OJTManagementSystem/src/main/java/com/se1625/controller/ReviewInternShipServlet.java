@@ -71,9 +71,8 @@ public class ReviewInternShipServlet extends HttpServlet {
                     //lấy Application của Student apply đã được Company và school và student duyệt
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
                     TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode());
-
+                    
                     if (application != null) {
-
                         //set Attribute
                         request.setAttribute("STUDENT_APPLICATION", application);
 

@@ -17,10 +17,21 @@ public class MyApplicationConstants {
 
     }
 
+
     public class AdminInternApplication{
         public static final String ADMIN_SHOW_INTERN_APPLICATION_CONTROLLER = "AdminShowInternApplicationController";
         public static final String ADMIN_SHOW_INTERN_APPLICATION_JSP = "AdminShowInternApplicationJSP";
         public static final String ADMMIN_CHANGE_STATUS_INTERN_APPLICATION_CONTROLLER ="AdminChangeStatusInternApplicationController";
+    }
+    public class AdminShowPostManagementFeature {
+        public static final String  ADMIN_POST_MANAGE_PAGE="AdminPostManagePage";
+        public static final String  ADMIN_DASHBOARD_MANAGE_PAGE="adminDashboardPage";
+        public static final String  ADMIN_SHOW_POST_MANAGE_CONTROLLER="AdminShowPostManagementController";
+        public static final String  ADMIN_VIEW_POST_MANAGE_PAGE="AdminViewPostPage";
+        public static final String  ADMIN_VIEW_POST_DETAIL_CONTROLLER="AdminViewPostDetailController";
+        public static final String  ADMIN_SEARCH_POST_MANAGE_CONTROLLER="AdminSearchCompanyPostController";
+        public static final String  ADMIN_UPDATE_POST_MANAGE_CONTROLLER="AdminUpdatePostController";
+        
     }
     
     public class StudentSaveJobFeature {
@@ -101,7 +112,7 @@ public class MyApplicationConstants {
 
         public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
 
-        public static final String STUDENT_DASHBOARD_PAGE = "studentDashboardController";
+        public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
         public static final String ADD_STUDENT_CONTROLLER = "addStudentController";
     }
 
@@ -163,5 +174,20 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
         public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
+    }
+    
+    public class AdminCompanyManagerFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
+    }
+    
+    public class AdminUpdateStatusCompanyFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_CONTROLLER = "AdminCompanyManagerController";
+    }
+    
+    public class SearchCompanyAdminManagerFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
     }
 }

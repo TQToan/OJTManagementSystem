@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminShowInternApplicationServlet.java
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CompanyPostDetailError.java
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentAppliedJobServlet.java
@@ -52,3 +53,119 @@ C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ExportEvalutionExcelFileServlet.java
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ImportStudentExcelFileServlet.java
 C:\SE\semester5\SWP392\Project\code\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDAO.java
+=======
+<<<<<<< HEAD
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\RegisterCompanyServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\RegisterCompanyDetailsServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\EmailVerificationServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\RegisterCompanyError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblfollowing_post\TblFollowing_PostDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ApplyCVStudentServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\ApplyCVStudentError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\TblCompanyDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminViewPostDetailsServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchStudentAppliedJobServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblmajor\TblMajorDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\RegisterCompanyAccountError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchSaveJobServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ReviewInternShipServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentHomeServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentSaveJobServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblmajor\TblMajorDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\usergoogle\UserGoogleDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblfollowing_post\TblFollowing_PostDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminSearchCompanyPostServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationConstants.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\listener\MyApplicationListener.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentAppliedJobServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\HomeShowCompanyDetailServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\DBHelper.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\UpdateStudentProfileServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CancleApplyCVServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminUpdatePostServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowApplyCVServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoadApplyCVStudentServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\filter\DispatchFilter.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentDeleteSaveJobServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CompanyPostDetailError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\customtag\CustomTag.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoginGoogleServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountError.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationDAO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoginAccountsServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentProfileServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AddStudentServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ExportEvalutionExcelFileServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LogoutAccountServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\TblCompanyDTO.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminShowPostManagementServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyStudentHomeServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ImportStudentExcelFileServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentDashboardServlet.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationHelper.java
+D:\1FPT-UNVIERSITY\CN5-SUMMER2022\SWP\Clone\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDTO.java
+=======
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\filter\DispatchFilter.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentDashboardServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\listener\MyApplicationListener.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\TblCompanyDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoginAccountsServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentProfileServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowApplyCVServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\UpdateStudentProfileServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CompanyPostDetailError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\EmailVerificationServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblmajor\TblMajorDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\HomeShowCompanyDetailServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentSaveJobServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentDeleteSaveJobServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ApplyCVStudentServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyStudentHomeServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentAppliedJobServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ReviewInternShipServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchStudentAppliedJobServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationConstants.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyAdminManagerServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\ApplyCVStudentError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\RegisterCompanyServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\TblCompanyDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\usergoogle\UserGoogleDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblfollowing_post\TblFollowing_PostDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AddminCompanyManagerServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\RegisterCompanyAccountError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LogoutAccountServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDTO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ExportEvalutionExcelFileServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoginGoogleServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationHelper.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblmajor\TblMajorDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminUpdateStatusCompanyServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\RegisterCompanyDetailsServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ImportStudentExcelFileServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\customtag\CustomTag.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentHomeServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany\RegisterCompanyError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\TblCompany_PostDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AddStudentServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\DBHelper.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CancleApplyCVServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblfollowing_post\TblFollowing_PostDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchSaveJobServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoadApplyCVStudentServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDAO.java
+>>>>>>> fa86135a4fc07f046f6c8ac0945e5cf0567dab75
+>>>>>>> fb0adeaffe160e5ce7974e91e9491f4b1eeabf99
