@@ -5,10 +5,17 @@
  */
 package com.se1625.customtag;
 
+import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
+import com.se1625.tblstudent.TblStudentDTO;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.StringTokenizer;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -20,6 +27,18 @@ public class CustomTag {
         if (listFollowingPost != null) {
             for (TblFollowing_PostDTO tblFollowing_PostDTO : listFollowingPost) {
                 if (tblFollowing_PostDTO.getPostID() == postID) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static Boolean getStatusAcceptCompanyPost(List<TblCompany_PostDTO> listCompanyPost, Integer postID) {
+        if (listCompanyPost != null) {
+            for (TblCompany_PostDTO tblCompany_PostDTO : listCompanyPost) {
+                if (tblCompany_PostDTO.getPostID() == postID) {
+                    if(tblCompany_PostDTO.getStatusPost() == 2)
                     return true;
                 }
             }
@@ -48,5 +67,18 @@ public class CustomTag {
             }
         }
         return null;
+    }
+    
+    public static TblApplicationDTO getApplicationOfStudentByID(TblStudentDTO student, ServletContext context) {
+        TblApplicationDAO applicationDAO = new TblApplicationDAO();
+        TblApplicationDTO application = null;
+        try {
+            application = applicationDAO.getApplication(student.getStudentCode(), student.getSemester().getSemesterID());
+        } catch (SQLException ex) {
+            context.log("SQLException at CustomTag " + ex.getMessage());
+        } catch (NamingException ex) {
+            context.log("NamingException at CustomTag " + ex.getMessage());
+        }
+        return application;
     }
 }

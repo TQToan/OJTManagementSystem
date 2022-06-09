@@ -24,7 +24,8 @@ public class TblStudentDTO implements Serializable{
     private int numberOfCredit;
     private String major;
     private TblSemesterDTO semester;
-    private TblAccountDTO account;   
+    private TblAccountDTO account;  
+    private boolean isDisabled;
 
 
     public TblStudentDTO(String studentCode, Date birthDay, String address, boolean gender, String phone, int isIntern, int numberOfCredit, String major) {
@@ -154,6 +155,20 @@ public class TblStudentDTO implements Serializable{
      */
     public void setSemester(TblSemesterDTO semester) {
         this.semester = semester;
+    }
+
+    /**
+     * @return the isDisabled
+     */
+    public boolean isIsDisabled() {
+        return isDisabled;
+    }
+
+    /**
+     * @param isDisabled the isDisabled to set
+     */
+    public void setIsDisabled(boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     

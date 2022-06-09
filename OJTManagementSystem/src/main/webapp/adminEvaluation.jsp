@@ -42,19 +42,19 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminComManage.html" class="nav__item--link">
+                        <a href="AdminCompanyManagerController" class="nav__item--link">
                             <i class="far fa-building"></i>
                             Company Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminPostManage.html" class="nav__item--link">
+                        <a href="AdminShowPostManagementController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             Post Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminInterAppl.html" class="nav__item--link">
+                        <a href="AdminShowInternApplicationController" class="nav__item--link">
                             <i class="fas fa-clipboard-check"></i>
                             Internship Application
                         </a>
@@ -83,11 +83,13 @@
 
 
                         <div class="main-body-aEval__search">
+                            <a href="ExportEvalutionExcelFileController?semesterID=${requestScope.CURRENT_SEMESTER.semesterID}">Export File</a>
                             <form action="SearchStudentEvaluationController" method="POST">
                                 <table class="table">
                                     <tbody>
                                         <tr>
                                             <td>
+                                                <c:set var="nowSemester" value="${requestScope.CURRENT_SEMESTER.semesterID}" />
                                                 <select name="semester">
                                                     <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
                                                         <option value="${semester.semesterID}" <c:if test="${requestScope.CURRENT_SEMESTER.semesterID eq semester.semesterID}" >
@@ -105,7 +107,7 @@
                                                     <c:forEach items="${requestScope.COMPANY_NAME}" var="companyName">
                                                         <option value="${companyName.companyID}" <c:if test="${param.txtCompanyName eq companyName.companyID}">
                                                                 selected="selected"
-                                                        </c:if>>${companyName.account.name}</option>
+                                                            </c:if>>${companyName.account.name}</option>
                                                     </c:forEach>
                                                 </select>
                                                 <!--                                                <input type="text" name="" id="" placeholder="Company Name">     -->
@@ -118,12 +120,12 @@
                                                     <option value="">Status</option>
                                                     <option value="true" class="text-success" <c:if test="${param.isPass eq 'true'}">
                                                             selected="selected"
-                                                    </c:if>>
+                                                        </c:if>>
                                                         Passed
                                                     </option>
                                                     <option value="false" class="text-danger" <c:if test="${param.isPass eq 'false'}">
                                                             selected="selected"
-                                                    </c:if>>
+                                                        </c:if>>
                                                         Not Passed
                                                     </option>
                                                 </select>                                        
@@ -205,8 +207,13 @@
                         </c:if>
                     </div>
                     <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                        <c:url var="url" value="ShowStudentEvaluationController">
+                        <c:url var="url" value="SearchStudentEvaluationController">
                             <c:param name="page" value="${i}"/>
+                            <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
+                            <c:param name="studentCode" value="${param.studentCode}"/>
+                            <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
+                            <c:param name="garde" value="${param.garde}"/>
+                            <c:param name="isPass" value="${param.isPass}"/>
                         </c:url>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">

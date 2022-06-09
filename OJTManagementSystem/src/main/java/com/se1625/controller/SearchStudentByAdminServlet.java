@@ -74,14 +74,22 @@ public class SearchStudentByAdminServlet extends HttpServlet {
                     }
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    TblSemesterDTO nowSemester = currentSemester;
                     TblStudentDAO studentDAO = new TblStudentDAO();
                     if ("".equals(studentCode) && "".equals(major)
                             && numberOfCredit == -1 && isIntern == -1 && semesterID == currentSemester.getSemesterID()) {
                         url = MyApplicationConstants.SearchStudentByAdminFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER;
                         response.sendRedirect(url);
                     } else {
-                        List<TblStudentDTO> listStudent = studentDAO.
-                                searchStudentByFilter(studentCode, major, numberOfCredit, isIntern, semesterID);
+                        List<TblStudentDTO> listStudent = null;
+                        if (semesterID == currentSemester.getSemesterID()) {
+                            listStudent = studentDAO.
+                                searchStudentByFilter(studentCode, major, numberOfCredit, isIntern, semesterID, 0);
+                        } else {
+                            listStudent = studentDAO.
+                                searchStudentByFilter(studentCode, major, numberOfCredit, isIntern, semesterID, 1);
+                        }
+                        
                         if (listStudent != null) {
                             url = properties.getProperty(MyApplicationConstants.SearchStudentByAdminFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER);
                             request.setAttribute("LIST_STUDENT_SEARCH", listStudent);
@@ -99,9 +107,11 @@ public class SearchStudentByAdminServlet extends HttpServlet {
                             request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
                             //get list semester
                             List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
+                            request.setAttribute("SERVLET_CONTEXT", context);
                             request.setAttribute("LIST_SEMESTER", listSemester);
                             request.setAttribute("CURRENT_SEMESTER", currentSemester);
-                            request.setAttribute("LIST_APPLIED_JOB_RESULT", listStudent);
+                            request.setAttribute("NOW_SEMESTER", nowSemester);
+                            request.setAttribute("LIST_APPLICATION_RESULT", listStudent);
                             request.setAttribute("SIZE_OF_LIST", 0);
                             url = properties.getProperty(MyApplicationConstants.SearchStudentByAdminFeature.ADMIN_MANAGEMENT_STUDENT_PAGE);
                             RequestDispatcher rd = request.getRequestDispatcher(url);

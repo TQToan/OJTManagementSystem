@@ -24,7 +24,7 @@
             <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <main class="row">
             <nav class="col-2  nav-fixed">
-                <a href="ShowAdminStudentManagementController" class="nav__logo ">
+                <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
                 <a href="#" class=" nav__infor--link text-truncate">
@@ -40,19 +40,19 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminComManage.html" class="nav__item--link">
+                        <a href="AdminCompanyManagerController" class="nav__item--link">
                             <i class="far fa-building"></i>
                             Company Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminPostManage.html" class="nav__item--link">
+                        <a href="AdminShowPostManagementController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             Post Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="adminInterAppl.html" class="nav__item--link">
+                        <a href="AdminShowInternApplicationController" class="nav__item--link">
                             <i class="fas fa-clipboard-check"></i>
                             Internship Application
                         </a>
@@ -95,6 +95,7 @@
                                         <tr>
                                             <td>
                                                 <c:set var="currentSemester" value="${requestScope.CURRENT_SEMESTER}"/>
+                                                <c:set var="nowSemester" value="${requestScope.NOW_SEMESTER}"/>
                                                 <select name="semester">
                                                     <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
                                                         <option value="${semester.semesterID}" <c:if test="${currentSemester.semesterID eq semester.semesterID}">
@@ -116,7 +117,7 @@
                                                     <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                                         <option value="${major.majorName}"<c:if test="${param.txtMajor eq major.majorName}" >
                                                                 selected="selected"
-                                                        </c:if>>${major.majorName}</option>
+                                                            </c:if>>${major.majorName}</option>
                                                     </c:forEach>
                                                 </select>
                                             </td>
@@ -154,7 +155,7 @@
                             <div class="resultpage__header">
                                 Result : ${requestScope.SIZE_OF_LIST}
                             </div>
-                            <c:if test="${not empty requestScope.LIST_APPLIED_JOB_RESULT}" >
+                            <c:if test="${not empty requestScope.LIST_APPLICATION_RESULT}" >
                                 <table class="table table-bordered ">
                                     <thead>
                                         <tr>
@@ -164,12 +165,14 @@
                                             <th>Email</th>
                                             <th>Credits</th>
                                             <th>Major</th>
-                                            <th>Status</th>
+                                            <th>Internship Status</th>
+                                            <th>Course Status</th>
+                                            <th>Active Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${requestScope.LIST_APPLIED_JOB_RESULT}" var="student" varStatus="counter">
+                                        <c:forEach items="${requestScope.LIST_APPLICATION_RESULT}" var="student" varStatus="counter">
                                             <c:set var="error" value="${my:getError(requestScope.INVALID_CREDIT, student.studentCode)}" />
                                         <form action="UpdateStudentInforMationController" method="POST">
                                             <tr>
@@ -178,7 +181,7 @@
                                                 </td>
                                                 <td>
                                                     ${student.studentCode}
-                                                    <input type="hidden" name="txtStudentCode" value="${student.studentCode}" />
+                                                    <input type="hidden" name="StudentCode" value="${student.studentCode}" />
                                                 </td>
                                                 <td>
                                                     ${student.account.name}
@@ -205,7 +208,7 @@
                                                     ${student.major}
                                                 </td>
                                                 <c:if test="${student.isIntern eq 0}">
-                                                    <td class="text-danger">
+                                                    <td class="text-warning">
                                                         <strong>
                                                             Not Yet
                                                         </strong>
@@ -219,12 +222,48 @@
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2}">
-                                                    <td class="text-warning">
+                                                    <td class="text-danger">
                                                         <strong>
                                                             Finished
                                                         </strong>
                                                     </td>
                                                 </c:if>
+                                                <c:set var="context" value="${requestScope.SERVLET_CONTEXT}"/>
+                                                <c:set var="application" value="${my:getApplicationOfStudentByID(student, context)}" />
+                                                <td>
+                                                    <c:if test="${application.isPass eq false and student.isIntern eq 2}">
+                                                        <strong class="text-danger">
+                                                            Not Pass
+                                                        </strong>
+                                                    </c:if>
+                                                    <c:if test="${application.isPass eq true and student.isIntern eq 2}">
+                                                        <strong class="text-success">
+                                                            Passed
+                                                        </strong>
+                                                    </c:if>
+                                                    <c:if test="${student.isIntern eq 0}">
+                                                        <strong class="text-warning">
+                                                            Not Yet
+                                                        </strong>
+                                                    </c:if>
+                                                    <c:if test="${student.isIntern eq 1}">
+                                                        <strong class="text-warning">
+                                                            Not Yet
+                                                        </strong>
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="page" value="${requestScope.page}" />
+                                                    <input type="checkbox" name="isDisabled" value="${student.isDisabled}" <c:if test="${student.isDisabled eq false}" >
+                                                           checked="checked"
+                                                        </c:if> <c:if test="${student.isIntern eq 2 and application.isPass eq true 
+                                                                               and student.semester.semesterID ne nowSemester.semesterID}">
+                                                            disabled="disabled"
+                                                        </c:if> <c:if test="${student.semester.semesterID eq nowSemester.semesterID}" >
+                                                            disabled="disabled"
+                                                        </c:if> />
+                                                </td>
+
                                                 <c:if test="${student.isIntern eq 0}" >
                                                     <td>
                                                         <c:if test="${not empty error}">
@@ -240,9 +279,19 @@
 
                                                     </td> 
                                                 </c:if>
-                                                <c:if test="${student.isIntern eq 1 or student.isIntern eq 2}" >
+                                                <c:if test="${student.isIntern eq 1}" >
                                                     <td>
                                                         <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                    </td> 
+                                                </c:if>
+                                                <c:if test="${student.isIntern eq 2 and application.isPass eq true}" >
+                                                    <td>
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                    </td> 
+                                                </c:if>
+                                                <c:if test="${student.isIntern eq 2 and application.isPass eq false}" >
+                                                    <td>
+                                                        <input type="submit" value="Update" name="btAction" />
                                                     </td> 
                                                 </c:if>
                                             </tr>
@@ -252,15 +301,20 @@
 
                                 </table>
                             </c:if>
-                            <c:if test="${empty requestScope.LIST_APPLIED_JOB_RESULT}" >
+                            <c:if test="${empty requestScope.LIST_APPLICATION_RESULT}" >
                                 <p3>
                                     Student List does not has any result for you!
                                 </p3>
                             </c:if>
                         </div>
                         <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                            <c:url var="url" value="ShowAdminStudentManagementController">
+                            <c:url var="url" value="SearchStudentByAdminController">
                                 <c:param name="page" value="${i}"/>
+                                <c:param name="semester" value="${currentSemester.semesterID}"/>
+                                <c:param name="txtCredit" value="${param.txtCredit}"/>
+                                <c:param name="txtMajor" value="${param.txtMajor}"/>
+                                <c:param name="isIntern" value="${param.isIntern}"/>
+                                <c:param name="txtStudentCode" value="${param.txtStudentCode}"/>
                             </c:url>
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">

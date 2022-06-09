@@ -154,21 +154,32 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div>
-                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="SearchCompanyStudentHomeController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="nameCompany" value="${companyID}"/>
-                                    <c:param name="nameMajor" value="${majorID}"/>
-                                    <c:param name="nameLocation" value="${nameLocation}"/>
-                                </c:url>
-                                <%--<a href="${url}">${i}</a>--%>
-                                <div style="display: inline-block" class="main__pagination">
-                                    <ul class="pagination main_cus__pagination">
+                        <div>                       
+                            <div  class="main__pagination">
+                                <ul class="pagination main_cus__pagination">
+<!--                                     <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                             <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>-->
+                                    
+                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                        <c:url var="url" value="SearchCompanyStudentHomeController">
+                                            <c:param name="page" value="${i}"/>
+                                            <c:param name="nameCompany" value="${companyID}"/>
+                                            <c:param name="nameMajor" value="${majorID}"/>
+                                            <c:param name="nameLocation" value="${nameLocation}"/>
+                                        </c:url>
+                                        <%--<a href="${url}">${i}</a>--%>
                                         <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                    </ul>
-                                </div>
-                            </c:forEach>
+                                    </c:forEach>
+<!--                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                         </a>
+                                    </li>-->
+                                </ul>
+                            </div>
                         </div>
                     </c:if>
                 </div>
@@ -177,7 +188,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>

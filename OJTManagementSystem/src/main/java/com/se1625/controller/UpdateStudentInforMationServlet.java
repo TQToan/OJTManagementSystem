@@ -10,6 +10,9 @@ import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblsemester_student.TblSemester_StudentDAO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
@@ -52,8 +55,14 @@ public class UpdateStudentInforMationServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        String studentCode = request.getParameter("txtStudentCode");
-        int credit = Integer.parseInt(request.getParameter("txtNumberOfCredit"));
+        String studentCode = request.getParameter("StudentCode");
+        String stringCredit = request.getParameter("txtNumberOfCredit");
+        int credit = 0;
+        if (stringCredit != null) {
+            credit = Integer.parseInt(stringCredit);
+        }
+        String isDisable = request.getParameter("isDisabled");
+        System.out.println("value " + isDisable);
         String button = request.getParameter("btAction");
 
         // credit khi update bị dưới credit cho phép sẽ gửi thông báo không đủ điều kiện
@@ -70,20 +79,39 @@ public class UpdateStudentInforMationServlet extends HttpServlet {
                 TblAccountDTO admin = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
                 if (admin != null) {
                     if ("Update".equals(button)) {
-                        if (credit < VALID_CREADIT) {
+                        if (stringCredit != null && credit < VALID_CREADIT) {
                             url = properties.getProperty(MyApplicationConstants.UpdateStudentInforMationFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER);
                             request.setAttribute("INVALID_CREDIT", "The minimum number of credits are required 68 credits.<br /> "
                                     + "Therefore, this student is not eligible to use the website."
                                     + "<br /> Do you want to remove this student from the system?<br />_" + studentCode);
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);
-                        } else {
+                        } else if (stringCredit != null && credit >= VALID_CREADIT) {
                             //thực hiện update credit
                             TblStudentDAO studentDAO = new TblStudentDAO();
                             boolean result = studentDAO.updateCreditOfStudent(studentCode, credit);
                             if (result) {
-                                url = MyApplicationConstants.UpdateStudentInforMationFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER;
-                                response.sendRedirect(url);
+                                url = properties.getProperty(MyApplicationConstants.UpdateStudentInforMationFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER);
+                                RequestDispatcher rd = request.getRequestDispatcher(url);
+                                rd.forward(request, response);
+                            }
+                        }
+
+                        if (stringCredit == null && isDisable != null) {
+                            boolean is_Disable = Boolean.parseBoolean(isDisable);
+                            if (is_Disable == true) {
+                                is_Disable = false;
+                            }
+                            TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                            TblSemesterDTO semester = semesterDAO.getCurrentSemester();
+                            TblStudentDAO studentDAO = new TblStudentDAO();
+                            boolean resultUpdateStatusStudent = studentDAO.updateStatusActionOfStudent(is_Disable, studentCode);
+                            TblSemester_StudentDAO semesterStudentDAO = new TblSemester_StudentDAO();
+                            boolean resultAddNewSemester = semesterStudentDAO.addNewSemesterForStudent(semester.getSemesterID(), studentCode);
+                            if (resultAddNewSemester && resultUpdateStatusStudent) {
+                                url = properties.getProperty(MyApplicationConstants.UpdateStudentInforMationFeature.ADMIN_MANAGEMENT_STUDENT_CONTROLLER);
+                                RequestDispatcher rd = request.getRequestDispatcher(url);
+                                rd.forward(request, response);
                             }
                         }
                     } else if ("Appcept".equals(button)) {

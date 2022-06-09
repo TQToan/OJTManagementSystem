@@ -68,10 +68,15 @@ public class ShowAdminStudentManagementServlet extends HttpServlet {
                     //get current Semester
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    TblSemesterDTO nowSemester = semesterDAO.getSemesterByID(currentSemester.getSemesterID());
                     if (request.getParameter("semester") != null) {
                         int semesterID = Integer.parseInt(request.getParameter("semester"));
-                        if (semesterID != currentSemester.getSemesterID()) {
-                            currentSemester.setSemesterID(semesterID);
+                        if (xpage == null) {
+                            if (semesterID != currentSemester.getSemesterID()) {
+                                currentSemester.setSemesterID(semesterID);
+                            }
+                        } else {
+                            currentSemester = semesterDAO.getSemesterByID(semesterID);
                         }
                     }
                     //get list semester
@@ -108,11 +113,13 @@ public class ShowAdminStudentManagementServlet extends HttpServlet {
                         List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
                         request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
 
-                        List<TblStudentDTO> listAppliedJobPerPage = studentDAO.
+                        List<TblStudentDTO> listApplicationPage = studentDAO.
                                 getListByPage(listStudent, start, end);
+                        request.setAttribute("SERVLET_CONTEXT", context);
                         request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                        request.setAttribute("NOW_SEMESTER", nowSemester);
                         request.setAttribute("LIST_SEMESTER", listSemester);
-                        request.setAttribute("LIST_APPLIED_JOB_RESULT", listAppliedJobPerPage);
+                        request.setAttribute("LIST_APPLICATION_RESULT", listApplicationPage);
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
                         request.setAttribute("page", page);
                         request.setAttribute("numberPage", numberPage);

@@ -26,7 +26,6 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,9 +70,8 @@ public class ReviewInternShipServlet extends HttpServlet {
                     //lấy Application của Student apply đã được Company và school và student duyệt
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
                     TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode());
-
+                    
                     if (application != null) {
-
                         //set Attribute
                         request.setAttribute("STUDENT_APPLICATION", application);
 

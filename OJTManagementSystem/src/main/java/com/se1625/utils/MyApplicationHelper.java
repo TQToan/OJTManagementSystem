@@ -359,7 +359,6 @@ public class MyApplicationHelper {
             cell = row.createCell(6);
             cell.setCellValue("Not Pass");
         }
-
     }
 
     public static void createExcelFile(Workbook workbook, String excelPath) throws FileNotFoundException, IOException {

@@ -1,7 +1,7 @@
-/* Responsive ----------------mobile xl  max-width: 768px------------- */
+/* Responsive ----------------mobile sm max-width: 767px------------- */
 @media (max-width: 767px) {
     .main__search{
-        padding: 5px 30px 10px 30px;
+        padding: 5px 10px 10px 10px;
     }
 
     .main__search h2{
@@ -16,7 +16,6 @@
     }
     .card-company--img{
         height: 100px;
-        padding: 0 50px;
     }
     
 
@@ -36,6 +35,10 @@
         height: 100px;
     }
     
+    .hComApplDetail-btn--app{
+        padding: 5px;
+    }
+
     .hComApplDetail__right{
         margin-top: 20px;
     }
@@ -61,6 +64,7 @@
     .inforStu-left--img{
         margin: 0px ;
         padding: 0px 10px 10px 10px;
+        height: 130px;
     }
     
     .inforStu-right{
@@ -74,10 +78,47 @@
     .file-input{
         margin: 20px;
     }
-}
-/* Responsive ----------------mmobile xl  max-width: 768px----------END--- */
 
-/* Responsive ----------------table xl  width: 768-1200px------------- */
+    .card-company{
+        height: 300px;
+        padding: 8px;
+        margin: 10px;
+    }
+
+    .card-company-body{
+        margin-left: 20px;
+    }
+    .card-company-btn{
+        bottom: 10px;
+    }
+
+    .card-company-btn-save{
+        bottom: 10px;
+    }
+    .hComApplDetail__left--content{
+        margin-right: 0px;
+    }
+
+    .hComApplDetail-btn{
+        justify-content: center;
+    }
+
+    .right-card_img{
+        height: 110px;
+        padding: 5px;
+    }
+    .right--card-img{
+        height: 100px;
+    }
+
+    .right-card-content{
+        margin-left: 10px;
+        margin-right: -10px;
+    }
+}
+/* Responsive ----------------mobile sm  max-width: 767px----------END--- */
+
+/* Responsive ----------------tablet md  width: 768px - 1199px------------- */
 @media (min-width: 768px) and (max-width: 1199px) {
     .main__search{
         padding: 5px 30px 10px 30px;
@@ -94,13 +135,42 @@
         margin: 20px;
     }
 
+    .card-company{
+        height: 420px;
+        padding: 12px;
+    }
+
+    .card-company-body{
+        margin-left: 20px;
+    }
+
     .main-body-cViewStu{
         padding:20px 10px 0 10px;
+    }
+    
+    .card-company-btn{
+        bottom: 15px;
+    }
+
+    .card-company-btn-save{
+        bottom: 10px;
     }
 
     .edit-btn{
         min-width: 100px;
     }
+
+    .inforStu-left--img{
+        height: 200px;
+    }
+
+    .right-card_img{
+        height: 130px;
+        padding: 10px;
+    }
+    .right--card-img{
+        height: 110px;
+    }
 }
-/* Responsive ----------------table xl  width: 768-1200px---------END---- */
+/* Responsive ----------------tablet md  width: 768px - 1199px---------END---- */
 

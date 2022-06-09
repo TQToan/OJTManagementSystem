@@ -26,10 +26,10 @@ public class TblCompany_PostDTO implements Serializable{
     private Date expirationDate;
     private boolean school_confirm;
     private int statusPost;
+    private String vacancy;
     private TblCompanyDTO company;
     private String majorName;
     private TblMajorDTO major;
-    private String vacancy;
     
 
     public TblCompany_PostDTO() {
@@ -53,6 +53,14 @@ public class TblCompany_PostDTO implements Serializable{
         this.statusPost = statusPost;
         this.company = company;
         this.majorName = majorName;
+    }
+
+    public String getVacancy() {
+        return vacancy;
+    }
+
+    public void setVacancy(String vacancy) {
+        this.vacancy = vacancy;
     }
 
     /**
@@ -249,20 +257,6 @@ public class TblCompany_PostDTO implements Serializable{
      */
     public void setMajor(TblMajorDTO major) {
         this.major = major;
-    }
-
-    /**
-     * @return the vacancy
-     */
-    public String getVacancy() {
-        return vacancy;
-    }
-
-    /**
-     * @param vacancy the vacancy to set
-     */
-    public void setVacancy(String vacancy) {
-        this.vacancy = vacancy;
     }
     
     
