@@ -267,9 +267,9 @@
                                 </c:forEach>
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
-                                <p3>
+                                <h3 class="text-center" style="margin-top: 20px">
                                     You have not any post job yet!
-                                </p3>
+                                </h3>
                             </c:if>
 
                         </div>

@@ -201,9 +201,9 @@
                         </div>
 
                         <c:if test="${empty requestScope.LIST_APPLICATION_RESULT}" >
-                            <p3>
+                            <h3 class="text-center" style="margin-top: 20px">
                                 Evaluation List does not has any result!
-                            </p3>
+                            </h3>
                         </c:if>
                     </div>
                     <c:forEach begin="1" end="${requestScope.numberPage}" var="i">

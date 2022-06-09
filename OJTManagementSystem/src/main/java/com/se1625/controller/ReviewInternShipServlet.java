@@ -70,6 +70,7 @@ public class ReviewInternShipServlet extends HttpServlet {
                     //lấy Application của Student apply đã được Company và school và student duyệt
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
                     TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode());
+                    System.out.println(application);
                     
                     if (application != null) {
                         //set Attribute
@@ -125,8 +126,6 @@ public class ReviewInternShipServlet extends HttpServlet {
             log("ReviewInternShipServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("ReviewInternShipServlet_SQLException " + ex.getMessage());
-        } finally {
-
         }
     }
 
