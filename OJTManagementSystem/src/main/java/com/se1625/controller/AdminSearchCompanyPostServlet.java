@@ -10,7 +10,6 @@ import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
@@ -45,9 +44,9 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get Paramente
-        String titlePost = request.getParameter("txtTitle");
-        String companyName = request.getParameter("txtCompanyName");
-        String nameStatus = request.getParameter("nameStatus");
+        String titlePost = request.getParameter("txtTitle").trim();
+        String companyName = request.getParameter("txtCompanyName").trim();
+        String nameStatus = request.getParameter("nameStatus").trim();
         String xpage = request.getParameter("page");
         //Phan trang
         int page;

@@ -156,7 +156,7 @@
         <servlet-name>AdminUpdatePostServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminUpdatePostServlet</servlet-class>
     </servlet>
-    <servlet>
+    <servlet>    
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>

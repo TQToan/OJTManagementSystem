@@ -360,7 +360,7 @@ public class TblCompany_PostDAO implements Serializable {
                         + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
                         + "ON (post.majorID = major.majorID) ";
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
-                        && companyName.isEmpty() == true){
+                        && companyName.isEmpty() == true) {
                     sql += "ORDER BY post.postingDate DESC ";
                     stm = con.prepareStatement(sql);
                 }
@@ -392,21 +392,21 @@ public class TblCompany_PostDAO implements Serializable {
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
-                        stm.setInt(3, 1);
+                        stm.setInt(3, 2);
 
                     } else if (nameStatus.equals("Denied")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
-                        stm.setInt(3, 2);
+                        stm.setInt(3, 0);
 
                     } else if (nameStatus.equals("Waiting")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
-                        stm.setInt(3, 3);
+                        stm.setInt(3, 1);
 
                     }
                 }
@@ -417,17 +417,17 @@ public class TblCompany_PostDAO implements Serializable {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 1);
+                        stm.setInt(2, 2);
                     } else if (nameStatus.equals("Denied")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 2);
+                        stm.setInt(2, 0);
                     } else if (nameStatus.equals("Waiting")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 3);
+                        stm.setInt(2, 1);
                     }
                 }
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
@@ -437,17 +437,17 @@ public class TblCompany_PostDAO implements Serializable {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 1);
+                        stm.setInt(2, 2);
                     } else if (nameStatus.equals("Denied")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 2);
+                        stm.setInt(2, 0);
                     } else if (nameStatus.equals("Waiting")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 3);
+                        stm.setInt(2, 1);
                     }
                 }
 
@@ -456,15 +456,15 @@ public class TblCompany_PostDAO implements Serializable {
                     if (nameStatus.equals("Accept")) {
                         sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
-                        stm.setInt(1, 1);
+                        stm.setInt(1, 2);
                     } else if (nameStatus.equals("Denied")) {
                         sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
-                        stm.setInt(1, 2);
+                        stm.setInt(1, 0);
                     } else if (nameStatus.equals("Waiting")) {
                         sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
-                        stm.setInt(1, 3);
+                        stm.setInt(1, 1);
                     }
                 }
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
@@ -489,10 +489,10 @@ public class TblCompany_PostDAO implements Serializable {
                     companyName = rs.getNString("name");
                     String avatar = rs.getString("avatar");
 
-                    int quanityItens = rs.getInt("quantityInterns");
-                    if (quanityItens == 0) {
-                        continue;
-                    }
+                    int quantityInterns = rs.getInt("quantityInterns");
+//                    if (quanityItens == 0) {
+//                        continue;
+//                    }
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
                     LocalDate timeDay = LocalDate.now();
@@ -500,9 +500,9 @@ public class TblCompany_PostDAO implements Serializable {
                             = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     // convert String to date type
                     java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
-                    if (expirationDate.before(currentDate)) {
-                        continue;
-                    }
+//                    if (expirationDate.before(currentDate)) {
+//                        continue;
+//                    }
 
                     TblCompany_PostDTO dto = new TblCompany_PostDTO();
                     dto.setPostID(postID);
@@ -512,12 +512,17 @@ public class TblCompany_PostDAO implements Serializable {
                     dto.setRemuneration(remuneration);
                     dto.setPostingDate(postingDate);
                     dto.setExpirationDate(expirationDate);
-                    dto.setQuantityIterns(quanityItens);
+                    dto.setQuantityIterns(quantityInterns);
                     dto.setWorkLocation(workLocation);
                     dto.setMajorName(majorName);
-                    dto.setStatusPost(statusPost);
                     dto.setVacancy(vacancy);
-                    dto.setSchool_confirm(school_confirm);
+                    if (quantityInterns == 0 || expirationDate.before(currentDate)) {
+                        dto.setStatusPost(3);
+                        dto.setSchool_confirm(false);
+                    } else {
+                        dto.setStatusPost(statusPost);
+                        dto.setSchool_confirm(school_confirm);
+                    }
 
                     TblAccountDTO account = new TblAccountDTO();
                     account.setName(companyName);
@@ -673,8 +678,19 @@ public class TblCompany_PostDAO implements Serializable {
                     companyPost.setWorkLocation(workLocation);
                     companyPost.setPostingDate(postingDate);
                     companyPost.setExpirationDate(expirationDate);
-                    companyPost.setSchool_confirm(schoolConfirm);
-                    companyPost.setStatusPost(statusPost);
+                    LocalDate timeDay = LocalDate.now();
+                    DateTimeFormatter dayFormat
+                            = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    // convert String to date type
+                    java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
+                    if (quantityInterns == 0 || expirationDate.before(currentDate)) {
+                        companyPost.setStatusPost(3);
+                        companyPost.setSchool_confirm(false);
+                    } else {
+                        companyPost.setStatusPost(statusPost);
+                        companyPost.setSchool_confirm(schoolConfirm);
+                    }
+
                     companyPost.setCompany(company);
                     companyPost.setMajor(major);
                     companyPost.setVacancy(vacancy);
@@ -723,13 +739,13 @@ public class TblCompany_PostDAO implements Serializable {
                             = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     // convert String to date type
                     java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
-                    if (expirationDate.before(currentDate)) {
-                        continue;
-                    }
+//                    if (expirationDate.before(currentDate)) {
+//                        continue;
+//                    }
                     int quantityInterns = rs.getInt("quantityInterns");
-                    if (quantityInterns == 0) {
-                        continue;
-                    }
+//                    if (quantityInterns == 0) {
+//                        continue;
+//                    }
                     boolean school_confirm = rs.getBoolean("school_confirm");
                     int statusPost = rs.getInt("statusPost");
                     String job_Requirement = rs.getNString("job_Requirement");
@@ -753,9 +769,14 @@ public class TblCompany_PostDAO implements Serializable {
                     dto.setQuantityIterns(quantityInterns);
                     dto.setWorkLocation(workLocation);
                     dto.setMajorName(majorName);
-                    dto.setStatusPost(statusPost);
                     dto.setVacancy(vacancy);
-                    dto.setSchool_confirm(school_confirm);
+                    if (quantityInterns == 0 || expirationDate.before(currentDate)) {
+                        dto.setStatusPost(3);
+                        dto.setSchool_confirm(false);
+                    } else {
+                        dto.setStatusPost(statusPost);
+                        dto.setSchool_confirm(school_confirm);
+                    }
 
                     TblAccountDTO account = new TblAccountDTO();
                     account.setName(companyName);

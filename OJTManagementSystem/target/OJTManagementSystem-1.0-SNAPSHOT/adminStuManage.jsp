@@ -257,8 +257,8 @@
                                                     <input type="checkbox" name="isDisabled" value="${student.isDisabled}" <c:if test="${student.isDisabled eq false}" >
                                                            checked="checked"
                                                         </c:if> <c:if test="${student.isIntern eq 2 and application.isPass eq true 
-                                                                               and student.semester.semesterID ne nowSemester.semesterID}">
-                                                            disabled="disabled"
+                                                                              and student.semester.semesterID ne nowSemester.semesterID}">
+                                                                      disabled="disabled"
                                                         </c:if> <c:if test="${student.semester.semesterID eq nowSemester.semesterID}" >
                                                             disabled="disabled"
                                                         </c:if> />
