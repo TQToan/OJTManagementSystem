@@ -23,7 +23,7 @@
         <header></header>
             <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <main class="row">
-            <nav class="col-2  nav-fixed">
+            <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
@@ -73,13 +73,14 @@
 
             </nav>
 
-            <div class="main-body  offset-2 col-10">
+            <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
                     <div class="main-body-aStuManage ">
                         <div class="main-body-aStuManage__header">
                             Student Management
                         </div>
-                        <div>
+
+                        <div class="admin__import-file-stu">
                             <form action="ImportStudentExcelFileController" method="POST" enctype="multipart/form-data">
                                 <input type="file" name="Import File" />
                                 <input id="importFile" type="submit" value="Import File" name="btAction" />
@@ -90,63 +91,62 @@
                         </div>
                         <div class="main-body-aStuManage__search">
                             <form action="SearchStudentByAdminController" method="POST">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <c:set var="currentSemester" value="${requestScope.CURRENT_SEMESTER}"/>
-                                                <c:set var="nowSemester" value="${requestScope.NOW_SEMESTER}"/>
-                                                <select name="semester">
-                                                    <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
-                                                        <option value="${semester.semesterID}" <c:if test="${currentSemester.semesterID eq semester.semesterID}">
-                                                                selected="selected"
-                                                            </c:if>>${semester.semesterName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtStudentCode" value="${param.txtStudentCode}" placeholder="ID">
-                                            </td>
-                                            <td> 
-                                                <input type="number" name="txtCredit" min="0" max="100" value="${param.txtCredit}" placeholder="Credits">     
-                                            </td>
-                                            <td> 
-                                                <%--<input type="text" name="txtMajor" value="${param.txtMajor}" placeholder="Major"> --%>    
-                                                <select name="txtMajor">
-                                                    <option value="">Major</option>
-                                                    <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
-                                                        <option value="${major.majorName}"<c:if test="${param.txtMajor eq major.majorName}" >
-                                                                selected="selected"
-                                                            </c:if>>${major.majorName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </td>
-                                            <td> 
-                                                <select id="city" name="isIntern"  class="" >
-                                                    <option value="" selected>Status</option>
-                                                    <option value="1" class="text-success" <c:if test="${param.isIntern eq '1'}" >
-                                                            selected="selected"
-                                                        </c:if>>
-                                                        Working
-                                                    </option>
-                                                    <option value="2" class="text-warning" <c:if test="${param.isIntern eq '2'}" >
-                                                            selected="selected"
-                                                        </c:if>>
-                                                        Finished
-                                                    </option>
-                                                    <option value="0" class="text-danger" <c:if test="${param.isIntern eq '0'}" >
-                                                            selected="selected"
-                                                        </c:if>>
-                                                        Not Yet
-                                                    </option>
-                                                </select>                                        
-                                            </td>
-                                            <td>
-                                                <input type="submit" value="Search" class=" aStuManage-search-btn">
-                                            </td> 
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <c:set var="currentSemester" value="${requestScope.CURRENT_SEMESTER}"/>
+                                        <c:set var="nowSemester" value="${requestScope.NOW_SEMESTER}"/>
+                                        <select name="semester" class="admin--select">
+                                            <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
+                                                <option value="${semester.semesterID}" <c:if test="${currentSemester.semesterID eq semester.semesterID}">
+                                                        selected="selected"
+                                                    </c:if>>${semester.semesterName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <input type="text" name="txtStudentCode" value="${param.txtStudentCode}" placeholder="ID" class="admin--input">
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="number" name="txtCredit" min="0" max="100" value="${param.txtCredit}" placeholder="Credits" class="admin--input">
+                                    </div>
+
+
+                                    <div class="col-4">
+                                        <select name="txtMajor" class="admin--select">
+                                            <option value="">Major</option>
+                                            <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
+                                                <option value="${major.majorName}"<c:if test="${param.txtMajor eq major.majorName}" >
+                                                        selected="selected"
+                                                    </c:if>>${major.majorName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <select id="city" name="isIntern"  class="admin--select" >
+                                            <option value="" selected>Status</option>
+                                            <option value="1" class="text-success" <c:if test="${param.isIntern eq '1'}" >
+                                                    selected="selected"
+                                                </c:if>>
+                                                Working
+                                            </option>
+                                            <option value="2" class="text-warning" <c:if test="${param.isIntern eq '2'}" >
+                                                    selected="selected"
+                                                </c:if>>
+                                                Finished
+                                            </option>
+                                            <option value="0" class="text-danger" <c:if test="${param.isIntern eq '0'}" >
+                                                    selected="selected"
+                                                </c:if>>
+                                                Not Yet
+                                            </option>
+                                        </select>    
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="submit" value="Search" class="admin-search-btn">
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
@@ -307,44 +307,33 @@
                                 </p3>
                             </c:if>
                         </div>
-                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                            <c:url var="url" value="SearchStudentByAdminController">
-                                <c:param name="page" value="${i}"/>
-                                <c:param name="semester" value="${currentSemester.semesterID}"/>
-                                <c:param name="txtCredit" value="${param.txtCredit}"/>
-                                <c:param name="txtMajor" value="${param.txtMajor}"/>
-                                <c:param name="isIntern" value="${param.isIntern}"/>
-                                <c:param name="txtStudentCode" value="${param.txtStudentCode}"/>
-                            </c:url>
-                            <div class="main__pagination">
-                                <ul class="pagination main_cus__pagination">
+
+                        <div  class="main__pagination">
+                            <ul class="pagination main_cus__pagination">
+                                <!--                                     <li class="page-item">
+                                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                                             <span aria-hidden="true">&laquo;</span>
+                                                                        </a>
+                                                                    </li>-->
+
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="SearchStudentByAdminController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="semester" value="${currentSemester.semesterID}"/>
+                                        <c:param name="txtCredit" value="${param.txtCredit}"/>
+                                        <c:param name="txtMajor" value="${param.txtMajor}"/>
+                                        <c:param name="isIntern" value="${param.isIntern}"/>
+                                        <c:param name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                    </c:url>
                                     <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                </ul>
-                            </div>
-                        </c:forEach>
-
-                        <!--                        <div class="main__pagination">
-                                                    <ul class="pagination main_cus__pagination">
-                        
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Previous">
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
-                                                        </li>
-                        
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Next">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
-                                                        </li>
-                        
-                                                    </ul>
-                                                </div>-->
-
+                                 </c:forEach>
+                                <!--                                    <li class="page-item">
+                                                                        <a class="page-link" href="#" aria-label="Next">
+                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                         </a>
+                                                                    </li>-->
+                            </ul>
+                        </div>
 
                     </div>
                 </div>
@@ -354,7 +343,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>
