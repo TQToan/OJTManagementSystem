@@ -23,7 +23,7 @@
 
         <main class="row">
             <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
-            <nav class="col-2  nav-fixed">
+            <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
@@ -72,7 +72,7 @@
                 </ul>
 
             </nav>
-            <div class="main-body  offset-2 col-10">
+            <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
                     <div class="main-body-aComManage ">
                         <c:set var="listCompany" value="${requestScope.LIST_COMPANY}"/>
@@ -85,47 +85,42 @@
 
                         <div class="main-body-aComManage__search">
                             <form action="SearchCompanyAdminManagerController">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <select id="city" name="selectCompany"  class="" >
-                                                    <option value="" >Company</option>
-                                                    <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
-                                                        <option value="${allCompany.companyID}"
-                                                                <c:if test="${allCompany.companyID eq param.selectCompany}">
-                                                                    selected="selected"
-                                                                </c:if>
-                                                                >
-                                                            ${allCompany.account.name}                                                   
-                                                        </option>  
-                                                    </c:forEach>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <select id="city" name="selectCompany"  class="admin--select" >
+                                            <option value="" >Company</option>
+                                            <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
+                                                <option value="${allCompany.companyID}"
+                                                        <c:if test="${allCompany.companyID eq param.selectCompany}">
+                                                            selected="selected"
+                                                        </c:if>
+                                                        >
+                                                    ${allCompany.account.name}                                                   
+                                                </option>  
+                                            </c:forEach>
+                                        </select>  
+                                    </div>
 
-                                                </select>  
-                                            </td>
-                                            <td>
-                                                <input type="text" name="txtEmail" placeholder="Email" value="${param.txtEmail}">     
-                                            </td>
+                                    <div class="col-4">
+                                        <input type="text" name="txtEmail" placeholder="Email" value="${param.txtEmail}" class="admin--input">     
+                                    </div>
 
-                                            <td> 
-                                                <select id="city" name="selectStatus"  class="" >
-                                                    <option value="">Status</option>
-                                                    <option value="Success" class="text-success">                                                                          
-                                                        Signed
-                                                    </option>
-                                                    <option value="Denied" class="text-danger">                                                       
-                                                        Not Yet
-                                                    </option>
+                                    <div class="col-2">
+                                        <select id="city" name="selectStatus"  class="admin--select" >
+                                            <option value="">Status</option>
+                                            <option value="Success" class="text-success">                                                                          
+                                                Signed
+                                            </option>
+                                            <option value="Denied" class="text-danger">                                                       
+                                                Not Yet
+                                            </option>
+                                        </select>   
+                                    </div>
 
-                                                </select>                                        
-                                            </td>
-                                            <td>
-                                                <input type="submit" value="Search" class="aComManage-search-btn">
-                                            </td> 
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                    <div class="col-2">
+                                        <input type="submit" value="Search" class=" admin-search-btn">
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
@@ -191,21 +186,19 @@
 
 
                         <div class="main__pagination">
-                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="SearchCompanyAdminManagerController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="selectCompany" value="${param.selectCompany}"/>
-                                    <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                    <c:param name="selectStatus" value="${param.selectStatus}"/>
-                                </c:url>
-                                <div style="display: inline-block" class="main__pagination">
-                                    <ul class="pagination main_cus__pagination">                             
+                            <ul class="pagination main_cus__pagination">     
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="SearchCompanyAdminManagerController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="selectCompany" value="${param.selectCompany}"/>
+                                        <c:param name="txtEmail" value="${param.txtEmail}"/>
+                                        <c:param name="selectStatus" value="${param.selectStatus}"/>
+                                    </c:url>                       
                                         <li class="page-item">
                                             <a class="page-link" href="${url}">${i}</a>
                                         </li>
-                                    </ul>
-                                </div>
-                            </c:forEach>
+                                </c:forEach>
+                            </ul>
                         </div>
 
 
@@ -217,7 +210,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>

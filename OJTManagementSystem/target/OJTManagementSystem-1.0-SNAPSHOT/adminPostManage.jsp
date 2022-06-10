@@ -26,7 +26,7 @@
         <header></header>
 
         <main class="row">
-            <nav class="col-2  nav-fixed">
+            <nav class="col-xl-2  nav-fixed col-md-3">
                 <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -77,7 +77,7 @@
                 </ul>
 
             </nav>
-            <div class="main-body  offset-2 col-10">
+            <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
                     <div class="main-body-aPostManage ">
                         <div class="main-body-aPostManage__header">
@@ -87,38 +87,33 @@
 
                         <div class="main-body-aPostManage__search">
                             <form action="AdminSearchCompanyPostController" method="POST">
-                                <table class="table">
-                                    <tbody>
-                                    <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <input type="text" name="txtTitle" value="${param.txtTitle}" placeholder="Title">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="txtCompanyName" value="${param.txtCompanyName}" placeholder="Company">
-                                        </td>
-                                        <td>
-                                            <select id="city" name="nameStatus" class="">
-                                                <option value="" selected>Status</option>
-                                                <option value="Accept" class="text-success" <c:if test="${param.nameStatus eq 'Accept'}">
-                                                        selected="selected"
-                                                    </c:if>>Accept</option>
-                                                <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
-                                                        selected="selected"
-                                                    </c:if>>Denied</option>
-                                                <option value="Waiting" class="text-warning" <c:if test="${param.nameStatus eq 'Waiting'}">
-                                                        selected="selected"
-                                                    </c:if>>Waiting</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="submit" value="Search" class=" aPostManage-search-btn">
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="text" name="txtTitle" value="${param.txtTitle}" placeholder="Title" class="admin--input">
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" name="txtCompanyName" value="${param.txtCompanyName}" placeholder="Company" class="admin--input">
+                                    </div>
 
-                                </table>
+                                    <div class="col-2">
+                                        <select id="city" name="nameStatus" class="admin--select" >
+                                            <option value="" selected>Status</option>
+                                            <option value="Accept" class="text-success" <c:if test="${param.nameStatus eq 'Accept'}">
+                                                    selected="selected"
+                                                </c:if>>Accept</option>
+                                            <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
+                                                    selected="selected"
+                                                </c:if>>Denied</option>
+                                            <option value="Waiting" class="text-warning" <c:if test="${param.nameStatus eq 'Waiting'}">
+                                                    selected="selected"
+                                                </c:if>>Waiting</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <input type="submit" value="Search" class=" admin-search-btn">
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
@@ -251,20 +246,34 @@
                                     </tbody>
 
                                 </table>
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="AdminSearchCompanyPostController">
-                                        <c:param name="save" value="adminSearchCompanyPostPage" />
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="txtTitle" value="${param.txtTitle}"/>
-                                        <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                        <c:param name="nameStatus" value="${param.nameStatus}"/>
-                                    </c:url>
-                                    <div style="display: inline-block" class="main__pagination">
-                                        <ul class="pagination main_cus__pagination">
+
+
+
+                                <div  class="main__pagination">
+                                    <ul class="pagination main_cus__pagination">
+                                        <!--                                     <li class="page-item">
+                                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                                     <span aria-hidden="true">&laquo;</span>
+                                                                                </a>
+                                                                            </li>-->
+
+                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                            <c:url var="url" value="AdminSearchCompanyPostController">
+                                                <c:param name="save" value="adminSearchCompanyPostPage" />
+                                                <c:param name="page" value="${i}"/>
+                                                <c:param name="txtTitle" value="${param.txtTitle}"/>
+                                                <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                <c:param name="nameStatus" value="${param.nameStatus}"/>
+                                            </c:url>
                                             <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                        </ul>
-                                    </div>
-                                </c:forEach>
+                                            </c:forEach>
+                                        <!--                                    <li class="page-item">
+                                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                                 </a>
+                                                                            </li>-->
+                                    </ul>
+                                </div>
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
                                 <p3>
@@ -286,7 +295,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>

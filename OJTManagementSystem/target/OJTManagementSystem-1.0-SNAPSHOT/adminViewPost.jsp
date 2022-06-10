@@ -19,6 +19,10 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
@@ -26,7 +30,7 @@
 
         <main class="row">
             <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
-            <nav class="col-2  nav-fixed">
+            <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
@@ -77,7 +81,7 @@
 
             </nav>
             <c:set var="post" value="${requestScope.COMPANY_POST_DETAIL}"/>
-            <div class="main-body  offset-2 col-10">
+            <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="main-body-aViewPost">
                     <div class="aViewPost__header">
                         ${post.title_Post}
@@ -107,6 +111,7 @@
                     </div>
 
                     <div class="aViewPost-btn">
+<<<<<<< HEAD
                         <form action="AdminUpdatePostController" method="POST">
                             <div>
                                 <input type="hidden" name="save" value="adminViewPostPage" />
@@ -146,6 +151,46 @@
 
 
                         </form> 
+=======
+                        <div >
+                            <form action="AdminUpdatePostController" method="POST">    
+                                <div>
+                                    <input type="hidden" name="save" value="adminViewPostPage" />
+                                    <input type="hidden" name="school_confirm" value="false" />
+                                    <input type="hidden" name="statusPost" value="0"/>
+                                    <input type="hidden" name="postID" value="${post.postID}" />
+                                    <input type="hidden" name="page" value="${requestScope.page}" />
+                                    <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                    <input type="submit" value="Reject" class="primary-btn reject-btn"
+                                           <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 0 or post.statusPost eq 3}">
+                                               autocomplete="off" hidden 
+                                           </c:if> />
+                                </div>
+                            </form> 
+                        </div>
+                        <div >
+                            <form action="AdminUpdatePostController" method="POST">
+                                <div>
+                                    <input type="hidden" name="save" value="adminViewPostPage" />
+                                    <input type="hidden" name="school_confirm" value="true" />
+                                    <input type="hidden" name="statusPost" value="2"/>
+                                    <input type="hidden" name="postID" value="${post.postID}" />
+                                    <input type="hidden" name="page" value="${requestScope.page}" />
+                                    <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                    <input type="submit" value="Accept" class="primary-btn accept-btn" 
+                                           <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 2 or post.statusPost eq 3}">
+                                               autocomplete="off" hidden 
+                                           </c:if> />
+                                </div>
+                            </form>
+                        </div>
+
+
+>>>>>>> 7dddcd348657a2955db159c680fbfe0c6031563e
 
                         <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
                             <font style="color: green"> 
@@ -153,6 +198,7 @@
                             </font>
                         </c:if>
 
+<<<<<<< HEAD
                         <form action="AdminSearchCompanyPostController" method="POST">
                             <div>
 
@@ -163,7 +209,21 @@
                                 <input type="submit" value="Back" class="back-btn" />
                             </div>
                         </form>
+=======
+                        
+>>>>>>> 7dddcd348657a2955db159c680fbfe0c6031563e
                     </div>
+                                    <div class="text-center">
+                                    <form action="AdminSearchCompanyPostController" method="POST">
+                            <div>
+                                <input type="hidden" name="page" value="${requestScope.page}"/>
+                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                <input type="submit" value="Back" class="back-btn" />
+                            </div>
+                        </form>
+                                </div>
                 </div>
             </div>
 
