@@ -111,8 +111,12 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                     int majorID = majorDAO.getMajorIDByMajorName(companyPostDTO.getMajorName());
                     companyPostDAO.searchPostByFilter("", majorID, "");
                     List<TblCompany_PostDTO> listOtherCompanies = companyPostDAO.getCompanyPostByFilter();
-
-                    sizeOfList = listOtherCompanies.size();
+                    if (listOtherCompanies == null) {
+                        sizeOfList = 0;
+                    } else {
+                        sizeOfList = listOtherCompanies.size();
+                    }
+                    
                     if (xpage == null) {
                             page = 1;
                         } // load page save job 

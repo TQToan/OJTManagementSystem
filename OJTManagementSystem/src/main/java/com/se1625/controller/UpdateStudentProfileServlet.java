@@ -180,7 +180,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                                 }
                             }
                         }
-                        TblStudentDTO newInforStudent = dao.getStudent(student.getAccount().getEmail());
+                        TblStudentDTO newInforStudent = dao.getStudentInformation(student.getStudentCode());
                         session.setAttribute("STUDENT_ROLE", newInforStudent);
                         url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
                         response.sendRedirect(url);

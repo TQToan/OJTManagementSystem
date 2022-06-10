@@ -8,6 +8,8 @@ package com.se1625.controller;
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblaccount.TblAccountError;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.usergoogle.UserGoogleDTO;
@@ -73,8 +75,11 @@ public class LoginGoogleServlet extends HttpServlet {
                 } //account's role is admin
                 else if (dto.getIs_Admin() == 2) {
                     HttpSession session = request.getSession();
+                    //get current semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
                     TblStudentDAO studentDAO = new TblStudentDAO();
-                    TblStudentDTO student = studentDAO.getStudent(dto.getEmail());
+                    TblStudentDTO student = studentDAO.getStudent(dto.getEmail(), currentSemester);
                     if (student != null) {
                         session.setAttribute("STUDENT_ROLE", student);
                         url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;

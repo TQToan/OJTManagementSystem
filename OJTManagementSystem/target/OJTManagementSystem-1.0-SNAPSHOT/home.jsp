@@ -85,7 +85,7 @@
             <div class="main__company">
                 <h2>Company</h2>
                 <div class="row row-cols-2 row-cols-lg-3 row-cols-md-3 row-cols-xl-4">
-                    <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto">
+                    <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto" begin="0" end="7">
                         <div class="col">
                             <div class="card-company">
                                 <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img">

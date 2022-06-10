@@ -6,6 +6,7 @@
 package com.se1625.tblapplication;
 
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDTO;
 import java.io.Serializable;
 
@@ -29,6 +30,7 @@ public class TblApplicationDTO implements Serializable{
     private int companyConfirm;
     private TblStudentDTO student;
     private TblCompany_PostDTO companyPost;
+    private TblSemesterDTO semester;
 
     public TblApplicationDTO() {
     }
@@ -260,6 +262,20 @@ public class TblApplicationDTO implements Serializable{
      */
     public void setCompanyPost(TblCompany_PostDTO companyPost) {
         this.companyPost = companyPost;
+    }
+
+    /**
+     * @return the semester
+     */
+    public TblSemesterDTO getSemester() {
+        return semester;
+    }
+
+    /**
+     * @param semester the semester to set
+     */
+    public void setSemester(TblSemesterDTO semester) {
+        this.semester = semester;
     }
     
     

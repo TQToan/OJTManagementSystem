@@ -11,6 +11,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.DBHelper;
@@ -158,7 +160,7 @@ public class TblApplicationDAO implements Serializable {
                     int applicationID = rs.getInt("applicationID");
                     boolean isPass = rs.getBoolean("is_Pass");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                     TblApplicationDTO application = new TblApplicationDTO();
@@ -195,7 +197,7 @@ public class TblApplicationDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass "
+                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass, semesterID "
                         + "FROM tblApplication "
                         + "WHERE student_Confirm = ? and school_Confirm = ? "
                         + "and company_Confirm = ? and studentCode = ? ";
@@ -211,19 +213,24 @@ public class TblApplicationDAO implements Serializable {
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
                     boolean isPass = rs.getBoolean("is_Pass");
+                    int semesterID = rs.getInt("semesterID");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
-                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    if (semesterID == currentSemester.getSemesterID()) {
+                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
-                    TblApplicationDTO application = new TblApplicationDTO();
-                    application.setApplicationID(applicationID);
-                    application.setEvaluation(evaluation);
-                    application.setIsPass(isPass);
-                    application.setCompanyPost(companyPost);
-                    application.setStudent(student);
-                    application.setGrade(grade);
+                        TblApplicationDTO application = new TblApplicationDTO();
+                        application.setApplicationID(applicationID);
+                        application.setEvaluation(evaluation);
+                        application.setIsPass(isPass);
+                        application.setCompanyPost(companyPost);
+                        application.setStudent(student);
+                        application.setGrade(grade);
 
-                    return application;
+                        return application;
+                    }
                 }
             }
         } finally {
@@ -420,7 +427,7 @@ public class TblApplicationDAO implements Serializable {
                     int schoolConfirm = rs.getInt("school_Confirm");
                     int company_Confirm = rs.getInt("company_Confirm");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                     TblApplicationDTO application = new TblApplicationDTO();

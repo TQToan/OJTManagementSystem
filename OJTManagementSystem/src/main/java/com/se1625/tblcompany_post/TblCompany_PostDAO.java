@@ -53,9 +53,9 @@ public class TblCompany_PostDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT TOP 6 cp.postID, cp.title_Post, "
+                String sql = "SELECT cp.postID, cp.title_Post, "
                         + " cp.postingDate, cp.quantityInterns, "
-                        + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
+                        + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, cp.vacancy, "
                         + "m.majorID, m.majorName, ac.name, ac.avatar "
                         + "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) "
                         + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
@@ -90,6 +90,7 @@ public class TblCompany_PostDAO implements Serializable {
                     String nameMajor = rs.getNString("majorName");
                     String companyName = rs.getNString("name");
                     String avatar = rs.getString("avatar");
+                    String vacancy = rs.getNString("vacancy");
 
                     if (school_confirm == true && statusPost == 1) {
                         TblCompany_PostDTO dto = new TblCompany_PostDTO();
@@ -112,6 +113,7 @@ public class TblCompany_PostDAO implements Serializable {
                         TblCompanyDTO company = new TblCompanyDTO();
                         company.setAccount(account);
                         dto.setCompany(company);
+                        dto.setVacancy(vacancy);
 
                         if (companyPostListHome == null) {
                             companyPostListHome = new ArrayList<>();
@@ -140,7 +142,7 @@ public class TblCompany_PostDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT TOP 8 cp.postID, cp.title_Post, "
+                String sql = "SELECT cp.postID, cp.title_Post, "
                         + " cp.postingDate, cp.quantityInterns, "
                         + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
                         + "m.majorName, ac.name, ac.avatar \n"
