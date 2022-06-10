@@ -113,6 +113,7 @@
                                 <input type="hidden" name="school_confirm" value="true" />
                                 <input type="hidden" name="statusPost" value="2"/>
                                 <input type="hidden" name="postID" value="${post.postID}" />
+                                <%-- lay param de back lai trang cu~ --%>
                                 <input type="hidden" name="page" value="${requestScope.page}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
@@ -132,6 +133,7 @@
                                 <input type="hidden" name="school_confirm" value="false" />
                                 <input type="hidden" name="statusPost" value="0"/>
                                 <input type="hidden" name="postID" value="${post.postID}" />
+                                <%-- lay param de back lai trang cu~ --%>
                                 <input type="hidden" name="page" value="${requestScope.page}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
@@ -150,17 +152,17 @@
                             <div class="text-success">${requestScope.UPDATE_SUSCESS}</div>
                             </font>
                         </c:if>
-                        
+
                         <form action="AdminSearchCompanyPostController" method="POST">
-                                                            <div>
-                                                                
-                                                                <input type="hidden" name="page" value="${requestScope.page}"/>
-                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                <input type="submit" value="Back" class="back-btn" />
-                                                            </div>
-                                                        </form>
+                            <div>
+
+                                <input type="hidden" name="page" value="${requestScope.page}"/>
+                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                <input type="submit" value="Back" class="back-btn" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
