@@ -59,7 +59,7 @@ public class AddminCompanyManagerServlet extends HttpServlet {
                 
                 size = listAllCompany.size();
                 String xpage = request.getParameter("page");                
-                if (xpage == null || xpage.isEmpty()) {
+                if (xpage == null || xpage.isEmpty()) {                 
                     page = 1;
                 } else {
                     page = Integer.parseInt(xpage);
