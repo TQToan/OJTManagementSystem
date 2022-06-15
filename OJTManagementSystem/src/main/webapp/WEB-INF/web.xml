@@ -156,7 +156,7 @@
         <servlet-name>AdminUpdatePostServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminUpdatePostServlet</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>
@@ -171,6 +171,30 @@
     <servlet>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AddminCompanyManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdateProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanySearchServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdatePostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowPostDetailsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -280,7 +304,7 @@
         <servlet-name>SearchStudentEvaluationServlet</servlet-name>
         <url-pattern>/SearchStudentEvaluationServlet</url-pattern>
     </servlet-mapping>
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminShowInternApplicationServlet</servlet-name>
         <url-pattern>/AdminShowInternApplicationServlet</url-pattern>
     </servlet-mapping>
@@ -315,6 +339,30 @@
     <servlet-mapping>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <url-pattern>/AddminCompanyManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <url-pattern>/CompanyShowProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <url-pattern>/CompanyUpdateProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <url-pattern>/CompanyShowPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanySearchServlet</servlet-name>
+        <url-pattern>/CompanySearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <url-pattern>/CompanyUpdatePostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
+        <url-pattern>/CompanyShowPostDetailsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

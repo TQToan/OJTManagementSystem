@@ -16,7 +16,15 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
 
     }
-
+    public class CompanyFeatures {
+        public static final String COMPANY_PROFILE_CONTROLLER = "CompanyShowProfileController";
+        public static final String COMPANY_SHOW_POST_CONTROLLER = "CompanyShowPostController";
+        public static final String COMPANY_UPDATE_PROFILE_CONTROLLER = "CompanyUpdateProfileController";
+        public static final String COMPANY_PROFILE_PAGE_JSP = "companyProfileJSP";
+        public static final String COMPANY_POST_MANAGE_PAGE = "companyPostManagePage";
+        public static final String COMPANY_POST_EDIT_CONTROLLER = "CompanyUpdatePostController";
+        public static final String COMPANY_POST_EDIT_PAGE = "companyPostEditPage";
+    }
 
     public class AdminInternApplication{
         public static final String ADMIN_SHOW_INTERN_APPLICATION_CONTROLLER = "AdminShowInternApplicationController";

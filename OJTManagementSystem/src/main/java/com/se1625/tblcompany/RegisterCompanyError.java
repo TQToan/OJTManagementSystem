@@ -16,7 +16,7 @@ public class RegisterCompanyError implements Serializable{
     private String companyAddressLengthError;
     private String companyDescriptionLegthError;
     private String companyPhoneLengthError;
-    private String companyLogoLenthError;
+    private String companyLogoLengthError;
     private String companyCityError;
 
     public RegisterCompanyError() {
@@ -27,7 +27,7 @@ public class RegisterCompanyError implements Serializable{
         this.companyAddressLengthError = companyAddressLengthError;
         this.companyDescriptionLegthError = companyDescriptionLegthError;
         this.companyPhoneLengthError = companyPhoneLengthError;
-        this.companyLogoLenthError = companyLogoLenthError;
+        this.companyLogoLengthError = companyLogoLenthError;
         this.companyCityError = companyCityError;
     }
     
@@ -92,15 +92,15 @@ public class RegisterCompanyError implements Serializable{
     /**
      * @return the companyLogoLenthError
      */
-    public String getCompanyLogoLenthError() {
-        return companyLogoLenthError;
+    public String getCompanyLogoLengthError() {
+        return companyLogoLengthError;
     }
 
     /**
-     * @param companyLogoLenthError the companyLogoLenthError to set
+     * @param companyLogoLengthError the companyLogoLenthError to set
      */
-    public void setCompanyLogoLenthError(String companyLogoLenthError) {
-        this.companyLogoLenthError = companyLogoLenthError;
+    public void setCompanyLogoLengthError(String companyLogoLengthError) {
+        this.companyLogoLengthError = companyLogoLengthError;
     }
 
     /**

@@ -111,7 +111,6 @@
                     </div>
 
                     <div class="aViewPost-btn">
-<<<<<<< HEAD
                         <form action="AdminUpdatePostController" method="POST">
                             <div>
                                 <input type="hidden" name="save" value="adminViewPostPage" />
@@ -148,49 +147,8 @@
                                            autocomplete="off" hidden 
                                        </c:if> />
                             </div>
-
-
                         </form> 
-=======
-                        <div >
-                            <form action="AdminUpdatePostController" method="POST">    
-                                <div>
-                                    <input type="hidden" name="save" value="adminViewPostPage" />
-                                    <input type="hidden" name="school_confirm" value="false" />
-                                    <input type="hidden" name="statusPost" value="0"/>
-                                    <input type="hidden" name="postID" value="${post.postID}" />
-                                    <input type="hidden" name="page" value="${requestScope.page}" />
-                                    <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                    <input type="submit" value="Reject" class="primary-btn reject-btn"
-                                           <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 0 or post.statusPost eq 3}">
-                                               autocomplete="off" hidden 
-                                           </c:if> />
-                                </div>
-                            </form> 
-                        </div>
-                        <div >
-                            <form action="AdminUpdatePostController" method="POST">
-                                <div>
-                                    <input type="hidden" name="save" value="adminViewPostPage" />
-                                    <input type="hidden" name="school_confirm" value="true" />
-                                    <input type="hidden" name="statusPost" value="2"/>
-                                    <input type="hidden" name="postID" value="${post.postID}" />
-                                    <input type="hidden" name="page" value="${requestScope.page}" />
-                                    <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                    <input type="submit" value="Accept" class="primary-btn accept-btn" 
-                                           <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 2 or post.statusPost eq 3}">
-                                               autocomplete="off" hidden 
-                                           </c:if> />
-                                </div>
-                            </form>
-                        </div>
 
-
->>>>>>> 7dddcd348657a2955db159c680fbfe0c6031563e
 
                         <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
                             <font style="color: green"> 
@@ -198,10 +156,11 @@
                             </font>
                         </c:if>
 
-<<<<<<< HEAD
+
+                    </div>
+                    <div class="text-center">
                         <form action="AdminSearchCompanyPostController" method="POST">
                             <div>
-
                                 <input type="hidden" name="page" value="${requestScope.page}"/>
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
@@ -209,21 +168,7 @@
                                 <input type="submit" value="Back" class="back-btn" />
                             </div>
                         </form>
-=======
-                        
->>>>>>> 7dddcd348657a2955db159c680fbfe0c6031563e
                     </div>
-                                    <div class="text-center">
-                                    <form action="AdminSearchCompanyPostController" method="POST">
-                            <div>
-                                <input type="hidden" name="page" value="${requestScope.page}"/>
-                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                <input type="submit" value="Back" class="back-btn" />
-                            </div>
-                        </form>
-                                </div>
                 </div>
             </div>
 
