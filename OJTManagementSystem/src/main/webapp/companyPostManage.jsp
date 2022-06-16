@@ -99,7 +99,7 @@
                                         <input type="text" name="title_Post" value="${param.title_Post}" name="title_Post" id="" placeholder="Title Job" class="company--input">
                                     </div>
                                     <div class="col-3">
-                                        <select name="nameMajor">
+                                        <select name="nameMajor" class="company--select" id="title">
                                             <option value="">Major</option>
                                             <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                                 <option value="${major.majorID}" <c:if test="${major.majorID eq param.nameMajor}">
@@ -110,7 +110,7 @@
                                     </div>
 
                                     <div class="col-3">
-                                        <select id="city" name="nameStatus" class="admin--select" >
+                                        <select id="city" name="nameStatus" class="company--select" >
                                             <option value="" selected>Status</option>
                                             <option value="Active" class="text-success" <c:if test="${param.nameStatus eq 'Active'}">
                                                     selected="selected"
@@ -194,7 +194,7 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                    <a href="" >Edit</a>
+                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
