@@ -44,7 +44,7 @@ public class AddminCompanyManagerServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
         String url = prop.getProperty(MyApplicationConstants.AdminCompanyManagerFeature.LOGIN_PAGE);
-        
+             
         HttpSession session = request.getSession(false);
         int page;
         int numberProductPage = 10;

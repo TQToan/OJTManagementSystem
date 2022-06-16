@@ -316,4 +316,30 @@ public class TblFollowing_PostDAO implements Serializable {
         return false;
 
     }
+    
+    public boolean deleteFollowingPost(String studentCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "DELETE FROM tblFollowing_Post "
+                        + "WHERE studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
 }

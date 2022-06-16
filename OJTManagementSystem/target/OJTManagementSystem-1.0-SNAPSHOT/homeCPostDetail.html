@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/home-responsive.css">
 </head>
 <body>
     <header class="header ">
@@ -31,7 +32,7 @@
     
     </header>
 
-    <main class="main">
+    <main class="main ">
         <div class="main__search">
             <h2>Search Jobs</h2>
             <form action="" class="main__search-form">
@@ -58,32 +59,10 @@
             </form>
         </div>
 
-        <div class="hCompanyInfor">
-            <div class="hCompanyInfor__header">
-                Company Information
-            </div>
-            <div class="hCompanyInfor__body">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="./assets/img/FPTSoftware.jpg" alt="" >
-                        <h3>FPT Software</h3>
-                    </div>
-                    <div class="col-9 hCompanyInfor__content">
-                        - FPT Software was established in 1999, is a member company of FPT, the leading Technology Group in Vietnam. After 17 years of establishment, FPT Software is currently the largest software company in Vietnam and ranked in the Top 100 Global Outsourcing Service Providers by the International Association of Outsourcing Professionals (IAOP).
-
-                   <br>    - As a company specializing in exporting software services, FPT Software provides software development and maintenance services, ERP implementation, QA, application transformation, embedded systems, mobile computing, and cloud computing. … in many fields such as: Banking and Finance, Telecommunications, Healthcare, Manufacturing, Automotive Industry, Public Services… Currently, FPT Software is focusing on research and development of IT services based on public platforms. new technologies such as IoT, S.M.A.C, for the fields of aircraft manufacturing, automobile manufacturing, banking, satellite television, and telecommunications on a global scale. The company has been providing services to about 450 customers who are large corporations in the world, including 43 customers on the list of Fortune Global 500.
-
-                       <br>- From 13 programmers with the dream of bringing Vietnamese wisdom to all five continents, the FSOFT army at the age of 18 with more than 10,000 people, revenue of more than 230 million USD, continues to turn the dream of turning Vietnam into a bright spot in IT. on the world map come true with the goal of reaching 1 billion USD in sales by 2020 and 30,000 people.
-
-                     <br>  - After 17 years of developing the global market, FPT Software now has 23 offices in 14 countries including Vietnam, Japan, Singapore, USA, France, Germany, Slovakia, Malaysia, Australia, China, Korea. , Myanmar, Philippines, Thailand.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="hComApplDetail row">
-            <div class="col-7">
+        <div class="hComApplDetail row ">
+            <div class="col-md-7 ">
                 <div class="hComApplDetail__left">
+                    <div class="hComApplDetail--header">FPT Software</div>
                     <div class="hComApplDetail__left--header">
                         Application Information:
                     </div>
@@ -135,63 +114,71 @@
                 
             </div>
 
-            <div class="col-5">
+            <div class="col-md-5 ">
                 <div class="hComApplDetail__right">
                     <div class="hComApplDetail__right--header">
                         Other Company
                     </div>
-                    <div class="hComApplDetail__right--body">
-                        <a href="#" class="hComApplDetail__right--card">
-                            <div class="row">
-                                <div class="col-4">
-                                    <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
-                                </div>
-                                <div class="col-8">
-                                    <div class="right--card-header">FPT Software</div>
-                                    <div class="right--card-body">
-                                        <p>Job: Java Developer</p>
-                                        <p>Quantity: 10</p>
-                                        <p>Location: TP.HCM</p>
-                                        <p>Date: 20-5-2022</p>
+                    <div class="hComApplDetail__right--body row row-cols-1">
+                        <div class="col">
+                            <a href="#" class="hComApplDetail__right--card ">
+                                <div class="row">
+                                    <div class="col-4 right-card_img">
+                                        <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
+                                    </div>
+                                    <div class="col-8 right-card-content" >
+                                        <div class="right--card-header">FPT Software</div>
+                                        <div class="right--card-body">
+                                            <p>Job: Java Developer</p>
+                                            <p>Quantity: 10</p>
+                                            <p>Location: TP.HCM</p>
+                                            <p>Date: 20-5-2022</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <i class="far fa-heart right--card-save save-btn "></i>
-                        </a>
-                        <a href="" class="hComApplDetail__right--card">
-                            <div class="row">
-                                <div class="col-4">
-                                    <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
-                                </div>
-                                <div class="col-8">
-                                    <div class="right--card-header">FPT Software</div>
-                                    <div class="right--card-body">
-                                        <p>Job: Java Developer</p>
-                                        <p>Quantity: 10</p>
-                                        <p>Location: TP.HCM</p>
-                                        <p>Date: 20-5-2022</p>
+                                <i class="far fa-heart right--card-save save-btn "></i>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="hComApplDetail__right--card ">
+                                <div class="row">
+                                    <div class="col-4 right-card_img">
+                                        <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
+                                    </div>
+                                    <div class="col-8 right-card-content">
+                                        <div class="right--card-header">FPT Software</div>
+                                        <div class="right--card-body">
+                                            <p>Job: Java Developer</p>
+                                            <p>Quantity: 10</p>
+                                            <p>Location: TP.HCM</p>
+                                            <p>Date: 20-5-2022</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <i class="far fa-heart right--card-save save-btn save-btn-active "></i>
-                        </a>
-                        <a href="" class="hComApplDetail__right--card">
-                            <div class="row">
-                                <div class="col-4">
-                                    <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
-                                </div>
-                                <div class="col-8">
-                                    <div class="right--card-header">FPT Software</div>
-                                    <div class="right--card-body">
-                                        <p>Job: Java Developer</p>
-                                        <p>Quantity: 10</p>
-                                        <p>Location: TP.HCM</p>
-                                        <p>Date: 20-5-2022</p>
+                                <i class="far fa-heart right--card-save save-btn "></i>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="hComApplDetail__right--card ">
+                                <div class="row">
+                                    <div class="col-4 right-card_img">
+                                        <img src="./assets/img/FPTSoftware.jpg" class="right--card-img"/>
+                                    </div>
+                                    <div class="col-8 right-card-content">
+                                        <div class="right--card-header">FPT Software</div>
+                                        <div class="right--card-body">
+                                            <p>Job: Java Developer</p>
+                                            <p>Quantity: 10</p>
+                                            <p>Location: TP.HCM</p>
+                                            <p>Date: 20-5-2022</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <i class="far fa-heart right--card-save save-btn "></i>
-                        </a>
+                                <i class="far fa-heart right--card-save save-btn "></i>
+                            </a>
+                        </div>
+                        
+                        
                     </div>
 
                     <div class="main__pagination">
@@ -218,13 +205,39 @@
                 </div>
             </div>
         </div>
+
+        <div class="hCompanyInfor 1">
+           
+            <div class="hCompanyInfor__body">
+                <div class="hCompanyInfor__header">
+                    Company Information
+                </div>
+                <div class="row">
+                    <div class="col-md-3 ">
+                        <img src="./assets/img/FPTSoftware.jpg" class="hCompanyInfor__body--img" alt="" >
+                        <h3>FPT Software</h3>
+                    </div>
+                    <div class="col-md-9 hCompanyInfor__content">
+                        - FPT Software was established in 1999, is a member company of FPT, the leading Technology Group in Vietnam. After 17 years of establishment, FPT Software is currently the largest software company in Vietnam and ranked in the Top 100 Global Outsourcing Service Providers by the International Association of Outsourcing Professionals (IAOP).
+
+                   <br>    - As a company specializing in exporting software services, FPT Software provides software development and maintenance services, ERP implementation, QA, application transformation, embedded systems, mobile computing, and cloud computing. … in many fields such as: Banking and Finance, Telecommunications, Healthcare, Manufacturing, Automotive Industry, Public Services… Currently, FPT Software is focusing on research and development of IT services based on public platforms. new technologies such as IoT, S.M.A.C, for the fields of aircraft manufacturing, automobile manufacturing, banking, satellite television, and telecommunications on a global scale. The company has been providing services to about 450 customers who are large corporations in the world, including 43 customers on the list of Fortune Global 500.
+
+                       <br>- From 13 programmers with the dream of bringing Vietnamese wisdom to all five continents, the FSOFT army at the age of 18 with more than 10,000 people, revenue of more than 230 million USD, continues to turn the dream of turning Vietnam into a bright spot in IT. on the world map come true with the goal of reaching 1 billion USD in sales by 2020 and 30,000 people.
+
+                     <br>  - After 17 years of developing the global market, FPT Software now has 23 offices in 14 countries including Vietnam, Japan, Singapore, USA, France, Germany, Slovakia, Malaysia, Australia, China, Korea. , Myanmar, Philippines, Thailand.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
         
     </main>
 
 
     <footer class="footer">
         <div class="footer__content">
-            @copyright 2022
+            <i class="fa-regular fa-copyright"></i> Copyright 2022
         </div>
     
 </footer>

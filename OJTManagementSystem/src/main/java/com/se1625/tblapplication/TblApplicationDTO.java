@@ -23,7 +23,7 @@ public class TblApplicationDTO implements Serializable{
     private String otherSkills;
     private String evaluation;
     private float grade;
-    private boolean isPass;
+    private int isPass;
     private boolean studentConfirm;
     private int schoolConfirm;
     private int companyConfirm;
@@ -35,7 +35,7 @@ public class TblApplicationDTO implements Serializable{
 
     public TblApplicationDTO(int applicationID, String attachmentPath, String expected_job, 
             String technology, String experience, String foreign_Language, String otherSkills, 
-            String evaluation, float grade, boolean isPass, boolean studentConfirm, 
+            String evaluation, float grade, int isPass, boolean studentConfirm, 
             int schoolConfirm, int companyConfirm) {
         this.applicationID = applicationID;
         this.attachmentPath = attachmentPath;
@@ -178,17 +178,14 @@ public class TblApplicationDTO implements Serializable{
         this.grade = grade;
     }
 
-    /**
-     * @return the isPass
-     */
-    public boolean isIsPass() {
+    public int getIsPass() {
         return isPass;
     }
 
     /**
-     * @param isPass the isPass to set
+     * @return the isPass
      */
-    public void setIsPass(boolean isPass) {
+    public void setIsPass(int isPass) {    
         this.isPass = isPass;
     }
 

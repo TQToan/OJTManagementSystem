@@ -22,7 +22,7 @@
     <body>
         <header class="header ">
             <div class="navbar">
-                <a href="" class="header__logo ">
+                <a href="#" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
             </div>
@@ -31,7 +31,6 @@
         <div class="main">
 
             <h1 class="heading">Welcome to FPT_OJT</h1>
-
             <div class="row main-body row-cols-sm-1">
                 <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
                     <h2 class="container__heading">*Company</h2>
@@ -45,33 +44,27 @@
                             <h5 class="text-danger">
                                 <c:set var="error" value="${requestScope.ERROR}"></c:set>
                                 <c:if test="${not empty error}">
+                                    <font color="red">
                                     ${error.accountError}
+                                    </font>
                                 </c:if>
                             </h5>
                             <input type="text" class="form-input" name="txtEmail" value="${param.txtEmail}" placeholder="Enter your email"> <br>
                             <h5 class="text-danger">
                                 <c:if test="${not empty error}">
+                                    <font color="red">
                                     ${error.userEmailEmpty}
-                                </c:if>
-                            </h5>
-                            <h5 class="text-danger">
-                                <c:if test="${not empty error}">
-                                    ${error.userEmailFormatError}
+                                    </font>
                                 </c:if>
                             </h5>
                             <input type="password" class="form-input" name="txtPassword" value="" placeholder="Enter your password">
                             <h5 class="text-danger">
                                 <c:if test="${not empty error}">
+                                    <font color="red">
                                     ${error.userPasswordEmpty}
+                                    </font>
                                 </c:if>
                             </h5>
-                            <!-- <div class="checkbox-btn">
-                                <input type="checkbox" id="auto-fill">
-                                <label for="auto-fill">
-                                    Auto Login
-                                </label>
-                            </div> -->
-
                             <input type="submit" value="Login" class="login-btn">
                         </form>
                     </div>
@@ -98,12 +91,11 @@
                         <h5 class="text-danger text-center">
                             <c:set var="error" value="${requestScope.ERROR}"></c:set>
                             <c:if test="${not empty error}">
-                                <font color="red">
                                 ${error.userEmailNotAllow}
-                                </font>
                             </c:if>
                         </h5>
                         <a href="${loginGoogle}" class="google-btn row">
+
                             <i class="fab fa-google google-logo col-2 "></i>
                             <span class="google-content col-10 ">Login email @fpt.edu.vn</span>
                         </a>
@@ -113,7 +105,7 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
     </body>

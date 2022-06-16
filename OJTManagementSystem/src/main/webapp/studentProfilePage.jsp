@@ -17,13 +17,74 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/student.css">
+        <link rel="stylesheet" href="./assets/css/student-responsive.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    
     </head>
     <body>
         <header></header>
 
+        <div class="navbar navbar-expand-md navbar-sm-cus ">
+            <a href="ShowStudentHomeController" class="nav__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="nav--logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <i class="fa-solid fa-bars nav__respo--btn"></i>
+            </button>
+            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+                <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate text-center">
+                    <i class="fas fa-user-circle nav__infor--icon"></i>
+                     ${student.account.name}
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="studentDashboardController" class="nav__item--link">
+                            <i class="fas fa-palette "></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ShowStudentProfileController" class="nav__item--link">
+                            <i class="fas fa-user-edit"></i>
+                            My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item nav__items">
+                        <div  class="nav__item--link nav__item--dropdown">
+                            <i class="fas fa-pen"></i>
+                            My Jobs
+                            <i class="fas fa-angle-down icon-down"></i>
+                        </div>
+                        <div class="nav__item__dropdown">
+                            <a href="SearchSaveJobController" class="nav__item__dropdown--link">
+                                Saved Jobs
+                            </a>
+                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
+                                Applied Jobs
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ReviewInternShipController" class="nav__item--link">
+                            <i class="fas fa-poll-h"></i>
+                            Review Internship
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                         <a href="logoutController" class="nav__item--link">
+                            <i class="fas fa-power-off"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
         <main class="row">
             <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
-            <nav class="col-2  nav-fixed">
+            <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>              
@@ -78,9 +139,9 @@
 
             </nav>
 
-            <div class="main-body  offset-2 col-10 ">
+            <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
-                    <div class="main-body-profile offset-3 col-6">
+                    <div class="main-body-profile offset-xl-3 col-xl-6 offset-2 col-8">
                         <div class="main-body-profile__header">
                             Personal Profile*
                         </div>
@@ -178,7 +239,7 @@
         </main>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
     </body>

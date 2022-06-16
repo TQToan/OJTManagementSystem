@@ -88,9 +88,8 @@
                     <c:forEach items="${requestScope.LIST_POST_HOME}" var="dto">
                         <div class="col">
                             <div class="card-company">
-                                <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img img-responsive">
+                                <img src="./avatars/${dto.company.account.avatar}" alt="${dto.company.account.avatar}" class="card-company--img">
                                 <a href="HomeShowCompanyDetailController?postID=${dto.postID}" class="card-company-header">
-
                                     ${dto.company.account.name}
                                 </a>
                                 <div class="card-company-body">
@@ -101,6 +100,7 @@
                                 </div>
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
+                                </div>   
                                     <c:url var="urlSaveJob" value="StudentSaveJobController" >
                                         <c:param name="save" value="homePage" />
                                         <c:param name="postID" value="${dto.postID}" />
@@ -111,22 +111,27 @@
                                     </c:url>
                                     <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
                                     <c:if test="${statusFollowing eq true}">
-                                        <a href="${urlUnSaveJob}">
+                                    <a href="${urlUnSaveJob}">
                                             <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                        </a>
+                                    </a>
                                     </c:if>
                                     <c:if test="${statusFollowing eq false}">
                                         <a href="${urlSaveJob}">
                                             <i class="far fa-heart card-company-btn-save save-btn"></i>
                                         </a>
                                     </c:if>
-                                </div>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
+                <div class="home_see-more">
+                    <a href="#" class="home_see-more--btn ">
+                        See More 
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-
+            <
             <div class="main__company-icon">
                 <div class="row row-cols-7">
                     <c:forEach items="${requestScope.LIST_AVATAR_SIGNED_COMPANY}" var="avatar">
@@ -138,11 +143,12 @@
                     </c:forEach>
                 </div>
             </div>
+            
         </main>
 
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>

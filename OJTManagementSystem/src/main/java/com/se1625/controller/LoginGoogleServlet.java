@@ -71,13 +71,21 @@ public class LoginGoogleServlet extends HttpServlet {
                     url = MyApplicationConstants.LoginGoogleFeture.ADMIN_DASHBOARD_PAGE;
                     response.sendRedirect(url);
                 } //account's role is admin
-                else if (dto.getIs_Admin() == 2) {                         
+                else if (dto.getIs_Admin() == 2) {
                     HttpSession session = request.getSession();
                     TblStudentDAO studentDAO = new TblStudentDAO();
                     TblStudentDTO student = studentDAO.getStudent(dto.getEmail());
-                    session.setAttribute("STUDENT_ROLE", student);
-                    url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;
-                    response.sendRedirect(url);
+                    if (student != null) {
+                        session.setAttribute("STUDENT_ROLE", student);
+                        url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;
+                        response.sendRedirect(url);
+                    } else {
+                        error = new TblAccountError();
+                        error.setUserEmailNotAllow("Your account is not allowed to login into this system by email!");
+                        request.setAttribute("ERROR", error);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    }
                 } //account's role is student
                 else {
                     error = new TblAccountError();

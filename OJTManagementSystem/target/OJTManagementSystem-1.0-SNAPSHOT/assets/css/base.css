@@ -52,7 +52,8 @@ html{
 /* Modify html------------------------------------------ */
 img{
     width: 100%;
-    object-fit: contain;
+    object-fit: unset;
+    border-radius: 10px;
 }
 main{
     min-height: 100vh;
@@ -270,6 +271,32 @@ main{
     color: var(--text-color-orange);
 }
 
+.navbar-sm-cus{
+    text-align: center;
+    background-color: var(--background-black);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--height-header);
+    display: none;
+}
+
+
+.navbar-toggler{
+    margin-right: 10px;
+    color: var(--background-orange);
+    font-size: 3rem;
+}
+
+.navbar-collapse-cus{
+    background-color: var(--background-black);
+}
+
+
+.nav__respo--btn{
+    color: var(--background-orange);
+}
 /* nav------------------------END------------------------------ */
 
 
@@ -334,7 +361,7 @@ main{
 }
 /* General -------------------END----------------------------- */
 
-/* Responsive ----------------mobile xl  min-widt: 768px------------- */
+/* Responsive ----------------mobile sm  max-width: 767px------------- */
 @media (max-width: 767px) {
     :root{
         --height-header: 50px;
@@ -346,7 +373,7 @@ main{
     }
     .primary-btn{
         padding: 3px;
-        min-width: 60px;
+        min-width: 70px;
         max-width: 120px;
     }
     .header__name{
@@ -356,11 +383,21 @@ main{
         margin-top: 10px;
         margin-bottom: 20px;
     }
+
+    .nav-fixed{
+        display: none;
+    }
+
+    .navbar-sm-cus{
+         height: var(--height-header);
+        display: flex;
+        z-index: 99;
+    }
     
 }
-/* Responsive ----------------mmobile xl  min-widt: 768px----------END--- */
+/* Responsive ----------------mobile sm  max-width: 767px----------END--- */
 
-/* Responsive ----------------table xl  min-widt: 1200px------------- */
+/* Responsive ----------------tablet md  width: 768px - 1199px------------- */
 @media (min-width: 768px) and (max-width: 1199px) {
     :root{
         --height-header: 70px;
@@ -372,11 +409,12 @@ main{
     }
     .primary-btn{
         padding: 5px;
-        min-width: 50px;
-        max-width: 100px;
+        min-width: 100px;
+        max-width: 120px;
     }
+   
 
 }
-/* Responsive ----------------table xl  min-widt: 1200px---------END---- */
+/* Responsive ----------------tablet md  width: 768px - 1199px---------END---- */ 
 
 

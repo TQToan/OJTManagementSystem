@@ -97,48 +97,53 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
                     }
                 }
             }
-            //check size của file
-            List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
-            if (studentList != null) {
-                TblAccountDAO dao = new TblAccountDAO();
-                int i = 0;
-                for (TblStudentDTO student : studentList) {
-                    System.out.println(i++ + " " + dao.checkExistedAccount(student.getAccount().getEmail()));
-                    if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
-                        dao.addStudentAccount(student);
+            if (fileName.isEmpty()) {
+                request.setAttribute("ERROR_IMPORT_EXCEL", "Please Choose file to import!");
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+            } else {
+                //check size của file
+                List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
+                if (studentList != null) {
+                    TblAccountDAO dao = new TblAccountDAO();
+                    for (TblStudentDTO student : studentList) {
+                        if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
+                            dao.addStudentAccount(student);
+                        }
                     }
+                    Files.deleteIfExists(Paths.get(fileImportPath));
+                    String url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
+                    response.sendRedirect(url);
                 }
-                Files.deleteIfExists(Paths.get(fileImportPath));
-                String url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
-                response.sendRedirect(url);
-            } 
+            }
         } catch (FileUploadException ex) {
-            log("FileUploadException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            log("FileUploadException at ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (IOException ex) {
-            log("IOException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            log("IOException at ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (SQLException ex) {
-            log("SQLException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            log("SQLException at ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            log("NamingException at ImportStudentExcelFileServlet " + ex.getMessage());
         } catch (IllegalArgumentException ex) {
             log("IllegalArgumentException occurs ImportStudentExcelFileServlet " + ex.getMessage());
             if ("The specified file is not Excel file".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is not a excel(.xlsx) file. Please check again!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.DEMP_PAGE);
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
                 Files.deleteIfExists(Paths.get(fileError));
             }
         } catch (Exception ex) {
-            log("Exception occurs ImportStudentExcelFileServlet " + ex.getMessage());
+            log("Exception at ImportStudentExcelFileServlet " + ex.getMessage());
             if ("Sheet is empty".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is empty. Please check again!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.DEMP_PAGE);
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
                 Files.deleteIfExists(Paths.get(fileError));
             }
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

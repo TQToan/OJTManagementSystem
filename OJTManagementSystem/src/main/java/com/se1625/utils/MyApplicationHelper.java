@@ -64,6 +64,21 @@ public class MyApplicationHelper {
         //3. tạo attribute trong contextScope
         context.setAttribute("SITE_MAPS", properties);
     }
+    
+    public static void getSemesterDate(ServletContext context) throws IOException {
+        //1. get siteMaps file
+        String siteMapsFile = context.getInitParameter("SEMESTER_DATE_FILE_PATH");
+        //2. load properties from context and siteMapsFile to getResourceAsStream
+        InputStream is = null;
+        is = context.getResourceAsStream(siteMapsFile);
+        Properties properties = new Properties();
+        properties.load(is);
+
+        //3. tạo attribute trong contextScope
+        context.setAttribute("SEMESTER_DATE", properties);
+    }
+    
+    
 
     public static String getRandom() {
         Random rnd = new Random();
@@ -241,7 +256,8 @@ public class MyApplicationHelper {
         return studentList;
     }
 
-    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
+    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) 
+            throws IOException {
         Workbook workbook = null;
         if (excelFilePath.endsWith("xlsx")) {
             workbook = new XSSFWorkbook(inputStream);
@@ -336,14 +352,13 @@ public class MyApplicationHelper {
         cell = row.createCell(5);
         cell.setCellValue(application.getEvaluation());
 
-        if (application.isIsPass() == true) {
+        if (application.getIsPass() == 1) {
             cell = row.createCell(6);
             cell.setCellValue("Passed");
-        } else {
+        } else if (application.getIsPass() == -1) {
             cell = row.createCell(6);
             cell.setCellValue("Not Pass");
         }
-
     }
 
     public static void createExcelFile(Workbook workbook, String excelPath) throws FileNotFoundException, IOException {

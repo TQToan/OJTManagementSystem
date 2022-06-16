@@ -17,6 +17,23 @@ public class MyApplicationConstants {
 
     }
 
+
+    public class AdminInternApplication{
+        public static final String ADMIN_SHOW_INTERN_APPLICATION_CONTROLLER = "AdminShowInternApplicationController";
+        public static final String ADMIN_SHOW_INTERN_APPLICATION_JSP = "AdminShowInternApplicationJSP";
+        public static final String ADMMIN_CHANGE_STATUS_INTERN_APPLICATION_CONTROLLER ="AdminChangeStatusInternApplicationController";
+    }
+    public class AdminShowPostManagementFeature {
+        public static final String  ADMIN_POST_MANAGE_PAGE="AdminPostManagePage";
+        public static final String  ADMIN_DASHBOARD_MANAGE_PAGE="adminDashboardPage";
+        public static final String  ADMIN_SHOW_POST_MANAGE_CONTROLLER="AdminShowPostManagementController";
+        public static final String  ADMIN_VIEW_POST_MANAGE_PAGE="AdminViewPostPage";
+        public static final String  ADMIN_VIEW_POST_DETAIL_CONTROLLER="AdminViewPostDetailController";
+        public static final String  ADMIN_SEARCH_POST_MANAGE_CONTROLLER="AdminSearchCompanyPostController";
+        public static final String  ADMIN_UPDATE_POST_MANAGE_CONTROLLER="AdminUpdatePostController";
+        
+    }
+    
     public class StudentSaveJobFeature {
         public static final String STUDENT_SAVE_JOB_PAGE = "StudentSaveJobJSP";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
@@ -90,7 +107,7 @@ public class MyApplicationConstants {
 
     public class LoginGoogleFeture {
 
-        public static final String ADMIN_DASHBOARD_PAGE = "adminDashboardPage";
+        public static final String ADMIN_DASHBOARD_PAGE = "ShowAdminStudentManagementController";
         public static final String LOGIN_PAGE = "loginPage";
 
         public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";
@@ -107,8 +124,7 @@ public class MyApplicationConstants {
 
     public class ImportStudentExcelFileFeature {
 
-        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "AdminStudentManagementPage";
-        public static final String DEMP_PAGE = "loginPage";
+        public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "ShowAdminStudentManagementController";
     }
     
     public class LoadApplyCVStudentFeature{
@@ -159,6 +175,33 @@ public class MyApplicationConstants {
         public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
     }
     
+    public class ShowAdminStudentManagementFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_PAGE = "adminManagementStudentPage";
+    }
+    public class SearchStudentByAdminFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_PAGE = "adminManagementStudentPage";
+        public static final String ADMIN_MANAGEMENT_STUDENT_CONTROLLER = "ShowAdminStudentManagementController";
+    }
+    
+    public class UpdateStudentInforMationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_MANAGEMENT_STUDENT_CONTROLLER = "ShowAdminStudentManagementController";
+    }
+    
+    
+    public class ShowStudentEvaluationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_EVALUATION_PAGE = "adminEvaluationPage";
+    }
+    
+    public class SearchStudentEvaluationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String ADMIN_STUDENT_EVALUATION_CONTROLLER ="ShowStudentEvaluationController";
+        public static final String ADMIN_STUDENT_EVALUATION_PAGE = "adminEvaluationPage";
+    }
+    
     public class AdminCompanyManagerFeature {
         public static final String LOGIN_PAGE = "";
         public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
@@ -172,5 +215,41 @@ public class MyApplicationConstants {
     public class SearchCompanyAdminManagerFeature {
         public static final String LOGIN_PAGE = "";
         public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
+    }
+    
+    public class CompanyShowIntershipApplicationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyApplicationManagerPage";
+    }
+    
+    public class CompanyUpdateStatusIntershipApplicationFeature{
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_SHOW_INTERNSHIP_APPLICATION_CONTROLLER ="CompanyShowIntershipApplicationController";
+        public static final String COMPANY_SEARCH_INTERNS_CONTROLLER = "CompanySearchInternsController";
+    }
+    
+    public class CompanySearchInternsFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyApplicationManagerPage";
+    }
+    
+    public class CompanyViewStudentDetailFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_VIEW_STUDENT_DETAILE_PAGE = "CompanyViewStudentDetailPage";
+    }
+    
+    public class CompanyShowInternsManagermentFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_INTERNS_MANAGEMENT_PAGE = "CompanyInternsManagementPage";
+    }
+    
+    public class CompanyUpdateInternsFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER = "CompanySearchInternsManagementController";
+    }
+    
+    public class CompanySearchInternsManagementFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyInternsManagementPage";
     }
 }

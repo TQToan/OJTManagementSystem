@@ -59,7 +59,7 @@
                                 Student Information
                                 </font>
                                 <c:if test="${not empty student.account.avatar}">
-                                    <img src="./avatars/${student.account.avatar}" alt="" class="inforStu-left--img img-responsive">
+                                    <img src="./avatars/${student.account.avatar}" alt="" class="inforStu-left--img">
                                 </c:if>
                                 <c:if test="${empty student.account.avatar}"> 
                                     <img src="./assets/img/person.jpg" alt="" class="inforStu-left--img">

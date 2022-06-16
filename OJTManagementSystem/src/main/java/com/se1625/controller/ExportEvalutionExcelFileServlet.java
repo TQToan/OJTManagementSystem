@@ -45,13 +45,14 @@ public class ExportEvalutionExcelFileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        String semesterID = request.getParameter("semesterID");
         // get list cần ghi vào excel
         // studentCode, Major, CompanyName, Job, Grade, Evalution ,status
         // tblStudent, tblAccount, tblcompany, tblcompany_Post, tblApplication
         try {
             TblApplicationDAO applicationDAO = new TblApplicationDAO();
-            applicationDAO.getApplication();
+            applicationDAO.getApplicationToWriteExcel(Integer.parseInt(semesterID));
             List<TblApplicationDTO> listApplication = applicationDAO.getListApplication();
             String table = "evaluarionStudent";
             String realPath = getServletContext().getRealPath("/excels");
