@@ -24,15 +24,15 @@ import javax.naming.NamingException;
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 public class TblCompanyDAO implements Serializable {
-    
+
     private List<TblCompanyDTO> listNameCompany;
     private List<TblCompanyDTO> listAvatarSignedCompany;
     private List<TblCompanyDTO> listAllCompany;
-    
+
     public List<TblCompanyDTO> getListNameCompany() {
         return listNameCompany;
     }
-    
+
     public List<TblCompanyDTO> getListAvatarSignedCompany() {
         return listAvatarSignedCompany;
     }
@@ -40,8 +40,7 @@ public class TblCompanyDAO implements Serializable {
     public List<TblCompanyDTO> getListAllCompany() {
         return listAllCompany;
     }
-    
-    
+
     public void getNameCompanies() throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -53,23 +52,23 @@ public class TblCompanyDAO implements Serializable {
                         + "FROM tblCompany AS com INNER JOIN tblAccount AS acc "
                         + "ON (com.username = acc.username)";
                 stm = con.prepareCall(sql);
-                
+
                 rs = stm.executeQuery();
-                
+
                 while (rs.next()) {
                     String name = rs.getNString("name");
                     TblAccountDTO account = new TblAccountDTO();
                     account.setName(name);
-                    
+
                     String companyID = rs.getString("companyID");
                     TblCompanyDTO company = new TblCompanyDTO();
                     company.setCompanyID(companyID);
                     company.setAccount(account);
-                    
+
                     if (listNameCompany == null) {
                         listNameCompany = new ArrayList<>();
                     }
-                    
+
                     listNameCompany.add(company);
                 }
             }
@@ -85,7 +84,7 @@ public class TblCompanyDAO implements Serializable {
             }
         }
     }
-    
+
     public void getAvatarSignedCompany() throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -99,26 +98,26 @@ public class TblCompanyDAO implements Serializable {
                         + "WHERE com.is_Signed = ? ";
                 stm = con.prepareCall(sql);
                 stm.setBoolean(1, true);
-                
+
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String avatar = rs.getString("avatar");
                     String companyID = rs.getString("companyID");
-                    
+
                     TblAccountDTO account = new TblAccountDTO();
                     account.setAvatar(avatar);
-                    
+
                     TblCompanyDTO dto = new TblCompanyDTO();
                     dto.setCompanyID(companyID);
                     dto.setAccount(account);
-                    
+
                     if (listAvatarSignedCompany == null) {
                         listAvatarSignedCompany = new ArrayList<>();
                     }
-                    
+
                     listAvatarSignedCompany.add(dto);
                 }
-                
+
             }
         } finally {
             if (rs != null) {
@@ -132,7 +131,7 @@ public class TblCompanyDAO implements Serializable {
             }
         }
     }
-    
+
     public String getLastIDCompany() throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -144,7 +143,7 @@ public class TblCompanyDAO implements Serializable {
                         + "FROM tblCompany "
                         + "ORDER BY companyID DESC ";
                 stm = con.prepareStatement(sql);
-                
+
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     String companyID = rs.getString("companyID");
@@ -164,7 +163,7 @@ public class TblCompanyDAO implements Serializable {
         }
         return null;
     }
-    
+
     public boolean AddCompany(TblCompanyDTO companyDetails) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -182,7 +181,7 @@ public class TblCompanyDAO implements Serializable {
                     stm.setNString(5, companyDetails.getCompany_Description());
                     stm.setBoolean(6, companyDetails.isIs_Signed());
                     stm.setString(7, companyDetails.getAccount().getEmail());
-                    
+
                     int rows = stm.executeUpdate();
                     if (rows > 0) {
                         return true;
@@ -245,9 +244,9 @@ public class TblCompanyDAO implements Serializable {
             }
         }
         return null;
-        
+
     }
-    
+
     public TblCompanyDTO getCompany(String companyID) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -261,7 +260,7 @@ public class TblCompanyDAO implements Serializable {
                         + "WHERE companyID = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, companyID);
-                
+
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     String address = rs.getNString("address");
@@ -270,15 +269,15 @@ public class TblCompanyDAO implements Serializable {
                     String company_Description = rs.getNString("company_Description");
                     boolean is_Signed = rs.getBoolean("is_Signed");
                     String username = rs.getString("username");
-                    
+
                     TblAccountDAO accountDAO = new TblAccountDAO();
                     TblAccountDTO companyAccount = accountDAO.getAccount(username);
-                    
+
                     company = new TblCompanyDTO(companyID, address, city, phone,
                             company_Description, is_Signed, companyAccount);
-                    
+
                 }
-                
+
             }
         } finally {
             if (rs != null) {
@@ -293,9 +292,10 @@ public class TblCompanyDAO implements Serializable {
         }
         return company;
     }
-    
-    //get Company by email
-    public TblCompanyDTO getCompanyByEmail(String email) throws SQLException, NamingException {
+
+
+    //Lay thong tin Company qa session
+    public TblCompanyDTO getCompanyByEmail(String username) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -303,12 +303,12 @@ public class TblCompanyDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT companyID, address, city, phone, company_Description, is_Signed "
+                String sql = "SELECT companyID, address, city, phone, company_Description, is_Signed, username "
                         + "FROM tblCompany "
                         + "WHERE username = ? ";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, email);
-                
+                stm.setString(1, username);
+
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     String companyID = rs.getString("companyID");
@@ -317,14 +317,16 @@ public class TblCompanyDAO implements Serializable {
                     String phone = rs.getString("phone");
                     String company_Description = rs.getNString("company_Description");
                     boolean is_Signed = rs.getBoolean("is_Signed");
-                    
+                    username = rs.getString("username");
+
                     TblAccountDAO accountDAO = new TblAccountDAO();
-                    TblAccountDTO companyAccount = accountDAO.getAccount(email);
-                    
+                    TblAccountDTO companyAccount = accountDAO.getAccount(username);
+
                     company = new TblCompanyDTO(companyID, address, city, phone,
-                            company_Description, is_Signed, companyAccount);              
+                            company_Description, is_Signed, companyAccount);
+
                 }
-                
+
             }
         } finally {
             if (rs != null) {
@@ -339,7 +341,41 @@ public class TblCompanyDAO implements Serializable {
         }
         return company;
     }
-    
+
+    //Update company's profile
+    public boolean updateCompanyProfile(String companyID, String address, String phone,
+            String description, String city) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblCompany "
+                        + "  SET address = ? , city = ? , phone = ? , company_Description = ? "
+                        + "  WHERE companyID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setNString(1, address);
+                stm.setNString(2, city);
+                stm.setString(3, phone);
+                stm.setNString(4, description);
+                stm.setString(5, companyID);
+                
+                int effectRows = stm.executeUpdate();
+                if (effectRows > 0)
+                    return true;
+
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
     public void getAllCompany() throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -351,26 +387,26 @@ public class TblCompanyDAO implements Serializable {
                         + "com.city, com.phone, com.company_Description, com.is_Signed "
                         + "FROM tblCompany AS com INNER JOIN tblAccount AS acc "
                         + "ON (com.username = acc.username)";
-                
+
                 stm = con.prepareCall(sql);
-                
+
                 rs = stm.executeQuery();
-                
+
                 while (rs.next()) {
                     String companyEmail = rs.getString("username");
                     String companyName = rs.getNString("name");
-                    
+
                     TblAccountDTO account = new TblAccountDTO();
                     account.setEmail(companyEmail);
                     account.setName(companyName);
-                    
+
                     String companyID = rs.getString("companyID");
                     String companyAddress = rs.getString("address");
                     String companyCity = rs.getString("city");
                     String companyPhone = rs.getString("phone");
                     String companyDescription = rs.getString("company_Description");
                     boolean isSigned = rs.getBoolean("is_Signed");
-                    
+
                     TblCompanyDTO company = new TblCompanyDTO();
                     company.setCompanyID(companyID);
                     company.setAddress(companyAddress);
@@ -379,11 +415,11 @@ public class TblCompanyDAO implements Serializable {
                     company.setIs_Signed(isSigned);
                     company.setPhone(companyPhone);
                     company.setAccount(account);
-                    
+
                     if (listAllCompany == null) {
                         listAllCompany = new ArrayList<>();
                     }
-                    
+
                     listAllCompany.add(company);
                 }
             }
@@ -399,7 +435,7 @@ public class TblCompanyDAO implements Serializable {
             }
         }
     }
-    
+
     //Thanh 
     public List<TblCompanyDTO> getListByPage(List<TblCompanyDTO> list, int start, int end) {
         List<TblCompanyDTO> listPage = new ArrayList<>();
@@ -408,8 +444,8 @@ public class TblCompanyDAO implements Serializable {
         }
         return listPage;
     }
-    
-    public boolean updateCompanyStatus(String companyID, boolean status) throws NamingException, SQLException{
+
+    public boolean updateCompanyStatus(String companyID, boolean status) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         try {
@@ -421,9 +457,9 @@ public class TblCompanyDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 stm.setBoolean(1, status);
                 stm.setString(2, companyID);
-                
+
                 int effectRows = stm.executeUpdate();
-                if(effectRows > 0){
+                if (effectRows > 0) {
                     return true;
                 }
             }

@@ -173,24 +173,24 @@
         <servlet-class>com.se1625.controller.AddminCompanyManagerServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanyShowIntershipApplicationServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanyShowIntershipApplicationServlet</servlet-class>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowProfileServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanyUpdateStatusIntershipApplicationServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanyUpdateStatusIntershipApplicationServlet</servlet-class>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdateProfileServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanySearchInternsServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanySearchInternsServlet</servlet-class>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowPostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanyViewStudentDetailServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanyViewStudentDetailServlet</servlet-class>
+        <servlet-name>CompanySearchServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanyShowInternsManagermentServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanyShowInternsManagermentServlet</servlet-class>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdatePostServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CompanyUpdateInternsServlet</servlet-name>
@@ -369,8 +369,28 @@
         <url-pattern>/CompanyUpdateInternsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CompanySearchInternsManagementServlet</servlet-name>
-        <url-pattern>/CompanySearchInternsManagementServlet</url-pattern>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <url-pattern>/CompanyShowProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <url-pattern>/CompanyUpdateProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <url-pattern>/CompanyShowPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanySearchServlet</servlet-name>
+        <url-pattern>/CompanySearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <url-pattern>/CompanyUpdatePostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
+        <url-pattern>/CompanyShowPostDetailsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

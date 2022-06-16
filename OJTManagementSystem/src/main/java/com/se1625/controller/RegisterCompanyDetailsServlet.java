@@ -158,7 +158,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
 
                     if (fileName == null || fileName.equals("")) {
                         found = true;
-                        errors.setCompanyLogoLenthError("Company Logo is required.");
+                        errors.setCompanyLogoLengthError("Company Logo is required.");
                     }
 
                     if (found) {
