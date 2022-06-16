@@ -1182,7 +1182,7 @@ public class TblApplicationDAO implements Serializable {
                         application.setTechnology(technology);
 
                         TblStudentDAO studentDAO = new TblStudentDAO();
-                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
                         application.setStudent(student);
 
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
@@ -1511,7 +1511,7 @@ public class TblApplicationDAO implements Serializable {
                     application.setTechnology(technology);
 
                     TblStudentDAO studentDAO = new TblStudentDAO();
-                    TblStudentDTO student = studentDAO.getStudentInformation(student_Code);
+                    TblStudentDTO student = studentDAO.getStudentInfor(student_Code);
                     application.setStudent(student);
 
                     TblCompanyDAO companyDAO = new TblCompanyDAO();

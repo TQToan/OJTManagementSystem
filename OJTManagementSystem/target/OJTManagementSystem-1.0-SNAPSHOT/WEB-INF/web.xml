@@ -156,7 +156,7 @@
         <servlet-name>AdminUpdatePostServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminUpdatePostServlet</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>
@@ -171,6 +171,22 @@
     <servlet>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AddminCompanyManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCompanyDashBoardServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowCompanyDashBoardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateNewCompanyPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CreateNewCompanyPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCreateNewCompanyPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowCreateNewCompanyPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyViewPostDetailServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyViewPostDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -280,7 +296,7 @@
         <servlet-name>SearchStudentEvaluationServlet</servlet-name>
         <url-pattern>/SearchStudentEvaluationServlet</url-pattern>
     </servlet-mapping>
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminShowInternApplicationServlet</servlet-name>
         <url-pattern>/AdminShowInternApplicationServlet</url-pattern>
     </servlet-mapping>
@@ -315,6 +331,22 @@
     <servlet-mapping>
         <servlet-name>AddminCompanyManagerServlet</servlet-name>
         <url-pattern>/AddminCompanyManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCompanyDashBoardServlet</servlet-name>
+        <url-pattern>/ShowCompanyDashBoardServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateNewCompanyPostServlet</servlet-name>
+        <url-pattern>/CreateNewCompanyPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCreateNewCompanyPostServlet</servlet-name>
+        <url-pattern>/ShowCreateNewCompanyPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyViewPostDetailServlet</servlet-name>
+        <url-pattern>/CompanyViewPostDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

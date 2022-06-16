@@ -91,8 +91,8 @@ public class MyApplicationHelper {
         boolean test = false;
 
         String toEmail = company.getEmail();
-        final String fromEmail = school.getEmail();
-        final String password = school.getPassword();
+        final String fromEmail = school.getEmail().trim();
+        final String password = school.getPassword().trim();
         Properties pr = new Properties();
         pr.setProperty("mail.smtp.host", "smtp.gmail.com");
         pr.setProperty("mail.smtp.port", "587");

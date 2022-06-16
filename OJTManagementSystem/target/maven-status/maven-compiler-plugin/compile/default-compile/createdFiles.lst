@@ -14,7 +14,9 @@ com\se1625\utils\MyApplicationConstants$SearchCompanyAdminManagerFeature.class
 com\se1625\utils\MyApplicationConstants$studentDeleteSaveJobFeature.class
 com\se1625\utils\MyApplicationConstants$ImportStudentExcelFileFeature.class
 com\se1625\controller\AddStudentServlet.class
+com\se1625\controller\ShowCompanyDashBoardServlet.class
 com\se1625\controller\AdminShowInternApplicationServlet.class
+com\se1625\controller\CompanyViewPostDetailServlet.class
 com\se1625\tblaccount\TblAccountDAO.class
 com\se1625\tblstudent\TblStudentError.class
 com\se1625\controller\UpdateStudentProfileServlet.class
@@ -61,9 +63,12 @@ com\se1625\utils\MyApplicationConstants$UpdateStudentInforMationFeature.class
 com\se1625\utils\MyApplicationConstants$ShowAppluCVFeature.class
 com\se1625\controller\ImportStudentExcelFileServlet.class
 com\se1625\controller\ShowAdminStudentManagementServlet.class
+com\se1625\controller\CreateNewCompanyPostServlet.class
 com\se1625\controller\RegisterCompanyDetailsServlet.class
 com\se1625\utils\MyApplicationHelper.class
+com\se1625\utils\MyApplicationConstants$CreateNewCompanyPostFeature.class
 com\se1625\utils\MyApplicationConstants$SearchStudentByAdminFeature.class
+com\se1625\utils\MyApplicationConstants$ShowCompanyDashBoardFeature.class
 com\se1625\utils\MyApplicationConstants$LoginGoogleFeture.class
 com\se1625\tblstudent\TblStudentDTO.class
 com\se1625\controller\ShowApplyCVServlet.class
@@ -83,10 +88,13 @@ com\se1625\tblfollowing_post\TblFollowing_PostDTO.class
 com\se1625\controller\StudentDeleteSaveJobServlet.class
 com\se1625\tblapplication\ApplyCVStudentError.class
 com\se1625\controller\AdminShowPostManagementServlet.class
+com\se1625\controller\ShowCreateNewCompanyPostServlet.class
 com\se1625\utils\MyApplicationConstants$CancleApplyCVFeature.class
+com\se1625\utils\MyApplicationConstants$CompanyViePostDetailFeature.class
 com\se1625\usergoogle\UserGoogleDTO.class
 com\se1625\utils\MyApplicationConstants$UpdateStudentProfileFeature.class
 com\se1625\controller\CancleApplyCVServlet.class
+com\se1625\tblcompany_post\CreateNewCompanyPostError.class
 com\se1625\utils\MyApplicationConstants$AddStudentFeture.class
 com\se1625\controller\LoadApplyCVStudentServlet.class
 com\se1625\utils\DBHelper.class
@@ -101,3 +109,4 @@ com\se1625\controller\EmailVerificationServlet.class
 com\se1625\tblcompany_post\TblCompany_PostDTO.class
 com\se1625\utils\MyApplicationConstants$AdminInternApplication.class
 com\se1625\listener\MyApplicationListener.class
+com\se1625\utils\MyApplicationConstants$ShowCreateNewCompanyPostFeature.class

@@ -32,16 +32,19 @@
                     <div class="header-right">COMPANY REGISTRATION</div>
                     <div class="header-right--step">STEP 1: LOGIN INFORMATION </div>
                     <div class="right-form">
-                        <form action="" method="post">
-                            <input type="email" class="right-form__input" placeholder="*Login Email"> 
-                            <div class="text-danger">Your error</div>
-                            <input type="password" class="right-form__input" placeholder="*Password"> 
-                            <div class="text-danger">Your error</div>
-                            <input type="password" class="right-form__input" placeholder="*Re-enter Password"> 
-                            <div class="text-danger">Your error</div>
+<!--                        <form action="" method="post">
+                            <input type="email" class="right-form__input" placeholder="*Login Email">
+                            <input type="password" class="right-form__input" placeholder="*Password">
+                            <input type="password" class="right-form__input" placeholder="*Re-enter Password">
                             <input type="text" class="right-form__input" placeholder="*Vertification">
                             <div class="text-danger">Your error</div>
                             <input type="submit" class="right-form__btn primary-btn" value="Next">
+                        </form>-->
+                        <form action="RegisterCompanyController" method="POST">
+                            <input type="text" name="email" value="" class="right-form__input" placeholder="*Login Email" /> 
+                            <input type="password" name="password" value="" class="right-form__input" placeholder="*Password" /> 
+                            <input type="password" name="confirmPassword" value="" class="right-form__input" placeholder="*Re-enter Password" /> 
+                            <input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" />
                         </form>
                     </div>
                 </div>

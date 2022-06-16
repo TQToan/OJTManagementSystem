@@ -97,7 +97,7 @@ public class MyApplicationConstants {
 
     public class LoginFeture {
 
-        public static final String COMPANY_DASHBOARD_PAGE = "companyDashboardPage";
+        public static final String COMPANY_DASHBOARD_CONTROLLER = "ShowCompanyDashBoardController";
         public static final String LOGIN_PAGE = "loginPage";
     }
 
@@ -216,4 +216,27 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
     }
+    
+    public class ShowCompanyDashBoardFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_DASHBOARD_PAGE = "CompanyDashBoardPage";
+    }
+    
+    public class CreateNewCompanyPostFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyPostEditPage";
+        public static final String SHOW_COMPANY_DASHBOARD_CONTROLLER = "ShowCompanyDashBoardController";
+    }
+    
+    public class ShowCreateNewCompanyPostFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyPostEditPage";
+        
+    }
+    
+    public class CompanyViePostDetailFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_VIEW_POST_PAGE = "companyViewPostPage";
+    }
+    
 }

@@ -84,7 +84,7 @@ public class LoginAccountsServlet extends HttpServlet {
                 if (result) {
                     TblAccountDTO account = dao.getAccount(username);
                     session.setAttribute("COMPANY_ROLE", account);
-                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
+                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_CONTROLLER;
                     response.sendRedirect(url);
                 } //check username and password exist
                 else {
