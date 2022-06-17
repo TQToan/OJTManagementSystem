@@ -35,7 +35,7 @@
                 <i class="fa-solid fa-bars nav__respo--btn"></i>
             </button>
             <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="" class=" nav__infor--link text-truncate text-center">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${company.account.name}
                 </a>
@@ -47,25 +47,25 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="ShowCreateNewCompanyPostController" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
@@ -84,7 +84,7 @@
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="companyProfile.html" class=" nav__infor--link text-truncate">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${company.account.name}
                 </a>
@@ -97,25 +97,25 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="ShowCreateNewCompanyPostController" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
@@ -146,7 +146,7 @@
                             </div>
 
                         </div>
-                        <a href="" class="card-visit-btn primary-btn">
+                        <a href="CompanyShowProfileController" class="card-visit-btn primary-btn">
                             Edit Profile
                         </a>
 
@@ -158,7 +158,7 @@
                 <c:set var="expiredJobs" value="${requestScope.NUMBER_OF_EXPIRED_JOBS}" />
                 <div class="row  row-cols-xl-4 row-cols-2 ">
                     <div class="dashboard-card col">
-                        <a href="" class="dashboard-card--link">
+                        <a href="CompanySearchPostController?nameStatus=Active&companyID=${company.companyID}" class="dashboard-card--link">
                             <div class="active-jobs">
                                 ${activeJobs}
                             </div>
@@ -168,7 +168,7 @@
                         </a>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="" class="dashboard-card--link">
+                        <a href="CompanySearchPostController?nameStatus=Pending&companyID=${company.companyID}" class="dashboard-card--link">
                             <div class="pending-jobs">
                                 ${pedingJobs}
                             </div>
@@ -178,7 +178,7 @@
                         </a>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="" class="dashboard-card--link">
+                        <a href="CompanySearchPostController?nameStatus=Inactive&companyID=${company.companyID}" class="dashboard-card--link">
                             <div class="inactive-jobs">
                                 ${inactiveJobs}
                             </div>
@@ -188,7 +188,7 @@
                         </a>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="" class="dashboard-card--link">
+                        <a href="CompanySearchPostController?nameStatus=Expired&companyID=${company.companyID}" class="dashboard-card--link">
                             <div class="expired-jobs">
                                 ${expiredJobs}
                             </div>
@@ -228,11 +228,15 @@
                             </c:forEach>
                         </div>
                         <div class="cActive__see-more--btn row">
-                            <div class="cActive--more--btn offset-10 col-2">
-                                See More
-                                <i class="fas fa-arrow-right"></i>
-                            </div>
-                        </div>
+                        <c:url var="urlSearchPost" value="CompanySearchPostController">
+                            <c:param name="companyID" value="${company.companyID}"/>
+                            <c:param name="nameStatus" value="Active"/>
+                        </c:url>
+                        <a href="${urlSearchPost}" class="cActive--more--btn offset-10 col-2">
+                            See More 
+                            <i class="fas fa-arrow-right"></i>
+                        </a> 
+                    </div>
                     </c:if>
                     <c:if test="${empty listActiveJobs}">
                         <h3>Lest's Add your new posts to recruit more candidates.</h3>

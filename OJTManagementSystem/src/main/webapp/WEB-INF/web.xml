@@ -188,6 +188,58 @@
         <servlet-name>CompanyViewPostDetailServlet</servlet-name>
         <servlet-class>com.se1625.controller.CompanyViewPostDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdateProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanySearchPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdatePostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdateInternsServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdateInternsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanySearchInternsManagementServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchInternsManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowPostDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyUpdateStatusIntershipApplicationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyUpdateStatusIntershipApplicationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanySearchInternsServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchInternsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyViewStudentDetailServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyViewStudentDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowInternsManagermentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowInternsManagermentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyShowIntershipApplicationServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyShowIntershipApplicationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -347,6 +399,58 @@
     <servlet-mapping>
         <servlet-name>CompanyViewPostDetailServlet</servlet-name>
         <url-pattern>/CompanyViewPostDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowIntershipApplicationServlet</servlet-name>
+        <url-pattern>/CompanyShowIntershipApplicationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdateStatusIntershipApplicationServlet</servlet-name>
+        <url-pattern>/CompanyUpdateStatusIntershipApplicationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanySearchInternsServlet</servlet-name>
+        <url-pattern>/CompanySearchInternsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyViewStudentDetailServlet</servlet-name>
+        <url-pattern>/CompanyViewStudentDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowInternsManagermentServlet</servlet-name>
+        <url-pattern>/CompanyShowInternsManagermentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdateInternsServlet</servlet-name>
+        <url-pattern>/CompanyUpdateInternsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowProfileServlet</servlet-name>
+        <url-pattern>/CompanyShowProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdateProfileServlet</servlet-name>
+        <url-pattern>/CompanyUpdateProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostServlet</servlet-name>
+        <url-pattern>/CompanyShowPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanySearchPostServlet</servlet-name>
+        <url-pattern>/CompanySearchPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyUpdatePostServlet</servlet-name>
+        <url-pattern>/CompanyUpdatePostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
+        <url-pattern>/CompanyShowPostDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanySearchInternsManagementServlet</servlet-name>
+        <url-pattern>/CompanySearchInternsManagementServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

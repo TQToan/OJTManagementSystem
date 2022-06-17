@@ -34,7 +34,7 @@
             <i class="fa-solid fa-bars nav__respo--btn"></i>
         </button>
         <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-            <a href="" class=" nav__infor--link text-truncate text-center">
+            <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
                 <i class="fas fa-user-circle nav__infor--icon"></i>
                 ${company.account.name}
             </a>
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="companyProfile.html" class="nav__item--link">
+                    <a href="CompanyShowProfileController" class="nav__item--link">
                         <i class="fas fa-user-edit"></i>
                         My Profile
                     </a>
@@ -58,13 +58,13 @@
                     </a>
                 </li>
                 <li class="nav-item nav__items">
-                    <a href="companyInternsManage.html" class="nav__item--link">
+                    <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
                         Interns Management
                     </a>
                 </li>
                 <li class="nav-item nav__items">
-                    <a href="companyApplManage.html" class="nav__item--link">
+                    <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
                         Internship Application
                     </a>
@@ -82,10 +82,10 @@
 
     <main class="row">
         <nav class="col-xl-2  nav-fixed col-md-3">
-            <a href="companyDashboard.html" class="nav__logo ">
+            <a href="#" class="nav__logo ">
                 <img src="./assets/img/logo.png" alt="" class="nav--logo">
             </a>
-            <a href="companyProfile.html" class=" nav__infor--link text-truncate">
+            <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
                 <i class="fas fa-user-circle nav__infor--icon"></i>
                 ${company.account.name}
             </a>
@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav__items">
-                    <a href="companyProfile.html" class="nav__item--link">
+                    <a href="CompanyShowProfileController" class="nav__item--link">
                         <i class="fas fa-user-edit"></i>
                         My Profile
                     </a>
@@ -110,13 +110,13 @@
                     </a>
                 </li>
                 <li class="nav__items">
-                    <a href="companyInternsManage.html" class="nav__item--link">
+                    <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
                         Interns Management
                     </a>
                 </li>
                 <li class="nav__items">
-                    <a href="companyApplManage.html" class="nav__item--link">
+                    <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                         <i class="fas fa-poll-h"></i>
                         Internship Application
                     </a>
@@ -160,7 +160,7 @@
                     </p>
                 </div>
                  <div class="text-center">
-                    <form action="" method="POST">
+                    <form action="CompanyShowPostDetailsController" method="POST">
                         <div>
                             <input type="hidden" name="postID" value="${post.postID}"/>
                             <input type="submit" value="Edit" name="btAction" class="card-visit-btn primary-btn" />

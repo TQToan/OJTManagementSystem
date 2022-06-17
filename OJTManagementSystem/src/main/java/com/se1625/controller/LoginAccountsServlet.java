@@ -8,6 +8,8 @@ package com.se1625.controller;
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblaccount.TblAccountError;
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -83,8 +85,12 @@ public class LoginAccountsServlet extends HttpServlet {
                 boolean result = dao.checkLoginForCompanyAccount(username, password);
                 if (result) {
                     TblAccountDTO account = dao.getAccount(username);
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(username);
                     session.setAttribute("COMPANY_ROLE", account);
                     url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_CONTROLLER;
+                    session.setAttribute("COMPANY_ROLE_INFO", companyDTO);
+                    //url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
                     response.sendRedirect(url);
                 } //check username and password exist
                 else {

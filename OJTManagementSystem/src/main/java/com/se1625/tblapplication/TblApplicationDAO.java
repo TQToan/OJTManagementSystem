@@ -62,7 +62,7 @@ public class TblApplicationDAO implements Serializable {
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
-                    boolean isPass = rs.getBoolean("is_Pass");
+                    int isPass = rs.getInt("is_Pass");
 
                     if (grade >= 0 && evaluation != null) {
                         TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
@@ -158,7 +158,7 @@ public class TblApplicationDAO implements Serializable {
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
-                    boolean isPass = rs.getBoolean("is_Pass");
+                    int isPass = rs.getInt("is_Pass");
 
                     TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
@@ -212,8 +212,9 @@ public class TblApplicationDAO implements Serializable {
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
-                    boolean isPass = rs.getBoolean("is_Pass");
+                    //boolean isPass = rs.getBoolean("is_Pass");
                     int semesterID = rs.getInt("semesterID");
+                    int isPass = rs.getInt("is_Pass");
 
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
@@ -313,7 +314,7 @@ public class TblApplicationDAO implements Serializable {
                     String otherSkills = rs.getNString("otherSkills");
                     String evaluation = rs.getNString("evaluation");
                     float grade = rs.getFloat("grade");
-                    boolean isPass = rs.getBoolean("is_Pass");
+                    int isPass = rs.getInt("is_Pass");
                     boolean studentConfirm = rs.getBoolean("student_Confirm");
                     int schoolConfirm = rs.getInt("school_Confirm");
                     int companyConfirm = rs.getInt("company_Confirm");
@@ -421,7 +422,7 @@ public class TblApplicationDAO implements Serializable {
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
-                    boolean isPass = rs.getBoolean("is_Pass");
+                    int isPass = rs.getInt("is_Pass");
                     String studentCode = rs.getString("studentCode");
                     boolean studentConfirm = rs.getBoolean("student_Confirm");
                     int schoolConfirm = rs.getInt("school_Confirm");
@@ -1158,7 +1159,7 @@ public class TblApplicationDAO implements Serializable {
                     String otherSkills = rs.getNString("otherSkills");
                     String evaluation = rs.getNString("evaluation");
                     float grade = rs.getFloat("grade");
-                    boolean is_Pass = rs.getBoolean("is_Pass");
+                    int is_Pass = rs.getInt("is_Pass");
                     boolean student_Confirm = rs.getBoolean("student_Confirm");
                     int school_Confirm = rs.getInt("school_Confirm");
                     int company_Confirm = rs.getInt("company_Confirm");
@@ -1487,7 +1488,7 @@ public class TblApplicationDAO implements Serializable {
                     String otherSkills = rs.getNString("otherSkills");
                     String evaluation = rs.getNString("evaluation");
                     float gradeApplication = rs.getFloat("grade");
-                    boolean is_Pass = rs.getBoolean("is_Pass");
+                    int is_Pass = rs.getInt("is_Pass");
                     boolean student_Confirm = rs.getBoolean("student_Confirm");
                     int school_Confirm = rs.getInt("school_Confirm");
                     int company_Confirm = rs.getInt("company_Confirm");
@@ -1541,5 +1542,155 @@ public class TblApplicationDAO implements Serializable {
             }
         }
         return listApplication;
+    }
+
+    //get Application of Company by email
+    public List<TblApplicationDTO> getApplicationByEmail(String email, int companyConfirm) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApplication = null;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "SELECT app.evaluation,app.grade,app.studentCode,app.school_Confirm, "
+                    + "app.student_Confirm, app.company_Confirm, app.applicationID, app.is_Pass, "
+                    + "cp.title_Post, cp.postID,ac.name "
+                    + "FROM tblApplication AS app "
+                    + "INNER JOIN tblCompany_Post as cp ON (app.postID = cp.postID) "
+                    + "INNER JOIN tblCompany as com ON (cp.companyID = com.companyID) "
+                    + "INNER JOIN tblAccount as ac ON (com.username = ac.username) "
+                    + "Where ac.username = ? AND app.student_Confirm = ? AND app.school_Confirm = ? ";
+            if (companyConfirm == -2) {
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setBoolean(2, true);
+                stm.setInt(3, 1);
+            } else {
+                sql += "AND app.company_Confirm = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setBoolean(2, true);
+                stm.setInt(3, 1);
+                stm.setInt(4, companyConfirm);
+            }
+            rs = stm.executeQuery();
+
+            int check_company_confirm = 1;
+            while (rs.next()) {
+
+                String evaluation = rs.getString("evaluation");
+                float grade = rs.getFloat("grade");
+
+                String studentCode = rs.getString("studentCode");
+                int company_confirm = rs.getInt("company_Confirm");
+                int applicationID = rs.getInt("applicationID");
+                String title_Post = rs.getString("title_Post");
+                int postID = rs.getInt("postID");
+                String companyName = rs.getString("name");
+                int isPass = rs.getInt("is_Pass");
+
+                //get Student
+                TblStudentDAO studentDAO = new TblStudentDAO();
+                TblStudentDTO studentDTO = studentDAO.getStudentInformation(studentCode);
+                //get Company post
+                TblCompany_PostDAO company_postDAO = new TblCompany_PostDAO();
+                TblCompany_PostDTO company_postDTO = company_postDAO.getCompanyPost(postID);
+
+                TblApplicationDTO applicationDTO = new TblApplicationDTO();
+                applicationDTO.setApplicationID(applicationID);
+                applicationDTO.setEvaluation(evaluation);
+                applicationDTO.setGrade(grade);
+                applicationDTO.setIsPass(isPass);
+                applicationDTO.setCompanyConfirm(company_confirm);
+                applicationDTO.setStudent(studentDTO);
+                applicationDTO.setCompanyPost(company_postDTO);
+                if (listApplication == null) {
+                    listApplication = new ArrayList<>();
+                }
+
+                listApplication.add(applicationDTO);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listApplication;
+    }
+
+    public boolean updateStatusCompanyConfirm(String studentCode, int companyPostID, int companyConfirm) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "UPDATE tblApplication "
+                    + "SET company_Confirm = ? "
+                    + "WHERE studentCode = ? AND postID = ? AND company_Confirm = ? ";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, companyConfirm);
+            stm.setString(2, studentCode);
+            stm.setInt(3, companyPostID);
+            stm.setInt(4, 0);
+
+            int effectRows = stm.executeUpdate();
+            if (effectRows > 0) {
+                return true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public boolean updateGradeAndEvaluation(String studentCode,int postID, float grade, String evaluation, int is_Pass) throws NamingException, SQLException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        try{
+            con = DBHelper.makeConnection();
+            if(con != null){
+                String sql = "UPDATE tblApplication ";
+                if(evaluation.isEmpty()){
+                    sql += "SET grade = ?, is_Pass = ? "
+                            + "WHERE studentCode = ? AND postID = ? AND company_Confirm = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setFloat(1, grade);
+                    stm.setInt(2, is_Pass);
+                    stm.setString(3, studentCode);
+                    stm.setInt(4, postID);
+                    stm.setInt(5, 1);
+                    
+                }else{
+                    sql += "SET grade = ?, is_Pass = ?, evaluation = ? "
+                            + "WHERE studentCode = ? AND postID = ? AND company_Confirm = ? ";
+                    stm = con.prepareStatement(sql);
+                    stm.setFloat(1, grade);
+                    stm.setInt(2, is_Pass);
+                    stm.setString(3, evaluation);
+                    stm.setString(4, studentCode);
+                    stm.setInt(5, postID);
+                    stm.setInt(6, 1);
+                }
+                int effectRows = stm.executeUpdate();
+                if(effectRows > 0){
+                    return true;
+                }
+            }
+        }finally{
+            if(con != null){
+                con.close();
+            }
+        }
+        return false;
     }
 }

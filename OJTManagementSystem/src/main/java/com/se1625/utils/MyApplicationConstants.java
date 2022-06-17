@@ -16,7 +16,16 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
 
     }
-
+    public class CompanyFeatures {
+        public static final String COMPANY_PROFILE_CONTROLLER = "CompanyShowProfileController";
+        public static final String COMPANY_SHOW_POST_CONTROLLER = "CompanyShowPostController";
+        public static final String COMPANY_UPDATE_PROFILE_CONTROLLER = "CompanyUpdateProfileController";
+        public static final String COMPANY_PROFILE_PAGE_JSP = "companyProfileJSP";
+        public static final String COMPANY_POST_MANAGE_PAGE = "companyPostManagePage";
+        public static final String COMPANY_POST_EDIT_CONTROLLER = "CompanyUpdatePostController";
+        public static final String COMPANY_POST_EDIT_PAGE = "companyPostEditPage";
+        public static final String LOGIN_PAGE = "";
+    }
 
     public class AdminInternApplication{
         public static final String ADMIN_SHOW_INTERN_APPLICATION_CONTROLLER = "AdminShowInternApplicationController";
@@ -216,7 +225,6 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String ADMIN_COMPANY_MANAGER_PAGE ="AdminCompanyManagerPage";
     }
-    
     public class ShowCompanyDashBoardFeature {
         public static final String LOGIN_PAGE = "";
         public static final String COMPANY_DASHBOARD_PAGE = "CompanyDashBoardPage";
@@ -224,7 +232,7 @@ public class MyApplicationConstants {
     
     public class CreateNewCompanyPostFeature {
         public static final String LOGIN_PAGE = "";
-        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyPostEditPage";
+        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyCreateNewPostPage";
         public static final String SHOW_COMPANY_DASHBOARD_CONTROLLER = "ShowCompanyDashBoardController";
     }
     
@@ -238,5 +246,39 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String COMPANY_VIEW_POST_PAGE = "companyViewPostPage";
     }
+    public class CompanyShowIntershipApplicationFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyApplicationManagerPage";
+    }
     
+    public class CompanyUpdateStatusIntershipApplicationFeature{
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_SHOW_INTERNSHIP_APPLICATION_CONTROLLER ="CompanyShowIntershipApplicationController";
+        public static final String COMPANY_SEARCH_INTERNS_CONTROLLER = "CompanySearchInternsController";
+    }
+    
+    public class CompanySearchInternsFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyApplicationManagerPage";
+    }
+    
+    public class CompanyViewStudentDetailFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_VIEW_STUDENT_DETAILE_PAGE = "CompanyViewStudentDetailPage";
+    }
+    
+    public class CompanyShowInternsManagermentFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_INTERNS_MANAGEMENT_PAGE = "CompanyInternsManagementPage";
+    }
+    
+    public class CompanyUpdateInternsFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER = "CompanySearchInternsManagementController";
+    }
+    
+    public class CompanySearchInternsManagementFeature {
+        public static final String LOGIN_PAGE = "";
+        public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyInternsManagementPage";
+    }
 }

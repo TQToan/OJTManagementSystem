@@ -352,10 +352,10 @@ public class MyApplicationHelper {
         cell = row.createCell(5);
         cell.setCellValue(application.getEvaluation());
 
-        if (application.isIsPass() == true) {
+        if (application.getIsPass() == 1) {
             cell = row.createCell(6);
             cell.setCellValue("Passed");
-        } else {
+        } else if (application.getIsPass() == -1) {
             cell = row.createCell(6);
             cell.setCellValue("Not Pass");
         }
