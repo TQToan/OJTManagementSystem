@@ -64,7 +64,7 @@ public class LoginGoogleServlet extends HttpServlet {
             TblAccountDAO dao = new TblAccountDAO();
             TblAccountDTO dto = dao.getAccount(email);
             //check existed email
-            if (dto != null) {
+            if (dto != null) {                      
                 if (dto.getIs_Admin() == 1) {
                     HttpSession session = request.getSession();
                     session.setAttribute("ADMIN_ROLE", dto);
