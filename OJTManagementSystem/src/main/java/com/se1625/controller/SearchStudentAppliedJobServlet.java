@@ -50,11 +50,11 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
         String statusName = request.getParameter("nameStatus");
         String xpage = request.getParameter("page");
         
-        if (jobName != null){
+        if (jobName != null) {
             jobName = jobName.trim();
 
         }
-        if (companyName != null){
+        if (companyName != null) {
             companyName = companyName.trim();
         }
         

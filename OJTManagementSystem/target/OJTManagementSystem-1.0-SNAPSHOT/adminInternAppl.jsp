@@ -148,7 +148,7 @@
 
 
                         <div class="main-body-aInterAppl__search">
-                            <form action="AdminShowInternApplicationController">
+                            <form action="AdminShowInternApplicationController" method="POST">
                                 <div class="row">
                                     <div class="col-2">
                                         <input type="text" name="txtStudentID" id="" placeholder="ID" class="admin--input" value="${studentID}">
@@ -176,13 +176,13 @@
                                             </option>
                                             <option value="1" class="text-success" <c:if test="${schoolStatus eq '1'}"> 
                                                     selected="selected" </c:if>>
-                                                    Passed
+                                                    Accepted 
                                                 </option>
-                                                <option value="-1" class="text-warning"<c:if test="${schoolStatus eq '-1'}"> 
+                                                <option value="-1" class="text-warning"<c:if test="${schoolStatus eq '0'}">
                                                     selected="selected" </c:if>>
                                                     Waiting
                                                 </option>
-                                                <option value="0" class="text-danger"<c:if test="${schoolStatus eq '0'}"> 
+                                                <option value="0" class="text-danger"<c:if test="${schoolStatus eq '-1'}">
                                                     selected="selected" </c:if>>
                                                     Denied
                                                 </option>
@@ -262,14 +262,14 @@
                                                 </c:if>
 
 
-                                                <c:if test="${intern.schoolConfirm eq -1}">
+                                                <c:if test="${intern.schoolConfirm eq 0}">
                                                     <td class="text-warning">
                                                         <strong>
                                                             Waiting
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${intern.schoolConfirm eq 0}">
+                                                <c:if test="${intern.schoolConfirm eq -1}">
                                                     <td class="text-danger">
                                                         <strong>
                                                             Denied
@@ -283,17 +283,7 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-
-
-
-
-                                                <c:if test="${intern.schoolConfirm eq 0}">
-                                                    <td>
-
-                                                    </td>
-                                                </c:if>    
-
-                                                <c:if test="${intern.schoolConfirm eq '-1'}">
+                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
                                                     <td>
                                                         <div class="d-flex justify-content-around">
                                                             <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
@@ -302,7 +292,7 @@
                                                                 <c:param name="txtCompanyID" value="${companyID}"/>
                                                                 <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
                                                                 <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                                <c:param name="btnAction" value="0"/>
+                                                                <c:param name="btnAction" value="-1"/>
                                                                 <c:param name="txtApplicationID" value="${intern.applicationID}"/>
                                                             </c:url>
                                                             <a href="${urlReject}" class="text-danger">
@@ -325,13 +315,6 @@
                                                                 </strong>
                                                             </a>
                                                         </div>
-                                                    </td>
-                                                </c:if>
-
-
-                                                <c:if test="${intern.schoolConfirm eq 1}">
-                                                    <td>
-
                                                     </td>
                                                 </c:if>
 

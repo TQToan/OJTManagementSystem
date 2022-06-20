@@ -242,12 +242,12 @@
                                                     ${application.grade}
                                                 </td>
                                                 <td>
-                                                    <c:if test="${application.isPass eq true}">
+                                                    <c:if test="${application.isPass eq 1}">
                                                         <strong class="text-success" >
                                                             Passed
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${application.isPass eq false}">
+                                                    <c:if test="${application.isPass eq -1}">
                                                         <strong class="text-danger" >
                                                             Not Pass
                                                         </strong>

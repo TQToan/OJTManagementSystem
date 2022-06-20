@@ -166,10 +166,16 @@
                                     <div class="col-2">
                                         <select id="city" name="selectStatus"  class="admin--select" >
                                             <option value="">Status</option>
-                                            <option value="Success" class="text-success">                                                                          
+                                            <option value="Success" class="text-success"
+                                                    <c:if test="${param.selectStatus eq 'Success'}">
+                                                selected="selected"
+                                            </c:if>>
                                                 Signed
                                             </option>
-                                            <option value="Denied" class="text-danger">                                                       
+                                            <option value="Denied" class="text-danger"
+                                                    <c:if test="${param.selectStatus eq 'Denied'}">
+                                                        selected="selected"
+                                                    </c:if>>
                                                 Not Yet
                                             </option>
                                         </select>   
