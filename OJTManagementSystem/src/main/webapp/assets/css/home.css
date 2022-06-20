@@ -175,12 +175,14 @@
 }
 .main-body-hResultPage td:nth-child(2){
     width: 21%;
+    text-align: left;
 }
 .main-body-hResultPage td:nth-child(3){
     width: 10%;
 }
 .main-body-hResultPage td:nth-child(4){
     width: 20%;
+    text-align: left;
 }
 .main-body-hResultPage td:nth-child(5){
     width: 10%;

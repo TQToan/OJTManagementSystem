@@ -970,12 +970,16 @@ public class TblApplicationDAO implements Serializable {
 
         if (studentID == null) {
             studentID = "";
+        } else {
+            studentID = studentID.trim();
         }
         if (companyID == null) {
             companyID = "";
         }
         if (titleJob == null) {
             titleJob = "";
+        } else {
+            titleJob = titleJob.trim();
         }
         if (schoolStatus != null && !"".equals(schoolStatus)) {
             iSchoolStatus = Integer.parseInt(schoolStatus);
@@ -1246,9 +1250,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setString(5, studentCode);
                     stm.setFloat(6, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(7, true);
+                        stm.setInt(7, 1);
                     } else {
-                        stm.setBoolean(7, false);
+                        stm.setInt(7, -1);
                     }
                     stm.setString(8, companyID);
                 }
@@ -1265,9 +1269,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setString(5, studentCode);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                     stm.setString(7, companyID);
                 }
@@ -1284,9 +1288,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setFloat(5, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                     stm.setString(7, companyID);
                 }
@@ -1304,9 +1308,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setString(5, studentCode);
                     stm.setFloat(6, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(7, true);
+                        stm.setInt(7, 1);
                     } else {
-                        stm.setBoolean(7, false);
+                        stm.setInt(7, -1);
                     }
                 }
 
@@ -1336,9 +1340,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(3, 1);
                     stm.setInt(4, currentSemesterID);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(5, true);
+                        stm.setInt(5, 1);
                     } else {
-                        stm.setBoolean(5, false);
+                        stm.setInt(5, -1);
                     }
                     stm.setString(6, companyID);
                 }
@@ -1355,9 +1359,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setString(5, studentCode);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                 }
 
@@ -1387,9 +1391,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setFloat(5, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                 }
 
@@ -1432,9 +1436,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(3, 1);
                     stm.setInt(4, currentSemesterID);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(5, true);
+                        stm.setInt(5, 1);
                     } else {
-                        stm.setBoolean(5, false);
+                        stm.setInt(5, -1);
                     }
                 }
 

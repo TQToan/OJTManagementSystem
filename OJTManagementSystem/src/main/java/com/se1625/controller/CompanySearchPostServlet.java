@@ -92,7 +92,6 @@ public class CompanySearchPostServlet extends HttpServlet {
                     if (nameStatus == null) {
                         nameStatus = "";
                     }
-
                     companyPostDAO.searchPostByFilterAsCompanyRole(companyID, tittle_Post, idMajor, nameStatus);
                     List<TblCompany_PostDTO> listCompanyPost = companyPostDAO.getCompanyPostByFilter();
                     //Phan trang

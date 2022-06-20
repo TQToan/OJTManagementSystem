@@ -65,6 +65,8 @@ public class CompanyUpdatePostServlet extends HttpServlet {
         String job_Description = request.getParameter("job_Description");
         String job_Requirement = request.getParameter("job_Requirement");
         String remuneration = request.getParameter("remuneration");
+        boolean school_confirm = Boolean.parseBoolean(request.getParameter("school_confirm"));
+        int statusPost = Integer.parseInt(request.getParameter("statusPost"));
 
         //get session
         HttpSession session = request.getSession(false);
@@ -146,7 +148,7 @@ public class CompanyUpdatePostServlet extends HttpServlet {
                         rd.forward(request, response);
                     } else {
                         boolean resultUpdatePost = companyPostDAO.updateCompanyPostAsCompany(postID, title_Post, majorID, quantityIterns,
-                                expDate, workLocation, job_Description, job_Requirement, remuneration);
+                                expDate, workLocation, job_Description, job_Requirement, remuneration, school_confirm, statusPost);
                         if (resultUpdatePost) {
                             url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_SHOW_POST_CONTROLLER);
                             response.sendRedirect(url);

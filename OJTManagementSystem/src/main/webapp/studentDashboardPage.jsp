@@ -20,73 +20,75 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/student.css">
         <link rel="stylesheet" href="./assets/css/student-responsive.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  
+
     </head>
 
     <body>
         <header></header>
 
-        <div class="navbar navbar-expand-md navbar-sm-cus ">
-            <a href="ShowStudentHomeController" class="nav__logo ">
-                    <img src="./assets/img/logo.png" alt="" class="nav--logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fa-solid fa-bars nav__respo--btn"></i>
-            </button>
-            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate text-center">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                     ${student.account.name}
+        <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowStudentHomeController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="studentDashboardController" class="nav__item--link">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ShowStudentProfileController" class="nav__item--link">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <div  class="nav__item--link nav__item--dropdown">
-                            <i class="fas fa-pen"></i>
-                            My Jobs
-                            <i class="fas fa-angle-down icon-down"></i>
-                        </div>
-                        <div class="nav__item__dropdown">
-                            <a href="SearchSaveJobController" class="nav__item__dropdown--link">
-                                Saved Jobs
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars nav__respo--btn"></i>
+                </button>
+                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
+                    <a href="ShowStudentProfileController" class=" nav__infor--link text-truncate text-center">
+                        <i class="fas fa-user-circle nav__infor--icon"></i>
+                        ${student.account.name}
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="studentDashboardController" class="nav__item--link link-active">
+                                <i class="fas fa-palette "></i>
+                                Dashboard
                             </a>
-                            <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
-                                Applied Jobs
+                        </li>
+                        <li class="nav-item">
+                            <a href="ShowStudentProfileController" class="nav__item--link">
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a> 
+                        </li>
+                        <li class="nav-item nav__items">
+                            <div  class="nav__item--link nav__item--dropdown">
+                                <i class="fas fa-pen"></i>
+                                My Jobs
+                                <i class="fas fa-angle-down icon-down"></i>
+                            </div>
+                            <div class="nav__item__dropdown">
+                                <a href="SearchSaveJobController" class="nav__item__dropdown--link">
+                                    Saved Jobs
+                                </a>
+                                <a href="ShowStudentAppliedJobController" class="nav__item__dropdown--link">
+                                    Applied Jobs
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="ReviewInternShipController" class="nav__item--link">
+                                <i class="fas fa-poll-h"></i>
+                                Review Internship
                             </a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ReviewInternShipController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Review Internship
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                         <a href="logoutController" class="nav__item--link">
-                            <i class="fas fa-power-off"></i>
-                            Logout
-                        </a>
-                    </li>
-                </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="logoutController" class="nav__item--link">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
+
         <main class="row">
-            <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowStudentHomeController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -100,7 +102,7 @@
                 <ul class="nav__content">
                     <li class="nav__items">
 
-                        <a href="studentDashboardController" class="nav__item--link">
+                        <a href="studentDashboardController" class="nav__item--link link-active">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
@@ -213,46 +215,46 @@
                                 <div class="recom-box row ">
                                     <a href="HomeShowCompanyDetailController?postID=${recommendPost.postID}">
                                         <span>
-                                            
-                                        <h3>${recommendPost.title_Post}</h3>
-                                        <h4>${recommendPost.company.account.name}</h4>
+
+                                            <h3>${recommendPost.title_Post}</h3>
+                                            <h4>${recommendPost.company.account.name}</h4>
                                         </span>
                                     </a>
                                     <div class="recom-box__img col-4">
                                         <img src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
                                     </div>
                                     <div class="recom-box-content col-8">
-                                        
+
                                         <p>Vacancy: ${recommendPost.vacancy}</p>
                                         <p>Quantity: ${recommendPost.quantityIterns}</p>
                                         <p>Location: ${recommendPost.workLocation}</p>
                                         <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
-                                        
+
                                         <c:set var="listFollowingPost" value="${requestScope.LIST_FOLLOWING_POST}"/>
                                         <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
                                         <p>
                                             <c:if test="${statusFollowingPost eq true}">
-<!--                                                <form action="StudentDeleteSaveJobController" method="POST">
-                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
-                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                    <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
-                                                </form>-->
+                                                <!--                                                <form action="StudentDeleteSaveJobController" method="POST">
+                                                                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
+                                                                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                                                                    <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
+                                                                                                </form>-->
                                                 <c:url var="unsaveJob" value="StudentDeleteSaveJobController">
                                                     <c:param name="postID" value="${recommendPost.postID}"/>
                                                     <c:param name="unSave" value="studentDashboardPage"/>
-                                                    
+
                                                 </c:url>
-                                                <a href="${unsaveJob}" class="far fa-heart save-btn "></a>
+                                                <a href="${unsaveJob}" class="far fa-heart save-btn save-btn-active"></a>
                                             </c:if>
                                             <c:if test="${statusFollowingPost eq false}">
-<!--                                                <form action="StudentSaveJobController" method="POST">
-                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
-                                                </form>-->
-                                                    <c:url var="saveJob" value="StudentSaveJobController">
-                                                        <c:param name="postID" value="${recommendPost.postID}"/>
-                                                    </c:url>
-                                                    <a href="${saveJob}" class="far fa-heart save-btn save-btn-active"></a>
+                                                <!--                                                <form action="StudentSaveJobController" method="POST">
+                                                                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
+                                                                                                </form>-->
+                                                <c:url var="saveJob" value="StudentSaveJobController">
+                                                    <c:param name="postID" value="${recommendPost.postID}"/>
+                                                </c:url>
+                                                <a href="${saveJob}" class="far fa-heart save-btn "></a>
                                             </c:if>
                                         </p>
 
@@ -303,5 +305,6 @@
 
         </footer>
 
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
