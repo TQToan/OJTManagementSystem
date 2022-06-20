@@ -12,67 +12,68 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
         <header></header>
         <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
-        <div class="navbar navbar-expand-md navbar-sm-cus ">
-            <a href="#" class="header__logo ">
-                <img src="./assets/img/logo.png" alt="" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fa-solid fa-bars nav__respo--btn"></i>
-            </button>
-            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                    ${company.name}
+        
+         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowCompanyDashBoardController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars nav__respo--btn"></i>
+                </button>
+                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
+                    <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
+                        <i class="fas fa-user-circle nav__infor--icon"></i>
+                        <font>  ${company.name} </font>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="CompanyShowProfileController" class="nav__item--link">
+                        </li>
+                        <li class="nav-item">
+                            <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="CompanyShowPostController" class="nav__item--link">
+                        </li>
+                        <li class="nav-item">
+                            <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
+                        </li>
+                        <li class="nav-item">
+                            <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
+                        </li>
+                        <li class="nav-item">
+                            <a href="CompanyShowIntershipApplicationController" class="nav__item--link link-active">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="logoutController" class="nav__item--link">
-                            <i class="fas fa-power-off"></i>
-                            Logout
-                        </a>
-                    </li>
-
-                </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logoutController" class="nav__item--link">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+                    
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
@@ -109,7 +110,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link link-active">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
@@ -182,6 +183,20 @@
                                                     >
                                                 Denied
                                             </option>
+                                            <option value="Interview" class="text-warning"
+                                                    <c:if test="${selected eq 'Interview'}">
+                                                        selected="selected"
+                                                    </c:if>
+                                                    >
+                                                Interviewing
+                                            </option>
+                                            <option value="Failed" class="text-danger"
+                                                    <c:if test="${selected eq 'Failed'}">
+                                                        selected="selected"
+                                                    </c:if>
+                                                    >
+                                                Failed
+                                            </option>
                                         </select>
                                     </div>
 
@@ -238,7 +253,7 @@
                                                             Accepted
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${applicationDTO.companyConfirm eq -1}">
+                                                    <c:if test="${applicationDTO.companyConfirm eq -1 or applicationDTO.companyConfirm eq -2}">
                                                         <strong class="text-danger">
                                                             Denied
                                                         </strong>
@@ -248,10 +263,20 @@
                                                             Waiting
                                                         </strong>
                                                     </c:if>
+                                                    <c:if test="${applicationDTO.companyConfirm eq 2}">
+                                                        <strong class="text-warning">
+                                                            Interviewing
+                                                        </strong>
+                                                    </c:if>
+                                                    <c:if test="${applicationDTO.companyConfirm eq -2}">
+                                                        <strong class="text-danger">
+                                                            Failed
+                                                        </strong>
+                                                    </c:if>
                                                 </td>
                                                 <td>
                                                     <!--                                                <div class="d-flex justify-content-around">     -->
-                                                    <c:if test="${applicationDTO.companyConfirm eq 0}">
+                                                    <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}">
                                                         <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
                                                             <!--param of update-->
                                                             <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
@@ -263,8 +288,14 @@
                                                             <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                             <input type="hidden" name="status" value="${param.status}" />
                                                             <!--button-->
-                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
-                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />            
+                                                            <c:if test="${applicationDTO.companyConfirm eq 0}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Interview" /> 
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" /> 
+                                                            </c:if>
+                                                            <c:if test="${applicationDTO.companyConfirm eq 2}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />  
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
+                                                            </c:if>
                                                         </form>
                                                         <c:set value="${requestScope.ERROR_QUANTITY_INTERNS}" var="quantityEnough"/>
                                                         <c:if test="${not empty quantityEnough}">
@@ -280,7 +311,11 @@
                                     </tbody>
                                 </table>
                             </c:if>
-
+                            <c:if test="${total eq 0}">
+                                <h3 class="text-center" style="margin-top: 20px">
+                                    Internship application list does not has any result!
+                                </h3>    
+                            </c:if>
 
                         </div>
 
@@ -314,7 +349,7 @@
             </div>
 
         </footer>
-
+    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

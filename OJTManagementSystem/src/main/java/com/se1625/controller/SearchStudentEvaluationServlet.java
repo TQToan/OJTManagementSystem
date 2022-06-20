@@ -14,7 +14,6 @@ import com.se1625.tblsemester.TblSemesterDAO;
 import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;

@@ -13,16 +13,74 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin - Company Management</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+        <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css.css">
     </head>
     <body>
         <header></header>
+        
+        <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
+       <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars nav__respo--btn"></i>
+                </button>
+                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
+                    <a href="" class=" nav__infor--link text-truncate text-center">
+                        <i class="fas fa-user-circle nav__infor--icon"></i>
+                        <font> ${admin.name} </font>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="ShowAdminStudentManagementController" class="nav__item--link">
+                                <i class="fas fa-university"></i>
+                                Student Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminCompanyManagerController" class="nav__item--link">
+                                <i class="far fa-building"></i>
+                                Company Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowPostManagementController" class="nav__item--link link-active">
+                                <i class="fas fa-pen"></i>
+                                Post Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowInternApplicationController" class="nav__item--link">
+                                <i class="fas fa-clipboard-check"></i>
+                                Internship Application
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ShowStudentEvaluationController" class="nav__item--link">
+                                <i class="fas fa-poll-h"></i>
+                                Evaluation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logoutController" class="nav__item--link">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <main class="row">
-            <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
+            
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -40,7 +98,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="AdminCompanyManagerController" class="nav__item--link">
+                        <a href="AdminCompanyManagerController" class="nav__item--link link-active">
                             <i class="far fa-building"></i>
                             Company Management
                         </a>
@@ -108,10 +166,16 @@
                                     <div class="col-2">
                                         <select id="city" name="selectStatus"  class="admin--select" >
                                             <option value="">Status</option>
-                                            <option value="Success" class="text-success">                                                                          
+                                            <option value="Success" class="text-success"
+                                                    <c:if test="${param.selectStatus eq 'Success'}">
+                                                selected="selected"
+                                            </c:if>>
                                                 Signed
                                             </option>
-                                            <option value="Denied" class="text-danger">                                                       
+                                            <option value="Denied" class="text-danger"
+                                                    <c:if test="${param.selectStatus eq 'Denied'}">
+                                                        selected="selected"
+                                                    </c:if>>
                                                 Not Yet
                                             </option>
                                         </select>   
@@ -219,5 +283,6 @@
 
         </footer>
 
+    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

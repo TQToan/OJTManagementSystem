@@ -14,6 +14,8 @@ import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -65,18 +67,16 @@ public class CompanyShowPostServlet extends HttpServlet {
 
             if (session != null) {
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
-
+                TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                 if (companyDTO != null) {
                     url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
-                    //Lay danh sach cac bai post
-                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                    companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
 
+                    //Lay danh sach cac bai post
+                    companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
                     List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
                     //Phan trang
                     if (companyPostList != null) {
                         sizeOfList = companyPostList.size();
-
                         if (xpage == null) {
                             page = 1;
                         } // load page save job 

@@ -19,15 +19,71 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-        tblg
+         <link rel="stylesheet" href="./assets/css/admin-responsive.css">
     </head>
 
     <body>
         <header></header>
+        <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
 
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars nav__respo--btn"></i>
+                </button>
+                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
+                    <a href="" class=" nav__infor--link text-truncate text-center">
+                        <i class="fas fa-user-circle nav__infor--icon"></i>
+                        <font> ${admin.name} </font>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="ShowAdminStudentManagementController" class="nav__item--link">
+                                <i class="fas fa-university"></i>
+                                Student Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminCompanyManagerController" class="nav__item--link">
+                                <i class="far fa-building"></i>
+                                Company Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowPostManagementController" class="nav__item--link link-active">
+                                <i class="fas fa-pen"></i>
+                                Post Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowInternApplicationController" class="nav__item--link">
+                                <i class="fas fa-clipboard-check"></i>
+                                Internship Application
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ShowStudentEvaluationController" class="nav__item--link">
+                                <i class="fas fa-poll-h"></i>
+                                Evaluation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logoutController" class="nav__item--link">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
@@ -50,7 +106,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="AdminShowPostManagementController" class="nav__item--link">
+                        <a href="AdminShowPostManagementController" class="nav__item--link link-active">
                             <input type="hidden" name="page" value="1" />
                             <i class="fas fa-pen"></i>
                             Post Management
@@ -152,7 +208,7 @@
                                                     <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>
                                                 </td>
                                                 <td>${post.vacancy}</td>
-                                                <td>${post.postingDate}</td>
+                                                <td>${my:changeDateFormat(post.postingDate)}</td>
                                                 <td>${post.company.account.name}</td>
 
                                                 <c:if test="${post.statusPost eq 2}">
@@ -299,7 +355,6 @@
             </div>
 
         </footer>
-
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
-
 </html>

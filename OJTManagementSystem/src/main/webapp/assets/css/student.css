@@ -298,9 +298,11 @@
 }
 .main-body-save td:nth-child(2){
     width: 25%;
+    text-align: left;
 }
 .main-body-save td:nth-child(3){
     width: 15%;
+    text-align: left;
 }
 .main-body-save td:nth-child(4){
     width: 10%;
@@ -365,9 +367,11 @@
 }
 .main-body-appl td:nth-child(2){
     width: 20%;
+    text-align: left;
 }
 .main-body-appl td:nth-child(3){
     width: 15%;
+    text-align: left;
 }
 .main-body-appl td:nth-child(4){
     width: 10%;

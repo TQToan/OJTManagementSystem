@@ -7,11 +7,9 @@ package com.se1625.tblcompany;
 
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
-import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -11,6 +11,8 @@ import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,6 +63,7 @@ public class CompanySearchInternsServlet extends HttpServlet {
         int start;
         int size;
         int end;
+        int numberPage;
         try {
             if (session != null) {
                 TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
@@ -77,12 +80,27 @@ public class CompanySearchInternsServlet extends HttpServlet {
                         status = 0;
                     } else if (selectStatus.equals("Denied")) {
                         status = -1;
+                    } else if (selectStatus.equals("Interview")) {
+                        status = 2;
+                    } else if (selectStatus.equals("Failed")){
+                        status = -2;
                     }
-
+                    
+                    //get current Semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semesterDTO = semesterDAO.getCurrentSemester();
+                    int currentSemester = semesterDTO.getSemesterID();
                     //get all application of company
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
-                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), -2);
-
+                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), -3, currentSemester);
+                    
+                    List<TblApplicationDTO> listApplicationByPage;
+                    if(applicationList == null){
+                        size = 0;
+                        listApplicationByPage = applicationList;
+                        page = 0;
+                        numberPage = 0;
+                    }else{
                     // get application result list 
                     List<TblApplicationDTO> resultList = new ArrayList<>();
                     for (TblApplicationDTO tblApplicationDTO : applicationList) {
@@ -116,7 +134,7 @@ public class CompanySearchInternsServlet extends HttpServlet {
                     } else {
                         page = Integer.parseInt(xpage);
                     }
-                    int numberPage = size % numberProductPage;
+                    numberPage = size % numberProductPage;
                     if (numberPage == 0) {
                         numberPage = size / numberProductPage;
                     } else {
@@ -125,8 +143,8 @@ public class CompanySearchInternsServlet extends HttpServlet {
                     start = (page - 1) * numberProductPage;
                     end = Math.min(page * numberProductPage, size);
 
-                    List<TblApplicationDTO> listApplicationByPage = applicationDAO.getListByPage(resultList, start, end);                   
-                    
+                    listApplicationByPage = applicationDAO.getListByPage(resultList, start, end);                   
+                }
                     //get CompanyID
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     String companyID = companyDAO.getCompanyByEmail(accountDTO.getEmail()).getCompanyID();              
@@ -137,7 +155,7 @@ public class CompanySearchInternsServlet extends HttpServlet {
                     
                     request.setAttribute("SELECTED", selectStatus);
                     request.setAttribute("LIST_COMPANY_POST", listCompanyPost);
-                    request.setAttribute("APPLICATION_LIST", applicationList);
+//                    request.setAttribute("APPLICATION_LIST", applicationList);
                     request.setAttribute("APPLICATION_LIST_BYPAGE", listApplicationByPage);
                     request.setAttribute("SIZE_PAGE", size);
                     request.setAttribute("PAGE", page);

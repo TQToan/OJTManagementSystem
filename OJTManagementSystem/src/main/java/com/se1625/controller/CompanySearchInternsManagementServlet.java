@@ -11,6 +11,8 @@ import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +63,7 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
         int start;
         int size;
         int end;
-
+        int numberPage;
         try {
             if (session != null) {
                 TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
@@ -78,11 +80,21 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
                     }else if("NotPassed".equals(selectStatus)){
                         status = -1;
                     }
-
+                    //get current Semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semesterDTO = semesterDAO.getCurrentSemester();
+                    int currentSemester = semesterDTO.getSemesterID();
                     //get all application of company
-                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
-                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), 1);
-
+                    TblApplicationDAO applicationDAO = new TblApplicationDAO();            
+                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), 1, currentSemester);
+                    List<TblApplicationDTO> listApplicationByPage;
+                    if (applicationList == null) {
+                        size = 0;
+                        listApplicationByPage = applicationList;
+                        page = 0;
+                        numberPage = 0;
+                    } else {
+                    // get application result list                
                     List<TblApplicationDTO> resultList = new ArrayList<>();
                     for (TblApplicationDTO tblApplicationDTO : applicationList) {
                         boolean check = true;
@@ -115,7 +127,7 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
                     } else {
                         page = Integer.parseInt(xpage);
                     }
-                    int numberPage = size % numberProductPage;
+                    numberPage = size % numberProductPage;
                     if (numberPage == 0) {
                         numberPage = size / numberProductPage;
                     } else {
@@ -124,8 +136,8 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
                     start = (page - 1) * numberProductPage;
                     end = Math.min(page * numberProductPage, size);
                     
-                    List<TblApplicationDTO> listApplicationByPage = applicationDAO.getListByPage(resultList, start, end);                   
-                    
+                    listApplicationByPage = applicationDAO.getListByPage(resultList, start, end);                   
+                    }
                     //get CompanyID
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     String companyID = companyDAO.getCompanyByEmail(accountDTO.getEmail()).getCompanyID();              

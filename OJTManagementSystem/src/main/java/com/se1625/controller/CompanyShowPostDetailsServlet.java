@@ -68,7 +68,6 @@ public class CompanyShowPostDetailsServlet extends HttpServlet {
                     //set Company
                     companyPostDTO.setCompany(companyDTO);
                     request.setAttribute("COMPANY_POST_DETAIL", companyPostDTO);
-
                     //get list major
                     TblMajorDAO majorDAO = new TblMajorDAO();
                     majorDAO.getNameMajor();

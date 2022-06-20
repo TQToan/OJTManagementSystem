@@ -970,12 +970,16 @@ public class TblApplicationDAO implements Serializable {
 
         if (studentID == null) {
             studentID = "";
+        } else {
+            studentID = studentID.trim();
         }
         if (companyID == null) {
             companyID = "";
         }
         if (titleJob == null) {
             titleJob = "";
+        } else {
+            titleJob = titleJob.trim();
         }
         if (schoolStatus != null && !"".equals(schoolStatus)) {
             iSchoolStatus = Integer.parseInt(schoolStatus);
@@ -1246,9 +1250,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setString(5, studentCode);
                     stm.setFloat(6, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(7, true);
+                        stm.setInt(7, 1);
                     } else {
-                        stm.setBoolean(7, false);
+                        stm.setInt(7, -1);
                     }
                     stm.setString(8, companyID);
                 }
@@ -1265,9 +1269,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setString(5, studentCode);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                     stm.setString(7, companyID);
                 }
@@ -1284,9 +1288,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setFloat(5, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                     stm.setString(7, companyID);
                 }
@@ -1304,9 +1308,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setString(5, studentCode);
                     stm.setFloat(6, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(7, true);
+                        stm.setInt(7, 1);
                     } else {
-                        stm.setBoolean(7, false);
+                        stm.setInt(7, -1);
                     }
                 }
 
@@ -1336,9 +1340,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(3, 1);
                     stm.setInt(4, currentSemesterID);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(5, true);
+                        stm.setInt(5, 1);
                     } else {
-                        stm.setBoolean(5, false);
+                        stm.setInt(5, -1);
                     }
                     stm.setString(6, companyID);
                 }
@@ -1355,9 +1359,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setString(5, studentCode);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                 }
 
@@ -1387,9 +1391,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(4, currentSemesterID);
                     stm.setFloat(5, grade);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(6, true);
+                        stm.setInt(6, 1);
                     } else {
-                        stm.setBoolean(6, false);
+                        stm.setInt(6, -1);
                     }
                 }
 
@@ -1432,9 +1436,9 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(3, 1);
                     stm.setInt(4, currentSemesterID);
                     if (isPass.equals("true")) {
-                        stm.setBoolean(5, true);
+                        stm.setInt(5, 1);
                     } else {
-                        stm.setBoolean(5, false);
+                        stm.setInt(5, -1);
                     }
                 }
 
@@ -1545,7 +1549,7 @@ public class TblApplicationDAO implements Serializable {
     }
 
     //get Application of Company by email
-    public List<TblApplicationDTO> getApplicationByEmail(String email, int companyConfirm) throws NamingException, SQLException {
+    public List<TblApplicationDTO> getApplicationByEmail(String email, int companyConfirm, int currentSemester) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -1559,19 +1563,21 @@ public class TblApplicationDAO implements Serializable {
                     + "INNER JOIN tblCompany_Post as cp ON (app.postID = cp.postID) "
                     + "INNER JOIN tblCompany as com ON (cp.companyID = com.companyID) "
                     + "INNER JOIN tblAccount as ac ON (com.username = ac.username) "
-                    + "Where ac.username = ? AND app.student_Confirm = ? AND app.school_Confirm = ? ";
-            if (companyConfirm == -2) {
+                    + "Where ac.username = ? AND app.student_Confirm = ? AND app.school_Confirm = ? AND semesterID = ? ";
+            if (companyConfirm == -3) {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setBoolean(2, true);
                 stm.setInt(3, 1);
+                stm.setInt(4, currentSemester);
             } else {
                 sql += "AND app.company_Confirm = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setBoolean(2, true);
                 stm.setInt(3, 1);
-                stm.setInt(4, companyConfirm);
+                stm.setInt(4, currentSemester);
+                stm.setInt(5, companyConfirm);
             }
             rs = stm.executeQuery();
 
@@ -1636,8 +1642,12 @@ public class TblApplicationDAO implements Serializable {
             stm.setInt(1, companyConfirm);
             stm.setString(2, studentCode);
             stm.setInt(3, companyPostID);
-            stm.setInt(4, 0);
-
+            if(companyConfirm == 1 || companyConfirm == -1){
+                stm.setInt(4, 2);
+            }else if(companyConfirm == 2 || companyConfirm == -2){
+                stm.setInt(4, 0);
+            }
+            
             int effectRows = stm.executeUpdate();
             if (effectRows > 0) {
                 return true;
