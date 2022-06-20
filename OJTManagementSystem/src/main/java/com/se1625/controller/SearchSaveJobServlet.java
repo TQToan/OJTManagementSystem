@@ -44,9 +44,13 @@ public class SearchSaveJobServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String jobName = request.getParameter("txtJob");
-
+        if (jobName != null){
+            jobName = jobName.trim();    
+        }
         String companyName = request.getParameter("txtCompany");
-
+        if (companyName != null){
+            companyName = companyName.trim();
+        }
         String nameLocation = request.getParameter("nameLocation");
         String xpage = request.getParameter("page");
         ServletContext context = this.getServletContext();

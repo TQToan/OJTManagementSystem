@@ -19,72 +19,74 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
         <link rel="stylesheet" href="./assets/css/admin-responsive.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
         <header></header>
-            <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
+        <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars nav__respo--btn"></i>
+                </button>
+                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
+                    <a href="" class=" nav__infor--link text-truncate text-center">
+                        <i class="fas fa-user-circle nav__infor--icon"></i>
+                        <font> ${Admin.name} </font>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="ShowAdminStudentManagementController" class="nav__item--link">
+                                <i class="fas fa-university"></i>
+                                Student Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminCompanyManagerController" class="nav__item--link">
+                                <i class="far fa-building"></i>
+                                Company Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowPostManagementController" class="nav__item--link">
+                                <i class="fas fa-pen"></i>
+                                Post Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="AdminShowInternApplicationController" class="nav__item--link link-active">
+                                <i class="fas fa-clipboard-check"></i>
+                                Internship Application
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="ShowStudentEvaluationController" class="nav__item--link">
+                                <i class="fas fa-poll-h"></i>
+                                Evaluation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logoutController" class="nav__item--link">
+                                <i class="fas fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+            
             <c:set var="studentID" value="${param.txtStudentID}"/>
             <c:set var="companyID" value="${param.txtCompanyID}"/>
             <c:set var="schoolStatus" value="${param.txtSchoolStatus}"/>
             <c:set var="titleJob" value="${param.txtTitleJob}" />
 
-        <div class="navbar navbar-expand-md navbar-sm-cus ">
-            <a href="#" class="header__logo ">
-                <img src="./assets/img/logo.png" alt="" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fa-solid fa-bars nav__respo--btn"></i>
-            </button>
-            <!--            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                            <a href="" class=" nav__infor--link text-truncate text-center">
-                                <i class="fas fa-user-circle nav__infor--icon"></i>
-                                FPT University HCM
-                            </a>
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a href="adminStuManage.html" class="nav__item--link">
-                                        <i class="fas fa-university"></i>
-                                        Student Management
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="adminComManage.html" class="nav__item--link">
-                                        <i class="far fa-building"></i>
-                                        Company Management
-                                    </a>
-                                </li>
-                                <li class="nav-item nav__items">
-                                    <a href="adminPostManage.html" class="nav__item--link">
-                                        <i class="fas fa-pen"></i>
-                                        Post Management
-                                    </a>
-                                </li>
-                                <li class="nav-item nav__items">
-                                    <a href="adminInterAppl.html" class="nav__item--link">
-                                        <i class="fas fa-clipboard-check"></i>
-                                        Internship Application
-                                    </a>
-                                </li>
-                                <li class="nav-item nav__items">
-                                    <a href="adminEval.html" class="nav__item--link">
-                                        <i class="fas fa-poll-h"></i>
-                                        Evaluation
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav__item--link">
-                                        <i class="fas fa-power-off"></i>
-                                        Logout
-                                    </a>
-                                </li>
-            
-                            </ul>
-                        </div>-->
-        </div>
+        
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
@@ -116,7 +118,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="AdminShowInternApplicationController" class="nav__item--link">
+                        <a href="AdminShowInternApplicationController" class="nav__item--link link-active">
                             <i class="fas fa-clipboard-check"></i>
                             Internship Application
                         </a>
@@ -388,7 +390,7 @@
             </div>
 
         </footer>
-
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

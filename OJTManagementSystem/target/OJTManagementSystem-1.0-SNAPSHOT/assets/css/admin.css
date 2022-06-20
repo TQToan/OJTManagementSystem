@@ -112,9 +112,11 @@
 }
 .main-body-aStuManage td:nth-child(3){
     width: 15%;
+    text-align: left;
 }
 .main-body-aStuManage td:nth-child(4){
     width: 20%;
+    text-align: left;
 }
 .main-body-aStuManage td:nth-child(5){
     width: 10%;
@@ -172,15 +174,18 @@
 }
 .main-body-aComManage td:nth-child(2){
     width: 25%;
+    text-align: left;
 }
 .main-body-aComManage td:nth-child(3){
     width: 20%;
+    text-align: left;
 }
 .main-body-aComManage td:nth-child(4){
     width: 10%;
 }
 .main-body-aComManage td:nth-child(5){
     width: 20%;
+    text-align: left;
 }
 .main-body-aComManage td:nth-child(6){
     width: 10%;
@@ -237,12 +242,14 @@
 }
 .main-body-aPostManage td:nth-child(2){
     width: 30%;
+    text-align: left;
 }
 .main-body-aPostManage td:nth-child(3){
     width: 15%;
 }
 .main-body-aPostManage td:nth-child(4){
     width: 20%;
+    text-align: left;
 }
 .main-body-aPostManage td:nth-child(5){
     width: 15%;
@@ -303,9 +310,11 @@
 }
 .main-body-aInterAppl td:nth-child(3){
     width: 20%;
+    text-align: left;
 }
 .main-body-aInterAppl td:nth-child(4){
     width: 17%;
+    text-align: left;
 }
 .main-body-aInterAppl td:nth-child(5){
     width: 12%;
@@ -374,12 +383,15 @@
 }
 .main-body-aEval td:nth-child(3){
     width: 20%;
+    text-align: left;
 }
 .main-body-aEval td:nth-child(4){
     width: 15%;
+    text-align: left;
 }
 .main-body-aEval td:nth-child(5){
     width: 15%;
+    text-align: left;
 }
 .main-body-aEval td:nth-child(6){
     width: 20%;

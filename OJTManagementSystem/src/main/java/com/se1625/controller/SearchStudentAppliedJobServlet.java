@@ -49,7 +49,15 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
         String nameLocation = request.getParameter("nameLocation");
         String statusName = request.getParameter("nameStatus");
         String xpage = request.getParameter("page");
+        
+        if (jobName != null){
+            jobName = jobName.trim();
 
+        }
+        if (companyName != null){
+            companyName = companyName.trim();
+        }
+        
         HttpSession session = request.getSession(false);
 
         int page;

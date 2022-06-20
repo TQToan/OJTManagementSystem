@@ -143,7 +143,7 @@ public class TblStudentDAO implements Serializable {
                 stm.setString(1, studentCode);
 
                 rs = stm.executeQuery();
-                if (rs.next()) {
+                while (rs.next()) {
                     String major = rs.getNString("major");
                     Date birthDay = rs.getDate("birthDay");
                     String address = rs.getNString("address");

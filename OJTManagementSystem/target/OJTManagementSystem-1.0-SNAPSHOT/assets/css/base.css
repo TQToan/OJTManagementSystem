@@ -47,13 +47,17 @@ html{
 .row{
     margin: 0;
 }
+
+.container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+}
 /*Modify boostrap---------------END------------------------- */
 
 /* Modify html------------------------------------------ */
 img{
     width: 100%;
     object-fit: unset;
-    border-radius: 10px;
 }
 main{
     min-height: 100vh;
@@ -359,6 +363,14 @@ main{
     font-size: 1.8rem;
     font-weight: 600;
 }
+
+.link-active{
+    color: var(--text-color-orange) !important;
+}
+
+
+
+
 /* General -------------------END----------------------------- */
 
 /* Responsive ----------------mobile sm  max-width: 767px------------- */
