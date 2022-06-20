@@ -5,18 +5,19 @@
  */
 package com.se1625.customtag;
 
+
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblstudent.TblStudentDTO;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.StringTokenizer;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,13 +36,14 @@ public class CustomTag {
         }
         return false;
     }
-    
+
     public static Boolean getStatusAcceptCompanyPost(List<TblCompany_PostDTO> listCompanyPost, Integer postID) {
         if (listCompanyPost != null) {
             for (TblCompany_PostDTO tblCompany_PostDTO : listCompanyPost) {
                 if (tblCompany_PostDTO.getPostID() == postID) {
-                    if(tblCompany_PostDTO.getStatusPost() == 2)
-                    return true;
+                    if (tblCompany_PostDTO.getStatusPost() == 2) {
+                        return true;
+                    }
                 }
             }
         }
@@ -70,7 +72,7 @@ public class CustomTag {
         }
         return null;
     }
-    
+
     public static TblApplicationDTO getApplicationOfStudentByID(TblStudentDTO student, ServletContext context) {
         TblApplicationDAO applicationDAO = new TblApplicationDAO();
         TblApplicationDTO application = null;
@@ -82,5 +84,32 @@ public class CustomTag {
             context.log("NamingException at CustomTag " + ex.getMessage());
         }
         return application;
+    }
+
+    public static Integer getIndexList(List<TblCompanyDTO> listAvatar) {
+        int numberRowsPerPage = 10;
+        int sizeOfList = listAvatar.size();
+        int numberPage = sizeOfList % numberRowsPerPage;
+
+        if (numberPage == 0) {
+            numberPage = sizeOfList / numberRowsPerPage;
+        } else {
+            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+        }
+        return numberPage;
+    }
+
+    public static List<TblCompanyDTO> getList(List<TblCompanyDTO> listCompany, Integer index) {
+        int numberRowsPerPage = 10;
+        int start;
+        int end;
+        int sizeOfList = listCompany.size();
+        start = (index - 1) * numberRowsPerPage;
+        end = Math.min(index * numberRowsPerPage, sizeOfList);
+        List<TblCompanyDTO> listAvatarOnSlide = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            listAvatarOnSlide.add(listCompany.get(i));
+        }
+        return listAvatarOnSlide;
     }
 }

@@ -55,4 +55,18 @@
             com.se1625.tblapplication.TblApplicationDTO getApplicationOfStudentByID(com.se1625.tblstudent.TblStudentDTO, javax.servlet.ServletContext)
         </function-signature>
     </function>
+    <function>
+        <name>getIndexList</name>
+        <function-class>com.se1625.customtag.CustomTag</function-class>
+        <function-signature>
+            java.lang.Integer getIndexList(java.util.List)
+        </function-signature>
+    </function>
+    <function>
+        <name>getList</name>
+        <function-class>com.se1625.customtag.CustomTag</function-class>
+        <function-signature>
+            java.util.List getList(java.util.List, java.lang.Integer)
+        </function-signature>
+    </function>
 </taglib>

@@ -52,7 +52,7 @@
                     </a>
                 </li>
                 <li class="nav-item nav__items">
-                    <a href="ShowCreateNewCompanyPostController" class="nav__item--link">
+                    <a href="CompanyShowPostController" class="nav__item--link">
                         <i class="fas fa-pen"></i>
                         My Posts
                     </a>

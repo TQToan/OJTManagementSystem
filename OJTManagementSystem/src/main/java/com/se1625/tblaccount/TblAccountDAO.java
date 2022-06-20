@@ -241,7 +241,7 @@ public class TblAccountDAO implements Serializable {
         return false;
     }
     
-    public boolean addStudentAccount(TblStudentDTO student) throws NamingException, SQLException{
+    public boolean addStudentAccount(TblStudentDTO student,int currentSemester) throws NamingException, SQLException{
         Connection con = null;
         PreparedStatement stm = null;
         try{
@@ -258,19 +258,29 @@ public class TblAccountDAO implements Serializable {
                 int effectRow1 = stm.executeUpdate();
                 
                 String sql2 = "INSERT INTO tblStudent("
-                        + "studentCode, username, major, phone, numberOfCredit) "
-                        + "VALUES (?, ?, ?, ?, ?) ";                     
+                        + "studentCode, username, major, phone, numberOfCredit, is_Intern, is_Disabled) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) ";                     
                 stm = con.prepareStatement(sql2);
                 stm.setString(1, student.getStudentCode());
                 stm.setString(2, student.getAccount().getEmail());                
                 stm.setNString(3, student.getMajor());                
                 stm.setString(4, student.getPhone());                
-                stm.setInt(5, student.getNumberOfCredit());                
+                stm.setInt(5, student.getNumberOfCredit()); 
+                stm.setInt(6, 0);
+                stm.setBoolean(7, false);
                 int effectRow2 = stm.executeUpdate();
                 
+                
+                String sql3 = "INSERT INTO tblSemester_Student (semesterID, studentCode) "
+                        + "VALUES (? ,?) ";
+                stm = con.prepareStatement(sql3);
+                stm.setInt(1, currentSemester);
+                stm.setString(2, student.getStudentCode());
+                
+                int effectRow3 = stm.executeUpdate();
                 con.commit();
                 
-                if(effectRow1 > 0 && effectRow2 > 0){
+                if(effectRow1 > 0 && effectRow2 > 0 && effectRow3 > 0 ){
                     return true;
                 }
             }

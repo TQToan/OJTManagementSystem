@@ -89,6 +89,10 @@
                                 ${requestScope.ERROR_IMPORT_EXCEL}
                             </c:if>
                         </div>
+                        <div>
+                            Download this excel file to input your data!
+                            <a href="DownloadFileModelController">File Excel Model</a>
+                        </div>
                         <div class="main-body-aStuManage__search">
                             <form action="SearchStudentByAdminController" method="POST">
                                 <div class="row">
@@ -201,7 +205,8 @@
                                                         </c:if>
                                                     </c:if>
                                                     <c:if test="${student.isIntern eq 1 or student.isIntern eq 2}" >
-                                                        ${student.numberOfCredit}
+                                                        <input style="width: 60px" type="number" min="0" 
+                                                                   max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" />
                                                     </c:if>
                                                 </td>
                                                 <td>
@@ -231,12 +236,12 @@
                                                 <c:set var="context" value="${requestScope.SERVLET_CONTEXT}"/>
                                                 <c:set var="application" value="${my:getApplicationOfStudentByID(student, context)}" />
                                                 <td>
-                                                    <c:if test="${application.isPass eq false and student.isIntern eq 2}">
+                                                    <c:if test="${application.isPass eq -1 and student.isIntern eq 2}">
                                                         <strong class="text-danger">
                                                             Not Pass
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${application.isPass eq true and student.isIntern eq 2}">
+                                                    <c:if test="${application.isPass eq 1 and student.isIntern eq 2}">
                                                         <strong class="text-success">
                                                             Passed
                                                         </strong>
@@ -256,7 +261,7 @@
                                                     <input type="hidden" name="page" value="${requestScope.page}" />
                                                     <input type="checkbox" name="isDisabled" value="${student.isDisabled}" <c:if test="${student.isDisabled eq false}" >
                                                            checked="checked"
-                                                        </c:if> <c:if test="${student.isIntern eq 2 and application.isPass eq true 
+                                                        </c:if> <c:if test="${student.isIntern eq 2 and application.isPass eq 1 
                                                                               and student.semester.semesterID ne nowSemester.semesterID}">
                                                                       disabled="disabled"
                                                         </c:if> <c:if test="${student.semester.semesterID eq nowSemester.semesterID}" >
@@ -284,12 +289,12 @@
                                                         <input type="submit" value="Update" name="btAction" disabled="disabled" />
                                                     </td> 
                                                 </c:if>
-                                                <c:if test="${student.isIntern eq 2 and application.isPass eq true}" >
+                                                <c:if test="${student.isIntern eq 2 and application.isPass eq 1}" >
                                                     <td>
                                                         <input type="submit" value="Update" name="btAction" disabled="disabled" />
                                                     </td> 
                                                 </c:if>
-                                                <c:if test="${student.isIntern eq 2 and application.isPass eq false}" >
+                                                <c:if test="${student.isIntern eq 2 and application.isPass eq -1}" >
                                                     <td>
                                                         <input type="submit" value="Update" name="btAction" />
                                                     </td> 

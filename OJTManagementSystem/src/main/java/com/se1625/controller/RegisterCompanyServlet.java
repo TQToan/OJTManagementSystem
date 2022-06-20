@@ -57,56 +57,49 @@ public class RegisterCompanyServlet extends HttpServlet {
             String confirmPassword = request.getParameter("confirmPassword");
 
             String parttern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
-            
 
             boolean errorFound = false;
             RegisterCompanyAccountError error = new RegisterCompanyAccountError();
-            if (email != null && password != null && confirmPassword != null) {
-                url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1_JSP);
-                if (email.trim().matches(parttern) == false) {
-                    errorFound = true;
-                    error.setEmailFormatError("Email is incorrect format.");
-                } else {
-                    boolean isExist = accountDAO.checkExistedAccount(email.trim());
-                    if (isExist) {
-                        errorFound = true;
-                        error.setEmailDuplicateError("Email is existed.");
-                    }
-                }
-                if (password.trim().length() < 6 || password.trim().length() > 20) {
-                    errorFound = true;
-                    error.setPasswordLengthError("Password is required with 6 to 20 characters.");
-                } else if (password.trim().equals(confirmPassword.trim()) == false) {
-                    errorFound = true;
-                    error.setPasswordConfirmError("Confirm password does not match with your password.");
-                }
-
-                if (errorFound) {
-                    // thong bao lai trang register
-                    request.setAttribute("ERROR_REGISTER", error);
-                } else {
-                    //gui ma xac nhan
-                    TblAccountDTO accountSchool = accountDAO.getAccountSchool();
-                    TblAccountDTO accountCompany = new TblAccountDTO();
-                    accountCompany.setEmail(email);
-                    accountCompany.setPassword(password);
-                    String code = MyApplicationHelper.getRandom();
-                    accountCompany.setVerifyCode(code);
-
-                    boolean test = MyApplicationHelper.sendEmail(accountCompany, accountSchool);
-                    if (test) {
-                        //request.setAttribute("AccountCompany", accountCompany);
-                        HttpSession session = request.getSession();
-                        session.setAttribute("ACCOUNT_COMPANY", accountCompany);
-                    }
-                }
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
+            url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1_JSP);
+            if (email.trim().matches(parttern) == false) {
+                errorFound = true;
+                error.setEmailFormatError("Email is incorrect format.");
             } else {
-                response.sendRedirect(url);
+                boolean isExist = accountDAO.checkExistedAccount(email.trim());
+                if (isExist) {
+                    errorFound = true;
+                    error.setEmailDuplicateError("Email is existed.");
+                }
             }
-            
+            if (password.trim().length() < 6 || password.trim().length() > 20) {
+                errorFound = true;
+                error.setPasswordLengthError("Password is required with 6 to 20 characters.");
+            } else if (password.trim().equals(confirmPassword.trim()) == false) {
+                errorFound = true;
+                error.setPasswordConfirmError("Confirm password does not match with your password.");
+            }
+            HttpSession session = request.getSession();
+            if (errorFound) {
+                // thong bao lai trang register
+                request.setAttribute("ERROR_REGISTER", error);
+                session.removeAttribute("ACCOUNT_COMPANY");
+            } else {
+                //gui ma xac nhan
+                TblAccountDTO accountSchool = accountDAO.getAccountSchool();
+                TblAccountDTO accountCompany = new TblAccountDTO();
+                accountCompany.setEmail(email);
+                accountCompany.setPassword(password);
+                String code = MyApplicationHelper.getRandom();
+                accountCompany.setVerifyCode(code);
 
+                boolean test = MyApplicationHelper.sendEmail(accountCompany, accountSchool);
+                if (test) {
+                    //request.setAttribute("AccountCompany", accountCompany);
+                    session.setAttribute("ACCOUNT_COMPANY", accountCompany);
+                }
+            }
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         } catch (SQLException ex) {
             log("SQLException occurs RegisterCompanyServlet " + ex.getMessage());
         } catch (NamingException ex) {

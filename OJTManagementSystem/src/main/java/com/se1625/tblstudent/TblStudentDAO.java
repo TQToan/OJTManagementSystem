@@ -143,7 +143,7 @@ public class TblStudentDAO implements Serializable {
                 stm.setString(1, studentCode);
 
                 rs = stm.executeQuery();
-                if (rs.next()) {
+                while (rs.next()) {
                     String major = rs.getNString("major");
                     Date birthDay = rs.getDate("birthDay");
                     String address = rs.getNString("address");
@@ -690,6 +690,68 @@ public class TblStudentDAO implements Serializable {
                 }
             }
         } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public boolean checkExistedStudent(String studentCode) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select studentCode "
+                        + "from tblStudent "
+                        + "where studentCode = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
+    public boolean checkExistedNumberPhone(String numberPhone) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select studentCode "
+                        + "from tblStudent "
+                        + "where phone = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, numberPhone);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
             if (stm != null) {
                 stm.close();
             }

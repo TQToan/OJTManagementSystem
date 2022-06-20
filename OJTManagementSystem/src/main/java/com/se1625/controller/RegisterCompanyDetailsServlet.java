@@ -213,6 +213,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
         } catch (NamingException ex) {
             log("NamingException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (Exception ex) {
+            ex.printStackTrace();
             log("Exception occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } 
     }

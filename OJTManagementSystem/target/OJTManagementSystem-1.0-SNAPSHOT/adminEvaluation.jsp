@@ -122,12 +122,12 @@
                                     <div class="col-1">
                                         <select id="city" name="isPass"  class="admin--select" >
                                             <option value="">Status</option>
-                                            <option value="true" class="text-success" <c:if test="${param.isPass eq 'true'}">
+                                            <option value="true" class="text-success" <c:if test="${param.isPass eq 1}">
                                                     selected="selected"
                                                 </c:if>>
                                                 Passed
                                             </option>
-                                            <option value="false" class="text-danger" <c:if test="${param.isPass eq 'false'}">
+                                            <option value="false" class="text-danger" <c:if test="${param.isPass eq -1}">
                                                     selected="selected"
                                                 </c:if>>
                                                 Not Passed
@@ -183,12 +183,12 @@
                                                     ${application.grade}
                                                 </td>
                                                 <td>
-                                                    <c:if test="${application.isPass eq true}">
+                                                    <c:if test="${application.isPass eq 1}">
                                                         <strong class="text-success" >
                                                             Passed
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${application.isPass eq false}">
+                                                    <c:if test="${application.isPass eq -1}">
                                                         <strong class="text-danger" >
                                                             Not Pass
                                                         </strong>

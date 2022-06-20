@@ -7,8 +7,11 @@ package com.se1625.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblmajor.TblMajorDAO;
+import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.usergoogle.UserGoogleDTO;
 import java.io.FileInputStream;
@@ -64,7 +67,7 @@ public class MyApplicationHelper {
         //3. tạo attribute trong contextScope
         context.setAttribute("SITE_MAPS", properties);
     }
-    
+
     public static void getSemesterDate(ServletContext context) throws IOException {
         //1. get siteMaps file
         String siteMapsFile = context.getInitParameter("SEMESTER_DATE_FILE_PATH");
@@ -78,7 +81,18 @@ public class MyApplicationHelper {
         context.setAttribute("SEMESTER_DATE", properties);
     }
     
-    
+    public static void getCheckingExpirationPost(ServletContext context) throws IOException {
+        //1. get siteMaps file
+        String siteMapsFile = context.getInitParameter("CHECKING_EXPIRATION_POST");
+        //2. load properties from context and siteMapsFile to getResourceAsStream
+        InputStream is = null;
+        is = context.getResourceAsStream(siteMapsFile);
+        Properties properties = new Properties();
+        properties.load(is);
+
+        //3. tạo attribute trong contextScope
+        context.setAttribute("CHECKING_EXPIRATION_POST_TIME", properties);
+    }
 
     public static String getRandom() {
         Random rnd = new Random();
@@ -190,7 +204,6 @@ public class MyApplicationHelper {
 
             //get all rows
             Iterator<Row> interator = sheet.iterator();
-            System.out.println(sheet.getLastRowNum());
 
             if (sheet.getLastRowNum() < 1) {
                 workbook.close();
@@ -200,18 +213,20 @@ public class MyApplicationHelper {
                 studentList = new ArrayList<>();
                 while (interator.hasNext()) {
                     Row nextRow = interator.next();
-
                     if (nextRow.getRowNum() == 0) {
                         //ignore header
                         continue;
                     }
-
                     //get all cells
                     Iterator<Cell> cellIterator = nextRow.cellIterator();
-
                     //read cells and set value for tblStudentDTO object
                     TblStudentDTO student = new TblStudentDTO();
                     TblAccountDTO account = new TblAccountDTO();
+                    TblStudentDAO studentDAO = new TblStudentDAO();
+                    boolean foundError = false;
+                    String patternNumberPhone = "^(03|05|07|08|09)([0-9]{8,8})$";
+                    String patternNumber = "[0-9]{1,3}";
+                    int NumberOfCells = 0;
                     while (cellIterator.hasNext()) {
                         //read cell
                         Cell cell = cellIterator.next();
@@ -219,32 +234,121 @@ public class MyApplicationHelper {
                         int columnIndex = cell.getColumnIndex();
                         switch (columnIndex) {
                             case 0:
+                                //check chiều dài student code phải bằng 8
+                                //check student không được tồn tại trước đó 
                                 String studentCode = cell.toString();
-                                student.setStudentCode(studentCode);
+                                if (studentCode.trim().length() != 8 || studentCode.trim().isEmpty()) {
+                                    foundError = true;
+                                } else {
+                                    boolean existedStudent = studentDAO.checkExistedStudent(studentCode);
+
+                                    if (existedStudent == false) {
+                                        boolean existedStudentList = checkExistedStudentCode(studentCode, studentList);
+                                        if (existedStudentList) {
+                                            foundError = true;
+                                        } else {
+                                            student.setStudentCode(studentCode);
+                                            NumberOfCells++;
+                                        }
+                                    } else {
+                                        foundError = true;
+                                    }
+                                }
                                 break;
                             case 1:
                                 String fullName = cell.toString();
-                                account.setName(fullName);
+                                if (fullName.trim().isEmpty() || fullName.trim().length() > 50) {
+                                    foundError = true;
+                                } else {
+                                    account.setName(fullName);
+                                    NumberOfCells++;
+                                }
                                 break;
                             case 2:
+                                //check major này phải có trong system
                                 String major = cell.toString();
-                                student.setMajor(major);
+                                TblMajorDAO majorDAO = new TblMajorDAO();
+                                boolean existedMajor = majorDAO.checkExistedMajor(major);
+                                if (existedMajor) {
+                                    student.setMajor(major);
+                                    NumberOfCells++;
+                                } else {
+                                    foundError = true;
+                                }
                                 break;
                             case 3:
+                                //check chuỗi này không được rỗng
+                                //check email này có tồn tại trong system chưa 
+                                // check đúng định dạng email với đôi @fpt.edu.vn
                                 String email = cell.toString();
-                                account.setEmail(email);
+                                TblAccountDAO accountDAO = new TblAccountDAO();
+                                boolean existedAccount = accountDAO.checkExistedAccount(email);
+                                if (email.trim().isEmpty()) {
+                                    foundError = true;
+                                } else {
+                                    if (email.endsWith("@fpt.edu.vn") == false) {
+                                        foundError = true;
+                                    } else {
+                                        if (existedAccount) {
+                                            foundError = true;
+                                        } else {
+                                            boolean existedEmailStudentList = checkExistedEmail(email, studentList);
+                                            if (existedEmailStudentList) {
+                                                foundError = true;
+                                            } else {
+                                                account.setEmail(email);
+                                                NumberOfCells++;
+                                            }
+                                        }
+                                    }
+                                }
                                 break;
                             case 4:
+                                //check length đủ 10 kí tự và phải là chuỗi số
                                 String phone = cell.toString();
-                                student.setPhone(phone);
+                                boolean existedNumberPhone = studentDAO.checkExistedNumberPhone(phone);
+                                if (phone.trim().length() != 10 || phone.matches(patternNumberPhone) == false) {
+                                    foundError = true;
+                                } else {
+                                    boolean existedNumberPhoneStudentList = checkExistedNumberPhone(phone, studentList);
+                                    if (existedNumberPhone) {
+                                        foundError = true;
+                                    } else {
+                                        if (existedNumberPhoneStudentList) {
+                                            foundError = true;
+                                        } else {
+                                            student.setPhone(phone);
+                                            NumberOfCells++;
+                                        }
+                                    }
+                                }
                                 break;
                             case 5:
-                                int credit = (int) cell.getNumericCellValue();
-                                student.setNumberOfCredit(credit);
+                                //check chuỗi này phải là chuỗi số
+                                String credit = String.valueOf((int) cell.getNumericCellValue());
+                                if (credit.matches(patternNumber) == false || credit.trim().isEmpty()) {
+                                    foundError = true;
+                                } else {
+                                    int numberCredit = Integer.parseInt(credit);
+                                    if (numberCredit < 68 || numberCredit > 200) {
+                                        foundError = true;
+                                    } else {
+                                        student.setNumberOfCredit(numberCredit);
+                                        NumberOfCells++;
+                                    }
+                                }
                                 break;
                             default:
                                 break;
                         }
+                        //nếu mà lỗi không có thì add
+                        // nếu có lỗi thoát khỏi vòng lặp và báo lỗi
+                    }
+                    if (foundError || NumberOfCells != 6) {
+                        workbook.close();
+                        inputStream.close();
+                        throw new Exception("Error Import Excel File");
+                    } else if (foundError == false && NumberOfCells == 6) {
                         student.setAccount(account);
                         studentList.add(student);
                     }
@@ -256,7 +360,40 @@ public class MyApplicationHelper {
         return studentList;
     }
 
-    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) 
+    private static boolean checkExistedStudentCode(String studentCode, List<TblStudentDTO> studentList) {
+        if (studentList != null) {
+            for (TblStudentDTO student : studentList) {
+                if (student.getStudentCode().equals(studentCode)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkExistedEmail(String email, List<TblStudentDTO> studentList) {
+        if (studentList != null) {
+            for (TblStudentDTO student : studentList) {
+                if (student.getAccount().getEmail().equals(email)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkExistedNumberPhone(String numberPhone, List<TblStudentDTO> studentList) {
+        if (studentList != null) {
+            for (TblStudentDTO student : studentList) {
+                if (student.getPhone().equals(numberPhone)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath)
             throws IOException {
         Workbook workbook = null;
         if (excelFilePath.endsWith("xlsx")) {
