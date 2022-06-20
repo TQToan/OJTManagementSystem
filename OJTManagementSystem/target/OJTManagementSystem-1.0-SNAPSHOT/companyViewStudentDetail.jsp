@@ -24,7 +24,7 @@
     </head>
     <body>
         <header></header>
-
+        <c:set value="${sessionScope.COMPANY_ROLE}" var="company"/>
         <div class="navbar navbar-expand-md navbar-sm-cus ">
             <a href="#" class="header__logo ">
                 <img src="./assets/img/logo.png" alt="" class="logo">
@@ -34,43 +34,43 @@
             </button>
 
             <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="" class=" nav__infor--link text-truncate text-center">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    FPT Software
+                    ${company.name}
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyPostManage.html" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -79,38 +79,37 @@
                 </ul>
             </div>
         </div>
-        <c:set value="${sessionScope.COMPANY_ROLE}" var="company"/>
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="companyDashboard.html" class="nav__logo ">
+                <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="companyProfile.html" class=" nav__infor--link text-truncate">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${company.name}
                 </a>
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyPostManage.html" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
@@ -122,7 +121,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>

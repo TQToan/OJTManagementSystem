@@ -23,5 +23,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <word>t</word>
         <word>tblg</word>
         <word>tglb</word>
+        <word>tlgb</word>
     </spellchecker-wordlist>
 </project-shared-configuration>

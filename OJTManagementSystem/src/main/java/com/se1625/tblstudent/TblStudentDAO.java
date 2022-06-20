@@ -66,7 +66,7 @@ public class TblStudentDAO implements Serializable {
         return dto;
     }
 
-    public TblStudentDTO getStudent(String username)
+    public TblStudentDTO getStudent(String username, TblSemesterDTO semester)
             throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -75,13 +75,15 @@ public class TblStudentDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT studentCode, major, birthDay, address, "
+                String sql = "SELECT student.studentCode, major, birthDay, address, "
                         + "gender, phone, is_Intern, numberOfCredit, is_Disabled "
-                        + "FROM tblStudent "
-                        + "WHERE username = ? ";
+                        + "FROM tblStudent AS student "
+                        + "INNER JOIN tblSemester_Student AS semester "
+                        + "ON (student.studentCode = semester.studentCode) "
+                        + "WHERE username = ? and semester.semesterID = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, username);
-
+                stm.setInt(2, semester.getSemesterID());
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     String studentCode = rs.getString("studentCode");
@@ -99,9 +101,11 @@ public class TblStudentDAO implements Serializable {
                         TblAccountDTO account = accountDAO.getAccount(username);
                         student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
                         student.setAccount(account);
+                        student.setSemester(semester);
 //                    student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
                     }
                 }
+                return student;
             }
         } finally {
             if (rs != null) {
@@ -131,7 +135,66 @@ public class TblStudentDAO implements Serializable {
                 String sql = "SELECT student.studentCode, major, birthDay, address, "
                         + "gender, phone, is_Intern, numberOfCredit, username, "
                         + "semester.semesterID "
-                        + "FROM tblStudent AS student INNER JOIN tblSemester_Student AS semester "
+                        + "FROM tblStudent AS student "
+                        + "INNER JOIN tblSemester_Student AS semester "
+                        + "ON (student.studentCode = semester.studentCode) "
+                        + "WHERE student.studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String major = rs.getNString("major");
+                    Date birthDay = rs.getDate("birthDay");
+                    String address = rs.getNString("address");
+                    boolean gender = rs.getBoolean("gender");
+                    String phone = rs.getString("phone");
+                    int is_Itern = rs.getInt("is_Intern");
+                    int numberOfCredit = rs.getInt("numberOfCredit");
+                    String username = rs.getString("username");
+                    int semesterID = rs.getInt("semesterID");
+
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    if (semesterID == currentSemester.getSemesterID()) {
+                        TblSemesterDTO semester = semesterDAO.getSemesterByID(semesterID);
+
+                        TblAccountDTO account = accountDAO.getAccount(username);
+                        student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
+                        student.setAccount(account);
+                        student.setSemester(semester);
+                    }
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return student;
+    }
+
+    public TblStudentDTO getStudentInfor(String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblStudentDTO student = new TblStudentDTO();
+        TblAccountDAO accountDAO = new TblAccountDAO();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT student.studentCode, major, birthDay, address, "
+                        + "gender, phone, is_Intern, numberOfCredit, username "
+                        + "FROM tblStudent AS student "
+                        + "INNER JOIN tblSemester_Student AS semester "
                         + "ON (student.studentCode = semester.studentCode) "
                         + "WHERE student.studentCode = ? ";
                 stm = con.prepareStatement(sql);
@@ -147,11 +210,6 @@ public class TblStudentDAO implements Serializable {
                     int is_Itern = rs.getInt("is_Intern");
                     int numberOfCredit = rs.getInt("numberOfCredit");
                     String username = rs.getString("username");
-                    int semesterID = rs.getInt("semesterID");
-
-                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
-                    TblSemesterDTO semester = semesterDAO.getSemesterByID(semesterID);
-                    student.setSemester(semester);
 
                     TblAccountDTO account = accountDAO.getAccount(username);
                     student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);

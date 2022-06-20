@@ -88,8 +88,9 @@ public class LoginAccountsServlet extends HttpServlet {
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(username);
                     session.setAttribute("COMPANY_ROLE", account);
+                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_CONTROLLER;
                     session.setAttribute("COMPANY_ROLE_INFO", companyDTO);
-                    url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
+                    //url = MyApplicationConstants.LoginFeture.COMPANY_DASHBOARD_PAGE;
                     response.sendRedirect(url);
                 } //check username and password exist
                 else {

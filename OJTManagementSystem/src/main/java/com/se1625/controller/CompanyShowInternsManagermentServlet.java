@@ -11,6 +11,8 @@ import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,33 +59,45 @@ public class CompanyShowInternsManagermentServlet extends HttpServlet {
         int start;
         int size;
         int end;
+        int numberPage;
         try {
             if (session != null) {
                 //get account
                 TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
                 if (accountDTO != null) {
+                    //get current Semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semesterDTO = semesterDAO.getCurrentSemester();
+                    int currentSemester = semesterDTO.getSemesterID();
                     //get application of company
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
-                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), 1);
-                            
+                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), 1, currentSemester);
                     // set list application by page
-                    size = applicationList.size();
-                    String xpage = request.getParameter("page");
-                    if (xpage == null || xpage.isEmpty()) {
-                        page = 1;
+                    List<TblApplicationDTO> listApplicationByPage;
+                    if (applicationList == null) {
+                        size = 0;
+                        listApplicationByPage = applicationList;
+                        page = 0;
+                        numberPage = 0;
                     } else {
-                        page = Integer.parseInt(xpage);
-                    }
-                    int numberPage = size % numberProductPage;
-                    if (numberPage == 0) {
-                        numberPage = size / numberProductPage;
-                    } else {
-                        numberPage = (size / numberProductPage) + 1;
-                    }
-                    start = (page - 1) * numberProductPage;
-                    end = Math.min(page * numberProductPage, size);
+                        size = applicationList.size();
+                        String xpage = request.getParameter("page");
+                        if (xpage == null || xpage.isEmpty()) {
+                            page = 1;
+                        } else {
+                            page = Integer.parseInt(xpage);
+                        }
+                        numberPage = size % numberProductPage;
+                        if (numberPage == 0) {
+                            numberPage = size / numberProductPage;
+                        } else {
+                            numberPage = (size / numberProductPage) + 1;
+                        }
+                        start = (page - 1) * numberProductPage;
+                        end = Math.min(page * numberProductPage, size);
 
-                    List<TblApplicationDTO> listApplicationByPage = applicationDAO.getListByPage(applicationList, start, end);
+                        listApplicationByPage = applicationDAO.getListByPage(applicationList, start, end);
+                    }
                     //get CompanyID
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     String companyID = companyDAO.getCompanyByEmail(accountDTO.getEmail()).getCompanyID();
@@ -91,9 +105,9 @@ public class CompanyShowInternsManagermentServlet extends HttpServlet {
                     //get All Post of company        
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                     List<TblCompany_PostDTO> listCompanyPost = companyPostDAO.getAllPostByCompanyID(companyID);
-                    
+
                     request.setAttribute("LIST_COMPANY_POST", listCompanyPost);
-                    request.setAttribute("APPLICATION_LIST", applicationList);
+                    //request.setAttribute("APPLICATION_LIST", applicationList);
                     request.setAttribute("APPLICATION_LIST_BYPAGE", listApplicationByPage);
                     request.setAttribute("SIZE_PAGE", size);
                     request.setAttribute("PAGE", page);

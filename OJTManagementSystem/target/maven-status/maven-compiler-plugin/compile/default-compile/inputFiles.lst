@@ -9,12 +9,14 @@ F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationError.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanyUpdateStatusIntershipApplicationServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentProfileServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CreateNewCompanyPostServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanyShowIntershipApplicationServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowApplyCVServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\UpdateStudentProfileServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminSearchCompanyPostServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanyShowPostDetailsServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CompanyPostDetailError.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanyViewPostDetailServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\EmailVerificationServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\UpdateStudentInforMationServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountDTO.java
@@ -27,6 +29,8 @@ F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanyUpdatePostServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\TblApplicationDTO.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\HomeShowCompanyDetailServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanySearchPostServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowCompanyDashBoardServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanySearchInternsServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentError.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\StudentSaveJobServlet.java
@@ -38,12 +42,12 @@ F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyStudentHomeServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowStudentAppliedJobServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanySearchInternsManagementServlet.java
-F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\CompanySearchServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ReviewInternShipServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchStudentAppliedJobServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\utils\MyApplicationConstants.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\AdminViewPostDetailsServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\SearchCompanyAdminManagerServlet.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\ShowCreateNewCompanyPostServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDTO.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblapplication\ApplyCVStudentError.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\RegisterCompanyServlet.java
@@ -82,3 +86,4 @@ F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblaccount\TblAccountError.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\controller\LoadApplyCVStudentServlet.java
 F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblstudent\TblStudentDAO.java
+F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\src\main\java\com\se1625\tblcompany_post\CreateNewCompanyPostError.java

@@ -192,7 +192,7 @@
                                                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                <input type="submit" value="Accept" class="primary-btn accept-btn" 
+                                                                <input type="submit" value="Accept" class="" 
                                                                        <c:if test="${post.statusPost eq 3}">
                                                                            hidden
                                                                        </c:if>/>
@@ -211,7 +211,7 @@
                                                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                <input type="submit" value="Reject" class="primary-btn reject-btn"
+                                                                <input type="submit" value="Reject" class=""
                                                                        <c:if test="${post.statusPost eq 3}">
                                                                            hidden
                                                                        </c:if>/>
@@ -276,9 +276,9 @@
                                 </div>
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
-                                <p3>
+                                <h3 class="text-center" style="margin-top: 20px">
                                     You have not any post job yet!
-                                </p3>
+                                </h3>
                             </c:if>
 
                         </div>

@@ -57,6 +57,7 @@ public class CompanyUpdatePostServlet extends HttpServlet {
 
         //get parameter Post
         String title_Post = request.getParameter("titlePost");
+        String vacancy = request.getParameter("vacancy");
         int majorID = Integer.parseInt(request.getParameter("majorID"));
         int quantityIterns = Integer.parseInt(request.getParameter("quantityIterns"));
         String expirationDate = request.getParameter("expirationDate");
@@ -93,7 +94,12 @@ public class CompanyUpdatePostServlet extends HttpServlet {
                         errors.setTitlePostLenghtError("Title post must at least 10 character");
                         checkUpdate = true;
                     }
-
+                    // check vacancy length
+                    if(vacancy.trim().length() == 0){
+                        errors.setVacancyLengthError("Vacancy is empty");
+                        checkUpdate = true;
+                    }
+                                       
                     //check Quanity Interns
                     if (quantityIterns < 0) {
                         errors.setQuantitytInternsNotEngough("Quantity must positive number");

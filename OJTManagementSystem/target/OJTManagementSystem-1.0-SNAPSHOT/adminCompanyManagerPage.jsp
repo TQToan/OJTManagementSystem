@@ -128,9 +128,7 @@
                             <div class="resultpage__header">
                                 Result : ${sizePage}
                             </div>
-                            <c:if test="${sizePage ne 0}">
-
-
+                            <c:if test="${not empty listCompany}">
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -181,6 +179,11 @@
                                     </tbody>
 
                                 </table>
+                            </c:if>
+                            <c:if test="${empty listCompany}">
+                                <h3 class="text-center" style="margin-top: 20px">
+                                    Company List does not has any result!
+                                </h3>
                             </c:if>
                         </div>
 

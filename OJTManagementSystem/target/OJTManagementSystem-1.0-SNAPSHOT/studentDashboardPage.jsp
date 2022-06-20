@@ -189,6 +189,7 @@
                                     <p>Date of birth: ${my:changeDateFormat(student.birthDay)}</p>
                                     <p>Major: ${student.major}</p>
                                     <p>Email: ${student.account.email}</p>
+                                    <p>Semester: ${student.semester.semesterName}</p>
                                 </div>
                             </div>
                             <a href="ShowStudentProfileController" class="card-visit-btn primary-btn">
@@ -206,7 +207,7 @@
                     </div>
 
                     <div class="row row-cols-xl-2 row-cols-1">
-                        <c:forEach items="${requestScope.LIST_RECOMMEND_POST}" var="recommendPost">
+                        <c:forEach items="${requestScope.LIST_RECOMMEND_POST}" var="recommendPost" begin="0" end="5">
                             <c:set var="majorID" value="${recommendPost.major.majorID}"/>
                             <div class="col">
                                 <div class="recom-box row ">
@@ -221,7 +222,8 @@
                                         <img src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
                                     </div>
                                     <div class="recom-box-content col-8">
-
+                                        
+                                        <p>Vacancy: ${recommendPost.vacancy}</p>
                                         <p>Quantity: ${recommendPost.quantityIterns}</p>
                                         <p>Location: ${recommendPost.workLocation}</p>
                                         <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>

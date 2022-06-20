@@ -19,7 +19,7 @@
 
     <body>
         <header></header>
-
+            <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-sm-cus ">
             <a href="#" class="header__logo ">
                 <img src="./assets/img/logo.png" alt="" class="logo">
@@ -28,43 +28,43 @@
                 <i class="fa-solid fa-bars nav__respo--btn"></i>
             </button>
             <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="" class=" nav__infor--link text-truncate text-center">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
-                    FPT Software
+                    ${company.name}
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyPostManage.html" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -73,33 +73,31 @@
                 </ul>
             </div>
         </div>
-
-        <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="companyDashboard.html" class="nav__logo ">
+                <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="companyProfile.html" class=" nav__infor--link text-truncate">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${company.name}
                 </a>
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyPostManage.html" class="nav__item--link">
+                        <a href="CompanyShowPostController" class="nav__item--link">
                             <i class="fas fa-pen"></i>
                             My Posts
                         </a>
@@ -117,7 +115,7 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="login.html" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -184,6 +182,20 @@
                                                     >
                                                 Denied
                                             </option>
+                                            <option value="Interview" class="text-warning"
+                                                    <c:if test="${selected eq 'Interview'}">
+                                                        selected="selected"
+                                                    </c:if>
+                                                    >
+                                                Interviewing
+                                            </option>
+                                            <option value="Failed" class="text-danger"
+                                                    <c:if test="${selected eq 'Failed'}">
+                                                        selected="selected"
+                                                    </c:if>
+                                                    >
+                                                Failed
+                                            </option>
                                         </select>
                                     </div>
 
@@ -240,7 +252,7 @@
                                                             Accepted
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${applicationDTO.companyConfirm eq -1}">
+                                                    <c:if test="${applicationDTO.companyConfirm eq -1 or applicationDTO.companyConfirm eq -2}">
                                                         <strong class="text-danger">
                                                             Denied
                                                         </strong>
@@ -250,10 +262,20 @@
                                                             Waiting
                                                         </strong>
                                                     </c:if>
+                                                    <c:if test="${applicationDTO.companyConfirm eq 2}">
+                                                        <strong class="text-warning">
+                                                            Interviewing
+                                                        </strong>
+                                                    </c:if>
+                                                    <c:if test="${applicationDTO.companyConfirm eq -2}">
+                                                        <strong class="text-danger">
+                                                            Failed
+                                                        </strong>
+                                                    </c:if>
                                                 </td>
                                                 <td>
                                                     <!--                                                <div class="d-flex justify-content-around">     -->
-                                                    <c:if test="${applicationDTO.companyConfirm eq 0}">
+                                                    <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}">
                                                         <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
                                                             <!--param of update-->
                                                             <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
@@ -265,8 +287,14 @@
                                                             <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                             <input type="hidden" name="status" value="${param.status}" />
                                                             <!--button-->
-                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
-                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />            
+                                                            <c:if test="${applicationDTO.companyConfirm eq 0}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Interview" /> 
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" /> 
+                                                            </c:if>
+                                                            <c:if test="${applicationDTO.companyConfirm eq 2}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />  
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
+                                                            </c:if>
                                                         </form>
                                                         <c:set value="${requestScope.ERROR_QUANTITY_INTERNS}" var="quantityEnough"/>
                                                         <c:if test="${not empty quantityEnough}">
@@ -282,7 +310,11 @@
                                     </tbody>
                                 </table>
                             </c:if>
-
+                            <c:if test="${total eq 0}">
+                                <h3 class="text-center" style="margin-top: 20px">
+                                    Internship application list does not has any result!
+                                </h3>    
+                            </c:if>
 
                         </div>
 

@@ -186,8 +186,9 @@
                                                             </div>-->
                                 <div class="review__input row ">
                                     <div class="col-4 review--label" >Evaluation</div> <br>
-                                    <div class="col-12 review--input review--input--evaluate" >
-                                        <c:if test="${studentApp.student.isIntern eq 3}" >
+<!--                                    review--input--evaluate-->
+                                    <div class="col-8 review--input" >
+                                        <c:if test="${studentApp.student.isIntern eq 2}" >
                                             ${studentApp.evaluation}
                                         </c:if>
                                     </div>
@@ -197,7 +198,7 @@
                                     <div class="col-4 review--label" >Mark</div>
 
                                     <div class="col-8 review--input">
-                                        <c:if test="${studentApp.student.isIntern eq 3}">
+                                        <c:if test="${studentApp.student.isIntern eq 2}">
                                             ${studentApp.grade}
                                         </c:if>
                                     </div>
@@ -207,12 +208,12 @@
                                     <div class="col-4 review--label" >Status</div>
 
                                     <div class="col-8 review--input">
-                                        <c:if test="${studentApp.isPass eq false and studentApp.student.isIntern eq 3}">
+                                        <c:if test="${studentApp.isPass eq false and studentApp.student.isIntern eq 2}">
                                             <strong class="text-danger">
                                                 Not Pass
                                             </strong>
                                         </c:if>
-                                        <c:if test="${studentApp.isPass eq true and studentApp.student.isIntern eq 3}">
+                                        <c:if test="${studentApp.isPass eq true and studentApp.student.isIntern eq 2}">
                                             <strong class="text-success">
                                                 Passed
                                             </strong>

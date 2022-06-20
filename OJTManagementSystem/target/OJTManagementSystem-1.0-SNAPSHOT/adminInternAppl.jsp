@@ -26,11 +26,11 @@
 
     <body>
         <header></header>
-        <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
-        <c:set var="studentID" value="${param.txtStudentID}"/>
-        <c:set var="companyID" value="${param.txtCompanyID}"/>
-        <c:set var="schoolStatus" value="${param.txtSchoolStatus}"/>
-        <c:set var="titleJob" value="${param.txtTitleJob}" />
+            <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
+            <c:set var="studentID" value="${param.txtStudentID}"/>
+            <c:set var="companyID" value="${param.txtCompanyID}"/>
+            <c:set var="schoolStatus" value="${param.txtSchoolStatus}"/>
+            <c:set var="titleJob" value="${param.txtTitleJob}" />
 
         <div class="navbar navbar-expand-md navbar-sm-cus ">
             <a href="#" class="header__logo ">
@@ -39,51 +39,51 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <i class="fa-solid fa-bars nav__respo--btn"></i>
             </button>
-<!--            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="" class=" nav__infor--link text-truncate text-center">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                    FPT University HCM
-                </a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="adminStuManage.html" class="nav__item--link">
-                            <i class="fas fa-university"></i>
-                            Student Management
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="adminComManage.html" class="nav__item--link">
-                            <i class="far fa-building"></i>
-                            Company Management
-                        </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="adminPostManage.html" class="nav__item--link">
-                            <i class="fas fa-pen"></i>
-                            Post Management
-                        </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="adminInterAppl.html" class="nav__item--link">
-                            <i class="fas fa-clipboard-check"></i>
-                            Internship Application
-                        </a>
-                    </li>
-                    <li class="nav-item nav__items">
-                        <a href="adminEval.html" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Evaluation
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav__item--link">
-                            <i class="fas fa-power-off"></i>
-                            Logout
-                        </a>
-                    </li>
-
-                </ul>
-            </div>-->
+            <!--            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+                            <a href="" class=" nav__infor--link text-truncate text-center">
+                                <i class="fas fa-user-circle nav__infor--icon"></i>
+                                FPT University HCM
+                            </a>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="adminStuManage.html" class="nav__item--link">
+                                        <i class="fas fa-university"></i>
+                                        Student Management
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="adminComManage.html" class="nav__item--link">
+                                        <i class="far fa-building"></i>
+                                        Company Management
+                                    </a>
+                                </li>
+                                <li class="nav-item nav__items">
+                                    <a href="adminPostManage.html" class="nav__item--link">
+                                        <i class="fas fa-pen"></i>
+                                        Post Management
+                                    </a>
+                                </li>
+                                <li class="nav-item nav__items">
+                                    <a href="adminInterAppl.html" class="nav__item--link">
+                                        <i class="fas fa-clipboard-check"></i>
+                                        Internship Application
+                                    </a>
+                                </li>
+                                <li class="nav-item nav__items">
+                                    <a href="adminEval.html" class="nav__item--link">
+                                        <i class="fas fa-poll-h"></i>
+                                        Evaluation
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav__item--link">
+                                        <i class="fas fa-power-off"></i>
+                                        Logout
+                                    </a>
+                                </li>
+            
+                            </ul>
+                        </div>-->
         </div>
 
         <main class="row">
@@ -194,158 +194,158 @@
                             </div>
 
                         <c:set var="sizeOfList" value="${requestScope.SIZE_OF_LIST}" />
-                        <div class="main-body-aInterAppl__content">
-                            <c:if test="${sizeOfList eq 0}">
-                                <h1 class="text-center" style="margin-top: 20px">
-                                    Not Found
-                                </h1>
-                            </c:if>
-                            <c:if test="${sizeOfList ne 0}">                             
-                            
+                        <div class="main-body-aInterAppl__content">                         
                             <div class="resultpage__header">
                                 Result : ${requestScope.SIZE_OF_LIST}
                             </div>
-
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>NO.</th>
-                                        <th>ID</th>
-                                        <th>Company Name</th>
-                                        <th>Title Job</th>
-                                        <th>Student Applied</th>
-                                        <th>Company Accepted</th>
-                                        <th>School Confirm</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:set var= "listIntern" value="${requestScope.INTERN_APPLICATION}"/>
-                                    <c:forEach var="intern" items="${listIntern}" varStatus="counter">
+                            <c:set var= "listIntern" value="${requestScope.INTERN_APPLICATION}"/>
+                            <c:if test="${not empty listIntern}" >
+                                <table class="table table-bordered table-hover">
+                                    <thead>
                                         <tr>
-                                            <td>${counter.count}</td>
-                                            <td>${intern.student.studentCode}</td>
-                                            <td>${intern.companyPost.company.account.name}</td>
-                                            <td>${intern.companyPost.title_Post}</td>
-
-                                            <c:if test="${intern.studentConfirm eq true}">
-                                                <td class="text-success">
-                                                    <strong>
-                                                        Accepted
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${intern.studentConfirm eq false}">
-                                                <td class="text-danger">
-                                                    <strong>
-                                                        Cancel
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-
-                                            <c:if test="${intern.companyConfirm eq -1}">
-                                                <td class="text-warning">
-                                                    <strong>
-                                                        Waiting
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${intern.companyConfirm eq 0}">
-                                                <td class="text-danger">
-                                                    <strong>
-                                                        Denied
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${intern.companyConfirm eq 1}">
-                                                <td class="text-success">
-                                                    <strong>
-                                                        Accepted
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-
-
-                                            <c:if test="${intern.schoolConfirm eq -1}">
-                                                <td class="text-warning">
-                                                    <strong>
-                                                        Waiting
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${intern.schoolConfirm eq 0}">
-                                                <td class="text-danger">
-                                                    <strong>
-                                                        Denied
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${intern.schoolConfirm eq 1}">
-                                                <td class="text-success">
-                                                    <strong>
-                                                        Accepted
-                                                    </strong>
-                                                </td>
-                                            </c:if>
-                                                
-                                                
-                                                
-                                                
-                                            <c:if test="${intern.schoolConfirm eq 0}">
-                                                <td>
-
-                                                </td>
-                                            </c:if>    
-
-                                            <c:if test="${intern.schoolConfirm eq '-1'}">
-                                                <td>
-                                                    <div class="d-flex justify-content-around">
-                                                        <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
-                                                            <c:param name="page" value="${i}"/>
-                                                            <c:param name="txtStudentID" value="${studentID}"/>
-                                                            <c:param name="txtCompanyID" value="${companyID}"/>
-                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                            <c:param name="btnAction" value="0"/>
-                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                        </c:url>
-                                                        <a href="${urlReject}" class="text-danger">
-                                                            <strong>
-                                                                Reject
-                                                            </strong>
-                                                        </a>
-                                                         <c:url var="urlAccept" value="AdminChangeStatusInternApplicationServlet">
-                                                            <c:param name="page" value="${i}"/>
-                                                            <c:param name="txtStudentID" value="${studentID}"/>
-                                                            <c:param name="txtCompanyID" value="${companyID}"/>
-                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                            <c:param name="btnAction" value="1"/>
-                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                        </c:url>
-                                                        <a href="${urlAccept}" class="text-success">
-                                                            <strong>
-                                                                Accept
-                                                            </strong>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </c:if>
-
-                                            
-                                            <c:if test="${intern.schoolConfirm eq 1}">
-                                                <td>
-
-                                                </td>
-                                            </c:if>
-
+                                            <th>NO.</th>
+                                            <th>ID</th>
+                                            <th>Company Name</th>
+                                            <th>Title Job</th>
+                                            <th>Student Applied</th>
+                                            <th>Company Accepted</th>
+                                            <th>School Confirm</th>
+                                            <th>Action</th>
                                         </tr>
-                                    </c:forEach>      
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
+                                        <c:forEach var="intern" items="${listIntern}" varStatus="counter">
+                                            <tr>
+                                                <td>${counter.count}</td>
+                                                <td>${intern.student.studentCode}</td>
+                                                <td>${intern.companyPost.company.account.name}</td>
+                                                <td>${intern.companyPost.title_Post}</td>
 
-                            </table>
-                        </c:if>
+                                                <c:if test="${intern.studentConfirm eq true}">
+                                                    <td class="text-success">
+                                                        <strong>
+                                                            Accepted
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${intern.studentConfirm eq false}">
+                                                    <td class="text-danger">
+                                                        <strong>
+                                                            Cancel
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+
+                                                <c:if test="${intern.companyConfirm eq -1}">
+                                                    <td class="text-warning">
+                                                        <strong>
+                                                            Waiting
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${intern.companyConfirm eq 0}">
+                                                    <td class="text-danger">
+                                                        <strong>
+                                                            Denied
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${intern.companyConfirm eq 1}">
+                                                    <td class="text-success">
+                                                        <strong>
+                                                            Accepted
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+
+
+                                                <c:if test="${intern.schoolConfirm eq 1}">
+                                                    <td class="text-warning">
+                                                        <strong>
+                                                            Waiting
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${intern.schoolConfirm eq -1}">
+                                                    <td class="text-danger">
+                                                        <strong>
+                                                            Denied
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${intern.schoolConfirm eq 1}">
+                                                    <td class="text-success">
+                                                        <strong>
+                                                            Accepted
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+
+
+
+
+                                                <c:if test="${intern.schoolConfirm eq 0}">
+                                                    <td>
+
+                                                    </td>
+                                                </c:if>    
+
+                                                <c:if test="${intern.schoolConfirm eq '-1'}">
+                                                    <td>
+                                                        <div class="d-flex justify-content-around">
+                                                            <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
+                                                                <c:param name="page" value="${i}"/>
+                                                                <c:param name="txtStudentID" value="${studentID}"/>
+                                                                <c:param name="txtCompanyID" value="${companyID}"/>
+                                                                <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                                <c:param name="txtTitleJob" value="${titleJob}"/>
+                                                                <c:param name="btnAction" value="0"/>
+                                                                <c:param name="txtApplicationID" value="${intern.applicationID}"/>
+                                                            </c:url>
+                                                            <a href="${urlReject}" class="text-danger">
+                                                                <strong>
+                                                                    Reject
+                                                                </strong>
+                                                            </a>
+                                                            <c:url var="urlAccept" value="AdminChangeStatusInternApplicationServlet">
+                                                                <c:param name="page" value="${i}"/>
+                                                                <c:param name="txtStudentID" value="${studentID}"/>
+                                                                <c:param name="txtCompanyID" value="${companyID}"/>
+                                                                <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                                <c:param name="txtTitleJob" value="${titleJob}"/>
+                                                                <c:param name="btnAction" value="1"/>
+                                                                <c:param name="txtApplicationID" value="${intern.applicationID}"/>
+                                                            </c:url>
+                                                            <a href="${urlAccept}" class="text-success">
+                                                                <strong>
+                                                                    Accept
+                                                                </strong>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </c:if>
+
+
+                                                <c:if test="${intern.schoolConfirm eq 1}">
+                                                    <td>
+
+                                                    </td>
+                                                </c:if>
+
+                                            </tr>
+                                        </c:forEach>      
+
+                                    </tbody>
+
+                                </table>
+
+                            </c:if>
+                            <c:if test="${empty listIntern}">
+                                <h3 class="text-center" style="margin-top: 20px">
+                                    Internship Application List does not has any result!
+                                </h3>
+                            </c:if>
                         </div>
 
 

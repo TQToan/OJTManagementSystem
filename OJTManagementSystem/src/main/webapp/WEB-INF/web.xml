@@ -196,7 +196,23 @@
         <servlet-name>CompanyUpdateInternsServlet</servlet-name>
         <servlet-class>com.se1625.controller.CompanyUpdateInternsServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
+        <servlet-name>ShowCompanyDashBoardServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowCompanyDashBoardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateNewCompanyPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CreateNewCompanyPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCreateNewCompanyPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.ShowCreateNewCompanyPostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyViewPostDetailServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanyViewPostDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CompanyShowProfileServlet</servlet-name>
         <servlet-class>com.se1625.controller.CompanyShowProfileServlet</servlet-class>
     </servlet>
@@ -209,8 +225,8 @@
         <servlet-class>com.se1625.controller.CompanyShowPostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CompanySearchServlet</servlet-name>
-        <servlet-class>com.se1625.controller.CompanySearchServlet</servlet-class>
+        <servlet-name>CompanySearchPostServlet</servlet-name>
+        <servlet-class>com.se1625.controller.CompanySearchPostServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CompanyUpdatePostServlet</servlet-name>
@@ -369,6 +385,22 @@
         <url-pattern>/AddminCompanyManagerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ShowCompanyDashBoardServlet</servlet-name>
+        <url-pattern>/ShowCompanyDashBoardServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateNewCompanyPostServlet</servlet-name>
+        <url-pattern>/CreateNewCompanyPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCreateNewCompanyPostServlet</servlet-name>
+        <url-pattern>/ShowCreateNewCompanyPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyViewPostDetailServlet</servlet-name>
+        <url-pattern>/CompanyViewPostDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CompanyShowIntershipApplicationServlet</servlet-name>
         <url-pattern>/CompanyShowIntershipApplicationServlet</url-pattern>
     </servlet-mapping>
@@ -409,8 +441,8 @@
         <url-pattern>/CompanyShowPostServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CompanySearchServlet</servlet-name>
-        <url-pattern>/CompanySearchServlet</url-pattern>
+        <servlet-name>CompanySearchPostServlet</servlet-name>
+        <url-pattern>/CompanySearchPostServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CompanyUpdatePostServlet</servlet-name>

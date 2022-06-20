@@ -129,19 +129,26 @@
                     <div class="main-body-cPostEdit__header">
                         Company Post*
                     </div>
-                    <form action="">
+                    <form action="" method="POST">
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="titlePost">Title Post</label>
-                            <input type="text" class="col-8 cPostEdit--input " name="" id="titlePost"
-                                value="FPT Software">
+                            <input type="text" class="col-8 cPostEdit--input " name="txtTitlePost" id="titlePost"
+                                value="" />
                                 <h5 class="text-danger offset-4 col-8 text-start ">
                                     your error
                                 </h5>
                         </div>
 
                         <div class="cPostEdit__input row">
+                            <label class="col-4 cPostEdit--label" for="vacancy">Vacancy</label>
+                            <input type="text" class="col-8 cPostEdit--input " name="txtVacancy" id="vacancy" value="" />
+                            <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+                        <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="major">Major</label>
-                            <input type="text" class="col-8 cPostEdit--input " name="" id="major" value="">
+                            <input type="text" class="col-8 cPostEdit--input " name="txtMajor" id="major" value="" />
                             <h5 class="text-danger offset-4 col-8 text-start ">
                                 your error
                             </h5>
@@ -149,7 +156,7 @@
 
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="quantity">Quantity Interns</label>
-                            <input type="text" class="col-8 cPostEdit--input " name="" id="quantity" value="">
+                            <input type="number" min="0" class="col-8 cPostEdit--input " name="txtQuantity" id="quantity" value="" />
                             <h5 class="text-danger offset-4 col-8 text-start ">
                                 your error
                             </h5>
@@ -157,7 +164,7 @@
 
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="date">Expiration Date</label>
-                            <input type="text" class="col-8 cPostEdit--input " name="" id="date" value="">
+                            <input type="date" class="col-8 cPostEdit--input " name="txtExoirationDate" id="date" value="" />
                             <h5 class="text-danger offset-4 col-8 text-start ">
                                 your error
                             </h5>
@@ -167,9 +174,9 @@
                             <select id="city" name="city" class="col-8 cPostEdit--input ">
                                 <option value="" selected disabled></option>
                                 <option value="TP.HCM">TP.HCM</option>
-                                <option value="Dong Nai">Dong Nai</option>
-                                <option value="Tay Ninh">Tay Ninh</option>
-                                <option value="Binh Duong">Binh Duong</option>
+                                <option value="Đồng Nai">Đồng Nai</option>
+                                <option value="Tây Ninh">Tây Ninh</option>
+                                <option value="Bình Dương">Bình Dương</option>
                             </select>
                             <h5 class="text-danger offset-4 col-8 text-start ">
                                 your error
@@ -177,7 +184,7 @@
                         </div>
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="descript">Job Description</label>
-                            <textarea name="" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
+                            <textarea name="txtJobDescription" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
                                 cols="30" rows="4"></textarea>
                                 <h5 class="text-danger  text-start ">
                                     your error
@@ -185,7 +192,7 @@
                         </div>
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="requirements">Job Requirements</label>
-                            <textarea name="" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="requirements"
+                            <textarea name="txtRequirement" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="requirements"
                                 cols="30" rows="4"></textarea>
                                 <h5 class="text-danger  text-start ">
                                     your error
@@ -193,7 +200,7 @@
                         </div>
                         <div class="cPostEdit__input row">
                             <label class="col-4 cPostEdit--label" for="remuneration">Remuneration</label>
-                            <textarea name="" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="remuneration"
+                            <textarea name="txtRemuneration" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="remuneration"
                                 cols="30" rows="4"></textarea>
                                 <h5 class="text-danger text-start ">
                                     your error
@@ -202,7 +209,7 @@
 
                         <div class="cPostEdit-edit-btn primary-btn">
                             <i class="fas fa-edit"></i>
-                            <input type="submit" class="cPostEdit-edit--input " value="Edit">
+                            <input type="submit" class="cPostEdit-edit--input " name="btAction" value="Post" />
                         </div>
                     </form>
                 </div>

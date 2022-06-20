@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThanhTy
  */
-public class CompanySearchServlet extends HttpServlet {
+public class CompanySearchPostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,7 +63,7 @@ public class CompanySearchServlet extends HttpServlet {
         //URL
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.SearchStudentAppliedJobFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.CompanyFeatures.LOGIN_PAGE;
         //Lay session
         HttpSession session = request.getSession(false);
         try {
@@ -78,11 +78,19 @@ public class CompanySearchServlet extends HttpServlet {
 
                     url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
 
-                    int idMajor;
-                    if (majorID.isEmpty()) {
-                        idMajor = 0;
-                    } else {
-                        idMajor = Integer.parseInt(majorID);
+                    int idMajor = 0;
+                    if (majorID != null) {
+                        if (majorID.trim().isEmpty()) {
+                            idMajor = 0;
+                        } else {
+                            idMajor = Integer.parseInt(majorID);
+                        }
+                    }
+                    if (tittle_Post == null) {
+                        tittle_Post = "";
+                    }
+                    if (nameStatus == null) {
+                        nameStatus = "";
                     }
 
                     companyPostDAO.searchPostByFilterAsCompanyRole(companyID, tittle_Post, idMajor, nameStatus);

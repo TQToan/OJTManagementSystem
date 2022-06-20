@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 public class CompanyPostDetailError implements Serializable{
+    private String vacancyLengthError;
     private String quantitytInternsNotEngough;
     private String expirationDateError;
     private String expirationDateEmptyError;
@@ -23,7 +24,7 @@ public class CompanyPostDetailError implements Serializable{
     public CompanyPostDetailError() {
     }
 
-    public CompanyPostDetailError(String quantitytInternsNotEngough, String expirationDateError, String expirationDateEmptyError, String titlePostLenghtError, String descriptionLenghtError, String requirementLenghtError, String remunerationLenghtError) {
+    public CompanyPostDetailError(String quantitytInternsNotEngough, String expirationDateError, String expirationDateEmptyError, String titlePostLenghtError, String descriptionLenghtError, String requirementLenghtError, String remunerationLenghtError, String vacancyLengthError) {
         this.quantitytInternsNotEngough = quantitytInternsNotEngough;
         this.expirationDateError = expirationDateError;
         this.expirationDateEmptyError = expirationDateEmptyError;
@@ -31,6 +32,7 @@ public class CompanyPostDetailError implements Serializable{
         this.descriptionLenghtError = descriptionLenghtError;
         this.requirementLenghtError = requirementLenghtError;
         this.remunerationLenghtError = remunerationLenghtError;
+        this.vacancyLengthError = vacancyLengthError;
     }
 
     /**
@@ -131,5 +133,11 @@ public class CompanyPostDetailError implements Serializable{
         this.remunerationLenghtError = remunerationLenghtError;
     }
 
-    
+    public String getVacancyLengthError() {
+        return vacancyLengthError;
+    }
+
+    public void setVacancyLengthError(String vacancyLengthError) {
+        this.vacancyLengthError = vacancyLengthError;
+    }
 }

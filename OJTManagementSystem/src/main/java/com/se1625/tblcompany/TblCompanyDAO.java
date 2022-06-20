@@ -473,4 +473,51 @@ public class TblCompanyDAO implements Serializable {
         }
         return false;
     }
+
+    public TblCompanyDTO getCompanyInformation(String email) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblCompanyDTO company = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT companyID, acc.avatar , address, city, phone, company_Description, is_Signed, com.username "
+                        + "FROM tblCompany AS com INNER JOIN tblAccount AS acc ON (com.username = acc.username) "
+                        + "WHERE com.username = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String companyID = rs.getString("companyID");
+                    String address = rs.getNString("address");
+                    String city = rs.getNString("city");
+                    String phone = rs.getString("phone");
+                    String company_Description = rs.getNString("company_Description");
+                    boolean is_Signed = rs.getBoolean("is_Signed");
+                    String username = rs.getString("username");
+                    
+                    TblAccountDAO accountDAO = new TblAccountDAO();
+                    TblAccountDTO companyAccount = accountDAO.getAccount(username);
+                    
+                    company = new TblCompanyDTO(companyID, address, city, phone,
+                            company_Description, is_Signed, companyAccount);
+                    
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return company;
+    }
 }

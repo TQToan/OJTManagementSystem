@@ -125,8 +125,6 @@ public class ReviewInternShipServlet extends HttpServlet {
             log("ReviewInternShipServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("ReviewInternShipServlet_SQLException " + ex.getMessage());
-        } finally {
-
         }
     }
 

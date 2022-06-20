@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +27,58 @@
     <body>
         <header></header>
         <c:set var="company" value="${sessionScope.COMPANY_ROLE_INFO}"/>
+        <div class="navbar navbar-expand-md navbar-sm-cus ">
+            <a href="#" class="header__logo ">
+                <img src="./assets/img/logo.png" alt="" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <i class="fa-solid fa-bars nav__respo--btn"></i>
+            </button>
+            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
+                    <i class="fas fa-user-circle nav__infor--icon"></i>
+                    ${company.account.name}
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
+                            <i class="fas fa-palette "></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
+                            <i class="fas fa-user-edit"></i>
+                            My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item nav__items">
+                        <a href="CompanyShowPostController" class="nav__item--link">
+                            <i class="fas fa-pen"></i>
+                            My Posts
+                        </a>
+                    </li>
+                    <li class="nav-item nav__items">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
+                            <i class="fas fa-poll-h"></i>
+                            Interns Management
+                        </a>
+                    </li>
+                    <li class="nav-item nav__items">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
+                            <i class="fas fa-poll-h"></i>
+                            Internship Application
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logoutController" class="nav__item--link">
+                            <i class="fas fa-power-off"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="CompanyShowProfileController" class="nav__logo ">
@@ -38,7 +91,7 @@
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
@@ -56,13 +109,13 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
@@ -83,7 +136,7 @@
                             Post Management
                         </div>
                         <div class="main-body-cPostManage__create">
-                            <a href="companyPostEdit.html" class="main-body-cPostManage__create-btn">
+                            <a href="companyCreateNewPostPage" class="main-body-cPostManage__create-btn">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </a>
@@ -91,7 +144,7 @@
 
 
                         <div class="main-body-cPostManage__search">
-                            <form action="CompanySearchController">
+                            <form action="CompanySearchPostController">
 
                                 <div class="row">
                                     <input type="hidden" name="companyID" value="${company.companyID}"/>
@@ -160,10 +213,10 @@
                                             <tr>
                                                 <td>${counter.count}</td>
                                                 <td>
-                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}">${post.title_Post}</a>
+                                                    <a href="CompanyViewPostDetailController?postID=${post.postID}">${post.title_Post}</a>
                                                 </td>
-                                                <td>${post.postingDate}</td>
-                                                <td>${post.expirationDate}</td>
+                                                <td>${my:changeDateFormat(post.postingDate)}</td>
+                                                <td>${my:changeDateFormat(post.expirationDate)}</td>
                                                 <td>${post.major.majorName}</td>
                                                 <c:if test="${post.statusPost eq 0}">
                                                     <td class="text-muted">

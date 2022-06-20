@@ -57,18 +57,22 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
             if (session != null) {
                 TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
                 if (accountDTO != null) {
-                    
+
                     //convert data type
                     int companyPostID = Integer.parseInt(companyPostIDString);
-                    int companyConfirm = 1;
-                    if (companyConfirmString.equals("Reject")) {
+                    int companyConfirm = -2;
+                    if (companyConfirmString.equals("Interview")) {
+                        companyConfirm = 2;
+                    } else if (companyConfirmString.equals("Accept")) {
+                        companyConfirm = 1;
+                    } else if(companyConfirmString.equals("Reject")){
                         companyConfirm = -1;
                     }
                     //get quantityInterns of company
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                     TblCompany_PostDTO companyPostDTO = companyPostDAO.getCompanyPost(companyPostID);
                     int quantityIterns = companyPostDTO.getQuantityIterns();
-                    
+
                     if (quantityIterns <= 0 && companyConfirm == 1) {
                         CompanyPostDetailError error = new CompanyPostDetailError();
                         error.setQuantitytInternsNotEngough("The number of applications is enough");

@@ -1,11 +1,12 @@
 <%-- 
     Document   : companyPostEdit
-    Created on : Jun 15, 2022, 4:12:18 PM
-    Author     : ThanhTy
+    Created on : Jun 15, 2022, 8:37:36 PM
+    Author     : Thai Quoc Toan <toantqse151272@fpt.edu.vn>
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
-
+    <body>
     <body>
         <header></header>
             <c:set var="company" value="${sessionScope.COMPANY_ROLE_INFO}"/>
@@ -43,13 +44,13 @@
                 </a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="companyProfile.html" class="nav__item--link">
+                        <a href="CompanyShowProfileController" class="nav__item--link">
                             <i class="fas fa-user-edit"></i>
                             My Profile
                         </a>
@@ -61,19 +62,19 @@
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav-item nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav__item--link">
+                        <a href="logoutController" class="nav__item--link">
                             <i class="fas fa-power-off"></i>
                             Logout
                         </a>
@@ -85,7 +86,7 @@
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="CompanyShowProfileController" class="nav__logo ">
+                <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
                 <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
@@ -95,7 +96,7 @@
 
                 <ul class="nav__content">
                     <li class="nav__items">
-                        <a href="companyDashboard.html" class="nav__item--link">
+                        <a href="ShowCompanyDashBoardController" class="nav__item--link">
                             <i class="fas fa-palette "></i>
                             Dashboard
                         </a>
@@ -113,13 +114,13 @@
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyInternsManage.html" class="nav__item--link">
+                        <a href="CompanyShowInternsManagermentController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Interns Management
                         </a>
                     </li>
                     <li class="nav__items">
-                        <a href="companyApplManage.html" class="nav__item--link">
+                        <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
                             <i class="fas fa-poll-h"></i>
                             Internship Application
                         </a>
@@ -134,12 +135,11 @@
 
             </nav>
             <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
-                
                 <div class="row">
                     <div class="main-body-cPostEdit offset-xl-3 col-xl-6 offset-2 col-8">
                         <div class="main-body-cPostEdit__header">
                             Company Post*
-                            
+
                         </div>
                         <form action="CompanyUpdatePostController" method="POST">
                             <input type="hidden" name="postID" value="${companyPost.postID}" />
@@ -165,7 +165,16 @@
                                     </c:forEach>
                                 </select>
                             </div>
-
+                            <div class="cPostEdit__input row">
+                                <label class="col-4 cPostEdit--label" for="quantity">Vacancy</label>
+                                <input type="text" class="col-8 cPostEdit--input " name="vacancy" id="quantity" value="${companyPost.vacancy}">
+                                <h5 class="text-danger offset-4 col-8 text-start ">
+                                    <c:if test="${not empty errors}">
+                                        ${errors.vacancyLengthError}
+                                    </c:if>
+                                </h5>
+                            </div>
+                                
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="quantity">Quantity Interns</label>
                                 <input type="text" class="col-8 cPostEdit--input " name="quantityIterns" id="quantity" value="${companyPost.quantityIterns}">
@@ -178,7 +187,7 @@
 
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="date">Expiration Date</label>
-                                <input type="text" class="col-8 cPostEdit--input " name="expirationDate" id="date" value="${companyPost.expirationDate}">
+                                <input type="date" class="col-8 cPostEdit--input " name="expirationDate" id="date" value="${companyPost.expirationDate}">
                                 <h5 class="text-danger offset-4 col-8 text-start ">
                                     <c:if test="${not empty errors}">
                                         <%--${errors.expirationDateError}--%>
@@ -190,19 +199,19 @@
                                 <label class="col-4 cPostEdit--label" for="city">Work Location</label>
                                 <select id="city" name="workLocation" class="col-8 cPostEdit--input ">
                                     <option value="" selected disabled>City</option>
-                                    
+
                                     <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'TP.HCM'}">
-                                                selected="selected"
-                                            </c:if>>TP.HCM</option>
-                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Dong Nai'}">
-                                                selected="selected"
-                                            </c:if>>Dong Nai</option>
-                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Tay Ninh'}">
-                                                selected="selected"
-                                            </c:if>>Tay Ninh</option>
-                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Binh Duong'}">
-                                                selected="selected"
-                                            </c:if>>Binh Duong</option>
+                                            selected="selected"
+                                        </c:if>>TP.HCM</option>
+                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Đồng Nai'}">
+                                            selected="selected"
+                                        </c:if>>Đồng Nai</option>
+                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Tây Ninh'}">
+                                            selected="selected"
+                                        </c:if>>Tây Ninh</option>
+                                    <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'Bình Dương'}">
+                                            selected="selected"
+                                        </c:if>>Bình Dương</option>
                                 </select>
                             </div>
                             <div class="cPostEdit__input row">
@@ -235,10 +244,10 @@
                                     </c:if>
                                 </h5>
                             </div>
-
-                            <div class="cPostEdit-edit-btn primary-btn">
+                                <div class="cPostEdit-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
-                                <input type="submit" class="cPostEdit-edit--input " value="Edit">
+                                <label for="btaction"></label>
+                                <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Edit" />
                             </div>
                         </form>
                     </div>
@@ -254,5 +263,4 @@
         </footer>
 
     </body>
-
 </html>

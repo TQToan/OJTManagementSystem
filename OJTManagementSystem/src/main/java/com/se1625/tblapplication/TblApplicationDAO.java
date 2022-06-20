@@ -11,6 +11,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.DBHelper;
@@ -158,7 +160,7 @@ public class TblApplicationDAO implements Serializable {
                     int applicationID = rs.getInt("applicationID");
                     int isPass = rs.getInt("is_Pass");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                     TblApplicationDTO application = new TblApplicationDTO();
@@ -195,7 +197,7 @@ public class TblApplicationDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass "
+                String sql = "SELECT studentCode, postID, grade, evaluation, applicationID, is_Pass, semesterID "
                         + "FROM tblApplication "
                         + "WHERE student_Confirm = ? and school_Confirm = ? "
                         + "and company_Confirm = ? and studentCode = ? ";
@@ -210,20 +212,26 @@ public class TblApplicationDAO implements Serializable {
                     float grade = rs.getFloat("grade");
                     String evaluation = rs.getNString("evaluation");
                     int applicationID = rs.getInt("applicationID");
+                    //boolean isPass = rs.getBoolean("is_Pass");
+                    int semesterID = rs.getInt("semesterID");
                     int isPass = rs.getInt("is_Pass");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
-                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    if (semesterID == currentSemester.getSemesterID()) {
+                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
-                    TblApplicationDTO application = new TblApplicationDTO();
-                    application.setApplicationID(applicationID);
-                    application.setEvaluation(evaluation);
-                    application.setIsPass(isPass);
-                    application.setCompanyPost(companyPost);
-                    application.setStudent(student);
-                    application.setGrade(grade);
+                        TblApplicationDTO application = new TblApplicationDTO();
+                        application.setApplicationID(applicationID);
+                        application.setEvaluation(evaluation);
+                        application.setIsPass(isPass);
+                        application.setCompanyPost(companyPost);
+                        application.setStudent(student);
+                        application.setGrade(grade);
 
-                    return application;
+                        return application;
+                    }
                 }
             }
         } finally {
@@ -420,7 +428,7 @@ public class TblApplicationDAO implements Serializable {
                     int schoolConfirm = rs.getInt("school_Confirm");
                     int company_Confirm = rs.getInt("company_Confirm");
 
-                    TblStudentDTO student = studentDAO.getStudent(studentCode);
+                    TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                     TblApplicationDTO application = new TblApplicationDTO();
@@ -1175,7 +1183,7 @@ public class TblApplicationDAO implements Serializable {
                         application.setTechnology(technology);
 
                         TblStudentDAO studentDAO = new TblStudentDAO();
-                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
                         application.setStudent(student);
 
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
@@ -1504,7 +1512,7 @@ public class TblApplicationDAO implements Serializable {
                     application.setTechnology(technology);
 
                     TblStudentDAO studentDAO = new TblStudentDAO();
-                    TblStudentDTO student = studentDAO.getStudentInformation(student_Code);
+                    TblStudentDTO student = studentDAO.getStudentInfor(student_Code);
                     application.setStudent(student);
 
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
@@ -1537,7 +1545,7 @@ public class TblApplicationDAO implements Serializable {
     }
 
     //get Application of Company by email
-    public List<TblApplicationDTO> getApplicationByEmail(String email, int companyConfirm) throws NamingException, SQLException {
+    public List<TblApplicationDTO> getApplicationByEmail(String email, int companyConfirm, int currentSemester) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -1551,19 +1559,21 @@ public class TblApplicationDAO implements Serializable {
                     + "INNER JOIN tblCompany_Post as cp ON (app.postID = cp.postID) "
                     + "INNER JOIN tblCompany as com ON (cp.companyID = com.companyID) "
                     + "INNER JOIN tblAccount as ac ON (com.username = ac.username) "
-                    + "Where ac.username = ? AND app.student_Confirm = ? AND app.school_Confirm = ? ";
-            if (companyConfirm == -2) {
+                    + "Where ac.username = ? AND app.student_Confirm = ? AND app.school_Confirm = ? AND semesterID = ? ";
+            if (companyConfirm == -3) {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
-                stm.setInt(2, 1);
+                stm.setBoolean(2, true);
                 stm.setInt(3, 1);
+                stm.setInt(4, currentSemester);
             } else {
                 sql += "AND app.company_Confirm = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
-                stm.setInt(2, 1);
+                stm.setBoolean(2, true);
                 stm.setInt(3, 1);
-                stm.setInt(4, companyConfirm);
+                stm.setInt(4, currentSemester);
+                stm.setInt(5, companyConfirm);
             }
             rs = stm.executeQuery();
 
@@ -1584,7 +1594,6 @@ public class TblApplicationDAO implements Serializable {
                 //get Student
                 TblStudentDAO studentDAO = new TblStudentDAO();
                 TblStudentDTO studentDTO = studentDAO.getStudentInformation(studentCode);
-
                 //get Company post
                 TblCompany_PostDAO company_postDAO = new TblCompany_PostDAO();
                 TblCompany_PostDTO company_postDTO = company_postDAO.getCompanyPost(postID);
@@ -1629,8 +1638,12 @@ public class TblApplicationDAO implements Serializable {
             stm.setInt(1, companyConfirm);
             stm.setString(2, studentCode);
             stm.setInt(3, companyPostID);
-            stm.setInt(4, 0);
-
+            if(companyConfirm == 1 || companyConfirm == -1){
+                stm.setInt(4, 2);
+            }else if(companyConfirm == 2 || companyConfirm == -2){
+                stm.setInt(4, 0);
+            }
+            
             int effectRows = stm.executeUpdate();
             if (effectRows > 0) {
                 return true;
