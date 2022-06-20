@@ -16,18 +16,12 @@
 
     <body>
         <header></header>
-            <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
-        <div class="navbar navbar-expand-md navbar-sm-cus ">
-            <a href="#" class="header__logo ">
-                <img src="./assets/img/logo.png" alt="" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fa-solid fa-bars nav__respo--btn"></i>
-            </button>
-            <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
-                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
-                    <i class="fas fa-user-circle nav__infor--icon"></i>
-                    ${company.name}
+        <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
+        
+         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <div class="container-fluid">
+                <a href="ShowCompanyDashBoardController" class="header__logo ">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

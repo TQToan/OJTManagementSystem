@@ -261,7 +261,6 @@
                                                     </td>
                                                 </c:if>
 
- 
                                                 <c:if test="${intern.schoolConfirm eq 0}">
                                                     <td class="text-warning">
                                                         <strong>
