@@ -250,10 +250,7 @@
                                     </c:if>
                                 </h5>
                             </div>
-<<<<<<< HEAD
                             <input type="hidden" name="statusPost" value="${companyPost.statusPost}" />
-=======
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                             <div class="cPostEdit-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 <label for="btaction"></label>
@@ -272,13 +269,10 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<<<<<<< HEAD
-=======
         <script>
             CKEDITOR.replace('requirements');
             CKEDITOR.replace('remuneration');
             CKEDITOR.replace('descript');
         </script>
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
     </body>
 </html>

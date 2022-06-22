@@ -103,7 +103,7 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
-<<<<<<< HEAD
+
                                 <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
 =======
                                 <c:url var="urlSaveJob" value="StudentSaveJobController" >
@@ -136,19 +136,6 @@
                                     <%--<a href="${urlSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn"></i>
                                     </a>--%>
-=======
-                                </c:url>
-                                <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
-                                <c:if test="${statusFollowing eq true}">
-                                    <a href="${urlUnSaveJob}">
-                                        <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                    </a>
-                                </c:if>
-                                <c:if test="${statusFollowing eq false}">
-                                    <a href="${urlSaveJob}">
-                                        <i class="far fa-heart card-company-btn-save save-btn"></i>
-                                    </a>
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                 </c:if>
                             </div>
                         </div>

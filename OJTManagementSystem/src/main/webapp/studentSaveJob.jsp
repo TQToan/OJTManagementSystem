@@ -230,7 +230,6 @@
                                                 <td>${my:changeDateFormat(post.exprirationDate)}</td>
 
                                                 <td>
-<<<<<<< HEAD
                                                     <%--<c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
                                                         <c:param name="postID" value="${post.postID}"/>
                                                     </c:url>
@@ -245,19 +244,10 @@
                                                          <input type="hidden" name="studentCode" value="${student1.getStudentCode()}" />
                                                          <input type="submit" value="Delete" class="far fa-heart save-btn save-btn-active" />
                                                          </form>--%>
-=======
-<!--                                                    <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
-                                                        <c:param name="postID" value="${post.postID}"/>
-                                                    </c:url>
-                                                    <a href="${urlDeleteSaveJob}"  >
-                                                        Unsave
-                                                    </a>-->
-
                                                     <form action="StudentDeleteSaveJobController" method="Post">
                                                         <input type="hidden" name="postID" value="${post.postID}" />
                                                         <input type="submit" value="Unsave" class="btn-regular-red" />
                                                     </form>
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                                 </td>
                                             </tr>
                                         </c:forEach>

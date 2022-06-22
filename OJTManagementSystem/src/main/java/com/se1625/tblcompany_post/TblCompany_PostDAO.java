@@ -1190,7 +1190,7 @@ public class TblCompany_PostDAO implements Serializable {
 
     public boolean updateCompanyPostAsCompany(int postID, String tilte_Post, int majorID,
             int quantityInterns, Date expirationDate, String workLocation, String job_Description,
-            String job_Requirement, String remuneration, boolean school_confirm, int statusPost) throws SQLException, NamingException {
+            String job_Requirement, String remuneration, String vacancy, boolean school_confirm, int statusPost) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -1199,7 +1199,7 @@ public class TblCompany_PostDAO implements Serializable {
             if (con != null) {
                 String sql = "UPDATE tblCompany_Post "
                         + "set title_Post = ?, majorID = ?, quantityInterns = ?, expirationDate = ?, workLocation = ?, "
-                        + "job_Description = ?, job_Requirement = ?, remuneration = ? , school_confirm = ? , statusPost = ? "
+                        + "job_Description = ?, job_Requirement = ?, remuneration = ? , vacancy = ?, school_confirm = ? , statusPost = ? "
                         + "WHERE postID = ?";
                 stm = con.prepareStatement(sql);
                 stm.setNString(1, tilte_Post);
@@ -1210,20 +1210,21 @@ public class TblCompany_PostDAO implements Serializable {
                 stm.setNString(6, job_Description);
                 stm.setNString(7, job_Requirement);
                 stm.setNString(8, remuneration);
+                stm.setNString(9, vacancy);
                 LocalDate timeDay = LocalDate.now();
                 DateTimeFormatter dayFormat
                         = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 // convert String to date type
                 java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
                 if (quantityInterns == 0 || expirationDate.before(currentDate)) {
-                    stm.setBoolean(9, false);
-                    stm.setInt(10, 3);
+                    stm.setBoolean(10, false);
+                    stm.setInt(11, 3);
                 } else {
-                    stm.setBoolean(9, false);
-                    stm.setInt(10, 1);
+                    stm.setBoolean(10, false);
+                    stm.setInt(11, 1);
                 }
 
-                stm.setInt(11, postID);
+                stm.setInt(12, postID);
 
                 int effectRows = stm.executeUpdate();
 

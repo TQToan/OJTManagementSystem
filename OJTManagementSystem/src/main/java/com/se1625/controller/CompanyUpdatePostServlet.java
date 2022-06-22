@@ -148,7 +148,7 @@ public class CompanyUpdatePostServlet extends HttpServlet {
                         rd.forward(request, response);
                     } else {
                         boolean resultUpdatePost = companyPostDAO.updateCompanyPostAsCompany(postID, title_Post, majorID, quantityIterns,
-                                expDate, workLocation, job_Description, job_Requirement, remuneration, school_confirm, statusPost);
+                                expDate, workLocation, job_Description, job_Requirement, remuneration, vacancy, school_confirm, statusPost);
                         if (resultUpdatePost) {
                             url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_SHOW_POST_CONTROLLER);
                             response.sendRedirect(url);

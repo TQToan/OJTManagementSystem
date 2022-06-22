@@ -144,7 +144,7 @@
                         <div class="main-body-aPostManage__search">
                             <form action="AdminSearchCompanyPostController" method="POST">
                                 <div class="row">
-                                    
+
                                     <div class="col-2">
                                         <c:set var="currentSemester" value="${requestScope.CURRENT_SEMESTER}"/>
                                         <c:set var="nowSemester" value="${requestScope.NOW_SEMESTER}"/>
@@ -160,7 +160,7 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="col-3">
                                         <input type="text" name="txtTitle" value="${param.txtTitle}" placeholder="Title" class="admin--input">
                                     </div>
@@ -266,52 +266,12 @@
                                                 <td>
                                                     <c:set var="listCompanyPost" value="${requestScope.COMPANY_POST_LIST}"/>
                                                     <c:set var="statusAcceptCompanyPost" value="${my:getStatusAcceptCompanyPost(listCompanyPost, post.postID)}"/>
-<<<<<<< HEAD
-                                                    <c:if test="${post.statusPost eq 1}">
-                                                        <form action="AdminUpdatePostController" method="POST">
-                                                            <div>
-                                                                <input type="hidden" name="save" value="adminPostManagePage" />
-                                                                <input type="hidden" name="school_confirm" value="true" />
-                                                                <input type="hidden" name="statusPost" value="2" />
-                                                                <input type="hidden" name="postID" value="${post.postID}" />
-                                                                <input type="hidden" name="page" value="${requestScope.page}"/>
-                                                                <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
-                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                <input type="submit" value="Accept" class="" 
-                                                                       <c:if test="${post.statusPost ne 1}">
-                                                                           hidden
-                                                                       </c:if>/>
-                                                            </div>
-                                                        </form>
-                                                    </c:if>
-
-                                                    <c:if test="${post.statusPost eq 1}">
-                                                        <form action="AdminUpdatePostController" method="POST">    
-                                                            <div>
-                                                                <input type="hidden" name="save" value="adminPostManagePage" />
-                                                                <input type="hidden" name="school_confirm" value="false" />
-                                                                <input type="hidden" name="statusPost" value="0" />
-                                                                <input type="hidden" name="postID" value="${post.postID}" />
-                                                                <input type="hidden" name="page" value="${requestScope.page}"/>
-                                                                <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
-                                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                <input type="submit" value="Reject" class=""
-                                                                       <c:if test="${post.statusPost ne 1}">
-                                                                           hidden
-                                                                       </c:if>/>
-                                                            </div>
-                                                        </form>
-                                                    </c:if>
-=======
+                                                    
                                                     <div class="row">
 
-                                                        
-                                                            <c:if test="${statusAcceptCompanyPost eq false or post.statusPost eq 1}">
-                                                                <div class=" col">
+
+                                                        <c:if test="${post.statusPost eq 1}">
+                                                            <div class=" col">
                                                                 <form action="AdminUpdatePostController" method="POST">
                                                                     <div>
                                                                         <input type="hidden" name="save" value="adminPostManagePage" />
@@ -319,21 +279,22 @@
                                                                         <input type="hidden" name="statusPost" value="2" />
                                                                         <input type="hidden" name="postID" value="${post.postID}" />
                                                                         <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
                                                                         <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                                                         <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                                         <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                                         <input type="submit" value="Accept" class="btn-regular-green" 
-                                                                               <c:if test="${post.statusPost eq 3}">
+                                                                               <c:if test="${post.statusPost ne 1}">
                                                                                    hidden
                                                                                </c:if>/>
                                                                     </div>
                                                                 </form>
-                                                                         </div>
-                                                            </c:if>
-                                                       
-                                                        
-                                                            <c:if test="${statusAcceptCompanyPost eq true or post.statusPost eq 1}">
-                                                                <div class=" col">
+                                                            </div>
+                                                        </c:if>
+
+
+                                                        <c:if test="${post.statusPost eq 1}">
+                                                            <div class=" col">
                                                                 <form action="AdminUpdatePostController" method="POST">    
                                                                     <div>
                                                                         <input type="hidden" name="save" value="adminPostManagePage" />
@@ -341,41 +302,19 @@
                                                                         <input type="hidden" name="statusPost" value="0" />
                                                                         <input type="hidden" name="postID" value="${post.postID}" />
                                                                         <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
                                                                         <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                                                         <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                                         <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                                         <input type="submit" value="Reject" class="btn-regular-red"
-                                                                               <c:if test="${post.statusPost eq 3}">
+                                                                               <c:if test="${post.statusPost ne 1}">
                                                                                    hidden
                                                                                </c:if>/>
                                                                     </div>
                                                                 </form>
-                                                                        </div>
-                                                            </c:if>
-                                                        
-
+                                                            </div>
+                                                        </c:if>
                                                     </div>
-
-                                                    <%--<c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 2}">
-                                                        autocomplete="off" hidden 
-                                                    </c:if> 
-                                                    
-                                                    <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 1}">
-                                                                           autocomplete="off" hidden 
-                                                                       </c:if> 
-                                                    
-                                                    --%>
-
-
-                                                    <%--<form action="AdminViewPostDetailController">
-                                                        <input type="hidden" name="postID" value="${post.postID}" />
-                                                        <input type="hidden" name="school_confirm" value="${post.school_confirm}" />
-                                                        <input type="hidden" name="statusPost" value="${post.statusPost}" />
-                                                        <input type="submit" value="Detail" />
-                                                    </form>
-                                                    <a href="AdminViewPostDetailController?postID=${post.postID}">View post detail</a>--%>
-
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -396,7 +335,7 @@
                                                                             </li>-->
 
                                         <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                            
+
                                             <form action="AdminSearchCompanyPostController" method="POST">
                                                 <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
                                                 <input type="hidden" name="page" value="${i}" />
@@ -406,7 +345,7 @@
                                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}" />
                                                 <input type="submit" value="${i}" class="page-link" />
                                             </form>
-                                            </c:forEach>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                             </c:if>
