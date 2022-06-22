@@ -101,25 +101,35 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
-                                    <c:url var="urlSaveJob" value="StudentSaveJobController" >
-                                        <c:param name="save" value="homePage" />
-                                        <c:param name="postID" value="${dto.postID}" />
-                                    </c:url>
-                                    <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
-                                        <c:param name="unSave" value="homePage" />
-                                        <c:param name="postID" value="${dto.postID}" />
-                                    </c:url>
-                                    <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
-                                    <c:if test="${statusFollowing eq true}">
-                                    <a href="${urlUnSaveJob}">
-                                            <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                    </a>
-                                    </c:if>
-                                    <c:if test="${statusFollowing eq false}">
-                                        <a href="${urlSaveJob}">
-                                            <i class="far fa-heart card-company-btn-save save-btn"></i>
-                                        </a>
-                                    </c:if>
+                                <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                    <c:param name="save" value="homePage" />
+                                    <c:param name="postID" value="${dto.postID}" />
+                                </c:url>
+                                <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                    <c:param name="unSave" value="homePage" />
+                                    <c:param name="postID" value="${dto.postID}" />
+                                </c:url>--%>
+                                <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
+                                <c:if test="${statusFollowing eq true}">
+                                    <form action="StudentDeleteSaveJobController" method="POST">
+                                        <input type="hidden" name="unSave" value="homePage" />
+                                        <input type="hidden" name="postID" value="${dto.postID}" />
+                                        <input type="submit" value="Unsave Job" class="far fa-heart card-company-btn-save save-btn save-btn-active " />
+                                    </form>
+                                    <%--<a href="${urlUnSaveJob}">
+                                        <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
+                                    </a>--%>
+                                </c:if>
+                                <c:if test="${statusFollowing eq false}">
+                                    <form action="StudentSaveJobController" method="POST">
+                                        <input type="hidden" name="save" value="homePage" />
+                                        <input type="hidden" name="postID" value="${dto.postID}" />
+                                        <input type="submit" value="Save Job" class="far fa-heart card-company-btn-save save-btn" />
+                                    </form>
+                                    <%--<a href="${urlSaveJob}">
+                                        <i class="far fa-heart card-company-btn-save save-btn"></i>
+                                    </a>--%>
+                                </c:if>
                             </div>
                         </div>
                     </c:forEach>
@@ -143,12 +153,12 @@
                     </c:forEach>
                 </div>
             </div>
-            
+
         </main>
 
         <footer class="footer">
             <div class="footer__content">
-                 <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>

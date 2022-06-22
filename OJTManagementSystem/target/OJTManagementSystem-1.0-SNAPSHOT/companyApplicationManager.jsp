@@ -323,7 +323,16 @@
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">     
                                 <c:forEach begin="1" end="${numberpage}" var="i">
-                                    <c:url var="url" value="CompanySearchInternsController">
+                                    <form action="CompanySearchInternsController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                        <input type="hidden" name="status" value="${param.status}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+                                    
+                                    <%--<c:url var="url" value="CompanySearchInternsController">
                                         <c:param name="page" value="${i}"/>
                                         <c:param name="txtFullName" value="${param.txtFullName}"/>
                                         <c:param name="txtEmail" value="${param.txtEmail}"/>
@@ -331,7 +340,7 @@
                                         <c:param name="status" value="${param.status}"/>
                                     </c:url>
 
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
                                     </c:forEach>
 
                             </ul>

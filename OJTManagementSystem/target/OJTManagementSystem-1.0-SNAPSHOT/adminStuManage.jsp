@@ -369,28 +369,18 @@
 
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
-                                <!--                                     <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                             <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>-->
 
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="SearchStudentByAdminController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="semester" value="${currentSemester.semesterID}"/>
-                                        <c:param name="txtCredit" value="${param.txtCredit}"/>
-                                        <c:param name="txtMajor" value="${param.txtMajor}"/>
-                                        <c:param name="isIntern" value="${param.isIntern}"/>
-                                        <c:param name="txtStudentCode" value="${param.txtStudentCode}"/>
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    <form action="SearchStudentByAdminController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                        <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                        <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                        <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                        <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
                                     </c:forEach>
-                                <!--                                    <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                         </a>
-                                                                    </li>-->
                             </ul>
                         </div>
 

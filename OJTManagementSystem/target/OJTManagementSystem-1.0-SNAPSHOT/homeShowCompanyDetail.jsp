@@ -120,24 +120,36 @@
                         <c:if test="${empty errorCompanyPost}" >
                             <div class="hComApplDetail-btn">
                                 <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
-                                <c:url var="urlSaveJob" value="StudentSaveJobController" >
+
+                                <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
                                     <c:param name="save" value="homeShowCompanyDetail" />
                                     <c:param name="postID" value="${postDetail.postID}" />
                                 </c:url>
+
                                 <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
                                     <c:param name="unSave" value="homeShowCompanyDetail" />
                                     <c:param name="postID" value="${postDetail.postID}" />
-                                </c:url>
+                                </c:url>--%>
                                 <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postDetail.postID)}" />
                                 <c:if test="${statusFollowing eq true}">
-                                    <a href="${urlUnSaveJob}">
+                                    <form action="StudentDeleteSaveJobController" method="POST">
+                                        <input type="hidden" name="unSave" value="homeShowCompanyDetail" />
+                                        <input type="hidden" name="postID" value="${postDetail.postID}" />
+                                        <input type="submit" value="Unsave Job" class="far fa-heart hComApplDetail-btn-save save-btn save-btn-active " />
+                                    </form>
+                                    <%--<a href="${urlUnSaveJob}">
                                         <i class="far fa-heart hComApplDetail-btn-save save-btn save-btn-active "></i>
-                                    </a>
+</a>--%>
                                 </c:if>
                                 <c:if test="${statusFollowing eq false}">
-                                    <a href="${urlSaveJob}">
+                                    <form action="StudentSaveJobController" method="POST">
+                                        <input type="hidden" name="save" value="homeShowCompanyDetail" />
+                                        <input type="hidden" name="postID" value="${postDetail.postID}" />
+                                        <input type="submit" value="Save Job" class="far fa-heart hComApplDetail-btn-save save-btn" />
+                                    </form>
+                                    <%--<a href="${urlSaveJob}">
                                         <i class="far fa-heart hComApplDetail-btn-save save-btn"></i>
-                                    </a>
+                                    </a>--%>
                                 </c:if>
                             </div>
                         </c:if>
@@ -187,7 +199,7 @@
                                             </div>
                                         </a>
                                         <div class="right--card-save">
-                                            <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                            <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
                                                 <c:param name="save" value="homeShowCompanyDetail" />
                                                 <c:param name="postIDOther" value="${postOther.postID}" />
                                                 <c:param name="postID" value="${postDetail.postID}" />
@@ -196,18 +208,30 @@
                                                 <c:param name="unSave" value="homeShowCompanyDetail" />
                                                 <c:param name="postIDOther" value="${postOther.postID}" />
                                                 <c:param name="postID" value="${postDetail.postID}" />
-                                            </c:url>
+                                            </c:url>--%>
                                             <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postOther.postID)}" />
-                                             <c:if test="${statusFollowing eq true}">
-                                            
-                                                 <a href="${urlUnSaveJob}">
+                                            <c:if test="${statusFollowing eq true}">
+                                                <form action="StudentDeleteSaveJobController" method="POST">
+                                                    <input type="hidden" name="unSave" value="homeShowCompanyDetail" />
+                                                    <input type="hidden" name="postIDOther" value="${postOther.postID}" />
+                                                    <input type="hidden" name="postID" value="${postDetail.postID}" />
+                                                    <input type="submit" value="Unsave Job" class="far fa-heart right--card-save save-btn save-btn-active " />
+                                                </form>
+                                                <%--<a href="${urlUnSaveJob}">
                                                     <i class="far fa-heart right--card-save save-btn save-btn-active "></i>
-                                                </a>
+                                                </a>--%>
                                             </c:if>
                                             <c:if test="${statusFollowing eq false}">
-                                                <a href="${urlSaveJob}">
+                                                <form action="StudentSaveJobController" method="POST">
+                                                    <input type="hidden" name="save" value="homeShowCompanyDetail" />
+                                                    <input type="hidden" name="postIDOther" value="${postOther.postID}" />
+                                                    <input type="hidden" name="postID" value="${postDetail.postID}" />
+                                                    <input type="submit" value="Save Job" class="far fa-heart right--card-save save-btn save-btn-active " />
+                                                </form>
+
+                                                <%--<a href="${urlSaveJob}">
                                                     <i class="far fa-heart right--card-save  save-btn"></i>
-                                                 </a>
+</a>--%>
                                             </c:if>
                                         </div>
                                     </div>
@@ -217,23 +241,23 @@
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">
 
-<!--                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>-->
-                               <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="HomeShowCompanyDetailController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="postID" value="${postDetail.postID}" />
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                            </c:forEach>    
-<!--                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>-->
+                                <!--                                <li class="page-item">
+                                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                                        <span aria-hidden="true">&laquo;</span>
+                                                                    </a>
+                                                                </li>-->
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="HomeShowCompanyDetailController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="postID" value="${postDetail.postID}" />
+                                    </c:url>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    </c:forEach>    
+                                <!--                                <li class="page-item">
+                                                                    <a class="page-link" href="#" aria-label="Next">
+                                                                        <span aria-hidden="true">&raquo;</span>
+                                                                    </a>
+                                                                </li>-->
                             </ul>
                         </div>
                     </div>

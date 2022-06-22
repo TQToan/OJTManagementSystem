@@ -335,27 +335,26 @@
 
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
-                                <!--                                     <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                             <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>-->
 
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="AdminShowInternApplicationController">
+                                    <form action="AdminShowInternApplicationController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                        <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                        <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                        <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+                                    
+                                        <%--%><c:url var="url" value="AdminShowInternApplicationController">
                                         <c:param name="page" value="${i}"/>
                                         <c:param name="txtStudentID" value="${studentID}"/>
                                         <c:param name="txtCompanyID" value="${companyID}"/>
                                         <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
                                         <c:param name="txtTitleJob" value="${titleJob}"/>
                                     </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
                                     </c:forEach>
-                                <!--                                    <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                         </a>
-                                                                    </li>-->
                             </ul>
                         </div>
 

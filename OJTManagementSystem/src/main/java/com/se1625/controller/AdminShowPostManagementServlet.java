@@ -6,11 +6,16 @@
 package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -50,6 +55,9 @@ public class AdminShowPostManagementServlet extends HttpServlet {
         String url = MyApplicationConstants.LoginFeture.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
+        
+        
+        
         int page;
         int numberRowsPerPage = 10;
         int start;
@@ -63,9 +71,27 @@ public class AdminShowPostManagementServlet extends HttpServlet {
                     url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_POST_MANAGE_PAGE);
                     //Lay danh sach cac bai post
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                    companyPostDAO.getListPost();
+                    //get current Semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    TblSemesterDTO nowSemester = semesterDAO.getSemesterByID(currentSemester.getSemesterID());
+                    if (request.getParameter("listSemester") != null) {
+                        int semesterID = Integer.parseInt(request.getParameter("semester"));
+                        if (xpage == null) {
+                            if (semesterID != currentSemester.getSemesterID()) {
+                                currentSemester.setSemesterID(semesterID);
+                            }
+                        } else {
+                            currentSemester = semesterDAO.getSemesterByID(semesterID);
+                        }
+                    }
+                    
+                    companyPostDAO.getListPost(currentSemester.getSemesterID());
                     List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostListAdminPage();
                     //Phan trang
+                    if (companyPostList == null) {
+                        
+                    }
                     if (companyPostList != null) {
                         sizeOfList = companyPostList.size();
 
@@ -88,6 +114,18 @@ public class AdminShowPostManagementServlet extends HttpServlet {
 
                         List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
                                 getListByPage(companyPostList, start, end);
+
+                        //lay list company
+                        TblCompanyDAO companyDAO = new TblCompanyDAO();
+                        companyDAO.getNameCompanies();
+                        List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                        request.setAttribute("LIST_ALL_COMPANY", listNameCompany);
+
+                        //List semester
+                        List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
+                        request.setAttribute("LIST_SEMESTER", listSemester);
+                        request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                        request.setAttribute("NOW_SEMESTER", nowSemester);
 
                         //Set attribute
                         request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);

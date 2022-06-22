@@ -27,7 +27,7 @@
             <c:set var="company" value="${sessionScope.COMPANY_ROLE_INFO}"/>
             <c:set var="companyPost" value="${requestScope.COMPANY_POST_DETAIL}"/>
             <c:set var="errors" value="${requestScope.ERROR_UPDATE}"/>
-         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowCompanyDashBoardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -44,33 +44,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a href="ShowCompanyDashBoardController" class="nav__item--link">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
+                                <i class="fas fa-palette "></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowProfileController" class="nav__item--link">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowPostController" class="nav__item--link link-active">
-                            <i class="fas fa-pen"></i>
-                            My Posts
-                        </a>
+                                <i class="fas fa-pen"></i>
+                                My Posts
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Interns Management
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Interns Management
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Internship Application
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Internship Application
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="logoutController" class="nav__item--link">
@@ -173,7 +173,7 @@
                                     </c:if>
                                 </h5>
                             </div>
-                                
+
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="quantity">Quantity Interns</label>
                                 <input type="text" class="col-8 cPostEdit--input " name="quantityIterns" id="quantity" value="${companyPost.quantityIterns}">
@@ -243,7 +243,8 @@
                                     </c:if>
                                 </h5>
                             </div>
-                                <div class="cPostEdit-edit-btn primary-btn">
+                            <input type="hidden" name="statusPost" value="${companyPost.statusPost}" />
+                            <div class="cPostEdit-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 <label for="btaction"></label>
                                 <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Edit" />
@@ -260,6 +261,6 @@
                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -162,6 +162,7 @@
                     <form action="CompanyShowPostDetailsController" method="POST">
                         <div>
                             <input type="hidden" name="postID" value="${post.postID}"/>
+                            <input type="hidden" name="statusPost" value="${post.statusPost}"/>
                             <input type="submit" value="Edit" name="btAction" class="card-visit-btn primary-btn" />
                         </div>
                     </form>

@@ -25,7 +25,7 @@
         <header></header>
 
         <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" /> 
-        
+
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowAdminStudentManagementController" class="header__logo ">
@@ -81,9 +81,9 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">  
-            
+
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -269,28 +269,28 @@
 
                     <div  class="main__pagination">
                         <ul class="pagination main_cus__pagination">
-                            <!--                                     <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                                         <span aria-hidden="true">&laquo;</span>
-                                                                    </a>
-                                                                </li>-->
-
                             <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="SearchStudentEvaluationController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
-                                    <c:param name="studentCode" value="${param.studentCode}"/>
-                                    <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                    <c:param name="garde" value="${param.garde}"/>
-                                    <c:param name="isPass" value="${param.isPass}"/>
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                </c:forEach>
-                            <!--                                    <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                     </a>
-                                                                </li>-->
+                                <form action="SearchStudentEvaluationController" method="POST">
+                                    <input type="hidden" name="page" value="${i}"/>
+                                    <input type="hidden" name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
+                                    <input type="hidden" name="studentCode" value="${param.studentCode}"/>
+                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                    <input type="hidden" name="garde" value="${param.garde}"/>
+                                    <input type="hidden" name="isPass" value="${param.isPass}"/>
+                                    <input type="submit" value="${i}" class="page-link"/>
+                                </form>
+
+                                <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="SearchStudentEvaluationController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
+                                        <c:param name="studentCode" value="${param.studentCode}"/>
+                                        <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                        <c:param name="garde" value="${param.garde}"/>
+                                        <c:param name="isPass" value="${param.isPass}"/>
+                                    </c:url>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
+                            </c:forEach>
                         </ul>
                     </div>        
 
@@ -305,7 +305,7 @@
             <i class="fa-regular fa-copyright"></i> Copyright 2022
         </div>
     </footer>
-                            
+
     <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
