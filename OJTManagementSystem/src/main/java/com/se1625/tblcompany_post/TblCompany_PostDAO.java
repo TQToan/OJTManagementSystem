@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
@@ -1531,5 +1532,76 @@ public class TblCompany_PostDAO implements Serializable {
             }
         }
         return false;
+    }
+
+    public List<TblCompany_PostDTO> getListExpirationPost() throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblCompany_PostDTO> listExpirationPost = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT postID, expirationDate, statusPost "
+                        + "FROM tblCompany_Post ";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int postID = rs.getInt("postID");
+                    Date expirationDate = rs.getDate("expirationDate");
+                    int statusPost = rs.getInt("statusPost");
+                    LocalDate currentDate = LocalDate.now();
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    Date today = Date.valueOf(currentDate.format(dateFormat));
+
+                    if (expirationDate.before(today) && statusPost != 3) {
+                        TblCompany_PostDTO companyExpirationPost = new TblCompany_PostDTO();
+                        companyExpirationPost.setPostID(postID);
+                        companyExpirationPost.setExpirationDate(expirationDate);
+
+                        if (listExpirationPost == null) {
+                            listExpirationPost = new ArrayList<>();
+                        }
+                        listExpirationPost.add(companyExpirationPost);
+                    }
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listExpirationPost;
+    }
+
+    public void updateStatusForExpirationPost(int postID) throws SQLException, NamingException {
+        Connection con  = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblCompany_Post "
+                        + "SET statusPost = ? "
+                        + "WHERE postID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, 3);
+                stm.setInt(2, postID);
+                
+                stm.executeUpdate();
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 }

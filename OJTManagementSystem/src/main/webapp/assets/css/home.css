@@ -276,6 +276,7 @@
     background-color: var(--background-orange);
     border-radius: 20px;
     padding-bottom: 1px;
+    min-height: 500px;
 }
 
 .hComApplDetail__right--header{

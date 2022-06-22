@@ -192,7 +192,7 @@
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="email">Email</label>
-                                <input type="email" readonly class="col-8 profile--input " name="email" id="email"
+                                <input type="email" readonly class="col-8 profile--input-none-hover " name="email" id="email"
                                        value="${studentProfile.account.email}">
                                 <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
                                                                         your error
@@ -218,7 +218,7 @@
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="major">Major</label>
-                                <input type="text" readonly class="col-8 profile--input " name="" id="major"
+                                <input type="text" readonly class="col-8 profile--input-none-hover " name="" id="major"
                                        value="${studentProfile.major}">
                             </div>
                             <div class="profile__input row"> 

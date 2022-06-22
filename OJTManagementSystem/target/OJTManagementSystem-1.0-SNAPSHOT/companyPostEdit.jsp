@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
+        <script src="./assets/ckeditor/ckeditor.js"></script>
     </head>
     <body>
     <body>
@@ -135,7 +136,7 @@
             </nav>
             <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
-                    <div class="main-body-cPostEdit offset-xl-3 col-xl-6 offset-2 col-8">
+                    <div class="main-body-cPostEdit  offset-2 col-8">
                         <div class="main-body-cPostEdit__header">
                             Company Post*
 
@@ -215,8 +216,10 @@
                             </div>
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="descript">Job Description</label>
-                                <textarea name="job_Description" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
-                                          cols="30" rows="4">${companyPost.job_Description}</textarea>
+                                <div class="col-12">
+                                    <textarea name="job_Description" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
+                                              cols="30" rows="4">${companyPost.job_Description}</textarea>
+                                </div>
                                 <h5 class="text-danger  text-start ">
                                     <c:if test="${not empty errors}">
                                         ${errors.descriptionLenghtError}
@@ -225,8 +228,10 @@
                             </div>
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="requirements">Job Requirements</label>
-                                <textarea name="job_Requirement" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="requirements"
-                                          cols="30" rows="4">${companyPost.job_Requirement}</textarea>
+                                <div class="col-12">
+                                    <textarea name="job_Requirement" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="requirements"
+                                              cols="30" rows="4">${companyPost.job_Requirement}</textarea>
+                                </div>
                                 <h5 class="text-danger  text-start ">
                                     <c:if test="${not empty errors}">
                                         ${errors.requirementLenghtError}
@@ -235,15 +240,20 @@
                             </div>
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="remuneration">Remuneration</label>
-                                <textarea name="remuneration" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="remuneration"
-                                          cols="30" rows="4">${companyPost.remuneration}</textarea>
+                                <div class="col-12">
+                                    <textarea name="remuneration" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="remuneration"
+                                              cols="30" rows="4">${companyPost.remuneration}</textarea>
+                                </div>
                                 <h5 class="text-danger text-start ">
                                     <c:if test="${not empty errors}">
                                         ${errors.remunerationLenghtError}
                                     </c:if>
                                 </h5>
                             </div>
+<<<<<<< HEAD
                             <input type="hidden" name="statusPost" value="${companyPost.statusPost}" />
+=======
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                             <div class="cPostEdit-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 <label for="btaction"></label>
@@ -262,5 +272,13 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
+=======
+        <script>
+            CKEDITOR.replace('requirements');
+            CKEDITOR.replace('remuneration');
+            CKEDITOR.replace('descript');
+        </script>
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
     </body>
 </html>

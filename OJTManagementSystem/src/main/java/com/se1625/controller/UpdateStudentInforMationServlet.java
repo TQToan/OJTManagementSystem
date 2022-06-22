@@ -62,7 +62,6 @@ public class UpdateStudentInforMationServlet extends HttpServlet {
             credit = Integer.parseInt(stringCredit);
         }
         String isDisable = request.getParameter("isDisabled");
-        System.out.println("value " + isDisable);
         String button = request.getParameter("btAction");
 
         // credit khi update bị dưới credit cho phép sẽ gửi thông báo không đủ điều kiện

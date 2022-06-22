@@ -211,12 +211,12 @@
                                     <div class="col-4 review--label" >Status</div>
 
                                     <div class="col-8 review--input">
-                                        <c:if test="${studentApp.isPass eq false and studentApp.student.isIntern eq 2}">
+                                        <c:if test="${studentApp.isPass eq -1 and studentApp.student.isIntern eq 2}">
                                             <strong class="text-danger">
                                                 Not Pass
                                             </strong>
                                         </c:if>
-                                        <c:if test="${studentApp.isPass eq true and studentApp.student.isIntern eq 2}">
+                                        <c:if test="${studentApp.isPass eq 1 and studentApp.student.isIntern eq 2}">
                                             <strong class="text-success">
                                                 Passed
                                             </strong>

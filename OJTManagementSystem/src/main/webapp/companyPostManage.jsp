@@ -249,7 +249,11 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>
+<!--                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>-->
+                                                    <form action="CompanyShowPostDetailsController" method ="post">
+                                                        <input type="hidden" name="postID" value="${post.postID}" >
+                                                        <input type="submit" value="Edit" class="btn-update-green">
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </c:forEach>

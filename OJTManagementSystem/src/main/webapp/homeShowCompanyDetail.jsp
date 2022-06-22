@@ -169,33 +169,43 @@
                     </div>
                 </div>
                 <c:set var="listOtherCompanies" value="${requestScope.LIST_OTHER_COMPANIES}"/>
-
+                <c:set var="sizeOfList" value="${requestScope.SIZE_OF_LIST}"/>
                 <div class="col-md-5">
                     <div class="hComApplDetail__right">
                         <div class="hComApplDetail__right--header">
                             Other Company
                         </div>
-                        <div class="hComApplDetail__right--body row row-cols-1">
-                            <c:forEach items="${listOtherCompanies}" var="postOther" varStatus="counter">
-                                <c:if test="${postOther.postID ne postDetail.postID}">
-                                    <c:url var="linkOther" value="HomeShowCompanyDetailController">
-                                        <c:param name="postID" value="${postOther.postID}"/>
-                                    </c:url>
-                                    <div class="col" style="position: relative;">
-                                        <a href="${linkOther}" class="hComApplDetail__right--card">
-                                            <div class="row">
-                                                <div class="col-4 right-card_img">
-                                                    <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
-                                                </div>
-                                                <div class="col-8 right-card-content">
-                                                    <div class="right--card-header">${postOther.company.account.name}</div>
-                                                    <div class="right--card-body">
-                                                        <p>Job: ${postOther.title_Post}</p>
-                                                        <p>Quantity: ${postOther.quantityIterns}</p>
-                                                        <p>Location: ${postOther.workLocation}</p>
-                                                        <p>Date: ${my:changeDateFormat(postOther.expirationDate)}</p>
+                        
+                        <c:if test="${sizeOfList eq 1}">
+                            <h4 class="text-center text-white" style="margin-top: 20px">
+                                Evaluation List does not has any result!
+                            </h4>
+                        </c:if>    
+
+                        <c:if test="${sizeOfList gt 1}">
+                            <div class="hComApplDetail__right--body row row-cols-1">
+                                <c:forEach items="${listOtherCompanies}" var="postOther" varStatus="counter">
+                                    <c:if test="${postOther.postID ne postDetail.postID}">
+                                        <c:url var="linkOther" value="HomeShowCompanyDetailController">
+                                            <c:param name="postID" value="${postOther.postID}"/>
+                                        </c:url>
+                                        <div class="col" style="position: relative;">
+                                            <a href="${linkOther}" class="hComApplDetail__right--card">
+                                                <div class="row">
+                                                    <div class="col-4 right-card_img">
+                                                        <img src="./avatars/${postOther.company.account.avatar}" class="right--card-img"/>
+                                                    </div>
+                                                    <div class="col-8 right-card-content">
+                                                        <div class="right--card-header">${postOther.company.account.name}</div>
+                                                        <div class="right--card-body">
+                                                            <p>Job: ${postOther.title_Post}</p>
+                                                            <p>Quantity: ${postOther.quantityIterns}</p>
+                                                            <p>Location: ${postOther.workLocation}</p>
+                                                            <p>Date: ${my:changeDateFormat(postOther.expirationDate)}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
+<<<<<<< HEAD
                                             </div>
                                         </a>
                                         <div class="right--card-save">
@@ -260,6 +270,60 @@
                                                                 </li>-->
                             </ul>
                         </div>
+=======
+                                            </a>
+                                            <div class="right--card-save">
+                                                <c:url var="urlSaveJob" value="StudentSaveJobController" >
+                                                    <c:param name="save" value="homeShowCompanyDetail" />
+                                                    <c:param name="postIDOther" value="${postOther.postID}" />
+                                                    <c:param name="postID" value="${postDetail.postID}" />
+                                                </c:url>
+                                                <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
+                                                    <c:param name="unSave" value="homeShowCompanyDetail" />
+                                                    <c:param name="postIDOther" value="${postOther.postID}" />
+                                                    <c:param name="postID" value="${postDetail.postID}" />
+                                                </c:url>
+                                                <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postOther.postID)}" />
+                                                <c:if test="${statusFollowing eq true}">
+
+                                                    <a href="${urlUnSaveJob}">
+                                                        <i class="far fa-heart right--card-save save-btn save-btn-active "></i>
+                                                    </a>
+                                                </c:if>
+                                                <c:if test="${statusFollowing eq false}">
+                                                    <a href="${urlSaveJob}">
+                                                        <i class="far fa-heart right--card-save  save-btn"></i>
+                                                    </a>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                            <div class="main__pagination">
+                                <ul class="pagination main_cus__pagination">
+
+                                    <!--                                <li class="page-item">
+                                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                                            <span aria-hidden="true">&laquo;</span>
+                                                                        </a>
+                                                                    </li>-->
+                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                        <c:url var="url" value="HomeShowCompanyDetailController">
+                                            <c:param name="page" value="${i}"/>
+                                            <c:param name="postID" value="${postDetail.postID}" />
+                                        </c:url>
+                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                        </c:forEach>    
+                                    <!--                                <li class="page-item">
+                                                                        <a class="page-link" href="#" aria-label="Next">
+                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                        </a>
+                                                                    </li>-->
+                                </ul>
+                            </div>
+                        </c:if> 
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                     </div>
                 </div>
 

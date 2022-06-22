@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +20,7 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/home.css">
         <link rel="stylesheet" href="./assets/css/home-responsive.css">
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         <header class="header ">
@@ -101,13 +103,18 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
+<<<<<<< HEAD
                                 <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
+=======
+                                <c:url var="urlSaveJob" value="StudentSaveJobController" >
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                     <c:param name="save" value="homePage" />
                                     <c:param name="postID" value="${dto.postID}" />
                                 </c:url>
                                 <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
                                     <c:param name="unSave" value="homePage" />
                                     <c:param name="postID" value="${dto.postID}" />
+<<<<<<< HEAD
                                 </c:url>--%>
                                 <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
                                 <c:if test="${statusFollowing eq true}">
@@ -129,19 +136,37 @@
                                     <%--<a href="${urlSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn"></i>
                                     </a>--%>
+=======
+                                </c:url>
+                                <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
+                                <c:if test="${statusFollowing eq true}">
+                                    <a href="${urlUnSaveJob}">
+                                        <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
+                                    </a>
+                                </c:if>
+                                <c:if test="${statusFollowing eq false}">
+                                    <a href="${urlSaveJob}">
+                                        <i class="far fa-heart card-company-btn-save save-btn"></i>
+                                    </a>
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                 </c:if>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
                 <div class="home_see-more">
-                    <a href="#" class="home_see-more--btn ">
+                    <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
+                            <c:param name="nameCompany" value=""/>
+                            <c:param name="nameMajor" value=""/>
+                            <c:param name="nameLocation" value=""/>
+                        </c:url>
+                    <a href="${urlSearchHome}" class="home_see-more--btn ">
                         See More 
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-            <
+            <%--
             <div class="main__company-icon">
                 <div class="row row-cols-7">
                     <c:forEach items="${requestScope.LIST_AVATAR_SIGNED_COMPANY}" var="avatar">
@@ -152,6 +177,30 @@
                         </div>
                     </c:forEach>
                 </div>
+            </div>--%>
+            <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-inner" style="padding: 10px 70px;">
+                    <c:forEach begin="1" end="${my:getIndexList(requestScope.LIST_AVATAR_SIGNED_COMPANY)}" var="index">
+                        <div class="carousel-item <c:if test="${index eq 1}">active</c:if>">
+                            <c:forEach items="${my:getList(requestScope.LIST_AVATAR_SIGNED_COMPANY, index)}" var="item">
+                                <span style="margin:10px">
+                                    <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="">
+                                    <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
+                                </a> 
+                                </span>
+                                
+                            </c:forEach> 
+                        </div>
+                    </c:forEach>
+                </div>
+                <button style="width:7%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button style="width:7%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
 
         </main>

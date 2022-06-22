@@ -30,12 +30,12 @@ import javax.servlet.ServletContextListener;
  */
 public class AutoCreateSemesterServletListener implements ServletContextListener {
 
-    private Timer t;
+    private Timer timer;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        t = new Timer();
-        // Delay 1 Minute to first execution
+        timer = new Timer();
+        // Delay 1 second to first execution
         long initialDelay = 1000;
     try {
             MyApplicationHelper.getSemesterDate(sce.getServletContext());
@@ -43,7 +43,7 @@ public class AutoCreateSemesterServletListener implements ServletContextListener
             final Properties properties = (Properties) context.getAttribute("SEMESTER_DATE");
             // period the period between successive executions
             long period = Integer.parseInt(properties.getProperty("checkingPeriod").trim());
-            TimerTask tt = new TimerTask() {
+            TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
                     try {
@@ -137,7 +137,7 @@ public class AutoCreateSemesterServletListener implements ServletContextListener
                 }
 
             };
-            t.scheduleAtFixedRate(tt, initialDelay, period);
+            timer.scheduleAtFixedRate(timerTask, initialDelay, period);
         } catch (IOException ex) {
             sce.getServletContext().log("IOException at CreateSemesterServletListener " + ex.getMessage());
         }
@@ -147,6 +147,6 @@ public class AutoCreateSemesterServletListener implements ServletContextListener
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         sce.getServletContext().removeAttribute("SEMESTER_DATE");
-        t.cancel();
+        timer.cancel();
     }
 }

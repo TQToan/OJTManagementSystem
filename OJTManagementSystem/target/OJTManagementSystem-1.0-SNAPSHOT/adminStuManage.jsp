@@ -148,6 +148,10 @@
                                 ${requestScope.ERROR_IMPORT_EXCEL}
                             </c:if>
                         </div>
+                        <div>
+                            Download this excel file to input your data!
+                            <a href="DownloadFileModelController">File Excel Model</a>
+                        </div>
                         <div class="main-body-aStuManage__search">
                             <form action="SearchStudentByAdminController" method="POST">
                                 <div class="row">
@@ -190,12 +194,12 @@
                                                 </c:if>>
                                                 Working
                                             </option>
-                                            <option value="2" class="text-warning" <c:if test="${param.isIntern eq '2'}" >
+                                            <option value="2" class="text-danger" <c:if test="${param.isIntern eq '2'}" >
                                                     selected="selected"
                                                 </c:if>>
                                                 Finished
                                             </option>
-                                            <option value="0" class="text-danger" <c:if test="${param.isIntern eq '0'}" >
+                                            <option value="0" class="text-warning" <c:if test="${param.isIntern eq '0'}" >
                                                     selected="selected"
                                                 </c:if>>
                                                 Not Yet
@@ -260,7 +264,8 @@
                                                         </c:if>
                                                     </c:if>
                                                     <c:if test="${student.isIntern eq 1 or student.isIntern eq 2}" >
-                                                        ${student.numberOfCredit}
+                                                        <input style="width: 60px" type="number" min="0" 
+                                                               max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
                                                     </c:if>
                                                 </td>
                                                 <td>
@@ -333,24 +338,24 @@
                                                             <input type="submit" value="Cancel" name="btAction" />
                                                         </c:if>
                                                         <c:if test="${empty error}">
-                                                            <input type="submit" value="Update" name="btAction" />
+                                                            <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                         </c:if>
 
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq -1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" />
+                                                        <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                             </tr>
