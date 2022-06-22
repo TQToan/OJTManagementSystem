@@ -285,17 +285,25 @@
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1 and appliedJob.companyConfirm eq -1}">
                                                     <td>
-                                                        <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>
+<!--                                                        <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a> -->
+                                                        <form action="CancleApplyCVController" method="post">
+                                                            <input type="hidden" name ="applicationID" value="${appliedJob.applicationID}">
+                                                            <input type="submit" value="Cancel" class="btn-regular-red">
+                                                        </form>
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1}">
                                                     <td>
-                                                        <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>
+<!--                                                        <a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>-->
+                                                        <form action="CancleApplyCVController" method="post">
+                                                            <input type="hidden" name ="applicationID" value="${appliedJob.applicationID}">
+                                                            <input type="submit" value="Cancel" class="btn-regular-red">
+                                                        </form>
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq false and appliedJob.schoolConfirm ne -1 and appliedJob.companyConfirm ne -1}">
                                                     <td>
-
+                                                        
                                                     </td>
                                                 </c:if>
                                             </tr>

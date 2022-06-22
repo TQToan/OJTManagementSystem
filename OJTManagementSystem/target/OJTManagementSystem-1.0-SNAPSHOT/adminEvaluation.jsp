@@ -160,11 +160,11 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <input type="text" name="studentCode" value="${param.studentCode}" placeholder="ID" class="admin--input" />
 
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         <select name="txtCompanyName" class="admin--select">
                                             <option value="">Company Name</option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="companyName">
@@ -178,7 +178,7 @@
                                     <div class="col-1">
                                         <input type="number" step="any" min="0" max="10" name="garde" value="${param.garde}" placeholder="Grade" class="admin--input"/>     
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <select id="city" name="isPass"  class="admin--select" >
                                             <option value="">Status</option>
                                             <option value="true" class="text-success" <c:if test="${param.isPass eq 1}">

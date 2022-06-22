@@ -127,7 +127,12 @@
                     </c:forEach>
                 </div>
                 <div class="home_see-more">
-                    <a href="#" class="home_see-more--btn ">
+                    <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
+                            <c:param name="nameCompany" value=""/>
+                            <c:param name="nameMajor" value=""/>
+                            <c:param name="nameLocation" value=""/>
+                        </c:url>
+                    <a href="${urlSearchHome}" class="home_see-more--btn ">
                         See More 
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -146,22 +151,25 @@
                 </div>
             </div>--%>
             <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="padding: 10px 70px;">
                     <c:forEach begin="1" end="${my:getIndexList(requestScope.LIST_AVATAR_SIGNED_COMPANY)}" var="index">
                         <div class="carousel-item <c:if test="${index eq 1}">active</c:if>">
                             <c:forEach items="${my:getList(requestScope.LIST_AVATAR_SIGNED_COMPANY, index)}" var="item">
-                                <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="">
+                                <span style="margin:10px">
+                                    <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="">
                                     <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
                                 </a> 
+                                </span>
+                                
                             </c:forEach> 
                         </div>
                     </c:forEach>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <button style="width:7%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <button style="width:7%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>

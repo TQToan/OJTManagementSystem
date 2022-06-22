@@ -235,7 +235,7 @@
                                                 <td>                                              
                                                     <input type="hidden" name="page" value="${param.page}" />
                                                     <input type="hidden" name="companyID" value="${companyDTO.companyID}" />
-                                                    <input type="submit" value="Update" class="aUpdate-btn" />
+                                                    <input type="submit" value="Update" class="btn-update-green" />
                                                 </td>
                                             </tr>
                                         </form>

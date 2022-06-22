@@ -162,7 +162,7 @@
                                              <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>-->
-                                    
+                                <div id="pageX" hidden>${page}</div>
                                     <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
                                         <c:url var="url" value="SearchCompanyStudentHomeController">
                                             <c:param name="page" value="${i}"/>
@@ -190,7 +190,7 @@
             <div class="footer__content">
                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
-
         </footer>
+                    <script src="./assets/js/base.js"></script>
     </body>
 </html>

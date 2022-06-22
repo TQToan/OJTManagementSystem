@@ -27,7 +27,7 @@
     <body>
         <header></header>
 
-        
+
         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -220,15 +220,17 @@
                                                 <td>${my:changeDateFormat(post.exprirationDate)}</td>
 
                                                 <td>
-                                                    <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
+<!--                                                    <c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
                                                         <c:param name="postID" value="${post.postID}"/>
                                                     </c:url>
-                                                    <a href="${urlDeleteSaveJob}" >Unsave</a>
-                                                    <%--                                                    <form action="StudentDeleteSaveJobController" >
-                                                                                                            <input type="hidden" name="postID" value="${post.getPostID()}" />
-                                                                                                            <input type="hidden" name="studentCode" value="${student1.getStudentCode()}" />
-                                                                                                            <input type="submit" value="Delete" class="far fa-heart save-btn save-btn-active" />
-                                                                                                        </form>--%>
+                                                    <a href="${urlDeleteSaveJob}"  >
+                                                        Unsave
+                                                    </a>-->
+
+                                                    <form action="StudentDeleteSaveJobController" method="Post">
+                                                        <input type="hidden" name="postID" value="${post.postID}" />
+                                                        <input type="submit" value="Unsave" class="btn-regular-red" />
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -276,6 +278,6 @@
             </div>
         </footer>
 
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>                            
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>                            
     </body>
 </html>

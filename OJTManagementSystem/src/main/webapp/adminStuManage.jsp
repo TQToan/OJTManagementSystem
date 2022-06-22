@@ -338,24 +338,24 @@
                                                             <input type="submit" value="Cancel" name="btAction" />
                                                         </c:if>
                                                         <c:if test="${empty error}">
-                                                            <input type="submit" value="Update" name="btAction" />
+                                                            <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                         </c:if>
 
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq -1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" />
+                                                        <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                             </tr>
