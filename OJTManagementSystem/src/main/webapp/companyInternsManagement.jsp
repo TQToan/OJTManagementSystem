@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -226,10 +227,10 @@
                                     </thead>
                                     <tbody>
                                         <c:set value="${requestScope.APPLICATION_LIST_BYPAGE}" var="applicationList"/>
-                                        <c:forEach var="applicationDTO" items="${applicationList}" varStatus="count"> 
+                                        <c:forEach var="applicationDTO" items="${applicationList}" varStatus="counter"> 
                                         <form action="CompanyUpdateInternsController" method="POST">
                                             <tr>
-                                                <td>${count.count}</td>
+                                                <td>${my:counter(requestScope.PAGE, counter.count)}</td>
                                                 <td>
                                                     ${applicationDTO.student.account.name}
                                                     <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
@@ -263,14 +264,14 @@
                                                 <td>
                                                     <c:set value="${requestScope.ERROR_MARK}" var="error"/>
                                                     <c:if test="${applicationDTO.grade eq 0}">
-                                                        <input type="number" class="cInterManage__mark" name="txtMark" 
+                                                        <input type="number" step="any" min="0" max="10" class="cInterManage__mark" name="txtMark" 
                                                                <c:if test="${param.studentCode eq applicationDTO.student.studentCode}">
                                                                    value="${param.txtMark}"
                                                                </c:if>
                                                                >
                                                     </c:if>          
                                                     <c:if test="${applicationDTO.grade > 0}">
-                                                        <input type="number" class="cInterManage__mark" name="txtMark" value="${applicationDTO.grade}">     
+                                                        <input type="number" step="any" min="0" max="10" class="cInterManage__mark" name="txtMark" value="${applicationDTO.grade}">     
                                                     </c:if>              
                                                     <%--<c:if test="${empty error}">--%>
                                                     <!--<h5 class="text-danger text-nowrap"> Mark(0-10)</h5>-->

@@ -141,6 +141,7 @@ public class MyApplicationConstants {
     }
     
     public class ApplyCVStudentFeature{
+        public static final String LOGIN_PAGE = "";
         public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
     }
@@ -168,7 +169,8 @@ public class MyApplicationConstants {
         public static final String STUDENT_APPLIED_JOBS_PAGE  = "StudentAppliedJobPage";
     }
     
-    public class ShowAppluCVFeature {
+    public class ShowApplyCVFeature {
+        public static final String SHOW_JOB_DETAIL_COMPANY = "HomeShowCompanyDetailController";
         public static final String LOGIN_PAGE = "";
         public static final String APPLY_CV_PAGE_JSP = "homeAfterclick1PageJSP";
     }

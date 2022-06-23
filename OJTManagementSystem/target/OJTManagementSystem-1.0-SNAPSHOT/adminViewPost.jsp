@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
@@ -156,10 +157,10 @@
                             ${post.workLocation}
                         </p>
                         <p><strong>Posting Date:</strong>
-                            ${post.postingDate}
+                            ${my:changeDateFormat(post.postingDate)}
                         </p>
                         <p><strong>Expiration Date:</strong>
-                            ${post.expirationDate}
+                            ${my:changeDateFormat(post.expirationDate)}
                         </p>
                     </div>
 

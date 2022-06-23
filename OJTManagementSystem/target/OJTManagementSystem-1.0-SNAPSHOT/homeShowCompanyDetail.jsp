@@ -119,7 +119,7 @@
                         <c:set var="errorCompanyPost" value="${requestScope.ERROR_COMPANY_POST}" />
                         <c:if test="${empty errorCompanyPost}" >
                             <div class="hComApplDetail-btn">
-                                <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
+                                <a href="ShowApplyCVController?postID=${postDetail.postID}&btAction=Apply" class="primary-btn hComApplDetail-btn--app">Apply Now</a>
                                 <c:url var="urlSaveJob" value="StudentSaveJobController" >
                                     <c:param name="save" value="homeShowCompanyDetail" />
                                     <c:param name="postID" value="${postDetail.postID}" />
@@ -151,6 +151,16 @@
                             <c:if test="${not empty errorCompanyPost.expirationDateError}" >
                                 <font>
                                 ${errorCompanyPost.expirationDateError}
+                                </font>
+                            </c:if>
+                            <c:if test="${not empty errorCompanyPost.appliedTwoTimeError}" >
+                                <font>
+                                ${errorCompanyPost.appliedTwoTimeError}
+                                </font>
+                            </c:if>
+                            <c:if test="${not empty errorCompanyPost.appliedJobStudentWorkingError}" >
+                                <font>
+                                ${errorCompanyPost.appliedJobStudentWorkingError}
                                 </font>
                             </c:if>
                         </c:if>
@@ -191,23 +201,25 @@
                                                 <c:param name="save" value="homeShowCompanyDetail" />
                                                 <c:param name="postIDOther" value="${postOther.postID}" />
                                                 <c:param name="postID" value="${postDetail.postID}" />
+                                                <c:param name="page" value="${requestScope.page}" />
                                             </c:url>
                                             <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
                                                 <c:param name="unSave" value="homeShowCompanyDetail" />
                                                 <c:param name="postIDOther" value="${postOther.postID}" />
                                                 <c:param name="postID" value="${postDetail.postID}" />
+                                                <c:param name="page" value="${requestScope.page}" />
                                             </c:url>
                                             <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, postOther.postID)}" />
-                                             <c:if test="${statusFollowing eq true}">
-                                            
-                                                 <a href="${urlUnSaveJob}">
+                                            <c:if test="${statusFollowing eq true}">
+
+                                                <a href="${urlUnSaveJob}">
                                                     <i class="far fa-heart right--card-save save-btn save-btn-active "></i>
                                                 </a>
                                             </c:if>
                                             <c:if test="${statusFollowing eq false}">
                                                 <a href="${urlSaveJob}">
                                                     <i class="far fa-heart right--card-save  save-btn"></i>
-                                                 </a>
+                                                </a>
                                             </c:if>
                                         </div>
                                     </div>
@@ -216,24 +228,13 @@
                         </div>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">
-
-<!--                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>-->
-                               <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="HomeShowCompanyDetailController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="postID" value="${postDetail.postID}" />
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                            </c:forEach>    
-<!--                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>-->
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="HomeShowCompanyDetailController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="postID" value="${postDetail.postID}" />
+                                    </c:url>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    </c:forEach>
                             </ul>
                         </div>
                     </div>

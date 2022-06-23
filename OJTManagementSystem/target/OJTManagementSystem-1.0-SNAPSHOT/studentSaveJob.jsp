@@ -210,7 +210,7 @@
                                         <c:forEach items="${result}" var="post" varStatus="counter">
                                             <c:set var="student1" value="${requestScope.STUDENT_CODE}" />
                                             <tr>
-                                                <td>${counter.count}</td>
+                                                <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
                                                     <a href="HomeShowCompanyDetailController?postID=${post.postID}">${post.getTittle_Post()}</a>
                                                 </td>

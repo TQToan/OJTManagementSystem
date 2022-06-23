@@ -240,7 +240,7 @@
                                         <form action="UpdateStudentInforMationController" method="POST">
                                             <tr>
                                                 <td>
-                                                    ${counter.count}
+                                                    ${my:counter(requestScope.page, counter.count)}
                                                 </td>
                                                 <td>
                                                     ${student.studentCode}

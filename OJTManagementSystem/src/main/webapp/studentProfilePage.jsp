@@ -215,6 +215,11 @@
                                         ${errorUpdate.errorPhoneNumberLength}
                                     </c:if>
                                 </h5>
+                                <h5 class="text-danger offset-4 col-8 text-start ">
+                                    <c:if test="${not empty errorUpdate}">
+                                        ${errorUpdate.errorPhoneNumberFormat}
+                                    </c:if>
+                                </h5>
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="major">Major</label>
@@ -230,7 +235,7 @@
                                     ${errorUpdate.errorFileLength}
                                 </h5>
                             </c:if>
-
+                            
                             <div class="profile-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 <input type="submit" class="profile-edit--input" value="Edit">

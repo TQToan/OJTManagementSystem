@@ -50,7 +50,7 @@ public class CancleApplyCVServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.ShowAppluCVFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.CancleApplyCVFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
 

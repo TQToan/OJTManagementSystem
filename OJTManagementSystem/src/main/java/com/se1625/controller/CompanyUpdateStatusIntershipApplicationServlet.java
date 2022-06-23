@@ -7,13 +7,19 @@ package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany_post.CompanyPostDetailError;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblstudent.TblStudentDAO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -81,9 +87,46 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         TblApplicationDAO applicationDAO = new TblApplicationDAO();
                         boolean result = applicationDAO.updateStatusCompanyConfirm(studentCode, companyPostID, companyConfirm);
                         if (result) {
-                            //update quantityInterns if accepted
+                            
                             if (companyConfirm == 1) {
+                                TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                                TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                                //update quantityInterns if accepted
                                 companyPostDAO.updateQuantityInterns(companyPostID);
+                                //update isIntern của sinh viên 
+                                TblStudentDAO studentDAO = new TblStudentDAO();
+                                studentDAO.updateStatusInternOfStudent(studentCode, 1);
+                                //update status all of application of student when the post was accepted by company
+                                //get list application of this student except this accepted post
+                                TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
+                                List<TblApplicationDTO> listApplicationOfStudent = applicationDAO.getApplicationOfAStudent(student);
+                                List<TblApplicationDTO> listApplicationChageStatus = new ArrayList<>();
+                                for (TblApplicationDTO application : listApplicationOfStudent) {
+                                    //application đang waiting
+                                    // true 0 0
+                                    // true 1 0
+                                    // true 1 2
+                                    if (application.getStudent().getStudentCode().equals(student.getStudentCode()) 
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
+                                            && application.isStudentConfirm() == true && application.getSchoolConfirm() == 0 
+                                            && application.getCompanyConfirm() == 0
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
+                                            && application.isStudentConfirm() == true 
+                                            && application.getSchoolConfirm() == 1 
+                                            && application.getCompanyConfirm() == 0 
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
+                                            && application.isStudentConfirm() == true 
+                                            && application.getSchoolConfirm() == 1 
+                                            && application.getCompanyConfirm() == 2) {
+                                        listApplicationChageStatus.add(application);
+                                    }
+                                }
+                                if (listApplicationChageStatus.isEmpty() == false) {
+                                    //change status to cancel
+                                    applicationDAO.changeStudentConfirmStatus(listApplicationChageStatus);
+                                }
                             }
                         }
                     }
