@@ -369,7 +369,7 @@
                             </c:if>
                         </div>
 
-
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
 
@@ -382,16 +382,16 @@
                                         <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
-                                    
-                                        <%--%><c:url var="url" value="AdminShowInternApplicationController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="txtStudentID" value="${studentID}"/>
-                                        <c:param name="txtCompanyID" value="${companyID}"/>
-                                        <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                        <c:param name="txtTitleJob" value="${titleJob}"/>
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
-                                    </c:forEach>
+
+                                    <%--%><c:url var="url" value="AdminShowInternApplicationController">
+                                    <c:param name="page" value="${i}"/>
+                                    <c:param name="txtStudentID" value="${studentID}"/>
+                                    <c:param name="txtCompanyID" value="${companyID}"/>
+                                    <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                    <c:param name="txtTitleJob" value="${titleJob}"/>
+                                </c:url>
+                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
+                                </c:forEach>
                             </ul>
                         </div>
 
@@ -409,6 +409,7 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 
 </html>

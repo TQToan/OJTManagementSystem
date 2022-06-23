@@ -151,20 +151,6 @@
 
                         <div class="main-body-appl__search">
                             <form action="SearchStudentAppliedJobController" method="POST">
-                                <%--<<<<<<< HEAD
-                                                                <table class="table">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td>
-                                                                                <input type="text" name="nameTypeJob" value="${param.nameTypeJob}" id="" placeholder="Type Job">
-                                                                            </td>
-                                                                            <td>
-                                                                                <input type="text" name="nameCompany"  value="${param.nameCompany}" id="" placeholder="Company">
-                                                                            </td>
-                                                                            <td>
-                                                                                <select id="city" name="nameLocation">
-                                =======--%>
                                 <div class="row">
                                     <div class="col-3">
                                         <input type="text" name="nameTypeJob" class="student--input" value="${param.nameTypeJob}" id="" placeholder="Type Job">
@@ -311,6 +297,7 @@
                                     </tbody>
 
                                 </table>
+                                <div id="pageX" hidden >${requestScope.page}</div>
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
 
@@ -321,10 +308,20 @@
                                                                                 </li>-->
 
                                         <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                            <c:url var="url" value="SearchStudentAppliedJobController">
+                                            <li>
+                                                <form action="SearchStudentAppliedJobController" method="POST">
+                                                <input type="hidden" name="page" value="${i}"/>
+                                                <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                <input type="submit" value="${i}" class="page-link"/>
+                                            </form>
+                                            </li>
+<!--                                            <c:url var="url" value="SearchStudentAppliedJobController">
                                                 <c:param name="page" value="${i}"/>
                                             </c:url>
-                                            <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                            <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>-->
                                             </c:forEach>
 
                                         <!--                                        <li class="page-item">
@@ -356,5 +353,6 @@
         </footer>
                             
     <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/base.js"></script>
     </body>
 </html>

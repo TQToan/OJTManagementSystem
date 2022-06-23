@@ -251,7 +251,7 @@
                             </c:if>
                         </div>
 
-
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">     
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
@@ -263,15 +263,15 @@
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
 
-                                        <%--<c:url var="url" value="SearchCompanyAdminManagerController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="selectCompany" value="${param.selectCompany}"/>
-                                        <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                        <c:param name="selectStatus" value="${param.selectStatus}"/>
-                                    </c:url>                       
-                                    <li class="page-item">
-                                        <a class="page-link" href="${url}">${i}</a>
-                                    </li>--%>
+                                    <%--<c:url var="url" value="SearchCompanyAdminManagerController">
+                                    <c:param name="page" value="${i}"/>
+                                    <c:param name="selectCompany" value="${param.selectCompany}"/>
+                                    <c:param name="txtEmail" value="${param.txtEmail}"/>
+                                    <c:param name="selectStatus" value="${param.selectStatus}"/>
+                                </c:url>                       
+                                <li class="page-item">
+                                    <a class="page-link" href="${url}">${i}</a>
+                                </li>--%>
                                 </c:forEach>
                             </ul>
 
@@ -292,5 +292,6 @@
         </footer>
 
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

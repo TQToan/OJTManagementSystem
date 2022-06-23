@@ -200,6 +200,8 @@
 }
 .cActive--more--btn{    
     cursor: pointer;
+    color: gray;
+    text-decoration: none;
 }
 
 

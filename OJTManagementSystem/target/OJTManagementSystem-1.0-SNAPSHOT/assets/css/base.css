@@ -370,8 +370,8 @@ main{
 }
 
 .pagination-active{
-    background-color: blue;
-    text-color: white !important;  
+    background-color: var(--text-color-orange);
+    color: white !important;  
 }
 
 .btn-update-green{

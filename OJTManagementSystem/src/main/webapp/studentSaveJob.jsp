@@ -234,10 +234,6 @@
                                                         <c:param name="postID" value="${post.postID}"/>
                                                     </c:url>
                                                     <a href="${urlDeleteSaveJob}" >Unsave</a>--%>
-                                                    <form action="StudentDeleteSaveJobController" >
-                                                        <input type="hidden" name="postID" value="${post.postID}"/>
-                                                        <input type="submit" value="Unsave" class="far fa-heart save-btn save-btn-active" />
-                                                    </form>
 
                                                     <%-- <form action="StudentDeleteSaveJobController" >
                                                          <input type="hidden" name="postID" value="${post.getPostID()}" />
@@ -253,6 +249,8 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
+                                
+                                <div id="pageX" hidden >${requestScope.page}</div>
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <!--                                        <li class="page-item">
@@ -303,6 +301,7 @@
             </div>
         </footer>
 
-        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>                            
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>    
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

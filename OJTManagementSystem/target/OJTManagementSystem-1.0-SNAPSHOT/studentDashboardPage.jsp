@@ -237,7 +237,8 @@
                                             <form action="StudentDeleteSaveJobController" method="POST">
                                                 <input type="hidden" name="postID" value="${recommendPost.postID}" />
                                                 <input type="hidden" name="unSave" value="studentDashboardPage" />
-                                                <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
+                                                <label for="unsaveJob+${recommendPost.postID}" class="far fa-heart save-btn save-btn-active"> </label>
+                                                <input type="submit" value="Unsave Job" id="unsaveJob+${recommendPost.postID}" hidden />
                                             </form>
                                             <%-- <c:url var="unsaveJob" value="StudentDeleteSaveJobController">
                                                  <c:param name="postID" value="${recommendPost.postID}"/>
@@ -253,7 +254,8 @@
                                                                                             </form>-->
                                             <form action="StudentSaveJobController" method="POST">
                                                 <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
+                                                <label for="saveJob+${recommendPost.postID}" class="far fa-heart save-btn "> </label>
+                                                <input type="submit" value="Save Job" id="saveJob+${recommendPost.postID}" hidden/>
                                             </form>
                                             <%--<c:url var="saveJob" value="StudentSaveJobController">
                                                 <c:param name="postID" value="${recommendPost.postID}"/>
@@ -286,13 +288,13 @@
                         </c:forEach>
                     </div>
 
-                    <div class="recom__see-more--btn row">
+                    <div class="recom__see-more--btn">
                         <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
                             <c:param name="nameCompany" value=""/>
                             <c:param name="nameMajor" value="${majorID}"/>
                             <c:param name="nameLocation" value=""/>
                         </c:url>
-                        <a href="${urlSearchHome}" class="recom--more--btn text-end">
+                        <a href="${urlSearchHome}" class="recom--more--btn">
                             See More 
                             <i class="fas fa-arrow-right"></i>
                         </a> 

@@ -263,7 +263,7 @@
                                 </table>
                             </div>
 
-
+                            <div id="pageX" hidden>${requestScope.page}</div>
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
 
@@ -309,5 +309,6 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

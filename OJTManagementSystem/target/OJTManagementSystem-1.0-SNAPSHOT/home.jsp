@@ -121,7 +121,9 @@
                                     <form action="StudentDeleteSaveJobController" method="POST">
                                         <input type="hidden" name="unSave" value="homePage" />
                                         <input type="hidden" name="postID" value="${dto.postID}" />
-                                        <input type="submit" value="Unsave Job" class="far fa-heart card-company-btn-save save-btn save-btn-active " />
+                                        <label for="unsaveJob+${dto.postID}" class="far fa-heart card-company-btn-save save-btn save-btn-active">
+                                            <input type="submit" value="Unsave Job"  id="unsaveJob+${dto.postID}" hidden/>
+                                        </label>
                                     </form>
                                     <%--<a href="${urlUnSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
@@ -131,7 +133,9 @@
                                     <form action="StudentSaveJobController" method="POST">
                                         <input type="hidden" name="save" value="homePage" />
                                         <input type="hidden" name="postID" value="${dto.postID}" />
-                                        <input type="submit" value="Save Job" class="far fa-heart card-company-btn-save save-btn" />
+                                        <label for="saveJob+${dto.postID}" class="far fa-heart card-company-btn-save save-btn">
+                                            <input type="submit" value="" hidden id="saveJob+${dto.postID}"/>
+                                        </label>
                                     </form>
                                     <%--<a href="${urlSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn"></i>
@@ -171,7 +175,7 @@
                         <div class="carousel-item <c:if test="${index eq 1}">active</c:if>">
                             <c:forEach items="${my:getList(requestScope.LIST_AVATAR_SIGNED_COMPANY, index)}" var="item">
                                 <span style="margin:10px">
-                                    <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="">
+                                    <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="icon-company-link">
                                     <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
                                 </a> 
                                 </span>

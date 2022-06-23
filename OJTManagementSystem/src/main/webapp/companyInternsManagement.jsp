@@ -312,6 +312,7 @@
                             </c:if>
                         </div>
 
+                                <div id="pageX" hidden >${requestScope.PAGE}</div>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">        
                                 <c:set value="${requestScope.NUMBER_PAGE}" var="numberpage"/>
@@ -350,5 +351,6 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

@@ -231,9 +231,11 @@
                                 </h5>
                             </c:if>
 
-                            <div class="profile-edit-btn primary-btn">
+                            <div >
+                                <label for="editProfile" class="profile-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
-                                <input type="submit" class="profile-edit--input" value="Edit">
+                                <input type="submit" class="profile-edit--input" value="Edit" id="editProfile">
+                                </label>
                             </div>
                         </form>
                     </div>

@@ -18,11 +18,11 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-         <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
     </head>
     <body>
         <header></header>
-        
+
         <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowAdminStudentManagementController" class="nav__logo ">
@@ -372,6 +372,7 @@
                             </c:if>
                         </div>
 
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
 
@@ -385,7 +386,7 @@
                                         <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
-                                    </c:forEach>
+                                </c:forEach>
                             </ul>
                         </div>
 
@@ -401,5 +402,6 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

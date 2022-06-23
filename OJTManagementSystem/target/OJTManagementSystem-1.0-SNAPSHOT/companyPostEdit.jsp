@@ -251,10 +251,10 @@
                                 </h5>
                             </div>
                             <input type="hidden" name="statusPost" value="${companyPost.statusPost}" />
-                            <div class="cPostEdit-edit-btn primary-btn">
-                                <i class="fas fa-edit"></i>
-                                <label for="btaction"></label>
-                                <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Edit" />
+                            <div>
+                                <label class="cPostEdit-edit-btn primary-btn" for="ebtaction"><i class="fas fa-edit"></i>
+                                    <input type="submit" id="ebtaction" class="cPostEdit-edit--input " name="btAction" value="Edit" />
+                                </label>
                             </div>
                         </form>
                     </div>
