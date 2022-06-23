@@ -81,7 +81,7 @@
         
     <main class="row">
         <nav class="col-xl-2  nav-fixed col-md-3">
-            <a href="#" class="nav__logo ">
+            <a href="ShowCompanyDashBoardController" class="nav__logo ">
                 <img src="./assets/img/logo.png" alt="" class="nav--logo">
             </a>
             <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">

@@ -126,7 +126,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                     String address = params.get("addressUpdate");
                     String stringPhone = params.get("phoneUpdate");
                     String email = params.get("email");
-
+                    String postID = params.get("postID");
                     //Check date update
                     if (date.compareTo(nowDate) > 0) {
                         error.setErrorDateInvalid("Your birthDay is illegal");
@@ -182,8 +182,17 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         }
                         TblStudentDTO newInforStudent = dao.getStudentInformation(student.getStudentCode());
                         session.setAttribute("STUDENT_ROLE", newInforStudent);
-                        url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
-                        response.sendRedirect(url);
+
+                        if (!postID.isEmpty() && resultIpdateStudent) {   
+                            request.setAttribute("POST_ID", postID);
+                            url = properties.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_APPLY_CV_CONTROLLER);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
+                        } else {
+                            url = MyApplicationConstants.UpdateStudentProfileFeature.STUDENT_DASHBOARD_CONTROLLER;
+                            response.sendRedirect(url);
+                        }
+
                     }
                 } //if student is created
                 else {

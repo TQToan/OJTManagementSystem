@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -63,137 +64,144 @@ public class ApplyCVStudentServlet extends HttpServlet {
         String url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.HOME_AFTER_CLICK1_PAGE);
         try {
             if (session != null) {
-              TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
-            if (student != null) {
-                // get parameters
-                // Create a factory for disk-based file items
-                DiskFileItemFactory factory = new DiskFileItemFactory();
+                TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
+                if (student != null) {
+                    // get parameters
+                    // Create a factory for disk-based file items
+                    DiskFileItemFactory factory = new DiskFileItemFactory();
 
-                // Configure a repository (to ensure a secure temp location is used)
-                ServletContext servletContext = this.getServletConfig().getServletContext();
-                File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                factory.setRepository(repository);
+                    // Configure a repository (to ensure a secure temp location is used)
+                    ServletContext servletContext = this.getServletConfig().getServletContext();
+                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+                    factory.setRepository(repository);
 
-                // Create a new file upload handler
-                ServletFileUpload upload = new ServletFileUpload(factory);
+                    // Create a new file upload handler
+                    ServletFileUpload upload = new ServletFileUpload(factory);
 
-                // Parse the request
-                List<FileItem> items = upload.parseRequest(request);
+                    // Parse the request
+                    List<FileItem> items = upload.parseRequest(request);
 
-                Iterator<FileItem> iter = items.iterator();
-                HashMap<String, String> params = new HashMap<>();
-                String name = "";
-                String value = "";
-                String fileName = "";
-                String cvName = "";
-                long fileLength = 0;
-                String filePath = "";
-                while (iter.hasNext()) {
-                    FileItem item = iter.next();
-                    if (item.isFormField()) {
-                        name = item.getFieldName();
-                        value = item.getString("UTF-8");
-                        params.put(name, value);
-                    } else {
-                        fileName = item.getName();
-                        if (fileName == null || fileName.equals("")) {
-                            break;
+                    Iterator<FileItem> iter = items.iterator();
+                    HashMap<String, String> params = new HashMap<>();
+                    String name = "";
+                    String value = "";
+                    String fileName = "";
+                    String cvName = "";
+                    long fileLength = 0;
+                    String filePath = "";
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
+                        if (item.isFormField()) {
+                            name = item.getFieldName();
+                            value = item.getString("UTF-8");
+                            params.put(name, value);
                         } else {
-                            Path path = Paths.get(fileName);
-                            String realPath = request.getServletContext().getRealPath("/CVs");
-                            cvName = student.getStudentCode() + "_" + path.getFileName().toString();
-                            File uploadFile = new File(realPath + "/" + cvName);
-                            filePath = uploadFile.toString();
-                            
-                            if (Files.exists(Paths.get(realPath)) == false) {
-                                Files.createDirectories(Paths.get(realPath));
+                            fileName = item.getName();
+                            if (fileName == null || fileName.equals("")) {
+                                break;
+                            } else {
+                                Path path = Paths.get(fileName);
+                                String realPath = request.getServletContext().getRealPath("/CVs");
+                                cvName = student.getStudentCode() + "_" + path.getFileName().toString();
+                                File uploadFile = new File(realPath + "/" + cvName);
+                                filePath = uploadFile.toString();
+                                if (Files.exists(Paths.get(realPath)) == false) {
+                                    Files.createDirectories(Paths.get(realPath));
+                                }
+                                item.write(uploadFile);
+                                fileLength = Files.size(Paths.get(filePath));
                             }
-                            item.write(uploadFile);
-                            fileLength = Files.size(Paths.get(filePath));
+                        }
+                    }
+                    String expectedJob = params.get("txtExpectedJob");
+                    String technology = params.get("txtTechnology");
+                    String experience = params.get("txtExperience");
+                    String foreignLanguage = params.get("txtForeignLanguage");
+                    String otherSkills = params.get("txtOtherSkills");
+                    int postID = Integer.parseInt(params.get("postID"));
+                    ApplyCVStudentError errors = new ApplyCVStudentError();
+                    boolean found = false;
+                    //check student infor
+                    Date checkBirthday = student.getBirthDay();
+                    String checkAddress = student.getAddress();
+                    String checkPhone = student.getPhone();
+                    if (checkBirthday == null || checkAddress == null || checkPhone == null) {
+                        errors.setStudentInformationError("Please enter all personal information first");
+                        request.setAttribute("POST_ID", postID);
+                        request.setAttribute("ERRORS", errors);
+                    } else {
+                        if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
+                            found = true;
+                            errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
+                        }
+
+                        if (technology.trim().length() < 6 || technology.trim().length() > 50) {
+                            found = true;
+                            errors.setTechnologyLengthError("Technology is required 6-50 characters");
+                        }
+
+                        if (foreignLanguage.trim().length() < 6 || foreignLanguage.trim().length() > 50) {
+                            found = true;
+                            errors.setForeignLanguageLengthError("Foreign Language is required 6-50 characters");
+                        }
+
+                        if (otherSkills.trim().length() < 6 || otherSkills.trim().length() > 50) {
+                            found = true;
+                            errors.setOtherSkillsLengthError("Other skills is required 6-50 characters");
+                        }
+
+                        if (cvName.trim().equals("")) {
+                            found = true;
+                            errors.setFileUploadError("File is not empty");
+                        } else {
+                            if (cvName.endsWith("doc") == false
+                                    && cvName.endsWith("docx") == false
+                                    && cvName.endsWith("pdf") == false) {
+                                found = true;
+                                errors.setFileUploadTypeError("File is required .doc, .docx, .pdf");
+                            }
+                            fileLength = (fileLength / (1024 * 1024));
+                            long sizeMax = 1;
+                            if (fileLength > sizeMax) {
+                                found = true;
+                                errors.setFileUploadLengthError("File's length is required less than 1MB");
+                            }
+                        }
+
+                        TblStudentDAO studentDAO = new TblStudentDAO();
+                        TblStudentDTO studentInformation = studentDAO.
+                                getStudentInformation(student.getStudentCode());
+                        request.setAttribute("STUDENT_INFORMATION", studentInformation);
+
+                        TblApplicationDTO application = new TblApplicationDTO();
+                        application.setAttachmentPath(cvName);
+                        application.setExpected_job(expectedJob);
+                        application.setExperience(experience);
+                        application.setForeign_Language(foreignLanguage);
+                        application.setOtherSkills(otherSkills);
+                        application.setTechnology(technology);
+                        application.setStudent(student);
+
+                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                        application.setCompanyPost(companyPost);
+
+                        request.setAttribute("APPLICATION_INFORMATION", application);
+
+                        if (found) {
+                            if (cvName.trim().isEmpty() == false) {
+                                Files.deleteIfExists(Paths.get(filePath));
+                            }
+                            request.setAttribute("ERRORS", errors);
+                        } else {
+                            TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                            boolean result = applicationDAO.addApplication(application);
+                            if (result) {
+                                url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.STUDENT_APPLIED_JOB_PAGE);
+                            }
                         }
                     }
                 }
-                String expectedJob = params.get("txtExpectedJob");
-                String technology = params.get("txtTechnology");
-                String experience = params.get("txtExperience");
-                String foreignLanguage = params.get("txtForeignLanguage");
-                String otherSkills = params.get("txtOtherSkills");
-                int portID = Integer.parseInt(params.get("postID"));
-                ApplyCVStudentError errors = new ApplyCVStudentError();
-                boolean found = false;
-
-                if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
-                    found = true;
-                    errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
-                }
-
-                if (technology.trim().length() < 6 || technology.trim().length() > 50) {
-                    found = true;
-                    errors.setTechnologyLengthError("Technology is required 6-50 characters");
-                }
-
-                if (foreignLanguage.trim().length() < 6 || foreignLanguage.trim().length() > 50) {
-                    found = true;
-                    errors.setForeignLanguageLengthError("Foreign Language is required 6-50 characters");
-                }
-
-                if (otherSkills.trim().length() < 6 || otherSkills.trim().length() > 50) {
-                    found = true;
-                    errors.setOtherSkillsLengthError("Other skills is required 6-50 characters");
-                }
-
-                if (cvName.trim().equals("")) {
-                    found = true;
-                    errors.setFileUploadError("File is not empty");
-                } else {
-                    System.out.println(cvName);
-                    if (cvName.endsWith("doc") == false
-                            && cvName.endsWith("docx") == false
-                            && cvName.endsWith("pdf") == false) {
-                        found = true;
-                        errors.setFileUploadTypeError("File is required .doc, .docx, .pdf");
-                    }
-                    fileLength = (fileLength / (1024*1024));
-                    long sizeMax =  1;
-                    if (fileLength > sizeMax) {
-                        found = true;
-                        errors.setFileUploadLengthError("File's length is required less than 1MB");
-                    }
-                }
-
-                TblStudentDAO studentDAO = new TblStudentDAO();
-                TblStudentDTO studentInformation = studentDAO.
-                        getStudentInformation(student.getStudentCode());
-                request.setAttribute("STUDENT_INFORMATION", studentInformation);
-
-                TblApplicationDTO application = new TblApplicationDTO();
-                application.setAttachmentPath(cvName);
-                application.setExpected_job(expectedJob);
-                application.setExperience(experience);
-                application.setForeign_Language(foreignLanguage);
-                application.setOtherSkills(otherSkills);
-                application.setTechnology(technology);
-                application.setStudent(student);
-
-                TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(portID);
-                application.setCompanyPost(companyPost);
-
-                request.setAttribute("APPLICATION_INFORMATION", application);
-
-                if (found) {
-                    if (cvName.trim().isEmpty() == false) {
-                        Files.deleteIfExists(Paths.get(filePath));
-                    }
-                    request.setAttribute("ERRORS", errors);
-                } else {
-                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
-                    boolean result = applicationDAO.addApplication(application);
-                    if (result) {
-                        url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.STUDENT_APPLIED_JOB_PAGE);
-                    }
-                }
-            }
             }
         } catch (SQLException ex) {
             log("SQLException at ApplyCVStudentServlet " + ex.getMessage());
@@ -208,7 +216,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

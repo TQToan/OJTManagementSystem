@@ -47,15 +47,16 @@ public class ShowApplyCVServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.ShowAppluCVFeature.LOGIN_PAGE;
-        
         HttpSession session = request.getSession(false);
         
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
+                    if(stringPostID == null){
+                        stringPostID = (String) request.getAttribute("POST_ID");
+                    }
                     int postID = Integer.parseInt(stringPostID);
-                    
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                     TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
                     
