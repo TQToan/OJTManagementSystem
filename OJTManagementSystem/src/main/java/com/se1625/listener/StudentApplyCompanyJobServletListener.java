@@ -10,6 +10,7 @@ import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,11 +43,14 @@ public class StudentApplyCompanyJobServletListener implements ServletRequestList
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
-        HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
         ServletContext context = sre.getServletContext();
-        String button = request.getParameter("btAction");
+        
         try {
+            HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
+            request.setCharacterEncoding("UTF-8");
+            String button = request.getParameter("btAction");
             if (button != null) {
+                
                 if (button.equals("Apply")) {
                     int postID = Integer.parseInt(request.getParameter("postID"));
                     //check quantity of the post
@@ -78,7 +82,7 @@ public class StudentApplyCompanyJobServletListener implements ServletRequestList
                         FileItem item = iter.next();
                         if (item.isFormField()) {
                             name = item.getFieldName();
-                            value = item.getString();
+                            value = item.getString("UTF-8");
                             params.put(name, value);
                         }
                     }
@@ -102,6 +106,8 @@ public class StudentApplyCompanyJobServletListener implements ServletRequestList
             context.log("NamingException at StudentApplyCompanyJobServletListener " + ex.getMessage());
         } catch (FileUploadException ex) {
             context.log("FileUploadException at StudentApplyCompanyJobServletListener " + ex.getMessage());
+        } catch (UnsupportedEncodingException ex) {
+            context.log("UnsupportedEncodingException at StudentApplyCompanyJobServletListener " + ex.getMessage());
         }
     }
 }

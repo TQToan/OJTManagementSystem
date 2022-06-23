@@ -47,8 +47,12 @@
                 <c:set var="companyPost" value="${requestScope.POST_COMPANY_INFOR}" />
                 <div class="main-body">
                     <div class="main-body-cViewStu">
-
-                        <input type="hidden" name="postID" value="${companyPost.postID}" />
+                        <c:if test="${not empty companyPost.postID}">
+                            <input type="hidden" name="postID" value="${companyPost.postID}" />
+                        </c:if>
+                        <c:if test="${empty companyPost.postID}">
+                            <input type="hidden" name="postID" value="${requestScope.POST_ID}" />
+                        </c:if>
                         <h1 class="main-body-cViewStu__header">
                             ${companyPost.company.account.name} 
                         </h1>
@@ -130,6 +134,22 @@
                                         <c:if test="${not empty errors.fileUploadLengthError}" >
                                             ${errors.fileUploadLengthError}
                                         </c:if>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <c:if test="${not empty errors.studentInformationError}" >
+                                            <font class="text-danger">
+                                            ${errors.studentInformationError}
+
+                                            </font>                                           
+                                            <div>
+                                                <c:url value="ShowStudentProfileController" var="url">
+                                                    <c:param name="postID" value="${requestScope.POST_ID}"/>
+                                                </c:url> 
+                                                <a href="${url}">Click here to update your information</a>
+                                            </div>
+                                        </c:if>
+
                                     </div>
                                 </div>
                             </div>

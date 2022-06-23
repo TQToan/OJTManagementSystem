@@ -6,11 +6,16 @@
 package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -44,6 +49,7 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get Paramente
+        int semesterID = Integer.parseInt(request.getParameter("semester"));
         String titlePost = request.getParameter("txtTitle").trim();
         String companyName = request.getParameter("txtCompanyName").trim();
         String nameStatus = request.getParameter("nameStatus").trim();
@@ -65,53 +71,77 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
                 TblAccountDTO admin = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
                 //get CompanyoPost
                 TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                
+
                 if (admin != null) {
 //                    if ("".equals(titlePost) && "".equals(companyName) && "".equals(nameStatus)) {
 //                        url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_POST_MANAGE_PAGE);
 //                        response.sendRedirect(url);
 //                    } 
                     //else {
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    TblSemesterDTO nowSemester = currentSemester;
+
+                    if (semesterID == currentSemester.getSemesterID()) {
+                        companyPostDAO.searchPostByFilterAsAdminRole(titlePost, companyName, nameStatus, semesterID);
+                    } else {
+                        currentSemester = semesterDAO.getSemesterByID(semesterID);
+                        companyPostDAO.searchPostByFilterAsAdminRole(titlePost, companyName, nameStatus, semesterID);
+                    }
+
+                    List<TblCompany_PostDTO> listCompanyPost = companyPostDAO.getCompanyPostListAdminPage();
+                    //Phan trang
+                    if (listCompanyPost != null) {
                         url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_POST_MANAGE_PAGE);
-                        companyPostDAO.searchPostByFilterAsAdminRole(titlePost, companyName, nameStatus);
-                        List<TblCompany_PostDTO> listCompanyPost = companyPostDAO.getCompanyPostListAdminPage();
-                        //Phan trang
-                        if (listCompanyPost != null) {
-                            sizeOfList = listCompanyPost.size();
+                        sizeOfList = listCompanyPost.size();
 
-                            if (xpage == null) {
-                                page = 1;
-                            } // load page save job 
-                            else {
-                                page = Integer.parseInt(xpage);
-                            } // when choose number of page
-
-                            int numberPage = sizeOfList % numberRowsPerPage;
-
-                            if (numberPage == 0) {
-                                numberPage = sizeOfList / numberRowsPerPage;
-                            } else {
-                                numberPage = (sizeOfList / numberRowsPerPage) + 1;
-                            }
-                            start = (page - 1) * numberRowsPerPage;
-                            end = Math.min(page * numberRowsPerPage, sizeOfList);
-
-                            List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
-                                    getListByPage(listCompanyPost, start, end);
-                            //Set attribute
-                            request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
-                            request.setAttribute("page", page);
-                            request.setAttribute("numberPage", numberPage);
-
-                        } // if company post list exisst
+                        if (xpage == null) {
+                            page = 1;
+                        } // load page save job 
                         else {
-                            url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_POST_MANAGE_PAGE);
-                            sizeOfList = 0;
-                        } // if company post list NOT exisst
-                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
-                   // }
+                            page = Integer.parseInt(xpage);
+                        } // when choose number of page
+
+                        int numberPage = sizeOfList % numberRowsPerPage;
+
+                        if (numberPage == 0) {
+                            numberPage = sizeOfList / numberRowsPerPage;
+                        } else {
+                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                        }
+                        start = (page - 1) * numberRowsPerPage;
+                        end = Math.min(page * numberRowsPerPage, sizeOfList);
+
+                        List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
+                                getListByPage(listCompanyPost, start, end);
+                        //Set attribute
+                        request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
+                        request.setAttribute("page", page);
+                        request.setAttribute("numberPage", numberPage);
+
+                    } // if company post list exisst
+                    else {
+                        url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_POST_MANAGE_PAGE);
+                        sizeOfList = 0;
+                    } // if company post list NOT exisst
+
+                    //lay list company
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    companyDAO.getNameCompanies();
+                    List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                    request.setAttribute("LIST_ALL_COMPANY", listNameCompany);
+
+                    //List semester
+                    List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
+                    request.setAttribute("LIST_SEMESTER", listSemester);
+
+                    request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                    request.setAttribute("NOW_SEMESTER", nowSemester);
+
+                    request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                    // }
                 }//if admin exist
                 else {
                     response.sendRedirect(url);
@@ -121,6 +151,7 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
                 response.sendRedirect(url);
             }//if session NOT exist
         } catch (SQLException ex) {
+            ex.printStackTrace();
             log("SQLException at SearchCompanyPostServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at SearchCompanyPostServlet " + ex.getMessage());

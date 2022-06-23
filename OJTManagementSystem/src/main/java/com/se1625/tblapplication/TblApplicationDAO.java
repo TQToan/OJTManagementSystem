@@ -965,7 +965,7 @@ public class TblApplicationDAO implements Serializable {
 
     // nơi dùng: AdminShowInternApplicationServlet
     public List<TblApplicationDTO> getApplicationByFilterInAdminIternAppl(String studentID,
-            String companyID, String titleJob, String schoolStatus)
+            String companyID, String titleJob, String schoolStatus, int semesterID)
             throws SQLException, NamingException, NumberFormatException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -998,7 +998,7 @@ public class TblApplicationDAO implements Serializable {
                         + "FROM tblApplication app JOIN tblCompany_Post post on app.postID = post.postID "
                         + "JOIN tblCompany com on com.companyID = post.companyID "
                         + "JOIN tblAccount acc on acc.username = com.username "
-                        + "WHERE app.studentCode Like ? and com.companyID Like ? and post.title_Post Like ? ";
+                        + "WHERE app.studentCode Like ? and com.companyID Like ?  and post.title_Post Like ? and app.semesterID = ?";
                 if (iSchoolStatus != 7) {
                     sql += "and app.school_Confirm Like ? ";
                 }
@@ -1006,8 +1006,9 @@ public class TblApplicationDAO implements Serializable {
                 stm.setString(1, "%" + studentID + "%");
                 stm.setNString(2, "%" + companyID + "%");
                 stm.setNString(3, "%" + titleJob + "%");
+                stm.setInt(4, semesterID);
                 if (iSchoolStatus != 7) {
-                    stm.setInt(4, iSchoolStatus);
+                    stm.setInt(5, iSchoolStatus);
                 }
                 rs = stm.executeQuery();
                 int nu = 0;

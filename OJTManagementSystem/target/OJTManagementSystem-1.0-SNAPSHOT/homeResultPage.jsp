@@ -157,27 +157,35 @@
                         <div>                       
                             <div  class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
-<!--                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                             <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>-->
-                                    
+                                    <!--                                     <li class="page-item">
+                                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                                 <span aria-hidden="true">&laquo;</span>
+                                                                            </a>
+                                                                        </li>-->
+                                    <div id="pageX" hidden>${requestScope.page}</div>
                                     <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                        <c:url var="url" value="SearchCompanyStudentHomeController">
-                                            <c:param name="page" value="${i}"/>
-                                            <c:param name="nameCompany" value="${companyID}"/>
-                                            <c:param name="nameMajor" value="${majorID}"/>
-                                            <c:param name="nameLocation" value="${nameLocation}"/>
-                                        </c:url>
-                                        <%--<a href="${url}">${i}</a>--%>
-                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                        <li class="page-item">
+                                            <form action="SearchCompanyStudentHomeController" method="POST">
+                                                <input type="hidden" name="page" value="${i}">
+                                                <input type="hidden" name="nameCompany" value="${companyID}">
+                                                <input type="hidden" name="nameMajor" value="${majorID}">
+                                                <input type="hidden" name="nameLocation" value="${nameLocation}">
+                                                <input type="submit" value="${i}" class="page-link" >
+                                            </form>
+                                        </li>
+                                        <%--   <c:url var="url" value="SearchCompanyStudentHomeController">
+                                               <c:param name="page" value="${i}"/>
+                                               <c:param name="nameCompany" value="${companyID}"/>
+                                               <c:param name="nameMajor" value="${majorID}"/>
+                                               <c:param name="nameLocation" value="${nameLocation}"/>
+                                           </c:url>
+                                           <li class="page-item"><a class="page-link" href="${url}">${i}</a></li> --%>
                                     </c:forEach>
-<!--                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                         </a>
-                                    </li>-->
+                                    <!--                                    <li class="page-item">
+                                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                                <span aria-hidden="true">&raquo;</span>
+                                                                             </a>
+                                                                        </li>-->
                                 </ul>
                             </div>
                         </div>
@@ -190,7 +198,7 @@
             <div class="footer__content">
                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
-
         </footer>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

@@ -18,12 +18,12 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/student.css">
         <link rel="stylesheet" href="./assets/css/student-responsive.css">
-    
+
     </head>
     <body>
         <header></header>
 
-        
+
         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowStudentHomeController" class="nav__logo ">
@@ -146,7 +146,7 @@
                 <div class="row">
                     <div class="main-body-profile offset-xl-3 col-xl-6 offset-2 col-8">
                         <div class="main-body-profile__header">
-                            Personal Profile*
+                            Personal Profile* 
                         </div>
 
                         <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
@@ -158,16 +158,10 @@
                                 <label class="col-4 profile--label" for="studentCode">Student Code</label>
                                 <div class="col-8  profile--input-none-hover ">${studentProfile.studentCode}</div>
                                 <input type="hidden" name="studentCode" value="${studentProfile.studentCode}" />
-                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                        your error
-                                                                    </h5>-->
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="fullName">Full Name</label>
                                 <div class="col-8  profile--input-none-hover  ">${studentProfile.account.name}</div>
-                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                        your error
-                                                                    </h5>-->
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="birthday">Birthday</label>
@@ -192,11 +186,8 @@
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="email">Email</label>
-                                <input type="email" readonly class="col-8 profile--input " name="email" id="email"
+                                <input type="email" readonly class="col-8 profile--input-none-hover " name="email" id="email"
                                        value="${studentProfile.account.email}">
-                                <!--                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                                                        your error
-                                                                    </h5>-->
                             </div>
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="address">Address</label>
@@ -221,9 +212,10 @@
                                     </c:if>
                                 </h5>
                             </div>
+                            <input type="hidden" name="postID" value="${param.postID}" />   
                             <div class="profile__input row">
                                 <label class="col-4 profile--label" for="major">Major</label>
-                                <input type="text" readonly class="col-8 profile--input " name="" id="major"
+                                <input type="text" readonly class="col-8 profile--input-none-hover " name="" id="major"
                                        value="${studentProfile.major}">
                             </div>
                             <div class="profile__input row"> 
@@ -235,10 +227,13 @@
                                     ${errorUpdate.errorFileLength}
                                 </h5>
                             </c:if>
-                            
-                            <div class="profile-edit-btn primary-btn">
+
+
+                            <div >
+                                <label for="editProfile" class="profile-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
-                                <input type="submit" class="profile-edit--input" value="Edit">
+                                <input type="submit" class="profile-edit--input" value="Edit" id="editProfile">
+                                </label>
                             </div>
                         </form>
                     </div>
@@ -247,10 +242,10 @@
         </main>
         <footer class="footer">
             <div class="footer__content">
-                 <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
     </body>
 </html>

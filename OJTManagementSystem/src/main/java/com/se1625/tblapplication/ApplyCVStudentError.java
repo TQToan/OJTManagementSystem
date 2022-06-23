@@ -20,15 +20,16 @@ public class ApplyCVStudentError implements Serializable {
     private String fileUploadError;
     private String fileUploadTypeError;
     private String fileUploadLengthError;
-
+    private String studentInformationError;
     public ApplyCVStudentError() {
     }
 
-    public ApplyCVStudentError(String expectedJobLengthError, String technologyLengthError, String foreignLanguageLengthError, String otherSkillsLengthError) {
+    public ApplyCVStudentError(String expectedJobLengthError, String technologyLengthError, String foreignLanguageLengthError, String otherSkillsLengthError, String studentInformationError) {
         this.expectedJobLengthError = expectedJobLengthError;
         this.technologyLengthError = technologyLengthError;
         this.foreignLanguageLengthError = foreignLanguageLengthError;
         this.otherSkillsLengthError = otherSkillsLengthError;
+        this.studentInformationError = studentInformationError;
     }
 
     /**
@@ -129,4 +130,12 @@ public class ApplyCVStudentError implements Serializable {
         this.fileUploadLengthError = fileUploadLengthError;
     }
 
+    public String getStudentInformationError() {
+        return studentInformationError;
+    }
+
+    public void setStudentInformationError(String studentInformationError) {
+        this.studentInformationError = studentInformationError;
+    }
+   
 }

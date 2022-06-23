@@ -2,6 +2,7 @@
     table: md > 768px
     laptop: xl > 1200px */
 
+
 *{
     margin: 0;
     padding: 0;
@@ -368,6 +369,81 @@ main{
     color: var(--text-color-orange) !important;
 }
 
+.pagination-active{
+    background-color: var(--text-color-orange);
+    color: white !important;  
+}
+
+.btn-update-green{
+    border:none;
+    padding: 3px 5px;
+    background-color: var(--background-aquar);
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-update-green:hover{
+    transform: scale(1.1);
+}
+
+
+.btn-regular-red{
+    border:none;
+    border: 1px solid red;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: red;
+    text-decoration: none;
+}
+
+.btn-regular-red:hover{
+    background-color: red;
+    color:white;
+    border: 1px solid white;
+}
+
+.btn-regular-green{
+    border:none;
+    padding: 2px 5px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    text-decoration: none;
+}
+
+.btn-regular-green:hover{
+    background-color: green;
+    color:white;
+    border: 1px solid white;
+}
+
+
+.text-red{
+    color:red;
+}
+
+.text-orange{
+    color:orange;
+}
+
+.text-yellow{
+    color:yellow;
+}
+
+.text-blue{
+    color:blue;
+}
+
+.text-gray{
+    color: gray;
+}
+
+.text-green{
+    color:green;
+}
 
 
 

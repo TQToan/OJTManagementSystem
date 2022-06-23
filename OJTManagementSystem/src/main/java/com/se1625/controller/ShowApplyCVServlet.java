@@ -46,8 +46,8 @@ public class ShowApplyCVServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.ShowApplyCVFeature.LOGIN_PAGE;
 
+        String url = MyApplicationConstants.ShowApplyCVFeature.LOGIN_PAGE;
         HttpSession session = request.getSession(false);
 
         try {
@@ -72,6 +72,7 @@ public class ShowApplyCVServlet extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
                     }
+
                 } //if student is created
                 else {
                     response.sendRedirect(url);

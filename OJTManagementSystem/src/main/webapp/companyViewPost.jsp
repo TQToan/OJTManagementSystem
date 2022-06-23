@@ -81,7 +81,7 @@
         
     <main class="row">
         <nav class="col-xl-2  nav-fixed col-md-3">
-            <a href="#" class="nav__logo ">
+            <a href="ShowCompanyDashBoardController" class="nav__logo ">
                 <img src="./assets/img/logo.png" alt="" class="nav--logo">
             </a>
             <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
@@ -162,6 +162,7 @@
                     <form action="CompanyShowPostDetailsController" method="POST">
                         <div>
                             <input type="hidden" name="postID" value="${post.postID}"/>
+                            <input type="hidden" name="statusPost" value="${post.statusPost}"/>
                             <input type="submit" value="Edit" name="btAction" class="card-visit-btn primary-btn" />
                         </div>
                     </form>

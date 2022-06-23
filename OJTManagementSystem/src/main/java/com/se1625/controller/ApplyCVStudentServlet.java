@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,6 +71,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
                     url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.HOME_AFTER_CLICK1_PAGE);
                     // get parameters
                     List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
+
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
                     String name = "";
@@ -94,7 +96,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
                                 cvName = student.getStudentCode() + "_" + path.getFileName().toString();
                                 File uploadFile = new File(realPath + "/" + cvName);
                                 filePath = uploadFile.toString();
-
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
                                 }
@@ -208,7 +209,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

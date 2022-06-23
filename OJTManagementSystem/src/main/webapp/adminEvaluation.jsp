@@ -25,7 +25,7 @@
         <header></header>
 
         <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" /> 
-        
+
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowAdminStudentManagementController" class="header__logo ">
@@ -81,9 +81,9 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">  
-            
+
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -160,11 +160,11 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <input type="text" name="studentCode" value="${param.studentCode}" placeholder="ID" class="admin--input" />
 
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         <select name="txtCompanyName" class="admin--select">
                                             <option value="">Company Name</option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="companyName">
@@ -178,7 +178,7 @@
                                     <div class="col-1">
                                         <input type="number" step="any" min="0" max="10" name="garde" value="${param.garde}" placeholder="Grade" class="admin--input"/>     
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <select id="city" name="isPass"  class="admin--select" >
                                             <option value="">Status</option>
                                             <option value="true" class="text-success" <c:if test="${param.isPass eq 'true'}">
@@ -267,30 +267,31 @@
                         </c:if>
                     </div>
 
+                    <div id="pageX" hidden >${requestScope.page}</div>
                     <div  class="main__pagination">
                         <ul class="pagination main_cus__pagination">
-                            <!--                                     <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                                         <span aria-hidden="true">&laquo;</span>
-                                                                    </a>
-                                                                </li>-->
-
                             <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="SearchStudentEvaluationController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
-                                    <c:param name="studentCode" value="${param.studentCode}"/>
-                                    <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                    <c:param name="garde" value="${param.garde}"/>
-                                    <c:param name="isPass" value="${param.isPass}"/>
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                </c:forEach>
-                            <!--                                    <li class="page-item">
-                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                     </a>
-                                                                </li>-->
+                                <form action="SearchStudentEvaluationController" method="POST">
+                                    <input type="hidden" name="page" value="${i}"/>
+                                    <input type="hidden" name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
+                                    <input type="hidden" name="studentCode" value="${param.studentCode}"/>
+                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                    <input type="hidden" name="garde" value="${param.garde}"/>
+                                    <input type="hidden" name="isPass" value="${param.isPass}"/>
+                                    <input type="submit" value="${i}" class="page-link"/>
+                                </form>
+
+                                <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <c:url var="url" value="SearchStudentEvaluationController">
+                                        <c:param name="page" value="${i}"/>
+                                        <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
+                                        <c:param name="studentCode" value="${param.studentCode}"/>
+                                        <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                        <c:param name="garde" value="${param.garde}"/>
+                                        <c:param name="isPass" value="${param.isPass}"/>
+                                    </c:url>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
+                            </c:forEach>
                         </ul>
                     </div>        
 
@@ -305,7 +306,8 @@
             <i class="fa-regular fa-copyright"></i> Copyright 2022
         </div>
     </footer>
-                            
+
     <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/base.js"></script>
 </body>
 </html>

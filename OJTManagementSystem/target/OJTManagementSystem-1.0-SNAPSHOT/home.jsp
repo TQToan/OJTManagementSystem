@@ -103,31 +103,55 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
+
+                                <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
+=======
                                 <c:url var="urlSaveJob" value="StudentSaveJobController" >
+>>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
                                     <c:param name="save" value="homePage" />
                                     <c:param name="postID" value="${dto.postID}" />
                                 </c:url>
                                 <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
                                     <c:param name="unSave" value="homePage" />
                                     <c:param name="postID" value="${dto.postID}" />
-                                </c:url>
+<<<<<<< HEAD
+                                </c:url>--%>
                                 <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
                                 <c:if test="${statusFollowing eq true}">
-                                    <a href="${urlUnSaveJob}">
+                                    <form action="StudentDeleteSaveJobController" method="POST">
+                                        <input type="hidden" name="unSave" value="homePage" />
+                                        <input type="hidden" name="postID" value="${dto.postID}" />
+                                        <label for="unsaveJob+${dto.postID}" class="far fa-heart card-company-btn-save save-btn save-btn-active">
+                                            <input type="submit" value="Unsave Job"  id="unsaveJob+${dto.postID}" hidden/>
+                                        </label>
+                                    </form>
+                                    <%--<a href="${urlUnSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                    </a>
+                                    </a>--%>
                                 </c:if>
                                 <c:if test="${statusFollowing eq false}">
-                                    <a href="${urlSaveJob}">
+                                    <form action="StudentSaveJobController" method="POST">
+                                        <input type="hidden" name="save" value="homePage" />
+                                        <input type="hidden" name="postID" value="${dto.postID}" />
+                                        <label for="saveJob+${dto.postID}" class="far fa-heart card-company-btn-save save-btn">
+                                            <input type="submit" value="" hidden id="saveJob+${dto.postID}"/>
+                                        </label>
+                                    </form>
+                                    <%--<a href="${urlSaveJob}">
                                         <i class="far fa-heart card-company-btn-save save-btn"></i>
-                                    </a>
+                                    </a>--%>
                                 </c:if>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
                 <div class="home_see-more">
-                    <a href="#" class="home_see-more--btn ">
+                    <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
+                            <c:param name="nameCompany" value=""/>
+                            <c:param name="nameMajor" value=""/>
+                            <c:param name="nameLocation" value=""/>
+                        </c:url>
+                    <a href="${urlSearchHome}" class="home_see-more--btn ">
                         See More 
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -146,22 +170,25 @@
                 </div>
             </div>--%>
             <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="padding: 10px 70px;">
                     <c:forEach begin="1" end="${my:getIndexList(requestScope.LIST_AVATAR_SIGNED_COMPANY)}" var="index">
                         <div class="carousel-item <c:if test="${index eq 1}">active</c:if>">
                             <c:forEach items="${my:getList(requestScope.LIST_AVATAR_SIGNED_COMPANY, index)}" var="item">
-                                <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="">
+                                <span style="margin:10px">
+                                    <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="icon-company-link">
                                     <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
                                 </a> 
+                                </span>
+                                
                             </c:forEach> 
                         </div>
                     </c:forEach>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <button style="width:7%;" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <button style="width:7%;" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>

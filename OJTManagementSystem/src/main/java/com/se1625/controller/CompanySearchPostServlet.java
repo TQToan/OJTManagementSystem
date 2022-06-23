@@ -88,6 +88,8 @@ public class CompanySearchPostServlet extends HttpServlet {
                     }
                     if (tittle_Post == null) {
                         tittle_Post = "";
+                    }else{
+                        tittle_Post = tittle_Post.trim();
                     }
                     if (nameStatus == null) {
                         nameStatus = "";
@@ -117,7 +119,7 @@ public class CompanySearchPostServlet extends HttpServlet {
 
                         List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
                                 getListByPage(listCompanyPost, start, end);
-                        //Set attribute
+                        //Set attribute                                                
                         request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
                         request.setAttribute("page", page);
                         request.setAttribute("numberPage", numberPage);

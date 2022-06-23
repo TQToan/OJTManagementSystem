@@ -10,6 +10,8 @@ import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -581,13 +583,14 @@ public class TblCompany_PostDAO implements Serializable {
 
     //SEARCH POST AS ADMIN 
     public void searchPostByFilterAsAdminRole(String titlePost,
-            String companyName, String nameStatus) throws SQLException, NamingException {
+            String companyName, String nameStatus, int semesterID) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
+
                 String sql = "SELECT post.postID, post.title_Post, post.quantityInterns, post.postingDate, "
                         + "post.job_Description, post.job_Requirement, post.remuneration, post.vacancy, "
                         + "post.expirationDate, post.workLocation, major.majorName, major.majorID, acc.name, acc.avatar, "
@@ -595,117 +598,158 @@ public class TblCompany_PostDAO implements Serializable {
                         + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
                         + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
                         + "ON (post.majorID = major.majorID) ";
+                TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                TblSemesterDTO semesterDTO = semesterDAO.getSemesterByID(semesterID);
+                Date starDate = semesterDTO.getStartDate();
+                Date endDate = semesterDTO.getEndDate();
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == true) {
-                    sql += "ORDER BY post.postingDate DESC ";
+
+                    sql += "WHERE post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
                     stm = con.prepareStatement(sql);
+                    stm.setDate(1, starDate);
+                    stm.setDate(2, endDate);
                 }
+                /////// /////// /////// ///////
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == true
-                        && companyName.isEmpty() == false) {
-                    sql += " WHERE post.title_Post LIKE ? and acc.name LIKE ? ORDER BY post.postingDate DESC ";
+                        && companyName.isEmpty() == false && semesterID != 0) {
+
+                    sql += " WHERE post.title_Post LIKE ? and acc.name LIKE ? and (post.postingDate between  ?  and  ?  ) "
+                            + "ORDER BY post.postingDate DESC ";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + titlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
+                    stm.setDate(3, starDate);
+                    stm.setDate(4, endDate);
                 }
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == false) {
-                    sql += "WHERE acc.name LIKE ? ORDER BY post.postingDate DESC ";
+                    sql += "WHERE acc.name LIKE ? and post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + companyName + "%");
+                    stm.setDate(2, starDate);
+                    stm.setDate(3, endDate);
                 }
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == true) {
-                    sql += "WHERE post.title_Post LIKE ? ORDER BY post.postingDate DESC ";
+                    sql += "WHERE post.title_Post LIKE ? and post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + titlePost + "%");
+                    stm.setDate(2, starDate);
+                    stm.setDate(3, endDate);
                 }
 
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
                         && companyName.isEmpty() == false) {
-                    sql += "WHERE post.title_Post LIKE ? and acc.name LIKE ? ";
+                    sql += "WHERE post.title_Post LIKE ? and acc.name LIKE ? and post.postingDate between ? and ? ";
                     if (nameStatus.equals("Accept")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
+                        stm.setDate(3, starDate);
+                        stm.setDate(4, endDate);
+                        stm.setInt(5, 2);
+
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setDate(3, starDate);
+                        stm.setDate(4, endDate);
+                        stm.setInt(5, 0);
+                        stm.setInt (5, 3);
+
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setDate(3, starDate);
+                        stm.setDate(4, endDate);
+                        stm.setInt(5, 1);
+
+                    }
+                }
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == false) {
+                    sql += "WHERE acc.name LIKE ? and post.postingDate between ? and ? ";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 2);
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 0);
+                        stm.setInt(5, 3);
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + companyName + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 1);
+                    }
+                }
+                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == true) {
+                    sql += "WHERE post.title_Post LIKE ? and post.postingDate between ? and ? ";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 2);
+                    } else if (nameStatus.equals("Denied")) {
+                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 0);
+                        stm.setInt(5, 3);
+                    } else if (nameStatus.equals("Waiting")) {
+                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setNString(1, "%" + titlePost + "%");
+                        stm.setDate(2, starDate);
+                        stm.setDate(3, endDate);
+                        stm.setInt(4, 1);
+                    }
+                }
+
+                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
+                        && companyName.isEmpty() == true) {
+                    sql += "WHERE post.postingDate between ? and ? and";
+                    if (nameStatus.equals("Accept")) {
+                        sql += " post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        stm = con.prepareStatement(sql);
+                        stm.setDate(1, starDate);
+                        stm.setDate(2, endDate);
                         stm.setInt(3, 2);
-
                     } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + titlePost + "%");
-                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setDate(1, starDate);
+                        stm.setDate(2, endDate);
                         stm.setInt(3, 0);
-
+                        stm.setInt(4, 3);
                     } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " post.statusPost = ? ORDER BY post.postingDate DESC ";
                         stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + titlePost + "%");
-                        stm.setNString(2, "%" + companyName + "%");
+                        stm.setDate(1, starDate);
+                        stm.setDate(2, endDate);
                         stm.setInt(3, 1);
-
                     }
-                }
-                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
-                        && companyName.isEmpty() == false) {
-                    sql += "WHERE acc.name LIKE ? ";
-                    if (nameStatus.equals("Accept")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 2);
-                    } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 0);
-                    } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + companyName + "%");
-                        stm.setInt(2, 1);
-                    }
-                }
-                if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
-                        && companyName.isEmpty() == true) {
-                    sql += "WHERE post.title_Post LIKE ? ";
-                    if (nameStatus.equals("Accept")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 2);
-                    } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 0);
-                    } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setNString(1, "%" + titlePost + "%");
-                        stm.setInt(2, 1);
-                    }
-                }
-
-                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
-                        && companyName.isEmpty() == true) {
-                    if (nameStatus.equals("Accept")) {
-                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setInt(1, 2);
-                    } else if (nameStatus.equals("Denied")) {
-                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setInt(1, 0);
-                    } else if (nameStatus.equals("Waiting")) {
-                        sql += " WHERE post.statusPost = ? ORDER BY post.postingDate DESC ";
-                        stm = con.prepareStatement(sql);
-                        stm.setInt(1, 1);
-                    }
-                }
-                if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
-                        && companyName.isEmpty() == true) {
-                    stm = con.prepareStatement(sql);
                 }
 
                 rs = stm.executeQuery();
@@ -1043,7 +1087,7 @@ public class TblCompany_PostDAO implements Serializable {
     }
 
     //LAY TAT CA CAC BAI POST AS ADMIN 
-    public void getListPost() throws SQLException, NamingException {
+    public void getListPost(int semesterID) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -1056,9 +1100,18 @@ public class TblCompany_PostDAO implements Serializable {
                         + "m.majorName, ac.name, ac.avatar \n"
                         + "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n"
                         + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
-                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username)\n"
+                        + "INNER JOIN tblAccount AS ac ON (com.username = ac.username) "
+                        + "WHERE cp.postingDate between ? and ? "
                         + "ORDER BY cp.postingDate DESC";
+                TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                TblSemesterDTO semesterDTO = semesterDAO.getSemesterByID(semesterID);
+                System.out.println(semesterDTO.getStartDate() + "------" + semesterDTO.getEndDate());
+                Date starDate = semesterDTO.getStartDate();
+                Date endDate = semesterDTO.getEndDate();
+
                 stm = con.prepareCall(sql);
+                stm.setDate(1, starDate);
+                stm.setDate(2, endDate);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int postID = rs.getInt("postID");
@@ -1137,7 +1190,7 @@ public class TblCompany_PostDAO implements Serializable {
 
     public boolean updateCompanyPostAsCompany(int postID, String tilte_Post, int majorID,
             int quantityInterns, Date expirationDate, String workLocation, String job_Description,
-            String job_Requirement, String remuneration, boolean school_confirm, int statusPost) throws SQLException, NamingException {
+            String job_Requirement, String remuneration, String vacancy, boolean school_confirm, int statusPost) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -1146,7 +1199,7 @@ public class TblCompany_PostDAO implements Serializable {
             if (con != null) {
                 String sql = "UPDATE tblCompany_Post "
                         + "set title_Post = ?, majorID = ?, quantityInterns = ?, expirationDate = ?, workLocation = ?, "
-                        + "job_Description = ?, job_Requirement = ?, remuneration = ? , school_confirm = ? , statusPost = ? "
+                        + "job_Description = ?, job_Requirement = ?, remuneration = ? , vacancy = ?, school_confirm = ? , statusPost = ? "
                         + "WHERE postID = ?";
                 stm = con.prepareStatement(sql);
                 stm.setNString(1, tilte_Post);
@@ -1157,20 +1210,21 @@ public class TblCompany_PostDAO implements Serializable {
                 stm.setNString(6, job_Description);
                 stm.setNString(7, job_Requirement);
                 stm.setNString(8, remuneration);
+                stm.setNString(9, vacancy);
                 LocalDate timeDay = LocalDate.now();
                 DateTimeFormatter dayFormat
                         = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 // convert String to date type
                 java.util.Date currentDate = Date.valueOf(timeDay.format(dayFormat));
                 if (quantityInterns == 0 || expirationDate.before(currentDate)) {
-                    stm.setBoolean(9, false);
-                    stm.setInt(10, 3);
+                    stm.setBoolean(10, false);
+                    stm.setInt(11, 3);
                 } else {
-                    stm.setBoolean(9, false);
-                    stm.setInt(10, 1);
+                    stm.setBoolean(10, false);
+                    stm.setInt(11, 1);
                 }
 
-                stm.setInt(11, postID);
+                stm.setInt(12, postID);
 
                 int effectRows = stm.executeUpdate();
 

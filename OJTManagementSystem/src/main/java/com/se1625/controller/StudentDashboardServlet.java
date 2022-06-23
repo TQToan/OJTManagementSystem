@@ -59,7 +59,7 @@ public class StudentDashboardServlet extends HttpServlet {
             if (session != null) {
                 //get student from session
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
-                if (student != null) {
+                if (student != null) {                                       
                     url = properties.getProperty(MyApplicationConstants.
                             StudentDasboardFeature.STUDENT_DASHBOARD_PAGE);
 

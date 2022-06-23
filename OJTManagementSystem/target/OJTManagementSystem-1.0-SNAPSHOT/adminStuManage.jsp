@@ -18,11 +18,11 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-         <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
     </head>
     <body>
         <header></header>
-        
+
         <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowAdminStudentManagementController" class="nav__logo ">
@@ -338,24 +338,24 @@
                                                             <input type="submit" value="Cancel" name="btAction" />
                                                         </c:if>
                                                         <c:if test="${empty error}">
-                                                            <input type="submit" value="Update" name="btAction" />
+                                                            <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                         </c:if>
 
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" />
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq -1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" />
+                                                        <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                             </tr>
@@ -372,30 +372,21 @@
                             </c:if>
                         </div>
 
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
-                                <!--                                     <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                             <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>-->
 
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="SearchStudentByAdminController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="semester" value="${currentSemester.semesterID}"/>
-                                        <c:param name="txtCredit" value="${param.txtCredit}"/>
-                                        <c:param name="txtMajor" value="${param.txtMajor}"/>
-                                        <c:param name="isIntern" value="${param.isIntern}"/>
-                                        <c:param name="txtStudentCode" value="${param.txtStudentCode}"/>
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                    </c:forEach>
-                                <!--                                    <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                         </a>
-                                                                    </li>-->
+                                    <form action="SearchStudentByAdminController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                        <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                        <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                        <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                        <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+                                </c:forEach>
                             </ul>
                         </div>
 
@@ -411,5 +402,6 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

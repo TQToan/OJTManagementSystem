@@ -111,7 +111,6 @@ public class DispatchFilter implements Filter {
 
         responseObject.setContentType("text/html; charset=UTF-8");
         requestObject.setCharacterEncoding("UTF-8");
-        requestObject.setCharacterEncoding("UTF-8");
         //2. get UR from requestObject
         String uri = requestObject.getRequestURI();
         String url;

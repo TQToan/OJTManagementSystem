@@ -144,6 +144,7 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String HOME_AFTER_CLICK1_PAGE = "homeAfterclick1PageJSP";
         public static final String STUDENT_APPLIED_JOB_PAGE = "ShowStudentAppliedJobController";
+        public static final String SHOW_APPLY_CV_CONTROLLER = "ShowApplyCVController";
     }
 
     public class ShowStudentProfileFeature {
@@ -157,6 +158,7 @@ public class MyApplicationConstants {
         public static final String SHOW_STUDENT_PROFILE_SERVLET = "ShowStudentProfileController";
         public static final String LOGIN_PAGE = "";
         public static final String STUDENT_DASHBOARD_CONTROLLER = "studentDashboardController";
+        public static final String SHOW_APPLY_CV_CONTROLLER = "ShowApplyCVController";
     }
 
     public class ReviewInternShipFeature {

@@ -10,6 +10,8 @@ import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,9 +73,24 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
                 if (account.getIs_Admin() == 1) {
                     url = properties.getProperty(MyApplicationConstants.AdminInternApplication.ADMIN_SHOW_INTERN_APPLICATION_JSP);
 
+                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                    int semesterID =currentSemester.getSemesterID(); 
+                    if (request.getParameter("semester") != null) {
+                        semesterID = Integer.parseInt(request.getParameter("semester"));
+                        if (semesterID != currentSemester.getSemesterID()) {
+                            currentSemester = semesterDAO.getSemesterByID(semesterID);
+                        }
+                    }
+                    
+                    List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
+                    
+                    request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                    request.setAttribute("LIST_SEMESTER", listSemester);
+                    
                     TblApplicationDAO applDAO = new TblApplicationDAO();
                     List<TblApplicationDTO> listApplicationByFilter = new ArrayList<>();
-                    listApplicationByFilter = applDAO.getApplicationByFilterInAdminIternAppl(studentID, companyID, titleJob, schoolStatus);
+                    listApplicationByFilter = applDAO.getApplicationByFilterInAdminIternAppl(studentID, companyID, titleJob, schoolStatus,semesterID);
 
                     if (listApplicationByFilter != null) {
                         sizeOfList = listApplicationByFilter.size();

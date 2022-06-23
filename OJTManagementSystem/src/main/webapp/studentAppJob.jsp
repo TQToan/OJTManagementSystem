@@ -194,7 +194,7 @@
                                         </select>
                                     </div>
                                     <div class="col-2">
-                                        <input type="submit" value="Search" class="student-search-btn">
+                                        <input type="submit" name="btAction" value="Search" class="student-search-btn">
                                     </div>
                                 </div>
                             </form>
@@ -280,7 +280,7 @@
                                                         <form action="${url}" method="POST">
                                                             <input type="submit" name="btAction" value="Cancel" />
                                                         </form>
-                                                        <%--<a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>--%>
+
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 0}">
@@ -288,7 +288,7 @@
                                                         <form action="${url}" method="POST">
                                                             <input type="submit" name="btAction" value="Cancel" />
                                                         </form>
-                                                        <!--<a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}">Cancel</a>-->
+
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${(appliedJob.studentConfirm eq false)
@@ -300,7 +300,7 @@
                                                         <form action="${url}" method="POST">
                                                             <input type="submit" name="btAction" value="Cancel" disabled="disabled" />
                                                         </form>
-                                                       <!--<a href="CancleApplyCVController?applicationID=${appliedJob.applicationID}" disabled="disabled">Cancel</a>-->
+
                                                     </td>
                                                 </c:if>
                                             </tr>
@@ -308,27 +308,22 @@
                                     </tbody>
 
                                 </table>
+                                <div id="pageX" hidden >${requestScope.page}</div>
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
 
-                                        <!--                                        <li class="page-item">
-                                                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                                                        <span aria-hidden="true">&laquo;</span>
-                                                                                    </a>
-                                                                                </li>-->
-
                                         <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                            <c:url var="url" value="SearchStudentAppliedJobController">
-                                                <c:param name="page" value="${i}"/>
-                                            </c:url>
-                                            <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                            <li>
+                                                <form action="SearchStudentAppliedJobController" method="POST">
+                                                <input type="hidden" name="page" value="${i}"/>
+                                                <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                <input type="submit" value="${i}" class="page-link"/>
+                                            </form>
+                                            </li>
                                             </c:forEach>
-
-                                        <!--                                        <li class="page-item">
-                                                                                    <a class="page-link" href="#" aria-label="Next">
-                                                                                        <span aria-hidden="true">&raquo;</span>
-                                                                                    </a>
-                                                                                </li>-->
                                     </ul>
                                 </div>
 
@@ -353,5 +348,6 @@
         </footer>
                             
     <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/base.js"></script>
     </body>
 </html>

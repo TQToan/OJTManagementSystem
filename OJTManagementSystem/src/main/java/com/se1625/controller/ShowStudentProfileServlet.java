@@ -37,7 +37,7 @@ public class ShowStudentProfileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-
+                
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.ShowStudentProfileFeature.LOGIN_PAGE;
@@ -49,6 +49,8 @@ public class ShowStudentProfileServlet extends HttpServlet {
             if (student != null) {
                 request.setAttribute("SERVLET_CONTEXT", context);
                 request.setAttribute("STUDENT_PROFILE", student);
+                String postID = request.getParameter("postID");
+                request.setAttribute("POST_ID", postID);
                 url = properties.getProperty(MyApplicationConstants.ShowStudentProfileFeature.STUDENT_PROFILE_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
