@@ -23,7 +23,7 @@
 
     <body>
         <header></header>
-        <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
+            <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowAdminStudentManagementController" class="header__logo ">
@@ -79,14 +79,14 @@
                 </div>
             </div>
         </div>
-        
-            
-            <c:set var="studentID" value="${param.txtStudentID}"/>
-            <c:set var="companyID" value="${param.txtCompanyID}"/>
-            <c:set var="schoolStatus" value="${param.txtSchoolStatus}"/>
-            <c:set var="titleJob" value="${param.txtTitleJob}" />
 
-        
+
+        <c:set var="studentID" value="${param.txtStudentID}"/>
+        <c:set var="companyID" value="${param.txtCompanyID}"/>
+        <c:set var="schoolStatus" value="${param.txtSchoolStatus}"/>
+        <c:set var="titleJob" value="${param.txtTitleJob}" />
+
+
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
@@ -151,9 +151,22 @@
                             <form action="AdminShowInternApplicationController" method="POST">
                                 <div class="row">
                                     <div class="col-2">
+                                        <c:set var="nowSemester" value="${requestScope.CURRENT_SEMESTER.semesterID}" />
+                                        <select name="semester" class="admin--select">
+                                            <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
+                                                <option value="${semester.semesterID}" <c:if test="${requestScope.CURRENT_SEMESTER.semesterID eq semester.semesterID}" >
+                                                        selected="selected"
+                                                    </c:if>>${semester.semesterName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>    
+                                    <div class="col-2">
                                         <input type="text" name="txtStudentID" id="" placeholder="ID" class="admin--input" value="${studentID}">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-2">
+                                        <input type="text" placeholder="Title Job" name="txtTitleJob" class="admin--input" value="${param.txtTitleJob}">
+                                    </div>
+                                    <div class="col-3">
                                         <select name="txtCompanyID" class="admin--select">
                                             <option value="">Company Name</option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
@@ -165,9 +178,6 @@
 
                                     </div>
 
-                                    <div class="col-3">
-                                        <input type="text" placeholder="Title Job" name="txtTitleJob" class="admin--input" value="${param.txtTitleJob}">
-                                    </div>
 
                                     <div class="col-2">
                                         <select id="status"  name="txtSchoolStatus"  class="admin--select">
@@ -178,11 +188,11 @@
                                                     selected="selected" </c:if>>
                                                     Accepted 
                                                 </option>
-                                                <option value="-1" class="text-warning"<c:if test="${schoolStatus eq '0'}">
+                                                <option value="0" class="text-warning"<c:if test="${schoolStatus eq '0'}">
                                                     selected="selected" </c:if>>
                                                     Waiting
                                                 </option>
-                                                <option value="0" class="text-danger"<c:if test="${schoolStatus eq '-1'}">
+                                                <option value="-1" class="text-danger"<c:if test="${schoolStatus eq '-1'}">
                                                     selected="selected" </c:if>>
                                                     Denied
                                                 </option>
@@ -239,14 +249,14 @@
                                                     </td>
                                                 </c:if>
 
-                                                <c:if test="${intern.companyConfirm eq -1}">
+                                                <c:if test="${intern.companyConfirm eq 0}">
                                                     <td class="text-warning">
                                                         <strong>
                                                             Waiting
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${intern.companyConfirm eq 0}">
+                                                <c:if test="${intern.companyConfirm eq -1}">
                                                     <td class="text-danger">
                                                         <strong>
                                                             Denied
@@ -282,41 +292,68 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
                                                     <td>
-                                                        <div class="d-flex justify-content-around">
-                                                            <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
-                                                                <c:param name="page" value="${i}"/>
-                                                                <c:param name="txtStudentID" value="${studentID}"/>
-                                                                <c:param name="txtCompanyID" value="${companyID}"/>
-                                                                <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                                <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                                <c:param name="btnAction" value="-1"/>
-                                                                <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                            </c:url>
-                                                            <a href="${urlReject}" class="text-danger">
-                                                                <strong>
-                                                                    Reject
-                                                                </strong>
-                                                            </a>
-                                                            <c:url var="urlAccept" value="AdminChangeStatusInternApplicationServlet">
-                                                                <c:param name="page" value="${i}"/>
-                                                                <c:param name="txtStudentID" value="${studentID}"/>
-                                                                <c:param name="txtCompanyID" value="${companyID}"/>
-                                                                <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                                <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                                <c:param name="btnAction" value="1"/>
-                                                                <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                            </c:url>
-                                                            <a href="${urlAccept}" class="text-success">
-                                                                <strong>
-                                                                    Accept
-                                                                </strong>
-                                                            </a>
+                                                        <!--                                                        <div class="d-flex justify-content-around">
+                                                        <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
+                                                            <c:param name="page" value="${i}"/>
+                                                            <c:param name="txtStudentID" value="${studentID}"/>
+                                                            <c:param name="txtCompanyID" value="${companyID}"/>
+                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
+                                                            <c:param name="btnAction" value="-1"/>
+                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
+                                                        </c:url>
+                                                        <a href="${urlReject}" class="text-danger">
+                                                            <strong>
+                                                                Reject
+                                                            </strong>
+                                                        </a>
+                                                        <c:url var="urlAccept" value="AdminChangeStatusInternApplicationServlet">
+                                                            <c:param name="page" value="${i}"/>
+                                                            <c:param name="txtStudentID" value="${studentID}"/>
+                                                            <c:param name="txtCompanyID" value="${companyID}"/>
+                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
+                                                            <c:param name="btnAction" value="1"/>
+                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
+                                                        </c:url>
+                                                        <a href="${urlAccept}" class="text-success">
+                                                            <strong>
+                                                                Accept
+                                                            </strong>
+                                                        </a>
+                                                    </div>-->
+
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                                    <input type="hidden" name="page" value="${i}">
+                                                                    <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                                    <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                                    <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                                    <input type="hidden" name="btnAction" value="-1">
+                                                                    <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                                    <input type="submit" value="Accept" class="btn-regular-green">
+                                                                </form>
+                                                            </div>
+                                                            <div class="col">
+                                                                <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                                    <input type="hidden" name="page" value="${i}">
+                                                                    <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                                    <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                                    <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                                    <input type="hidden" name="btnAction" value="-1">
+                                                                    <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                                    <input type="submit" value="Accept" class="btn-regular-red">
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </c:if>
-
                                             </tr>
                                         </c:forEach>      
 
@@ -332,30 +369,29 @@
                             </c:if>
                         </div>
 
-
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
-                                <!--                                     <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                             <span aria-hidden="true">&laquo;</span>
-                                                                        </a>
-                                                                    </li>-->
 
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="AdminShowInternApplicationController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="txtStudentID" value="${studentID}"/>
-                                        <c:param name="txtCompanyID" value="${companyID}"/>
-                                        <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                        <c:param name="txtTitleJob" value="${titleJob}"/>
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                    </c:forEach>
-                                <!--                                    <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                         </a>
-                                                                    </li>-->
+                                    <form action="AdminShowInternApplicationController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                        <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                        <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                        <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+
+                                    <%--%><c:url var="url" value="AdminShowInternApplicationController">
+                                    <c:param name="page" value="${i}"/>
+                                    <c:param name="txtStudentID" value="${studentID}"/>
+                                    <c:param name="txtCompanyID" value="${companyID}"/>
+                                    <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
+                                    <c:param name="txtTitleJob" value="${titleJob}"/>
+                                </c:url>
+                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
+                                </c:forEach>
                             </ul>
                         </div>
 
@@ -373,6 +409,7 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 
 </html>

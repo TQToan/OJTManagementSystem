@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@
 
     <body>
         <header></header>
-        <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
+            <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowAdminStudentManagementController" class="header__logo ">
@@ -80,9 +81,9 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">
-            
+
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -143,24 +144,47 @@
                         <p><strong>Job:</strong> ${post.major.majorName}</p>
                         <p><strong>Vacancy:</strong> ${post.vacancy}</p>
                         <p><strong>Quantity:</strong> ${post.quantityIterns}</p>
-                        <p><strong>Job Description:</strong> 
+                        <p><strong>Job Description:</strong> <br/>
                             ${post.job_Description}
                         </p>
-                        <p><strong>Job requirements:</strong> 
-                            ${post.job_Requirement}               
+                        <p><strong>Job requirements:</strong> <br/>
+                            ${post.job_Requirement}              
                         </p>
-                        <p><strong>Remuneration:</strong>
+                        <p><strong>Remuneration:</strong><br/>
                             ${post.remuneration}
                         </p>
-                        <p><strong>Work location:</strong>
+                        <p><strong>Work location:</strong><br/>
                             ${post.workLocation}
                         </p>
-                        <p><strong>Posting Date:</strong>
-                            ${post.postingDate}
+                        <p><strong>Posting Date:</strong><br/>
+                            ${my:changeDateFormat(post.postingDate)}
                         </p>
-                        <p><strong>Expiration Date:</strong>
-                            ${post.expirationDate}
+                        <p><strong>Expiration Date:</strong><br/>
+                            ${my:changeDateFormat(post.expirationDate)}
                         </p>
+                        <p><strong>Status: </strong></p>
+                            <c:if test="${post.statusPost eq 2}">
+                            <p class="text-success">
+                                <strong>
+                                    Accept
+                                </strong>
+                            </p>
+                        </c:if>
+                        <c:if test="${post.statusPost eq 0 or post.statusPost eq 3}">
+                            <p class="text-danger">
+                                <strong>
+                                    Denied
+                                </strong>
+                            </p>
+                        </c:if>  
+                        <c:if test="${post.statusPost eq 1}">
+                            <p class="text-warning">
+                                <strong>
+                                    Waiting
+                                </strong>
+                            </p>
+                        </c:if>
+                        
                     </div>
 
                     <div class="aViewPost-btn">
@@ -172,11 +196,12 @@
                                 <input type="hidden" name="postID" value="${post.postID}" />
                                 <%-- lay param de back lai trang cu~ --%>
                                 <input type="hidden" name="page" value="${requestScope.page}" />
+                                <input type="hidden" name="semester" value="${param.semester}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                 <input type="submit" value="Accept" class="primary-btn accept-btn" 
-                                       <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 2 or post.statusPost eq 3}">
+                                       <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
                                            autocomplete="off" hidden 
                                        </c:if> />
 
@@ -192,11 +217,12 @@
                                 <input type="hidden" name="postID" value="${post.postID}" />
                                 <%-- lay param de back lai trang cu~ --%>
                                 <input type="hidden" name="page" value="${requestScope.page}" />
+                                <input type="hidden" name="semester" value="${param.semester}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                 <input type="submit" value="Reject" class="primary-btn reject-btn"
-                                       <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost eq 0 or post.statusPost eq 3}">
+                                       <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
                                            autocomplete="off" hidden 
                                        </c:if> />
                             </div>
@@ -215,6 +241,7 @@
                         <form action="AdminSearchCompanyPostController" method="POST">
                             <div>
                                 <input type="hidden" name="page" value="${requestScope.page}"/>
+                                <input type="hidden" name="semester" value="${param.semester}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>

@@ -12,7 +12,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+<<<<<<< HEAD
       <module name="OJTManagementSystem" options="-endorseddirs &quot;F:\OJT Management\OJT Management System\OJTManagementSystem\OJTManagementSystem\target/endorsed&quot;" />
+=======
+      <module name="OJTManagementSystem" options="-endorseddirs E:\OJTManagementSystem_Main\OJTManagementSystem\target/endorsed" />
+>>>>>>> cb0376207e7f886ecc03428d63f9baec4248040e
     </option>
   </component>
 </project>

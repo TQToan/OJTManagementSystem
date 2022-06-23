@@ -48,26 +48,25 @@
                                 </c:if>
 
                                 <select id="city" name="city"  class="right-form__input" >
-                                    <option value="" disabled selected>*Choose City</option>
+                                    <option value="" selected>*Choose City</option>
                                     <option value="TP.HCM" <c:if test="${requestScope.city eq 'TP.HCM'}" >
                                             selected="selected"
                                         </c:if> >TP.HCM</option>
-                                    <option value="Dong Nai" <c:if test="${requestScope.city eq 'Dong Nai'}" >
+                                    <option value="Đồng Nai" <c:if test="${requestScope.city eq 'Đồng Nai'}" >
                                             selected="selected"
-                                        </c:if> >Dong Nai</option>
-                                    <option value="Tay Ninh" <c:if test="${requestScope.city eq 'Tay Ninh'}" >
+                                        </c:if> >Đồng Nai</option>
+                                    <option value="Tây Ninh" <c:if test="${requestScope.city eq 'Tây Ninh'}" >
                                             selected="selected"
-                                        </c:if> >Tay Ninh</option>
-                                    <option value="Binh Duong" <c:if test="${requestScope.city eq 'Binh Duong'}" >
+                                        </c:if> >Tây Ninh</option>
+                                    <option value="Bình Dương" <c:if test="${requestScope.city eq 'Bình Dương'}" >
                                             selected="selected"
-                                        </c:if> >Binh Duong</option>
+                                        </c:if> >Bình Dương</option>
                                 </select>
                                 <c:if test="${not empty errors.companyCityError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyCityError}</div>
                                     </font>
                                 </c:if>
-                                <!--                            <div class="text-danger">Your error</div>-->
                                 <input type="text" name="companyAddress" value="${requestScope.companyAddress}" class="right-form__input" placeholder="*Company Address" /> 
                                 <c:if test="${not empty errors.companyAddressLengthError}">
                                     <font style="color: red">
@@ -93,17 +92,17 @@
                                 <div class="right-file-input">
                                     <label for="myfile" >
                                         *Logo:
-                                        <%-- <c:if test="${not empty requestScope.companyLogo}">
-                                            <img src="./avatars/${requestScope.companyLogo}" /> 
-                                        </c:if> --%>
                                     </label>
                                     <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>
                                 </div>
-                                <div class="text-danger">Your error</div>
+                                <c:if test="${not empty errors.companyLogoLengthError}">
+                                    <font style="color: red">
+                                    <div class="text-danger">${errors.companyLogoLengthError}</div>
+                                    </font>
+                                </c:if>
 
 
                                 <div class="end-form-btn">
-                                    <!--                                <a href="./register1.html" class="back-btn primary-btn">Back</a>-->
                                     <input type="hidden" name="companyAccount" value="${verifyEmail}" />
                                     <input type="hidden" name="email" value="${email}" />
                                     <input type="hidden" name="password" value="${password}" />

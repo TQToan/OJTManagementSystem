@@ -16,9 +16,9 @@
 
     <body>
         <header></header>
-        <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
-        
-         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
+
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowCompanyDashBoardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -35,33 +35,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a href="ShowCompanyDashBoardController" class="nav__item--link">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
+                                <i class="fas fa-palette "></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowProfileController" class="nav__item--link">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowPostController" class="nav__item--link">
-                            <i class="fas fa-pen"></i>
-                            My Posts
-                        </a>
+                                <i class="fas fa-pen"></i>
+                                My Posts
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Interns Management
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Interns Management
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowIntershipApplicationController" class="nav__item--link link-active">
-                            <i class="fas fa-poll-h"></i>
-                            Internship Application
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Internship Application
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="logoutController" class="nav__item--link">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-                    
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowCompanyDashBoardController" class="nav__logo ">
@@ -318,12 +318,21 @@
                             </c:if>
 
                         </div>
-
+                        <div id="pageX" hidden >${requestScope.PAGE}</div>
                         <c:set value="${requestScope.NUMBER_PAGE}" var="numberpage"/>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">     
                                 <c:forEach begin="1" end="${numberpage}" var="i">
-                                    <c:url var="url" value="CompanySearchInternsController">
+                                    <form action="CompanySearchInternsController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                        <input type="hidden" name="status" value="${param.status}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+
+                                    <%--<c:url var="url" value="CompanySearchInternsController">
                                         <c:param name="page" value="${i}"/>
                                         <c:param name="txtFullName" value="${param.txtFullName}"/>
                                         <c:param name="txtEmail" value="${param.txtEmail}"/>
@@ -331,8 +340,8 @@
                                         <c:param name="status" value="${param.status}"/>
                                     </c:url>
 
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                    </c:forEach>
+                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
+                                </c:forEach>
 
                             </ul>
                         </div>
@@ -349,7 +358,8 @@
             </div>
 
         </footer>
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 
 </html>

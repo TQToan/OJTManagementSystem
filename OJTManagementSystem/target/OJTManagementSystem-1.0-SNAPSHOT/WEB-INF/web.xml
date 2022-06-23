@@ -8,6 +8,10 @@
         <param-name>SEMESTER_DATE_FILE_PATH</param-name>
         <param-value>/WEB-INF/SemesterDate.properties</param-value>
     </context-param>
+    <context-param>
+        <param-name>CHECKING_EXPIRATION_POST</param-name>
+        <param-value>/WEB-INF/checkingExpirationPost.properties</param-value>
+    </context-param>
     <filter>
         <filter-name>DispatchFilter</filter-name>
         <filter-class>com.se1625.filter.DispatchFilter</filter-class>
@@ -23,6 +27,10 @@
     <listener>
         <description>ServletContextListener</description>
         <listener-class>com.se1625.listener.AutoCreateSemesterServletListener</listener-class>
+    </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>com.se1625.listener.AutoCheckExpirationPostServletListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -240,6 +248,10 @@
         <servlet-name>CompanySearchInternsManagementServlet</servlet-name>
         <servlet-class>com.se1625.controller.CompanySearchInternsManagementServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadFileModelServlet</servlet-name>
+        <servlet-class>com.se1625.controller.DownloadFileModelServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -451,6 +463,10 @@
     <servlet-mapping>
         <servlet-name>CompanyShowPostDetailsServlet</servlet-name>
         <url-pattern>/CompanyShowPostDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadFileModelServlet</servlet-name>
+        <url-pattern>/DownloadFileModelServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

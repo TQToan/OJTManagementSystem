@@ -249,7 +249,11 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>
+<!--                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>-->
+                                                    <form action="CompanyShowPostDetailsController" method ="post">
+                                                        <input type="hidden" name="postID" value="${post.postID}" >
+                                                        <input type="submit" value="Edit" class="btn-update-green">
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -259,19 +263,29 @@
                                 </table>
                             </div>
 
-
+                            <div id="pageX" hidden>${requestScope.page}</div>
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
 
                                     <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                        <c:url var="url" value="CompanySearchPostController">
+                                        <form action="CompanySearchPostController" method="POST">
+                                            <input type="hidden" name="page" value="${i}"/>
+                                            <input type="hidden" name="companyID" value="${company.companyID}"/>
+                                            <input type="hidden" name="title_Post" value="${param.title_Post}"/>
+                                            <input type="hidden" name="nameMajor" value="${param.nameMajor}"/>
+                                            <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                            <input type="submit" value="${i}" class="page-link"/>
+                                        </form>
+
+                                        <%--<c:url var="url" value="CompanySearchController">
+>>>>>>> cb0376207e7f886ecc03428d63f9baec4248040e
                                             <c:param name="page" value="${i}"/>
                                             <c:param name="companyID" value="${company.companyID}"/>
                                             <c:param name="title_Post" value="${param.title_Post}"/>
                                             <c:param name="nameMajor" value="${param.nameMajor}"/>
                                             <c:param name="nameStatus" value="${param.nameStatus}"/>                              
                                         </c:url>
-                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
                                         </c:forEach>
 
                                 </ul>
@@ -296,5 +310,6 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

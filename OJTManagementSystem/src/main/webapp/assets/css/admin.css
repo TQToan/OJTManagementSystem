@@ -1,15 +1,4 @@
-.aUpdate-btn{
-    padding: 3px;
-    background-color: var(--background-aquar);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-weight: 500;
-}
 
-.aUpdate-btn:hover{
-    transform: scale(1.1);
-}
 
 .accept-btn:hover{
     background-color: var(--background-orange);
@@ -115,7 +104,7 @@
     text-align: left;
 }
 .main-body-aStuManage td:nth-child(4){
-    width: 20%;
+    width: 15%;
     text-align: left;
 }
 .main-body-aStuManage td:nth-child(5){
@@ -128,7 +117,7 @@
     width: 5%;
 }
 .main-body-aStuManage td:nth-child(8){
-    width: 5%;
+    width: 10%;
 }
 .main-body-aStuManage td:nth-child(9){
     width: 5%;
@@ -173,7 +162,7 @@
     width: 5%;
 }
 .main-body-aComManage td:nth-child(2){
-    width: 25%;
+    width: 20%;
     text-align: left;
 }
 .main-body-aComManage td:nth-child(3){
@@ -184,7 +173,7 @@
     width: 10%;
 }
 .main-body-aComManage td:nth-child(5){
-    width: 20%;
+    width: 25%;
     text-align: left;
 }
 .main-body-aComManage td:nth-child(6){
@@ -241,20 +230,23 @@
     width: 5%;
 }
 .main-body-aPostManage td:nth-child(2){
-    width: 30%;
+    width: 25%;
     text-align: left;
 }
 .main-body-aPostManage td:nth-child(3){
     width: 15%;
 }
 .main-body-aPostManage td:nth-child(4){
+    width: 10%;
+}
+.main-body-aPostManage td:nth-child(5){
     width: 20%;
     text-align: left;
 }
-.main-body-aPostManage td:nth-child(5){
-    width: 15%;
-}
 .main-body-aPostManage td:nth-child(6){
+    width: 10%;
+}
+.main-body-aPostManage td:nth-child(7){
     width: 15%;
 }
 
@@ -458,3 +450,98 @@
 
 /* View Post  ----------------END---------------------------- */
 
+
+/* Main-body ------------------------Add Student----------------------- */
+.main-body-aAddStu{
+    text-align: center;
+}
+
+.main-body-aAddStu__header{
+    font-size: 3rem;
+    font-weight: 600;
+    padding-bottom: 50px;
+}
+
+.aAddStu__input{
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.aAddStu--input{
+    text-align: center;
+    outline: none;
+    border: none;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--text-color-orange);
+    font-weight: 500;
+}
+.aAddStu--input:focus{
+    padding-bottom: 1px;
+    border-bottom: 5px solid var(--text-color-orange);
+}
+
+.aAddStu--input:hover{
+    padding-bottom: 1px;
+    border-bottom: 5px solid var(--text-color-orange);
+}
+
+.aAddStu--input-textarea{
+    text-align: left;
+    resize: none;
+    margin-top: 10px;
+}
+.aAddStu--label{
+    text-align: left;
+    font-weight: 600;
+}
+
+.aAddStu-edit-btn{
+    font-size: 2rem;
+    color: var(--text-color-white);
+    background-color: var(--background-orange);
+    width: 150px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 50px auto 0px auto;
+}
+
+.aAddStu-edit--input{
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color-white);
+}
+
+.aAddStu-edit-btn:hover{
+    background-color: var(--text-color-white);
+    color: var(--background-orange);
+    border: 1px solid;
+}
+
+.aAddStu-edit-btn:hover .aAddStu-edit--input{
+    color: var(--background-orange);
+}
+
+input[type=file]{
+    display: none;
+}
+
+.input-file{
+    display: inline-block;
+}
+
+.aAddStu-file-input{
+    font-weight: 600;
+    font-size: 1.8rem;
+    text-align: left;
+}
+
+.input-file::before{
+    content: "Choose file";
+    border: 1px solid var(--background-orange);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+/* Main-body ------------------------Add Student------END------------------ */

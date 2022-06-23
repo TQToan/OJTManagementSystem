@@ -5,6 +5,8 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblstudent.TblStudentDTO;
@@ -63,7 +65,6 @@ public class SearchSaveJobServlet extends HttpServlet {
         int end;
         int sizeOfList;
         HttpSession session = request.getSession(false);
-
         try {
             if (session != null) {
 
@@ -118,6 +119,14 @@ public class SearchSaveJobServlet extends HttpServlet {
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
 
                     }
+                    
+                    //lay list company
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    companyDAO.getNameCompaniesFollowed(student.getStudentCode());
+                    List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompanyFollowed();
+                    request.setAttribute("LIST_ALL_COMPANY", listNameCompany);
+
+                    
                     url = properties.getProperty(MyApplicationConstants.StudentSaveJobFeature.STUDENT_SAVE_JOB_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);

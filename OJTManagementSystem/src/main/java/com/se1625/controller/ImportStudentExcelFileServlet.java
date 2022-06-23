@@ -7,6 +7,8 @@ package com.se1625.controller;
 
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import com.se1625.utils.MyApplicationHelper;
@@ -107,9 +109,11 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
                 List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
                 if (studentList != null) {
                     TblAccountDAO dao = new TblAccountDAO();
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
                     for (TblStudentDTO student : studentList) {
                         if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
-                            dao.addStudentAccount(student);
+                            dao.addStudentAccount(student, currentSemester.getSemesterID());
                         }
                     }
                     Files.deleteIfExists(Paths.get(fileImportPath));
@@ -138,6 +142,13 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
             log("Exception at ImportStudentExcelFileServlet " + ex.getMessage());
             if ("Sheet is empty".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is empty. Please check again!");
+                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+                Files.deleteIfExists(Paths.get(fileError));
+            }
+            if ("Error Import Excel File".equals(ex.getMessage())) {
+                request.setAttribute("ERROR_IMPORT_EXCEL", "This file has some invalid data. Please check again!");
                 String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);

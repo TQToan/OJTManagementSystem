@@ -23,7 +23,7 @@
     </head>
     <body>
         <header></header>
-        
+
         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
@@ -189,7 +189,7 @@
                                                             </div>-->
                                 <div class="review__input row ">
                                     <div class="col-4 review--label" >Evaluation</div> <br>
-<!--                                    review--input--evaluate-->
+                                    <!--                                    review--input--evaluate-->
                                     <div class="col-8 review--input" >
                                         <c:if test="${studentApp.student.isIntern eq 2}" >
                                             ${studentApp.evaluation}
@@ -211,12 +211,12 @@
                                     <div class="col-4 review--label" >Status</div>
 
                                     <div class="col-8 review--input">
-                                        <c:if test="${studentApp.isPass eq false and studentApp.student.isIntern eq 2}">
+                                        <c:if test="${studentApp.isPass eq -1 and studentApp.student.isIntern eq 2}">
                                             <strong class="text-danger">
                                                 Not Pass
                                             </strong>
                                         </c:if>
-                                        <c:if test="${studentApp.isPass eq true and studentApp.student.isIntern eq 2}">
+                                        <c:if test="${studentApp.isPass eq 1 and studentApp.student.isIntern eq 2}">
                                             <strong class="text-success">
                                                 Passed
                                             </strong>
@@ -235,62 +235,75 @@
                     </div>
 
                     <%--Recomment Jobs--%>
-                   
-                <div class="recom-jobs">
-                    <div class="recom-header">
-                        Recommended Jobs
-                    </div>
 
-                    <div class="row row-cols-xl-2 row-cols-1">
-                        <c:forEach items="${requestScope.LIST_RECOMMEND_POST}" var="recommendPost" begin="0" end="5">
-                            <c:set var="majorID" value="${recommendPost.major.majorID}"/>
-                            <div class="col">
-                                <div class="recom-box row ">
-                                    <a href="HomeShowCompanyDetailController?postID=${recommendPost.postID}">
-                                        <span>
-                                            
-                                        <h3>${recommendPost.title_Post}</h3>
-                                        <h4>${recommendPost.company.account.name}</h4>
-                                        </span>
-                                    </a>
-                                    <div class="recom-box__img col-4">
-                                        <img src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
-                                    </div>
-                                    <div class="recom-box-content col-8">
+                    <div class="recom-jobs">
+                        <div class="recom-header">
+                            Recommended Jobs
+                        </div>
 
-                                        <p>Quantity: ${recommendPost.quantityIterns}</p>
-                                        <p>Location: ${recommendPost.workLocation}</p>
-                                        <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
-                                        
-                                        <c:set var="listFollowingPost" value="${requestScope.LIST_FOLLOWING_POST}"/>
-                                        <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
-                                        <p>
-                                            <c:if test="${statusFollowingPost eq true}">
-<!--                                                <form action="StudentDeleteSaveJobController" method="POST">
-                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
-                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                    <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
-                                                </form>-->
-                                                <c:url var="unsaveJob" value="StudentDeleteSaveJobController">
-                                                    <c:param name="postID" value="${recommendPost.postID}"/>
-                                                    <c:param name="unSave" value="studentDashboardPage"/>
+                        <div class="row row-cols-xl-2 row-cols-1">
+                            <c:forEach items="${requestScope.LIST_RECOMMEND_POST}" var="recommendPost" begin="0" end="5">
+                                <c:set var="majorID" value="${recommendPost.major.majorID}"/>
+                                <div class="col">
+                                    <div class="recom-box row ">
+                                        <a href="HomeShowCompanyDetailController?postID=${recommendPost.postID}">
+                                            <span>
+
+                                                <h3>${recommendPost.title_Post}</h3>
+                                                <h4>${recommendPost.company.account.name}</h4>
+                                            </span>
+                                        </a>
+                                        <div class="recom-box__img col-4">
+                                            <img src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
+                                        </div>
+                                        <div class="recom-box-content col-8">
+
+                                            <p>Quantity: ${recommendPost.quantityIterns}</p>
+                                            <p>Location: ${recommendPost.workLocation}</p>
+                                            <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
+
+                                            <c:set var="listFollowingPost" value="${requestScope.LIST_FOLLOWING_POST}"/>
+                                            <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
+                                            <p>
+                                                <c:if test="${statusFollowingPost eq true}">
+                                                    <!--                                                <form action="StudentDeleteSaveJobController" method="POST">
+                                                                                                        <input type="hidden" name="unSave" value="studentDashboardPage" />
+                                                                                                        <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                                                                        <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
+                                                                                                    </form>-->
+                                                    <%--  <c:url var="unsaveJob" value="StudentDeleteSaveJobController">
+                                                          <c:param name="postID" value="${recommendPost.postID}"/>
+                                                          <c:param name="unSave" value="studentDashboardPage"/> 
                                                     
-                                                </c:url>
-                                                <a href="${unsaveJob}" class="far fa-heart save-btn save-btn-active"></a>
+                                                          
+                                                      </c:url>
+                                                      <a href="${unsaveJob}" class="far fa-heart save-btn save-btn-active"></a>
+                                                    --%>      
+                                                <form action="StudentDeleteSaveJobController" method="POST">
+                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                    <input type="hidden" name="unSave" value="studentDashboardPage" />
+                                                    <label for="unsaveJob+${recommendPost.postID}" class="far fa-heart save-btn save-btn-active"> </label>
+                                                    <input type="submit" value="Unsave Job" id="unsaveJob+${recommendPost.postID}" hidden />
+                                                </form>
                                             </c:if>
                                             <c:if test="${statusFollowingPost eq false}">
-<!--                                                <form action="StudentSaveJobController" method="POST">
-                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
-                                                </form>-->
-                                                    <c:url var="saveJob" value="StudentSaveJobController">
+                                                <!--                                                <form action="StudentSaveJobController" method="POST">
+                                                                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
+                                                                                                </form>-->
+                                                <%--    <c:url var="saveJob" value="StudentSaveJobController">
                                                         <c:param name="postID" value="${recommendPost.postID}"/>
                                                     </c:url>
-                                                    <a href="${saveJob}" class="far fa-heart save-btn "></a>
+                                                    <a href="${saveJob}" class="far fa-heart save-btn "></a> --%>
+                                                <form action="StudentSaveJobController" method="POST">
+                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
+                                                    <label for="saveJob+${recommendPost.postID}" class="far fa-heart save-btn "> </label>
+                                                    <input type="submit" value="Save Job" id="saveJob+${recommendPost.postID}" hidden/>
+                                                </form>
                                             </c:if>
-                                        </p>
+                                            </p>
 
-                                        <%--
+                                            <%--
 
                                             <c:if test="${requestScope.FOLLOWING == true}" var="following">
                                                        hidden="hidden"
@@ -308,25 +321,25 @@
                                                     Save Job
                                                 </a>
                                             </p>--%>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:forEach>
-                    </div>
+                            </c:forEach>
+                        </div>
 
-                    <div class="recom__see-more--btn row">
-                        <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
-                            <c:param name="nameCompany" value=""/>
-                            <c:param name="nameMajor" value="${majorID}"/>
-                            <c:param name="nameLocation" value=""/>
-                        </c:url>
-                        <a href="${urlSearchHome}" class="recom--more--btn text-end">
-                            See More 
-                            <i class="fas fa-arrow-right"></i>
-                        </a> 
-                    </div>
+                        <div class="recom__see-more--btn">
+                            <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
+                                <c:param name="nameCompany" value=""/>
+                                <c:param name="nameMajor" value="${majorID}"/>
+                                <c:param name="nameLocation" value=""/>
+                            </c:url>
+                            <a href="${urlSearchHome}" class="recom--more--btn ">
+                                See More 
+                                <i class="fas fa-arrow-right"></i>
+                            </a> 
+                        </div>
 
-                </div>
+                    </div>
                 </c:if>
             </div>
         </main>
@@ -335,7 +348,7 @@
                 @copyright 2022
             </div>
         </footer>
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
     </body>
 </html>

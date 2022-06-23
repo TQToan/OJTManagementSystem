@@ -19,11 +19,12 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
+        <script src="./assets/ckeditor/ckeditor.js"></script>
     </head>
 
     <body>
         <c:set var="companyProfile" value="${requestScope.COMPANY_PROFILE}"/>
-         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowCompanyDashBoardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -40,33 +41,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a href="ShowCompanyDashBoardController" class="nav__item--link">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
+                                <i class="fas fa-palette "></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowProfileController" class="nav__item--link link-active">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowPostController" class="nav__item--link">
-                            <i class="fas fa-pen"></i>
-                            My Posts
-                        </a>
+                                <i class="fas fa-pen"></i>
+                                My Posts
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Interns Management
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Interns Management
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Internship Application
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Internship Application
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="logoutController" class="nav__item--link">
@@ -78,7 +79,7 @@
                 </div>
             </div>
         </div>
-                    
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowCompanyDashBoardController
@@ -134,7 +135,7 @@
 
                 <c:set var="errors" value="${requestScope.ERROR_UPDATE_COMPANYPROFILE}"/>
                 <div class="row">
-                    <div class="main-body-cprofile offset-xl-3 col-xl-6 offset-2 col-8">
+                    <div class="main-body-cprofile  offset-2 col-8">
                         <div class="main-body-cprofile__header">
                             Company Profile
                         </div>
@@ -193,9 +194,11 @@
                             </div>
                             <div class="cprofile__input row">
                                 <label class="col-12 cprofile--label" for="descript">Company Description</label>
+                                <div class="col-12">
                                 <textarea name="descriptUpdate" 
-                                          class="col-12 cprofile--input cprofile--input-textarea" 
+                                          class=" cprofile--input cprofile--input-textarea" 
                                           id="descript" cols="30" rows="4" >${companyProfile.company_Description}</textarea>
+                                </div>
                                 <h5 class="text-danger  text-start ">
                                     <c:if test="${not empty errors.companyDescriptionLegthError}">
                                         ${errors.companyDescriptionLegthError}
@@ -209,7 +212,7 @@
                                         <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="avatar" />
                                     </div>
                                 </label>
-                                
+
                             </div>
                             <h5 class="text-danger  text-start ">
                                 <c:if test="${not empty errors.companyLogoLengthError}">
@@ -218,9 +221,12 @@
                                     </h5>
                                 </c:if>
                             </h5>
-                            <div class="cprofile-edit-btn primary-btn">
-                                <i class="fas fa-edit"></i>
-                                <input type="submit" class="cprofile-edit--input" value="Edit">
+                            <div>
+
+                                <label class="cprofile-edit-btn primary-btn" for="ebtAction">
+                                    <i class="fas fa-edit"></i>
+                                    <input type="submit" class="cprofile-edit--input" value="Edit" id="ebtAction"FF>
+                                </label>
                             </div>
                         </form>
                     </div>
@@ -228,12 +234,14 @@
             </div>
 
         </main>
-
         <footer class="footer">
             <div class="footer__content">
                 <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            CKEDITOR.replace('descript');
+        </script>
     </body>
 </html>

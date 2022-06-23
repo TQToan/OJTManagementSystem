@@ -22,10 +22,10 @@
     <body>
         <header class="header ">
             <div class="navbar">
-                <a href="" class="header__logo ">
+                <a href="loginPage" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
-                <a href="" class="primary-btn ">Login</a>
+                <a href="loginPage" class="primary-btn ">Login</a>
             </div>
         </header>
 
@@ -57,9 +57,6 @@
                                     </font>
                                 </c:if>
                                 <c:set var="email" value="${param.email}" />
-
-                                <!--                            Sửa đổi trang register-->
-                                <!--                            <a href="register2.html" class="verify-email">send email information</a> -->
                                 <input type="password" name="password" value="${param.password}" class="right-form__input" placeholder="*Password" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
                                        disabled="disabled"
@@ -70,7 +67,7 @@
                                     <div class="text-danger">${errors.passwordLengthError}</div>
                                     </font>
                                 </c:if>
-                                <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="*Re-enter Password" 
+                                    <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="*Re-enter Password" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
                                            disabled="disabled"
                                        </c:if> /> 
@@ -80,14 +77,6 @@
                                     <div class="text-danger">${errors.passwordConfirmError}</div><br />
                                     </font>
                                 </c:if>
-                                <!--                            <div class="text-danger">Your error</div>-->
-                                <!--                            <input type="text" class="right-form__input" placeholder="*Vertification">
-                                                            <div class="text-danger">Your error</div>-->
-                                <%--<input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" 
-                                       <c:if test="${not empty sessionScope.VERIFY_EMAIL}" var="verify"> 
-                                           hidden="hidden"
-                                       </c:if>
-                                       />--%>
                                 <input type="submit" value="Verify Email" name="btAction" class="right-form__btn primary-btn" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" var="verify"> 
                                            hidden="hidden"
@@ -97,7 +86,6 @@
                             <c:set var="verifyEmail" value="${sessionScope.ACCOUNT_COMPANY}"/>
                             <c:if test="${not empty verifyEmail}">
                                 <form action="EmailVerificationController" method="POST">
-
                                     <input type="text" name="varification" value="${param.varification}" class="right-form__input" placeholder="*Verify Code" />
                                     <c:if test="${not empty requestScope.SUCCESS_VERIFY}">
                                         <font style="color: green"> 
@@ -115,7 +103,7 @@
                                     <input type="submit" value="Confirm" name="btAction" class="right-form__btn primary-btn" />
                                 </form>
                                 <c:if test="${not empty requestScope.SUCCESS_VERIFY}">
-                                    <form action="RegisterPage2" method="POST">
+                                    <form action="RegisterPage2JSP" method="POST">
                                         <input type="hidden" name="email" value="${email}" />
                                         <input type="hidden" name="password" value="${password}" />
                                         <input type="hidden" name="confirmPassword" value="${confirmPassword}" />

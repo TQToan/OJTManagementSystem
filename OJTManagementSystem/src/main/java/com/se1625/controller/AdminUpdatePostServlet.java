@@ -51,6 +51,7 @@ public class AdminUpdatePostServlet extends HttpServlet {
         String companyName = request.getParameter("txtCompanyName").trim();
         String nameStatus = request.getParameter("nameStatus").trim();
         String xpage = request.getParameter("page");
+        int semesterID = Integer.parseInt(request.getParameter("semester"));
         
         String save = request.getParameter("save");
 
@@ -71,7 +72,7 @@ public class AdminUpdatePostServlet extends HttpServlet {
                     if (check) {
                         if (save.equals("adminViewPostPage")) {
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_VIEW_POST_DETAIL_CONTROLLER)
-                                    + "?postID=" + postID + "&page=" + xpage;
+                                    + "?postID=" + postID + "&page=" + xpage + "&semester=" + semesterID;
 //                            request.setAttribute("page", xpage);
                             request.setAttribute("UPDATE_SUSCESS", "Update success");
                             RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -80,7 +81,7 @@ public class AdminUpdatePostServlet extends HttpServlet {
                             //url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SHOW_POST_MANAGE_CONTROLLER);
                             
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SEARCH_POST_MANAGE_CONTROLLER)
-                                    +"?page=" + xpage + "&txtTitle=" + titlePost + "&txtCompanyName="+ companyName+"&nameStatus=" +nameStatus;
+                                    +"?page=" + xpage + "&semester=" + semesterID + "&txtTitle=" + titlePost + "&txtCompanyName="+ companyName+"&nameStatus=" +nameStatus;
                                     //+"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
                             request.setAttribute("UPDATE_SUSCESS", "Update success");
                             RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -103,11 +104,11 @@ public class AdminUpdatePostServlet extends HttpServlet {
                 response.sendRedirect(url);
             } //if session NOT exit
         } catch (NumberFormatException ex) {
-            log("NumberFormatException at HomeShowCompanyDetailServlet " + ex.getMessage());
+            log("NumberFormatException at AdminUpdatePostServlet " + ex.getMessage());
         } catch (SQLException ex) {
-            log("SQLException at SearchCompanyStudentHomeServlet " + ex.getMessage());
+            log("SQLException at AdminUpdatePostServlet " + ex.getMessage());
         } catch (NamingException ex) {
-            log("NamingException at SearchCompanyStudentHomeServlet " + ex.getMessage());
+            log("NamingException at AdminUpdatePostServlet " + ex.getMessage());
         }
 
     }

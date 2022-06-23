@@ -21,9 +21,9 @@
     </head>
     <body>
         <header></header>
-        
+
         <c:set var="admin" value="${sessionScope.ADMIN_ROLE}" />
-       <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowAdminStudentManagementController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -78,9 +78,9 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">
-            
+
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="#" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
@@ -168,8 +168,8 @@
                                             <option value="">Status</option>
                                             <option value="Success" class="text-success"
                                                     <c:if test="${param.selectStatus eq 'Success'}">
-                                                selected="selected"
-                                            </c:if>>
+                                                        selected="selected"
+                                                    </c:if>>
                                                 Signed
                                             </option>
                                             <option value="Denied" class="text-danger"
@@ -235,7 +235,7 @@
                                                 <td>                                              
                                                     <input type="hidden" name="page" value="${param.page}" />
                                                     <input type="hidden" name="companyID" value="${companyDTO.companyID}" />
-                                                    <input type="submit" value="Update" class="aUpdate-btn" />
+                                                    <input type="submit" value="Update" class="btn-update-green" />
                                                 </td>
                                             </tr>
                                         </form>
@@ -251,22 +251,30 @@
                             </c:if>
                         </div>
 
-
+                        <div id="pageX" hidden >${requestScope.page}</div>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">     
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <c:url var="url" value="SearchCompanyAdminManagerController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="selectCompany" value="${param.selectCompany}"/>
-                                        <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                        <c:param name="selectStatus" value="${param.selectStatus}"/>
-                                    </c:url>                       
-                                        <li class="page-item">
-                                            <a class="page-link" href="${url}">${i}</a>
-                                        </li>
+                                    <form action="SearchCompanyAdminManagerController" method="POST">
+                                        <input type="hidden" name="page" value="${i}"/>
+                                        <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                        <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                        <input type="submit" value="${i}" class="page-link"/>
+                                    </form>
+
+                                    <%--<c:url var="url" value="SearchCompanyAdminManagerController">
+                                    <c:param name="page" value="${i}"/>
+                                    <c:param name="selectCompany" value="${param.selectCompany}"/>
+                                    <c:param name="txtEmail" value="${param.txtEmail}"/>
+                                    <c:param name="selectStatus" value="${param.selectStatus}"/>
+                                </c:url>                       
+                                <li class="page-item">
+                                    <a class="page-link" href="${url}">${i}</a>
+                                </li>--%>
                                 </c:forEach>
                             </ul>
-                                
+
                         </div>
 
 
@@ -278,11 +286,12 @@
 
         <footer class="footer">
             <div class="footer__content">
-                 <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
             </div>
 
         </footer>
 
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>
