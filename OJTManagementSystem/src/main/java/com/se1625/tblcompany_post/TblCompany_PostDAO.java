@@ -357,7 +357,6 @@ public class TblCompany_PostDAO implements Serializable {
                         stm.setString(1, companyID);
                         stm.setInt(2, 1);
                     } else if ("Active".equals(nameStatus)) {
-                        System.out.println("vo day");
                         sql += " and post.statusPost = ? ";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
@@ -1105,7 +1104,6 @@ public class TblCompany_PostDAO implements Serializable {
                         + "ORDER BY cp.postingDate DESC";
                 TblSemesterDAO semesterDAO = new TblSemesterDAO();
                 TblSemesterDTO semesterDTO = semesterDAO.getSemesterByID(semesterID);
-                System.out.println(semesterDTO.getStartDate() + "------" + semesterDTO.getEndDate());
                 Date starDate = semesterDTO.getStartDate();
                 Date endDate = semesterDTO.getEndDate();
 

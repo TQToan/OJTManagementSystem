@@ -777,7 +777,6 @@ public class TblApplicationDAO implements Serializable {
                 if ("".equals(companyName) == true && "".equals(nameTypeJob) == true
                         && nameLocation.trim().isEmpty() == false && nameStatus.trim().isEmpty() == false) {
                     sql += "WHERE app.studentCode = ? and cp.workLocation LIKE ? and ";
-                    System.out.println(nameLocation);
                     if (nameStatus.equals("Denied")) {
                         sql += "app.student_Confirm = ? and (app.company_Confirm = ? or "
                                 + " app.school_Confirm = ?) ";
