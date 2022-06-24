@@ -224,7 +224,7 @@
                                                    var="post" 
                                                    varStatus="counter">
                                             <tr>
-                                                <td>${counter.count}</td>
+                                                <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
                                                     <c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
                                                         <c:param name="postID" value="${post.postID}"/>

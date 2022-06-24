@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -229,7 +230,7 @@
 
                                         <c:forEach var="intern" items="${listIntern}" varStatus="counter">
                                             <tr>
-                                                <td>${counter.count}</td>
+                                                <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>${intern.student.studentCode}</td>
                                                 <td>${intern.companyPost.company.account.name}</td>
                                                 <td>${intern.companyPost.title_Post}</td>

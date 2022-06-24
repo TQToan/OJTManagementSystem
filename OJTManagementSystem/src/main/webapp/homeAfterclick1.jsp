@@ -154,28 +154,19 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-
-
                 </div>
-
                 <div class="fix--btn">
-                    <!-- <a href="#" class= " primary-btn edit-btn">Edit</a>-->
-
+                    <c:if test="${not empty ERROR_RUN_OUT_QUANTITY_INTERNS}" >
+                        ${ ERROR_RUN_OUT_QUANTITY_INTERNS}
+                    </c:if>
                     <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn">
 
-                    <%--<c:if test="${not empty requestScope.EDIT}">
-                        <input type="submit" value="Edit" name="btAction" class="primary-btn upload-btn">
-                    </c:if>--%>
                     <c:url var="linkOther" value="HomeShowCompanyDetailController">
                         <c:param name="postID" value="${companyPost.postID}"/>
                     </c:url>
                     <a href="${linkOther}" class= " primary-btn exit-btn">Exit</a>
                 </div>
-
-
             </main>
         </form>
         <footer class="footer">

@@ -123,7 +123,7 @@
                                     <c:forEach items="${result}" var="post" varStatus="counter">
                                         <tr>
                                             <td>
-                                                ${counter.count}
+                                                ${my:counter(requestScope.page, counter.count)}
                                             </td>
                                             <td>
                                                 <c:url var="showDetail" value="HomeShowCompanyDetailController">

@@ -163,7 +163,7 @@
                             ${my:changeDateFormat(post.expirationDate)}
                         </p>
                         <p><strong>Status: </strong></p>
-                            <c:if test="${post.statusPost eq 2}">
+                        <c:if test="${post.statusPost eq 2}">
                             <p class="text-success">
                                 <strong>
                                     Accept
@@ -184,7 +184,7 @@
                                 </strong>
                             </p>
                         </c:if>
-                        
+
                     </div>
 
                     <div class="aViewPost-btn">

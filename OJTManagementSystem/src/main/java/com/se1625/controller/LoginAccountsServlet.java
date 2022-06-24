@@ -82,7 +82,7 @@ public class LoginAccountsServlet extends HttpServlet {
             } //throw error if error is found
             else {
                 TblAccountDAO dao = new TblAccountDAO();
-                boolean result = dao.checkLoginForCompanyAccount(username, password);
+                boolean result = dao.checkLoginForCompanyAccount(username.trim(), password.trim());
                 if (result) {
                     TblAccountDTO account = dao.getAccount(username);
                     TblCompanyDAO companyDAO = new TblCompanyDAO();

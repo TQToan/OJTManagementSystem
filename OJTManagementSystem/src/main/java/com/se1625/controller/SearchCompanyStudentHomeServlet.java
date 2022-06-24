@@ -65,12 +65,15 @@ public class SearchCompanyStudentHomeServlet extends HttpServlet {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
-                    int idMajor;
-                    if (majorID.isEmpty()) {
-                        idMajor = 0;
-                    } else {
-                        idMajor = Integer.parseInt(majorID);
+                    int idMajor =0;
+                    if (majorID != null) {
+                        if (majorID.isEmpty()) {
+                            idMajor = 0;
+                        } else {
+                            idMajor = Integer.parseInt(majorID);
+                        }
                     }
+                    
 
                     List<TblCompany_PostDTO> listCompanyPostByFilter = null;
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();

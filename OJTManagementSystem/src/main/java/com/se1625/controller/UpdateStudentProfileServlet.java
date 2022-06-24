@@ -75,14 +75,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                     String nowDate = format.format(today);
 
                     boolean checkError = false;
-
-                    DiskFileItemFactory factory = new DiskFileItemFactory();
-                    ServletContext servletContext = this.getServletConfig().getServletContext();
-                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                    factory.setRepository(repository);
-                    ServletFileUpload upload = new ServletFileUpload(factory);
-                    List<FileItem> items = upload.parseRequest(request);
-
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
                     String name = "";
@@ -138,11 +131,17 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         error.setErrorAddressLength("Address is required 6-100 characters");
                         checkError = true;
                     }
-
+                    
+                    String patternNumberPhone = "^(03|05|07|08|09)([0-9]{8,8})$";
                     //check phone number update
                     if (stringPhone.trim().length() < 10 || stringPhone.trim().length() > 11) {
                         error.setErrorPhoneNumberLength("Number phone is required 10 characters");
                         checkError = true;
+                    } else {
+                        if (stringPhone.matches(patternNumberPhone) == false) {
+                            checkError = true;
+                            error.setErrorPhoneNumberFormat("Number phone is invalid format");
+                        }
                     }
 
                     if (fileLength > sizeMax) {
@@ -216,6 +215,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
         } catch (SQLException ex) {
             log("SQLException at UpdateStudentProfileServlet " + ex.getMessage());
         } catch (Exception ex) {
+            ex.printStackTrace();
             log("Exception at UpdateStudentProfileServlet " + ex.getMessage());
         }
     }

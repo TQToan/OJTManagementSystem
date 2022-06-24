@@ -112,4 +112,8 @@ public class CustomTag {
         }
         return listAvatarOnSlide;
     }
+    
+    public static Integer counter(Integer pageNumber, Integer index) {
+        return ((pageNumber - 1) * 10) + index;
+    }
 }

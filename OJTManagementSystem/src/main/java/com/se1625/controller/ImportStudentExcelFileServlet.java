@@ -56,20 +56,7 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String fileError = "";
         try {
-
-            // Create a factory for disk-based file items
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-
-            // Configure a repository (to ensure a secure temp location is used)
-            ServletContext servletContext = this.getServletConfig().getServletContext();
-            File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-            factory.setRepository(repository);
-
-            // Create a new file upload handler
-            ServletFileUpload upload = new ServletFileUpload(factory);
-
-            // Parse the request
-            List<FileItem> items = upload.parseRequest(request);
+            List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
 
             Iterator<FileItem> iter = items.iterator();
             String filePath = "";

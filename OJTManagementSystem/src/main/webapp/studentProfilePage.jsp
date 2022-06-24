@@ -206,6 +206,11 @@
                                         ${errorUpdate.errorPhoneNumberLength}
                                     </c:if>
                                 </h5>
+                                <h5 class="text-danger offset-4 col-8 text-start ">
+                                    <c:if test="${not empty errorUpdate}">
+                                        ${errorUpdate.errorPhoneNumberFormat}
+                                    </c:if>
+                                </h5>
                             </div>
                             <input type="hidden" name="postID" value="${param.postID}" />   
                             <div class="profile__input row">
