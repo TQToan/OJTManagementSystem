@@ -81,6 +81,11 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     TblCompanyDTO company = companyDAO.getCompanyInformation(companyAccount.getEmail());
 
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listMajor = majorDAO.getListNameMajor();
+                    request.setAttribute("LIST_NAME_MAJOR", listMajor);
+
                     if (tiltePost.trim().length() <= 5 || tiltePost.trim().length() > 100) {
                         foundError = true;
                         errors.setTitlePostEmptyError("Title post is required 6 to 100 characters!");
@@ -140,14 +145,11 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
 
                     if (foundError) {
                         request.setAttribute("ERRORS", errors);
-                        TblMajorDAO majorDAO = new TblMajorDAO();
-                        majorDAO.getNameMajor();
-                        List<TblMajorDTO> listMajor = majorDAO.getListNameMajor();
-                        request.setAttribute("LIST_MAJOR_NAME", listMajor);
                         url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_CREATE_COMPANY_POST_PAGE);
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
                     } else {
+                        System.out.println(listMajor);
                         //create new company post
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                         boolean result = companyPostDAO.createNewCompanyPost(company.getCompanyID(), majorID,
@@ -155,6 +157,7 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                                 txtWorkLocation, quantity, currentDate, expirationDate,
                                 1, vacancy);
                         if (result) {
+                            
                             url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_DASHBOARD_CONTROLLER);
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);

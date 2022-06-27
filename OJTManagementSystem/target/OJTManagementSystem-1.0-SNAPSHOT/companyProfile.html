@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company - Profile</title>
+    <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+     <link rel="stylesheet" href="./assets/css/company.css">
+     <link rel="stylesheet" href="./assets/css/company-responsive.css">
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header></header>
+
+    <div class="navbar navbar-expand-md navbar-sm-cus ">
+        <a href="#" class="header__logo ">
+            <img src="./assets/img/logo.png" alt="" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <i class="fa-solid fa-bars nav__respo--btn"></i>
+        </button>
+        <div class="collapse navbar-collapse navbar-collapse-cus" id="collapsibleNavbar">
+            <a href="" class=" nav__infor--link text-truncate text-center">
+                <i class="fas fa-user-circle nav__infor--icon"></i>
+                    FPT Software
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="companyDashboard.html" class="nav__item--link">
+                        <i class="fas fa-palette "></i>
+                            Dashboard
+                        </a>
+                </li>
+                <li class="nav-item">
+                    <a href="companyProfile.html" class="nav__item--link">
+                        <i class="fas fa-user-edit"></i>
+                        My Profile
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="companyPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        My Posts
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="companyInternsManage.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                        Interns Management
+                    </a>
+                </li>
+                <li class="nav-item nav__items">
+                    <a href="companyApplManage.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                       Internship Application
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    <main class="row">
+        <nav class="col-xl-2  nav-fixed col-md-3">
+            <a href="companyDashboard.html" class="nav__logo ">
+                <img src="./assets/img/logo.png" alt="" class="nav--logo">
+            </a>
+                <a href="companyProfile.html" class=" nav__infor--link text-truncate">
+                    <i class="fas fa-user-circle nav__infor--icon"></i>
+                    FPT Software
+                </a>
+
+            <ul class="nav__content">
+                <li class="nav__items">
+                    <a href="companyDashboard.html" class="nav__item--link">
+                    <i class="fas fa-palette "></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="companyProfile.html" class="nav__item--link">
+                        <i class="fas fa-user-edit"></i>
+                        My Profile
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="companyPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        My Posts
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="companyInternsManage.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                        Interns Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="companyApplManage.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                       Internship Application
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="login.html" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
+            <div class="row">
+                <div class="main-body-cprofile offset-xl-3 col-xl-6 offset-2 col-8">
+                    <div class="main-body-cprofile__header">
+                        Company Profile*
+                    </div>
+                    <form action="">
+                        <div class="cprofile__input row">
+                            <label class="col-4 cprofile--label" for="cName">Company's Name</label>
+                            <input type="text" class="col-8 cprofile--input " name="" id="cName" value="FPT Software">
+                            <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+
+                        <div class="cprofile__input row">
+                            <label class="col-4 cprofile--label" for="address">Address</label>
+                            <input type="text" class="col-8 cprofile--input " name="" id="address" value="Quan 9 Tp.HCM">
+                            <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+                        <div class="cprofile__input row">
+                            <label class="col-4 cprofile--label" for="city">City</label>
+                            <select id="city" name="city"  class="col-8 cprofile--input " >
+                                <option value="">Choose City</option>
+                                <option value="TP.HCM">TP.HCM</option>
+                                <option value="Dong Nai">Dong Nai</option>
+                                <option value="Tay Ninh">Tay Ninh</option>
+                                <option value="Binh Duong">Binh Duong</option>
+                              </select>
+                              <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+                        <div class="cprofile__input row">
+                            <label class="col-4 cprofile--label" for="email">Contaxt Email</label>
+                            <input type="email" class="col-8 cprofile--input " name="" id="email" value="thanhtqse151262@fpt.edu.vn">
+                            <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+                        <div class="cprofile__input row">
+                            <label class="col-4 cprofile--label" for="phone">Phone</label>
+                            <input type="text" class="col-8 cprofile--input " name="" id="phone" value="0123546789">
+                            <h5 class="text-danger offset-4 col-8 text-start ">
+                                your error
+                            </h5>
+                        </div>
+                        <div class="cprofile__input row">
+                            <label class="col-12 cprofile--label" for="descript">Company Description</label>
+                            <textarea name="" class="col-12 cprofile--input cprofile--input-textarea" id="descript" cols="30" rows="4" >        FPT Software was established in 1999, is a member company of FPT, the leading Technology Group in Vietnam. After 17 years of establishment, FPT Software is currently the largest software company in Vietnam and ranked in the Top 100 Global Outsourcing Service Providers by the International Association of Outsourcing Professionals (IAOP).
+                            </textarea>
+                            <h5 class="text-danger  text-start ">
+                                your error
+                            </h5>
+                        </div>
+                            <div class=" cprofile-file-input">
+                                <label for="myfile" >
+                                    Logo:
+                                    <div class="input-file">
+                                        <input type="file" id="myfile" name="myfile" >
+                                    </div>
+                                </label>
+                                
+                            </div>
+                            <h5 class="text-danger  text-start ">
+                                your error
+                            </h5>
+                        <div class="cprofile-edit-btn primary-btn">
+                            <i class="fas fa-edit"></i>
+                            <input type="submit" class="cprofile-edit--input" value="Edit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+            <div class="footer__content">
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
+            </div>
+    </footer>
+
+</body>
+
+</html>

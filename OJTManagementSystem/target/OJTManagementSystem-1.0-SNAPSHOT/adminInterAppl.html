@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Application Management</title>
+    <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+     <link rel="stylesheet" href="./assets/css/admin.css">
+     <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header></header>
+
+    <div class="navbar navbar-expand-md navbar-sm-cus ">
+        <a href="#" class="header__logo ">
+            <img src="./assets/img/logo.png" alt="" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <i class="fa-solid fa-bars nav__respo--btn"></i>
+        </button>
+    </div>
+
+    <main class="row">
+        <nav class="col-xl-2  nav-fixed col-md-3">
+            <a href="#" class="nav__logo ">
+                <img src="./assets/img/logo.png" alt="" class="nav--logo">
+            </a>
+                <a href="#" class=" nav__infor--link text-truncate">
+                    <i class="fas fa-user-circle nav__infor--icon"></i>
+                    FPT University HCM
+                </a>
+
+            <ul class="nav__content">
+                <li class="nav__items">
+                    <a href="adminStuManage.html" class="nav__item--link">
+                        <i class="fas fa-university"></i>
+                        Student Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminComManage.html" class="nav__item--link">
+                        <i class="far fa-building"></i>
+                        Company Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminPostManage.html" class="nav__item--link">
+                        <i class="fas fa-pen"></i>
+                        Post Management
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminInterAppl.html" class="nav__item--link">
+                        <i class="fas fa-clipboard-check"></i>
+                        Internship Application
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="adminEval.html" class="nav__item--link">
+                        <i class="fas fa-poll-h"></i>
+                       Evalution
+                    </a>
+                </li>
+                <li class="nav__items">
+                    <a href="login.html" class="nav__item--link">
+                        <i class="fas fa-power-off"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
+            <div class="row">
+                <div class="main-body-aInterAppl ">
+                    <div class="main-body-aInterAppl__header">
+                        Intern Application
+                    </div>
+
+
+                    <div class="main-body-aInterAppl__search">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-2">
+                                    <input type="text" name="" id="" placeholder="ID" class="admin--input">
+                                </div>
+                                <div class="col-4">
+                                    <select id="company" name="company"  class="admin--select" >
+                                        <option value=""  selected>Company</option>
+                                        <option value="">
+                                            FPT Software
+                                        </option>
+                                        <option value="" >
+                                            The Gioi Di Dong
+                                        </option>
+                                    </select> 
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" placeholder="Title Job" class="admin--input">
+                                </div>
+                                <div class="col-2">
+                                    <select id="status" name="status"   class="admin--select">
+                                        <option value=""  selected>School Status</option>
+                                        <option value="Success" class="text-success">
+                                            Passed
+                                        </option>
+                                        <option value="Denied" class="text-danger">
+                                            Failed
+                                        </option>
+                                    </select>           
+                                </div>
+                                <div class="col-1">
+                                    <input type="submit" value="Search" class="admin-search-btn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="main-body-aInterAppl__content">
+                        <div class="resultpage__header">
+                            Result : 100
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>ID</th>
+                                    <th>Company Name</th>
+                                    <th>Title Job</th>
+                                    <th>Student Applied</th>
+                                    <th>Company Accepted</th>
+                                    <th>School Confirm</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>SE151272</td>
+                                        <td>FPT Software</td>
+                                        <td>Java Developer</td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2</td>
+                                        <td>SE151272</td>
+                                        <td>FPT Software</td>
+                                        <td>Java Developer</td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td class="text-danger">
+                                                <strong>
+                                                    Denied
+                                                </strong>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>SE151272</td>
+                                        <td>FPT Software</td>
+                                        <td>Java Developer</td>
+                                        <td class="text-danger">
+                                            <strong>
+                                                Canceled
+                                            </strong>
+                                        </td>
+                                        <td class="text-success">
+                                            <strong>
+                                                Accepted
+                                            </strong>
+                                        </td>
+                                        <td class="text-warning">
+                                            Waiting
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-around">
+                                                <a href="" class="text-danger">
+                                                    <strong>
+                                                        Reject
+                                                    </strong>
+                                                </a>
+                                                <a href="" class="text-success">
+                                                    <strong>
+                                                        Accept
+                                                    </strong>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>                  
+                               
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                    <div class="main__pagination">
+                        <ul class="pagination main_cus__pagination">
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+            <div class="footer__content">
+                <i class="fa-regular fa-copyright"></i> Copyright 2022
+            </div>
+
+    </footer>
+
+</body>
+
+</html>

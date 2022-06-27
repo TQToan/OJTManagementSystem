@@ -604,7 +604,7 @@ public class TblCompany_PostDAO implements Serializable {
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == true) {
 
-                    sql += "WHERE post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
+                    sql += "WHERE (post.postingDate between ? and ?) order by post.statusPost ";
                     stm = con.prepareStatement(sql);
                     stm.setDate(1, starDate);
                     stm.setDate(2, endDate);
@@ -614,7 +614,7 @@ public class TblCompany_PostDAO implements Serializable {
                         && companyName.isEmpty() == false && semesterID != 0) {
 
                     sql += " WHERE post.title_Post LIKE ? and acc.name LIKE ? and (post.postingDate between  ?  and  ?  ) "
-                            + "ORDER BY post.postingDate DESC ";
+                            + "order by post.statusPost";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + titlePost + "%");
                     stm.setNString(2, "%" + companyName + "%");
@@ -623,7 +623,7 @@ public class TblCompany_PostDAO implements Serializable {
                 }
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == false) {
-                    sql += "WHERE acc.name LIKE ? and post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
+                    sql += "WHERE acc.name LIKE ? and (post.postingDate between ? and ?) order by post.statusPost ";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + companyName + "%");
                     stm.setDate(2, starDate);
@@ -631,7 +631,7 @@ public class TblCompany_PostDAO implements Serializable {
                 }
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == true
                         && companyName.isEmpty() == true) {
-                    sql += "WHERE post.title_Post LIKE ? and post.postingDate between ? and ? ORDER BY post.postingDate DESC ";
+                    sql += "WHERE post.title_Post LIKE ? and (post.postingDate between ? and ?) order by post.statusPost ";
                     stm = con.prepareStatement(sql);
                     stm.setNString(1, "%" + titlePost + "%");
                     stm.setDate(2, starDate);
@@ -640,9 +640,9 @@ public class TblCompany_PostDAO implements Serializable {
 
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
                         && companyName.isEmpty() == false) {
-                    sql += "WHERE post.title_Post LIKE ? and acc.name LIKE ? and post.postingDate between ? and ? ";
+                    sql += "WHERE post.title_Post LIKE ? and acc.name LIKE ? and (post.postingDate between ? and ?) ";
                     if (nameStatus.equals("Accept")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
@@ -651,17 +651,17 @@ public class TblCompany_PostDAO implements Serializable {
                         stm.setInt(5, 2);
 
                     } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and (post.statusPost = ? OR post.statusPost = ?) order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
                         stm.setDate(3, starDate);
                         stm.setDate(4, endDate);
                         stm.setInt(5, 0);
-                        stm.setInt (5, 3);
+                        stm.setInt (6, 3);
 
                     } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setNString(2, "%" + companyName + "%");
@@ -673,16 +673,16 @@ public class TblCompany_PostDAO implements Serializable {
                 }
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
                         && companyName.isEmpty() == false) {
-                    sql += "WHERE acc.name LIKE ? and post.postingDate between ? and ? ";
+                    sql += "WHERE acc.name LIKE ? and (post.postingDate between ? and ?)";
                     if (nameStatus.equals("Accept")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
                         stm.setDate(2, starDate);
                         stm.setDate(3, endDate);
                         stm.setInt(4, 2);
                     } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and (post.statusPost = ? OR post.statusPost = ?) order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
                         stm.setDate(2, starDate);
@@ -690,7 +690,7 @@ public class TblCompany_PostDAO implements Serializable {
                         stm.setInt(4, 0);
                         stm.setInt(5, 3);
                     } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + companyName + "%");
                         stm.setDate(2, starDate);
@@ -700,16 +700,16 @@ public class TblCompany_PostDAO implements Serializable {
                 }
                 if (titlePost.isEmpty() == false && nameStatus.isEmpty() == false
                         && companyName.isEmpty() == true) {
-                    sql += "WHERE post.title_Post LIKE ? and post.postingDate between ? and ? ";
+                    sql += "WHERE post.title_Post LIKE ? and (post.postingDate between ? and ?) ";
                     if (nameStatus.equals("Accept")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setDate(2, starDate);
                         stm.setDate(3, endDate);
                         stm.setInt(4, 2);
                     } else if (nameStatus.equals("Denied")) {
-                        sql += " and post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and (post.statusPost = ? OR post.statusPost = ?) order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setDate(2, starDate);
@@ -717,7 +717,7 @@ public class TblCompany_PostDAO implements Serializable {
                         stm.setInt(4, 0);
                         stm.setInt(5, 3);
                     } else if (nameStatus.equals("Waiting")) {
-                        sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " and post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setNString(1, "%" + titlePost + "%");
                         stm.setDate(2, starDate);
@@ -728,22 +728,22 @@ public class TblCompany_PostDAO implements Serializable {
 
                 if (titlePost.isEmpty() == true && nameStatus.isEmpty() == false
                         && companyName.isEmpty() == true) {
-                    sql += "WHERE post.postingDate between ? and ? and";
+                    sql += "WHERE (post.postingDate between ? and ?) and";
                     if (nameStatus.equals("Accept")) {
-                        sql += " post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setDate(1, starDate);
                         stm.setDate(2, endDate);
                         stm.setInt(3, 2);
                     } else if (nameStatus.equals("Denied")) {
-                        sql += " post.statusPost = ? OR post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " (post.statusPost = ? OR post.statusPost = ?) order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setDate(1, starDate);
                         stm.setDate(2, endDate);
                         stm.setInt(3, 0);
                         stm.setInt(4, 3);
                     } else if (nameStatus.equals("Waiting")) {
-                        sql += " post.statusPost = ? ORDER BY post.postingDate DESC ";
+                        sql += " post.statusPost = ? order by post.statusPost ";
                         stm = con.prepareStatement(sql);
                         stm.setDate(1, starDate);
                         stm.setDate(2, endDate);

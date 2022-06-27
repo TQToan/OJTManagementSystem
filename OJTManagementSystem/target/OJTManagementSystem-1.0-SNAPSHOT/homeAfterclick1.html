@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Student Information</title>
+    <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/home-responsive.css">
+</head>
+<body>
+    <header class="header ">
+            <div class="navbar header__nav_cus">
+                <a href="home.html" class="header__logo">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
+                <div class="header__name">
+                    <div class="header__name--show">
+                        Hi, Toàn
+                        <i class="fas fa-angle-down icon-down"></i>
+                    </div>
+                    <div class="header__name--hidden">
+                        <a href="studentDashboard.html" class="header__name--hidden-content">Dashboard</a>
+                        <a href="login.html" class="header__name--hidden-content">Logout</a>
+                    </div>
+                </div>
+                
+            </div>
+    
+    </header>
+
+    <main class="main">
+        <div class="main-body">
+            <div class="main-body-cViewStu">
+                <div class="main-body-cViewStu__header">
+                    Student Information
+                </div>
+                <div class="row">
+                    <div class="inforStu-left  col-xl-3 col-md-4 col-12 row ">
+                        <div class="col-md-12 col-4">
+                            <img src="./assets/img/person.jpg" alt="" class="inforStu-left--img  ">
+                        </div>
+                        <div class="inforStu-left__content col-md-12 col-7 ">
+                            <p>Name: Thái Quốc Toàn </p>
+                            <p>Birthday: XX-XX-XXXX</p>
+                            <p>Gender: Men</p>
+                            <p>Address: TP. HCM</p>
+                            <p>Email: toangtqse151272@fpt.edu.vn</p>    
+                        </div>
+                    </div>
+    
+                    <div class="inforStu-right col-xl-7 col-md-6">
+                        <div class="inforStu-right__header">
+                            Career Information
+                        </div>
+                        <div class="inforStu-right__content">
+                            <p>Expected Job: Java Developer </p>
+                            <p>Technology: Java </p>
+                            <p>Experience: < 1 year </p>
+                            <p>Foreign Language: English </p>
+                            <p>Salary: by aggreement </p>
+                            <p>Other Skills: Office Skills </p>
+                            <p>Last Update: 15-5-2022</p>
+                        </div>
+                    </div>
+                </div>
+
+                               
+            </div>
+           
+        </div>
+
+        <div class="fix--btn">
+            <a href="#"class= " primary-btn edit-btn">Edit</a>
+            <a href="home.html"class= " primary-btn exit-btn">Exit</a>
+        </div>
+
+        <div class="file-input">
+            <form action="">
+                <label for="myfile" >
+                    Your CV:
+                    <div class="input-file">
+                        <input type="file" id="myfile" name="myfile" >
+                    </div>
+                </label>
+                <input type="submit" value="Upload" class="primary-btn upload-btn">
+            </form>
+            
+        </div>
+      
+    </main>
+
+    <footer class="footer">
+        <div class="footer__content">
+            <i class="fa-regular fa-copyright"></i> Copyright 2022
+        </div>
+    
+</footer>
+    
+    
+</body>
+</html>
