@@ -70,10 +70,6 @@ public class LoginAccountsServlet extends HttpServlet {
                     error.setUserEmailFormatError("Your email is invalid format!");
                 }
             }
-            if (password.trim().length() == 0) {
-                error.setUserPasswordEmpty("Please enter your password!");
-                foundError = true;
-            }//check password is not empty
 
             if (foundError) {
                 request.setAttribute("ERROR", error);
@@ -82,7 +78,7 @@ public class LoginAccountsServlet extends HttpServlet {
             } //throw error if error is found
             else {
                 TblAccountDAO dao = new TblAccountDAO();
-                boolean result = dao.checkLoginForCompanyAccount(username.trim(), password.trim());
+                boolean result = dao.checkLoginForCompanyAccount(username.trim(), password);
                 if (result) {
                     TblAccountDTO account = dao.getAccount(username);
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
