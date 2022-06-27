@@ -66,7 +66,7 @@ public class LoginGoogleServlet extends HttpServlet {
             TblAccountDAO dao = new TblAccountDAO();
             TblAccountDTO dto = dao.getAccount(email);
             //check existed email
-            if (dto != null) {                      
+            if (dto != null) {
                 if (dto.getIs_Admin() == 1) {
                     HttpSession session = request.getSession();
                     session.setAttribute("ADMIN_ROLE", dto);
@@ -81,9 +81,18 @@ public class LoginGoogleServlet extends HttpServlet {
                     TblStudentDAO studentDAO = new TblStudentDAO();
                     TblStudentDTO student = studentDAO.getStudent(dto.getEmail(), currentSemester);
                     if (student != null) {
-                        session.setAttribute("STUDENT_ROLE", student);
-                        url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;
-                        response.sendRedirect(url);
+                        if (student.isIsDisabled() == false) {
+                            session.setAttribute("STUDENT_ROLE", student);
+                            url = MyApplicationConstants.LoginGoogleFeture.STUDENT_DASHBOARD_CONTROLLER;
+                            response.sendRedirect(url);
+                        } else {
+                            error = new TblAccountError();
+                            error.setUserEmailNotAllow("Your account is not allowed to login into this system by email!");
+                            request.setAttribute("ERROR", error);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
+                        }
+
                     } else {
                         error = new TblAccountError();
                         error.setUserEmailNotAllow("Your account is not allowed to login into this system by email!");

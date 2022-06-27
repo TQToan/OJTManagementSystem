@@ -74,12 +74,12 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                 if (companyDTO != null) {
                     boolean checkError = false;
 
-                    DiskFileItemFactory factory = new DiskFileItemFactory();
-                    ServletContext servletContext = this.getServletConfig().getServletContext();
-                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                    factory.setRepository(repository);
-                    ServletFileUpload upload = new ServletFileUpload(factory);
-                    List<FileItem> items = upload.parseRequest(request);
+//                    DiskFileItemFactory factory = new DiskFileItemFactory();
+//                    ServletContext servletContext = this.getServletConfig().getServletContext();
+//                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+//                    factory.setRepository(repository);
+//                    ServletFileUpload upload = new ServletFileUpload(factory);
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS"); //upload.parseRequest(request);
 
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
