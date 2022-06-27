@@ -374,6 +374,15 @@ main{
     color: white !important;  
 }
 
+.btn-update-green-disable{
+    border:none;
+    padding: 3px 5px;
+    background-color: var(--background-aquar);
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
 .btn-update-green{
     border:none;
     padding: 3px 5px;
@@ -387,6 +396,15 @@ main{
     transform: scale(1.1);
 }
 
+.btn-regular-red-disable{
+    border:none;
+    border: 1px solid red;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: red;
+    text-decoration: none;
+}
 
 .btn-regular-red{
     border:none;
@@ -402,6 +420,16 @@ main{
     background-color: red;
     color:white;
     border: 1px solid white;
+}
+
+.btn-regular-green-disable{
+    border:none;
+    padding: 2px 5px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    text-decoration: none;
 }
 
 .btn-regular-green{
@@ -420,6 +448,22 @@ main{
     border: 1px solid white;
 }
 
+
+.btn-regular-gray{
+    border:none;
+    border: 1px solid gray;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: white;
+    color: gray;
+    text-decoration: none;
+}
+
+.btn-regular-gray:hover{
+    background-color: gray;
+    color:white;
+    border: 1px solid white;
+}
 
 .text-red{
     color:red;
@@ -445,7 +489,12 @@ main{
     color:green;
 }
 
-
+input-file{
+    border: 1px solid var(--background-orange);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 /* General -------------------END----------------------------- */
 

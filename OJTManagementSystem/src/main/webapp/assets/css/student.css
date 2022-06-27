@@ -209,6 +209,7 @@
 .profile__input{
     font-size: 1.8rem;
     margin-bottom: 30px;
+    text-align: left;
 }
 
 .profile--input{
@@ -264,6 +265,18 @@
 
 .profile-edit-btn:hover .profile-edit--input{
     color: var(--background-orange);
+}
+
+.input-file{
+    display: inline-block;
+}
+
+.input-file::before{
+    content: "Choose file";
+    border: 1px solid var(--background-orange);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 /* Main-body -----------------------Profile-------END------------------ */

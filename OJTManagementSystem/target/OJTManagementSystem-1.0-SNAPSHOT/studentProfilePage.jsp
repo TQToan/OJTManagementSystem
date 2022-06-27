@@ -218,9 +218,19 @@
                                 <input type="text" readonly class="col-8 profile--input-none-hover " name="" id="major"
                                        value="${studentProfile.major}">
                             </div>
-                            <div class="profile__input row"> 
-                                <label class="col-4 profile--label" for="avatar">Avatar</label>
-                                <input type="file" name="avatar" class="col-8" value="" id="avatar" />
+                            <div class="profile__input"> 
+                                <!--<label class="col-4 profile--label" for="avatar">Avatar</label>-->
+                                <label for="inputFile" class="profile--label">
+                                    Avatar
+                                    <div class="input-file" for="inputFile"></div>
+                                    <span id="displayResult">${studentProfile.account.avatar}</span>
+                                    <input type="file" id="inputFile" name="myfile" value="./avatars/${studentProfile.account.avatar}" hidden="hidden">
+                                    
+<!--                                    <span id="displayResult">${studentProfile.account.avatar}</span>
+
+                                    <input type="file" name="avatar" class="col-8" value="./avatars/${studentProfile.account.avatar}" id="inputFile" hidden />-->
+                                </label>
+                                <!--<input type="file" name="avatar" class="col-8" value="" id="avatar" />-->
                             </div>
                             <c:if test="${not empty errorUpdate.errorFileLength}">
                                 <h5 class="text-danger offset-4 col-8 text-start">
@@ -231,8 +241,8 @@
 
                             <div >
                                 <label for="editProfile" class="profile-edit-btn primary-btn">
-                                <i class="fas fa-edit"></i>
-                                <input type="submit" class="profile-edit--input" value="Edit" id="editProfile">
+                                    <i class="fas fa-edit"></i>
+                                    <input type="submit" class="profile-edit--input" value="Edit" id="editProfile">
                                 </label>
                             </div>
                         </form>

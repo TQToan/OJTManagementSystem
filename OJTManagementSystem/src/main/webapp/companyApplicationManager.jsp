@@ -17,7 +17,7 @@
 
     <body>
         <header></header>
-        <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
+            <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
 
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -30,72 +30,6 @@
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
                     <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
-                        <%--=======
-                                    <c:set var="company" value="${sessionScope.COMPANY_ROLE}"/>
-
-        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
-            <div class="container-fluid">
-                <a href="ShowCompanyDashBoardController" class="header__logo ">
-                    <img src="./assets/img/logo.png" alt="" class="logo">
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars nav__respo--btn"></i>
-                </button>
-                <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
-                    <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate text-center">
-                        <i class="fas fa-user-circle nav__infor--icon"></i>
-                        <font>  ${company.name} </font>
-                    </a>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a href="ShowCompanyDashBoardController" class="nav__item--link">
-                                <i class="fas fa-palette "></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="CompanyShowProfileController" class="nav__item--link">
-                                <i class="fas fa-user-edit"></i>
-                                My Profile
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="CompanyShowPostController" class="nav__item--link">
-                                <i class="fas fa-pen"></i>
-                                My Posts
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                                <i class="fas fa-poll-h"></i>
-                                Interns Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="CompanyShowIntershipApplicationController" class="nav__item--link link-active">
-                                <i class="fas fa-poll-h"></i>
-                                Internship Application
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logoutController" class="nav__item--link">
-                                <i class="fas fa-power-off"></i>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <main class="row">
-            <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="ShowCompanyDashBoardController" class="nav__logo ">
-                    <img src="./assets/img/logo.png" alt="" class="nav--logo">
-                </a>
-                <a href="CompanyShowProfileController" class=" nav__infor--link text-truncate">
->>>>>>> 5d5e7b3ebaaf4e12a936ccf79baba246bd79793e--%>
                         <i class="fas fa-user-circle nav__infor--icon"></i>
                         <font>  ${company.name} </font>
                     </a>
@@ -188,29 +122,29 @@
                         </a>
                     </li>
                 </ul>
-<%--                =======
-                <div class="row">
-                    <div class="col-3">
-                        <input type="text" name="txtFullName" value="${param.txtFullName}" id="" placeholder="Full Name" class="company--input">
-                    </div>
-                    <div class="col-3">
-                        <input type="email" name="txtEmail" value="${param.txtEmail}" id="" placeholder="Email" class="company--input">
-                    </div>
-                    <div class="col-3">
-                        <c:set value="${requestScope.LIST_COMPANY_POST}" var="listCompanyPost"/>
-                        <c:set var="page" value="${requestScope.PAGE}"/>
-                        <select id="title" name="selectCompanyPost" class="company--select">
-                            <option value="" >Title Job</option>
-                            <c:forEach var="companyPost" items="${listCompanyPost}">
-                                <option value="${companyPost.postID}"
-                                        <c:if test="${companyPost.postID eq  param.selectCompanyPost}">
-                                            selected="selected"
-                                        </c:if>        
-                                        >  
-                                    ${companyPost.title_Post}
-                                </option>   
-                            </c:forEach>
-                        </select>
+                <%--                =======
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input type="text" name="txtFullName" value="${param.txtFullName}" id="" placeholder="Full Name" class="company--input">
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="email" name="txtEmail" value="${param.txtEmail}" id="" placeholder="Email" class="company--input">
+                                    </div>
+                                    <div class="col-3">
+                                        <c:set value="${requestScope.LIST_COMPANY_POST}" var="listCompanyPost"/>
+                                        <c:set var="page" value="${requestScope.PAGE}"/>
+                                        <select id="title" name="selectCompanyPost" class="company--select">
+                                            <option value="" >Title Job</option>
+                                            <c:forEach var="companyPost" items="${listCompanyPost}">
+                                                <option value="${companyPost.postID}"
+                                                        <c:if test="${companyPost.postID eq  param.selectCompanyPost}">
+                                                            selected="selected"
+                                                        </c:if>        
+                                                        >  
+                                                    ${companyPost.title_Post}
+                                                </option>   
+                                            </c:forEach>
+                                        </select>
 
                     </div>
 
@@ -503,9 +437,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- - accepted sẽ có 2 action: đậu (sẽ ko được sửa nữa) và rớt ( status denied)
-                                                - denied sẽ ko có action
-                                                - waiting sẽ có 1  action: update ( accepted, denied) -->
                                         <c:set var="applicationList" value="${requestScope.APPLICATION_LIST_BYPAGE}"/>
                                         <c:forEach var="applicationDTO" items="${applicationList}" varStatus="counter">
                                             <tr>
@@ -520,7 +451,7 @@
                                                         <c:param name="status" value="${param.status}"/>
                                                         <c:param name="companyConfirm" value="${applicationDTO.companyConfirm}"/>
                                                     </c:url>
-                                    <!--                                                    <a href="companyViewStudentDetail.html">${applicationDTO.student.account.name}</a>-->
+
                                                     <a href="${viewStudentDetail}">${applicationDTO.student.account.name}</a>
                                                 </td>
                                                 <td>${applicationDTO.student.account.email}</td>
@@ -532,7 +463,7 @@
                                                             Accepted
                                                         </strong>
                                                     </c:if>
-                                                    <c:if test="${applicationDTO.companyConfirm eq -1 or applicationDTO.companyConfirm eq -2}">
+                                                    <c:if test="${applicationDTO.companyConfirm eq -1}">
                                                         <strong class="text-danger">
                                                             Denied
                                                         </strong>
@@ -554,8 +485,8 @@
                                                     </c:if>
                                                 </td>
                                                 <td>
-                                                    <!--                                                <div class="d-flex justify-content-around">     -->
-                                                    <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}">
+<!--                                                    <div class="d-flex justify-content-around">     -->
+                                                        <%--           <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}"> --%>
                                                         <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
                                                             <!--param of update-->
                                                             <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
@@ -567,10 +498,20 @@
                                                             <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                             <input type="hidden" name="status" value="${param.status}" />
                                                             <!--button-->
+
+                                                            <c:if test="${applicationDTO.companyConfirm eq -1}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Interview" disabled="disabled" /> 
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" disabled="disabled" /> 
+                                                            </c:if>
+                                                            <c:if test="${applicationDTO.companyConfirm eq -2 or applicationDTO.companyConfirm eq 1}">
+                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Accept" disabled="disabled"/>  
+                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" disabled="disabled"/>               
+                                                            </c:if>
                                                             <c:if test="${applicationDTO.companyConfirm eq 0}">
                                                                 <input name="action" class="btn btn-outline-success" type="submit" value="Interview" /> 
                                                                 <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" /> 
                                                             </c:if>
+
                                                             <c:if test="${applicationDTO.companyConfirm eq 2}">
                                                                 <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />  
                                                                 <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
@@ -582,7 +523,8 @@
                                                                 ${quantityEnough.quantitytInternsNotEngough} 
                                                             </c:if>
                                                         </c:if>
-                                                    </c:if>
+                                                        <%-- </c:if> --%>
+<!--                                                    </div>-->
                                                 </td>              
                                             </tr>     
                                         </c:forEach>

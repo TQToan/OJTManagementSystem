@@ -140,17 +140,29 @@
                         </div>
 
                         <div class="admin__import-file-stu">
-                            <form action="ImportStudentExcelFileController" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="Import File" />
-                                <input id="importFile" type="submit" value="Import File" name="btAction" />
-                            </form>
-                            <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
-                                ${requestScope.ERROR_IMPORT_EXCEL}
-                            </c:if>
-                        </div>
-                        <div>
-                            Download this excel file to input your data!
-                            <a href="DownloadFileModelController">File Excel Model</a>
+                            <div class="import-file-stu--file">
+                                <a href="DownloadFileModelController">File Excel Model</a>
+                            </div>
+                            <div class="import-file-stu--file">
+                                <form action="ImportStudentExcelFileController" method="POST" enctype="multipart/form-data">
+                                    <label for="inputFile">Import Excel: 
+                                        <div class="input-file" for="inputFile"></div>
+                                        <span id="displayResult"> </span>
+                                        <input type="file" name="Import File" id="inputFile" hidden="hidden"/>
+                                    </label>
+                                     <input type="submit" value="Import File" name="btAction" class="btn-update-green" />
+                                </form>
+                                <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
+                                    ${requestScope.ERROR_IMPORT_EXCEL}
+                                </c:if>
+                            </div>
+
+                            <div class="import-file-stu--file">
+                                <a href="" class="btn-regular-green">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                    Create
+                                </a>
+                            </div>
                         </div>
                         <div class="main-body-aStuManage__search">
                             <form action="SearchStudentByAdminController" method="POST">
@@ -403,5 +415,6 @@
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./assets/js/base.js"></script>
+        <script src="./assets/js/inputfile.js"></script>
     </body>
 </html>

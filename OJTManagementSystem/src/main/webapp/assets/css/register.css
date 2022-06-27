@@ -102,9 +102,6 @@
     border: 1px solid var(--text-color-gray);
 }
 
-input[type=file]{
-    display: none;
-}
 
 .input-file{
     display: inline-block;
