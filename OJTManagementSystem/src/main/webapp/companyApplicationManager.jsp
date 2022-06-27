@@ -167,7 +167,7 @@
                                                         selected="selected"
                                                     </c:if>
                                                     >                            
-                                                Accept
+                                                Accepted
                                             </option>
                                             <option value="Waiting" class="text-warning"
                                                     <c:if test="${selected eq 'Waiting'}">
