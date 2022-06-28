@@ -135,11 +135,13 @@ public class UpdateStudentInforMationServlet extends HttpServlet {
                                 Files.deleteIfExists(Paths.get(attachmentPath));
                             }
                         }
+                        //3. delete semester của student 
+                        TblSemester_StudentDAO studentSemester = new TblSemester_StudentDAO();
+                        studentSemester.deleteStudentSemester(studentCode);
                         //3. delete student
                         TblStudentDAO studentDAO = new TblStudentDAO();
-                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblStudentDTO student = studentDAO.getStudent(studentCode);
                         boolean deleteStudent = studentDAO.deleteStudent(studentCode);
-
                         //4. delete account
                         TblAccountDAO accountDAO = new TblAccountDAO();
                         TblAccountDTO account = accountDAO.getAccount(student.getAccount().getEmail());

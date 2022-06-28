@@ -27,45 +27,61 @@ import javax.servlet.ServletContextListener;
 public class AutoCheckExpirationPostServletListener implements ServletContextListener {
 
     private Timer timer;
+    private Properties properties;
+    private long periodTime;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        timer = new Timer();
-        // Delay 1 second to first execution
-        long initialDelay = 1000;
         //get list expiration post
         final ServletContext context = sce.getServletContext();
         try {
             MyApplicationHelper.getCheckingExpirationPost(context);
-            final Properties properties = (Properties) context.getAttribute("CHECKING_EXPIRATION_POST_TIME");
-            long periodTime = Long.parseLong(properties.getProperty("checkingPeriod"));
-            TimerTask timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    //nếu list expiration post # null thì thực hiện update
-                    try {
-                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                        List<TblCompany_PostDTO> companyExpirationPostList = companyPostDAO.getListExpirationPost();
-                        if (companyExpirationPostList != null) {
-                            if (companyExpirationPostList.size() > 0) {
-                                //update status cho các bài post hết hạn này
-                                for (TblCompany_PostDTO expirationPost : companyExpirationPostList) {
-                                    companyPostDAO.updateStatusForExpirationPost(expirationPost.getPostID());
-                                }
-                            }
-                        }
-                    } catch (SQLException ex) {
-                        context.log("SQLException at AutoCheckExpirationPostServletListener " + ex.getMessage());
-                    } catch (NamingException ex) {
-                        context.log("NamingException at AutoCheckExpirationPostServletListener " + ex.getMessage());
-                    }
-                }
-            };
-            timer.schedule(timerTask, initialDelay, periodTime);
-
+            properties = (Properties) context.getAttribute("CHECKING_EXPIRATION_POST_TIME");
+            periodTime = Long.parseLong(properties.getProperty("checkingPeriod"));
+            startTimer(context);
         } catch (IOException ex) {
             context.log("IOException at AutoCheckExpirationPostServletListener " + ex.getMessage());
         }
+    }
+
+    private void startTimer(ServletContext servletContext) {
+        timer = new Timer();
+        // Delay 1 second to first execution
+        long initialDelay = 1000;
+        final ServletContext context = servletContext;
+        final long oldPeriod = periodTime;
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                //nếu list expiration post != null thì thực hiện update
+                try {
+                    MyApplicationHelper.getCheckingExpirationPost(context);
+                    properties = (Properties) context.getAttribute("CHECKING_EXPIRATION_POST_TIME");
+                    periodTime = Long.parseLong(properties.getProperty("checkingPeriod"));
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    List<TblCompany_PostDTO> companyExpirationPostList = companyPostDAO.getListExpirationPost();
+                    if (companyExpirationPostList != null) {
+                        if (companyExpirationPostList.size() > 0) {
+                            //update status cho các bài post hết hạn này
+                            for (TblCompany_PostDTO expirationPost : companyExpirationPostList) {
+                                companyPostDAO.updateStatusForExpirationPost(expirationPost.getPostID());
+                            }
+                        }
+                    }
+                    if (oldPeriod != periodTime) {
+                        this.cancel();
+                        startTimer(context);
+                    }
+                } catch (SQLException ex) {
+                    context.log("SQLException at AutoCheckExpirationPostServletListener " + ex.getMessage());
+                } catch (NamingException ex) {
+                    context.log("NamingException at AutoCheckExpirationPostServletListener " + ex.getMessage());
+                } catch(IOException ex) {
+                    context.log("IOException at AutoCheckExpirationPostServletListener " + ex.getMessage());
+                }
+            }
+        };
+        timer.schedule(timerTask, initialDelay, periodTime);
     }
 
     @Override

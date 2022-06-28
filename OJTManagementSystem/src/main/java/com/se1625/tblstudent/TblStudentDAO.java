@@ -230,6 +230,54 @@ public class TblStudentDAO implements Serializable {
         }
         return student;
     }
+    
+    public TblStudentDTO getStudent(String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        TblStudentDTO student = new TblStudentDTO();
+        TblAccountDAO accountDAO = new TblAccountDAO();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT student.studentCode, major, birthDay, address, "
+                        + "gender, phone, is_Intern, numberOfCredit, username "
+                        + "FROM tblStudent AS student "
+                        + "WHERE student.studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String major = rs.getNString("major");
+                    Date birthDay = rs.getDate("birthDay");
+                    String address = rs.getNString("address");
+                    boolean gender = rs.getBoolean("gender");
+                    String phone = rs.getString("phone");
+                    int is_Itern = rs.getInt("is_Intern");
+                    int numberOfCredit = rs.getInt("numberOfCredit");
+                    String username = rs.getString("username");
+
+                    TblAccountDTO account = accountDAO.getAccount(username);
+                    student = new TblStudentDTO(studentCode, birthDay, address, gender, phone, is_Itern, numberOfCredit, major);
+                    student.setAccount(account);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return student;
+    }
 
     public boolean updateStudent(String studentCode, Date birthday, String address,
             boolean gender, String number) throws SQLException, NamingException {

@@ -48,4 +48,34 @@ public class TblSemester_StudentDAO implements Serializable{
         }
         return false;
     }
+    
+    public boolean deleteStudentSemester(String studentCode) 
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "DELETE FROM tblSemester_Student "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                
+                int rows = stm.executeUpdate();
+                
+                if (rows > 0) {
+                    
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
 }

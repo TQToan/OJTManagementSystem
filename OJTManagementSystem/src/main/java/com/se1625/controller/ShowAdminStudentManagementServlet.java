@@ -87,8 +87,8 @@ public class ShowAdminStudentManagementServlet extends HttpServlet {
                         listStudent = studentDAO.getListStudent(currentSemester.getSemesterID());
                     }
                     //phân trang
+                    url = properties.getProperty(MyApplicationConstants.ShowAdminStudentManagementFeature.ADMIN_MANAGEMENT_STUDENT_PAGE);
                     if (listStudent != null) {
-                        url = properties.getProperty(MyApplicationConstants.ShowAdminStudentManagementFeature.ADMIN_MANAGEMENT_STUDENT_PAGE);
                         sizeOfList = listStudent.size();
 
                         if (xpage == null) {
@@ -108,26 +108,23 @@ public class ShowAdminStudentManagementServlet extends HttpServlet {
                         start = (page - 1) * numberRowsPerPage;
                         end = Math.min(page * numberRowsPerPage, sizeOfList);
 
-                        TblMajorDAO majorDAO = new TblMajorDAO();
-                        majorDAO.getNameMajor();
-                        List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-                        request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
-
                         List<TblStudentDTO> listApplicationPage = studentDAO.
                                 getListByPage(listStudent, start, end);
-                        request.setAttribute("SERVLET_CONTEXT", context);
-                        request.setAttribute("CURRENT_SEMESTER", currentSemester);
-                        request.setAttribute("NOW_SEMESTER", nowSemester);
-                        request.setAttribute("LIST_SEMESTER", listSemester);
                         request.setAttribute("LIST_APPLICATION_RESULT", listApplicationPage);
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
                         request.setAttribute("page", page);
                         request.setAttribute("numberPage", numberPage);
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
-                    } else {
-                        response.sendRedirect(url);
                     }
+                    request.setAttribute("SERVLET_CONTEXT", context);
+                    request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                    request.setAttribute("NOW_SEMESTER", nowSemester);
+                    request.setAttribute("LIST_SEMESTER", listSemester);
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                    request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
                 }//if admin is created
                 else {
                     response.sendRedirect(url);

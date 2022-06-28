@@ -265,7 +265,11 @@
                                                     ${student.account.email}
                                                 </td>
                                                 <td>
-                                                    <c:if test="${student.isIntern eq 0}">
+                                                    <c:if test="${nowSemester.semesterID ne student.semester.semesterID}">
+                                                        <input style="width: 60px" type="number" min="0" 
+                                                               max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
+                                                    </c:if>
+                                                    <c:if test="${student.isIntern eq 0 and student.semester.semesterID eq nowSemester.semesterID}">
                                                         <c:if test="${empty error}">
                                                             <input style="width: 60px" type="number" min="0" 
                                                                    max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" />
@@ -275,7 +279,7 @@
                                                                    max="100" name="txtNumberOfCredit" value="${param.txtNumberOfCredit}" />
                                                         </c:if>
                                                     </c:if>
-                                                    <c:if test="${student.isIntern eq 1 or student.isIntern eq 2}" >
+                                                    <c:if test="${student.isIntern eq 1 and student.semester.semesterID eq nowSemester.semesterID or student.isIntern eq 2 and student.semester.semesterID eq nowSemester.semesterID}" >
                                                         <input style="width: 60px" type="number" min="0" 
                                                                max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
                                                     </c:if>
