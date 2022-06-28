@@ -96,6 +96,7 @@
                                 </a>
                                 <div class="card-company-body">
                                     <p>Jobs: ${dto.title_Post}</p>
+                                    <p>Vacancy: ${dto.vacancy}</p>
                                     <p>Quantity: ${dto.quantityIterns}</p>
                                     <p>Location: ${dto.workLocation}</p>
                                     <p>Expiration Date: ${my:changeDateFormat(dto.expirationDate)}</p>
@@ -198,7 +199,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
 
         </footer>

@@ -174,7 +174,7 @@
 
     <footer class="footer">
         <div class="footer__content">
-            @copyright 2022
+            @copyright 2022 <strong> OJT-Team </strong>
         </div>
 
     </footer>

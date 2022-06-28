@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/register.css">    
         <link rel="stylesheet" href="./assets/css/register-responsive.css">
+        <script src="./assets/ckeditor/ckeditor.js"></script>
     </head>
     <body>
         <header class="header ">
@@ -35,7 +36,7 @@
                         <img src="./assets/img/ojt.png" alt="" class="container-left--img">
                     </div>
 
-                    <div class="container-right offset-2 col-8  offset-xl-1 col-xl-5 offset-md-0 col-md-8">
+                    <div class="container-right offset-1 col-10  offset-xl-1 col-xl-5 offset-md-0 col-md-8">
                         <div class="header-right">COMPANY REGISTRATION</div>
                         <div class="header-right--step">STEP 2: COMPANY INFORMATION </div>
                         <div class="right-form">
@@ -73,9 +74,9 @@
                                     <div class="text-danger">${errors.companyAddressLengthError}</div>
                                     </font>
                                 </c:if>
-
+                                <h3 style="margin-top: 20px;color: gray;font-weight: 400">*Company Description</h3>
                                 <textarea name="companyDescription" class="right-form__input righ-form-textarea" 
-                                          placeholder="*Company Summary" cols="30" rows="3">${requestScope.companyDescription}</textarea>
+                                          placeholder="*Company Summary" id="descript" cols="30" rows="3">${requestScope.companyDescription}</textarea>
                                 <c:if test="${not empty errors.companyDescriptionLegthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyDescriptionLegthError}</div>
@@ -90,10 +91,18 @@
                                 </c:if>
 
                                 <div class="right-file-input">
-                                    <label for="myfile" >
+                                    <!--                                    <label for="myfile" >
+                                                                            *Logo:
+                                                                        </label>
+                                                                        <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>-->
+                                    <label for="inputFile" >
                                         *Logo:
+                                        <div class="input-file" for="inputFile"></div>
+                                        <span id="displayResult">${requestScope.companyLogo}</span>
+
+                                        <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="inputFile" hidden="hidden"  />
+
                                     </label>
-                                    <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>
                                 </div>
                                 <c:if test="${not empty errors.companyLogoLengthError}">
                                     <font style="color: red">
@@ -123,8 +132,12 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022  <strong> OJT-Team </strong>
             </div>
         </footer>
+        <script src="./assets/js/inputfile.js"></script>
+        <script>
+            CKEDITOR.replace('descript');
+        </script>
     </body>
 </html>

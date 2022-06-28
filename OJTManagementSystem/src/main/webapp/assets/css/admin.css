@@ -76,7 +76,7 @@
 .main-body-aStuManage__header{
     font-size: 3rem;
     font-weight: 600;
-    padding-bottom: 100px;
+    padding-bottom: 50px;
 }
 
 .main-body-aStuManage__search td,  .main-body-aStuManage__search tr{
@@ -393,6 +393,7 @@
 }
 .main-body-aEval td:nth-child(6){
     width: 20%;
+    text-align: left;
 }
 .main-body-aEval td:nth-child(7){
     width: 5%;

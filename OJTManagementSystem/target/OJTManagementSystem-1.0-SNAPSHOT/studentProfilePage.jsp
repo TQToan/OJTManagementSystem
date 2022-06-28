@@ -146,7 +146,7 @@
                 <div class="row">
                     <div class="main-body-profile offset-xl-3 col-xl-6 offset-2 col-8">
                         <div class="main-body-profile__header">
-                            Personal Profile* 
+                            Personal Profile 
                         </div>
 
                         <c:set var="studentProfile" value="${requestScope.STUDENT_PROFILE}"/>
@@ -257,7 +257,7 @@
         </main>
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

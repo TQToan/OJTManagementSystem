@@ -211,7 +211,7 @@
                                             <th>ID</th>
                                             <th>Full Name</th>
                                             <th>Company Name</th>
-                                            <th>Job</th>
+                                            <th>Title Job</th>
                                             <th>Evaluation</th>
                                             <th>Grade</th>
                                             <th>Status</th>
@@ -303,7 +303,7 @@
 
     <footer class="footer">
         <div class="footer__content">
-            <i class="fa-regular fa-copyright"></i> Copyright 2022
+            <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
         </div>
     </footer>
 

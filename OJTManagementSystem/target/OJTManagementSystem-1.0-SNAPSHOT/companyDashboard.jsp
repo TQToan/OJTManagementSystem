@@ -241,8 +241,10 @@
                     </div>
                     </c:if>
                     <c:if test="${empty listActiveJobs}">
-                        <h3>Lest's Add your new posts to recruit more candidates.</h3>
-                        <a href="">Add a new Post!</a>
+                        <div class ="text-center" style="padding: 30px">
+                             <h3>Lest's Add your new posts to recruit more candidates.</h3>
+                            <a href="">Add a new Post!</a>
+                        </div>
                     </c:if>
                 </div>
             </div>
@@ -250,7 +252,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
