@@ -18,12 +18,12 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
-       </head>
+    </head>
     <body>
         <header></header>
-        <c:set value="${sessionScope.COMPANY_ROLE}" var="company"/>
-        
-         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+            <c:set value="${sessionScope.COMPANY_ROLE}" var="company"/>
+
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowCompanyDashBoardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -40,33 +40,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a href="ShowCompanyDashBoardController" class="nav__item--link">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
+                                <i class="fas fa-palette "></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowProfileController" class="nav__item--link">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowPostController" class="nav__item--link">
-                            <i class="fas fa-pen"></i>
-                            My Posts
-                        </a>
+                                <i class="fas fa-pen"></i>
+                                My Posts
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Interns Management
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Interns Management
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowIntershipApplicationController" class="nav__item--link link-active">
-                            <i class="fas fa-poll-h"></i>
-                            Internship Application
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Internship Application
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="logoutController" class="nav__item--link">
@@ -78,8 +78,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowCompanyDashBoardController" class="nav__logo ">
@@ -132,6 +132,7 @@
             </nav>
             <c:set value="${requestScope.STUDENT_INFOR}" var="studentInfor"/>
             <c:set value="${requestScope.COMPANY_POST_INFOR}" var="companyPostInfor"/>
+            <c:set value="${requestScope.APPLICATION_DTO}" var="applicationInfor"/>
             <c:set value="${requestScope.COMPANY_COMFIRM}" var="companyConfirm"/>
             <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="main-body-cViewStu">
@@ -171,18 +172,17 @@
                                 Career Information
                             </div>
                             <div class="inforStu-right__content">
-                                <p>Expected Job: ${companyPostInfor.title_Post}</p>
-                                <p>Job Description: ${companyPostInfor.job_Description} </p>
-                                <p>Remuneration: ${companyPostInfor.remuneration}</p>
-                                <p>Work Location: ${companyPostInfor.workLocation}</p>
-                                <p>Last Update: ${companyPostInfor.postingDate}</p>
+                                <p>Expected Job: ${applicationInfor.expected_job}</p>
+                                <p>Main Skill: ${applicationInfor.technology} </p>
+                                <p>Experience: ${applicationInfor.experience}</p>
+                                <p>Foreign Language: ${applicationInfor.foreign_Language}</p>
+                                <p>Other Skills: ${applicationInfor.otherSkills}</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="file-pdf__cViewStu">
-                        <embed src="./assets/pdf/Cv.pdf" type="application/pdf" scrolling="auto" width="100%" height="900px"/>
-                    </div>                
+                        <embed src="./assets/pdf/${applicationInfor.attachmentPath}" type="application/pdf" scrolling="auto" width="100%" height="900px"/>
+                    </div>  
                 </div>
 
             </div>
@@ -190,20 +190,26 @@
             <div class="fix--btn">
                 <!--                <a href="" class="accept-btn primary-btn">Accept</a>
                                 <a href=""class= "reject-btn primary-btn">Reject</a>-->
-                <c:if test="${companyConfirm eq 0}">
-                    <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
-                        <input type="hidden" name="studentCode" value="${studentInfor.studentCode}" />
-                        <input type="hidden" name="companyPostID" value="${companyPostInfor.postID}" />  
 
-                        <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
-                        <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
-                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
-                        <input type="hidden" name="status" value="${param.status}" />
+                <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
+                    <input type="hidden" name="studentCode" value="${studentInfor.studentCode}" />
+                    <input type="hidden" name="companyPostID" value="${companyPostInfor.postID}" />  
 
+                    <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
+                    <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
+                    <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
+                    <input type="hidden" name="status" value="${param.status}" />
+                    <c:if test="${companyConfirm eq 0}">
+                        <input name="action" class="accept-btn primary-btn" type="submit" value="Interview" /> 
+                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject Interview" />   
+
+                    </c:if>  
+                    <c:if test="${companyConfirm eq 2}">
                         <input name="action" class="accept-btn primary-btn" type="submit" value="Accept" /> 
-                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject" />   
-                    </form>
-                </c:if>
+                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject" />                            
+                    </c:if>
+                </form>
+
             </div>
 
 

@@ -54,6 +54,9 @@ public class ShowApplyCVServlet extends HttpServlet {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
+                    if(stringPostID == null){
+                        stringPostID = (String) request.getAttribute("POST_ID");
+                    }
                     String errorQuantity = (String) request.getAttribute("ERROR_RUN_OUT_QUANTITY_INTERNS_COMPANY_DETAILS");
                     if (errorQuantity != null) {
                         url = properties.getProperty(MyApplicationConstants.ShowApplyCVFeature.SHOW_JOB_DETAIL_COMPANY);
