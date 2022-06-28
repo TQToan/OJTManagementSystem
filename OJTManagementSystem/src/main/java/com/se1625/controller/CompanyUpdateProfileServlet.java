@@ -73,16 +73,10 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
 ;
                 if (companyDTO != null) {
                     boolean checkError = false;
-
-                    DiskFileItemFactory factory = new DiskFileItemFactory();
-                    ServletContext servletContext = this.getServletConfig().getServletContext();
-                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                    factory.setRepository(repository);
-                    ServletFileUpload upload = new ServletFileUpload(factory);
-                    List<FileItem> items = upload.parseRequest(request);
-
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
+                    
                     String name = "";
                     String value = "";
                     String fileName = "";
@@ -141,6 +135,11 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                         checkError = true;
                         error.setCompanyDescriptionLegthError("Company description is required 50-2000 characters");
                     }
+                    //check city update
+                    if (city.equals("")){
+                        checkError = true;
+                        error.setCompanyCityError("City is required!");
+                   }
                     
                     if (fileLength > sizeMax) {
                         checkError = true;

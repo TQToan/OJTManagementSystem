@@ -1101,7 +1101,7 @@ public class TblCompany_PostDAO implements Serializable {
                         + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
                         + "INNER JOIN tblAccount AS ac ON (com.username = ac.username) "
                         + "WHERE cp.postingDate between ? and ? "
-                        + "ORDER BY cp.postingDate DESC";
+                        + "ORDER BY cp.statusPost ";
                 TblSemesterDAO semesterDAO = new TblSemesterDAO();
                 TblSemesterDTO semesterDTO = semesterDAO.getSemesterByID(semesterID);
                 Date starDate = semesterDTO.getStartDate();
