@@ -41,14 +41,15 @@ public class ShowApplyCVServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         String stringPostID = request.getParameter("postID");
-        
+
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.ShowAppluCVFeature.LOGIN_PAGE;
+
+        String url = MyApplicationConstants.ShowApplyCVFeature.LOGIN_PAGE;
         HttpSession session = request.getSession(false);
-        
+
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
@@ -56,14 +57,25 @@ public class ShowApplyCVServlet extends HttpServlet {
                     if(stringPostID == null){
                         stringPostID = (String) request.getAttribute("POST_ID");
                     }
-                    int postID = Integer.parseInt(stringPostID);
-                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                    TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
-                    
-                    request.setAttribute("POST_COMPANY_INFOR", companyPost);
-                    url = properties.getProperty(MyApplicationConstants.ShowAppluCVFeature.APPLY_CV_PAGE_JSP);
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
+                    String errorQuantity = (String) request.getAttribute("ERROR_RUN_OUT_QUANTITY_INTERNS_COMPANY_DETAILS");
+                    if (errorQuantity != null) {
+                        url = properties.getProperty(MyApplicationConstants.ShowApplyCVFeature.SHOW_JOB_DETAIL_COMPANY);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    } else {
+                        int postID = Integer.parseInt(stringPostID);
+
+                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+
+                        request.setAttribute("POST_COMPANY_INFOR", companyPost);
+                        url = properties.getProperty(MyApplicationConstants.ShowApplyCVFeature.APPLY_CV_PAGE_JSP);
+
+                        //request.setAttribute("POST_COMPANY_INFOR", companyPost);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    }
+
                 } //if student is created
                 else {
                     response.sendRedirect(url);

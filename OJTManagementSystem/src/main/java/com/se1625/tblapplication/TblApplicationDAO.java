@@ -104,8 +104,8 @@ public class TblApplicationDAO implements Serializable {
             con = DBHelper.makeConnection();
             if (con != null) {
                 String sql = "INSERT INTO tblApplication (attachmentPath, expected_Job, technology, experience, "
-                        + "foreign_Language, otherSkills, studentCode, postID, student_Confirm) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                        + "foreign_Language, otherSkills, studentCode, postID, student_Confirm, semesterID) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, application.getAttachmentPath());
                 stm.setNString(2, application.getExpected_job());
@@ -116,6 +116,7 @@ public class TblApplicationDAO implements Serializable {
                 stm.setString(7, application.getStudent().getStudentCode());
                 stm.setInt(8, application.getCompanyPost().getPostID());
                 stm.setBoolean(9, true);
+                stm.setInt(10, application.getSemester().getSemesterID());
 
                 int rows = stm.executeUpdate();
                 if (rows > 0) {
@@ -296,7 +297,7 @@ public class TblApplicationDAO implements Serializable {
                 String sql = "SELECT applicationID, attachmentPath, expected_Job, "
                         + "technology, experience, foreign_Language, otherSkills, "
                         + "evaluation, grade, is_Pass, student_Confirm, school_Confirm, "
-                        + "company_Confirm, studentCode, postID "
+                        + "company_Confirm, studentCode, postID, semesterID "
                         + "FROM tblApplication "
                         + "WHERE studentCode = ? ";
                 stm = con.prepareStatement(sql);
@@ -318,6 +319,7 @@ public class TblApplicationDAO implements Serializable {
                     boolean studentConfirm = rs.getBoolean("student_Confirm");
                     int schoolConfirm = rs.getInt("school_Confirm");
                     int companyConfirm = rs.getInt("company_Confirm");
+                    int semesterID = rs.getInt("semesterID");
 
                     int postID = rs.getInt("postID");
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
@@ -339,7 +341,10 @@ public class TblApplicationDAO implements Serializable {
                     applicationDTO.setCompanyConfirm(companyConfirm);
                     applicationDTO.setStudent(student);
                     applicationDTO.setCompanyPost(companyPost);
-
+                    
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semester = semesterDAO.getSemesterByID(semesterID);
+                    applicationDTO.setSemester(semester);
                     if (listApplicationOfAStudent == null) {
                         listApplicationOfAStudent = new ArrayList<>();
                     }
@@ -1656,12 +1661,12 @@ public class TblApplicationDAO implements Serializable {
             stm.setInt(1, companyConfirm);
             stm.setString(2, studentCode);
             stm.setInt(3, companyPostID);
-            if(companyConfirm == 1 || companyConfirm == -1){
+            if (companyConfirm == 1 || companyConfirm == -1) {
                 stm.setInt(4, 2);
-            }else if(companyConfirm == 2 || companyConfirm == -2){
+            } else if (companyConfirm == 2 || companyConfirm == -2) {
                 stm.setInt(4, 0);
             }
-            
+
             int effectRows = stm.executeUpdate();
             if (effectRows > 0) {
                 return true;
@@ -1676,15 +1681,15 @@ public class TblApplicationDAO implements Serializable {
         }
         return false;
     }
-    
-    public boolean updateGradeAndEvaluation(String studentCode,int postID, float grade, String evaluation, int is_Pass) throws NamingException, SQLException{
+
+    public boolean updateGradeAndEvaluation(String studentCode, int postID, float grade, String evaluation, int is_Pass) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
-        try{
+        try {
             con = DBHelper.makeConnection();
-            if(con != null){
+            if (con != null) {
                 String sql = "UPDATE tblApplication ";
-                if(evaluation.isEmpty()){
+                if (evaluation.isEmpty()) {
                     sql += "SET grade = ?, is_Pass = ? "
                             + "WHERE studentCode = ? AND postID = ? AND company_Confirm = ? ";
                     stm = con.prepareStatement(sql);
@@ -1693,8 +1698,8 @@ public class TblApplicationDAO implements Serializable {
                     stm.setString(3, studentCode);
                     stm.setInt(4, postID);
                     stm.setInt(5, 1);
-                    
-                }else{
+
+                } else {
                     sql += "SET grade = ?, is_Pass = ?, evaluation = ? "
                             + "WHERE studentCode = ? AND postID = ? AND company_Confirm = ? ";
                     stm = con.prepareStatement(sql);
@@ -1706,15 +1711,124 @@ public class TblApplicationDAO implements Serializable {
                     stm.setInt(6, 1);
                 }
                 int effectRows = stm.executeUpdate();
-                if(effectRows > 0){
+                if (effectRows > 0) {
                     return true;
                 }
             }
-        }finally{
-            if(con != null){
+        } finally {
+            if (con != null) {
                 con.close();
             }
         }
         return false;
     }
+
+    public TblApplicationDTO getApplication(String studentCode,
+            int postID, int semesterID)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID "
+                        + "FROM tblApplication "
+                        + "WHERE studentCode = ? and postID = ? and semesterID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                stm.setInt(2, postID);
+                stm.setInt(3, semesterID);
+
+                rs = stm.executeQuery();
+
+                if (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    TblApplicationDTO application = getApplication(applicationID);
+                    return application;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+
+    public TblApplicationDTO getApplicationStudentWorking(String studentCode, int semesterID)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID "
+                        + "FROM tblApplication "
+                        + "WHERE studentCode = ? and semesterID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                stm.setInt(2, semesterID);
+
+                rs = stm.executeQuery();
+
+                if (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    TblApplicationDTO application = getApplication(applicationID);
+                    if (application.isStudentConfirm() == true
+                            && application.getSchoolConfirm() == 1
+                            && application.getCompanyConfirm() == 1) {
+                        return application;
+                    }
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+
+    public void changeStudentConfirmStatus(List<TblApplicationDTO> listApplication)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                for (TblApplicationDTO application : listApplication) {
+                    String sql = "UPDATE tblApplication "
+                            + "SET student_Confirm = ? "
+                            + "WHERE applicationID = ?";
+                    stm = con.prepareStatement(sql);
+                    stm.setBoolean(1, false);
+                    stm.setInt(2, application.getApplicationID());
+
+                    int rows = stm.executeUpdate();
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
 }

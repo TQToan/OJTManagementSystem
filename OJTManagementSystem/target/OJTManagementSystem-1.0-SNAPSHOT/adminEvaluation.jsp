@@ -181,15 +181,15 @@
                                     <div class="col-2">
                                         <select id="city" name="isPass"  class="admin--select" >
                                             <option value="">Status</option>
-                                            <option value="true" class="text-success" <c:if test="${param.isPass eq 1}">
+                                            <option value="true" class="text-success" <c:if test="${param.isPass eq 'true'}">
                                                     selected="selected"
                                                 </c:if>>
                                                 Passed
                                             </option>
-                                            <option value="false" class="text-danger" <c:if test="${param.isPass eq -1}">
+                                            <option value="false" class="text-danger" <c:if test="${param.isPass eq 'false'}">
                                                     selected="selected"
                                                 </c:if>>
-                                                Not Passed
+                                                Not Pass
                                             </option>
                                         </select>              
                                     </div>

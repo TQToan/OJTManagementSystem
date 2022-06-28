@@ -9,8 +9,8 @@
 <%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
-<html>
-    <
+<html lang="en">
+    
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -153,38 +153,38 @@
                         <p><strong>Remuneration:</strong><br/>
                             ${post.remuneration}
                         </p>
-                        <p><strong>Work location:</strong><br/>
+                        <p><strong>Work location:</strong>
                             ${post.workLocation}
                         </p>
-                        <p><strong>Posting Date:</strong><br/>
+                        <p><strong>Posting Date:</strong>
                             ${my:changeDateFormat(post.postingDate)}
                         </p>
-                        <p><strong>Expiration Date:</strong><br/>
+                        <p><strong>Expiration Date:</strong>
                             ${my:changeDateFormat(post.expirationDate)}
                         </p>
-                        <p><strong>Status: </strong></p>
-                            <c:if test="${post.statusPost eq 2}">
-                            <p class="text-success">
+                        <p><strong>Status: </strong>
+                        <c:if test="${post.statusPost eq 2}">
+                            <span class="text-success">
                                 <strong>
                                     Accept
                                 </strong>
-                            </p>
+                            </span>
                         </c:if>
                         <c:if test="${post.statusPost eq 0 or post.statusPost eq 3}">
-                            <p class="text-danger">
+                            <span class="text-danger">
                                 <strong>
                                     Denied
                                 </strong>
-                            </p>
+                            </span>
                         </c:if>  
                         <c:if test="${post.statusPost eq 1}">
-                            <p class="text-warning">
+                            <span class="text-warning">
                                 <strong>
                                     Waiting
                                 </strong>
-                            </p>
+                            </span>
                         </c:if>
-                        
+                            </p>
                     </div>
 
                     <div class="aViewPost-btn">
@@ -229,12 +229,12 @@
                         </form> 
 
 
-                        <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
+ <%--                       <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
                             <font style="color: green"> 
                             <div class="text-success">${requestScope.UPDATE_SUSCESS}</div>
                             </font>
                         </c:if>
-
+--%>
 
                     </div>
                     <div class="text-center">
@@ -245,7 +245,7 @@
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                <input type="submit" value="Back" class="back-btn" />
+                                <input type="submit" value="Back" class="btn-regular-gray" />
                             </div>
                         </form>
                     </div>

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -206,12 +207,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="companyDTO" items="${listCompany}" varStatus="count" >
+                                        <c:forEach var="companyDTO" items="${listCompany}" varStatus="counter" >
                                         <form action="AdminUpdateStatusCompanyController" method="POST">
 
                                             <tr>
                                                 <td>
-                                                    ${count.count}
+                                                    ${my:counter(requestScope.page, counter.count)}
                                                 </td>
                                                 <td>${companyDTO.account.name}</td>
                                                 <td>${companyDTO.account.email}</td>

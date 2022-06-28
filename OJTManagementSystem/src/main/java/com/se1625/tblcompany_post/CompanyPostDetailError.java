@@ -20,6 +20,8 @@ public class CompanyPostDetailError implements Serializable{
     private String descriptionLenghtError;
     private String requirementLenghtError;
     private String remunerationLenghtError;
+    private String appliedTwoTimeError;
+    private String appliedJobStudentWorkingError;
     
     public CompanyPostDetailError() {
     }
@@ -35,6 +37,7 @@ public class CompanyPostDetailError implements Serializable{
         this.vacancyLengthError = vacancyLengthError;
     }
 
+    
     /**
      * @return the quantitytInternsNotEngough
      */
@@ -139,5 +142,33 @@ public class CompanyPostDetailError implements Serializable{
 
     public void setVacancyLengthError(String vacancyLengthError) {
         this.vacancyLengthError = vacancyLengthError;
+    }
+
+    /**
+     * @return the appliedTwoTimeError
+     */
+    public String getAppliedTwoTimeError() {
+        return appliedTwoTimeError;
+    }
+
+    /**
+     * @param appliedTwoTimeError the appliedTwoTimeError to set
+     */
+    public void setAppliedTwoTimeError(String appliedTwoTimeError) {
+        this.appliedTwoTimeError = appliedTwoTimeError;
+    }
+
+    /**
+     * @return the appliedJobStudentWorkingError
+     */
+    public String getAppliedJobStudentWorkingError() {
+        return appliedJobStudentWorkingError;
+    }
+
+    /**
+     * @param appliedJobStudentWorkingError the appliedJobStudentWorkingError to set
+     */
+    public void setAppliedJobStudentWorkingError(String appliedJobStudentWorkingError) {
+        this.appliedJobStudentWorkingError = appliedJobStudentWorkingError;
     }
 }

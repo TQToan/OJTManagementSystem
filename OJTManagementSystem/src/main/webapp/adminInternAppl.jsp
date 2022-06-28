@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -229,7 +230,7 @@
 
                                         <c:forEach var="intern" items="${listIntern}" varStatus="counter">
                                             <tr>
-                                                <td>${counter.count}</td>
+                                                <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>${intern.student.studentCode}</td>
                                                 <td>${intern.companyPost.company.account.name}</td>
                                                 <td>${intern.companyPost.title_Post}</td>
@@ -292,41 +293,9 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                    <td>
-                                                        <!--                                                        <div class="d-flex justify-content-around">
-                                                        <c:url var="urlReject" value="AdminChangeStatusInternApplicationServlet">
-                                                            <c:param name="page" value="${i}"/>
-                                                            <c:param name="txtStudentID" value="${studentID}"/>
-                                                            <c:param name="txtCompanyID" value="${companyID}"/>
-                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                            <c:param name="btnAction" value="-1"/>
-                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                        </c:url>
-                                                        <a href="${urlReject}" class="text-danger">
-                                                            <strong>
-                                                                Reject
-                                                            </strong>
-                                                        </a>
-                                                        <c:url var="urlAccept" value="AdminChangeStatusInternApplicationServlet">
-                                                            <c:param name="page" value="${i}"/>
-                                                            <c:param name="txtStudentID" value="${studentID}"/>
-                                                            <c:param name="txtCompanyID" value="${companyID}"/>
-                                                            <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                                            <c:param name="txtTitleJob" value="${titleJob}"/>
-                                                            <c:param name="btnAction" value="1"/>
-                                                            <c:param name="txtApplicationID" value="${intern.applicationID}"/>
-                                                        </c:url>
-                                                        <a href="${urlAccept}" class="text-success">
-                                                            <strong>
-                                                                Accept
-                                                            </strong>
-                                                        </a>
-                                                    </div>-->
-
-
-                                                        <div class="row">
+                                                <td>
+                                                   
+                                                        <div class="row row-cols-2">
                                                             <div class="col">
                                                                 <form action="AdminChangeStatusInternApplicationServlet" method="post">
                                                                     <input type="hidden" name="page" value="${i}">
@@ -334,9 +303,14 @@
                                                                     <input type="hidden" name="txtCompanyID" value="${companyID}">
                                                                     <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
                                                                     <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                    <input type="hidden" name="btnAction" value="-1">
+                                                                    <input type="hidden" name="btnAction" value="1">
                                                                     <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                    <input type="submit" value="Accept" class="btn-regular-green">
+                                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                                        <input type="submit" value="Accept" class="btn-regular-green">
+                                                                    </c:if>
+                                                                     <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                                         <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
+                                                                    </c:if>
                                                                 </form>
                                                             </div>
                                                             <div class="col">
@@ -348,12 +322,17 @@
                                                                     <input type="hidden" name="txtTitleJob" value="${titleJob}">
                                                                     <input type="hidden" name="btnAction" value="-1">
                                                                     <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                    <input type="submit" value="Accept" class="btn-regular-red">
+                                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                                        <input type="submit" value="Reject" class="btn-regular-red">
+                                                                    </c:if>
+                                                                     <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                                         <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
+                                                                    </c:if>
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                </c:if>
+
+                                                </td>
                                             </tr>
                                         </c:forEach>      
 

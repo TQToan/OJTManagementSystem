@@ -32,6 +32,10 @@
         <description>ServletContextListener</description>
         <listener-class>com.se1625.listener.AutoCheckExpirationPostServletListener</listener-class>
     </listener>
+    <listener>
+        <description>RequestListener</description>
+        <listener-class>com.se1625.listener.StudentApplyCompanyJobServletListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <servlet-class>com.se1625.controller.ImportStudentExcelFileServlet</servlet-class>
@@ -175,10 +179,6 @@
     <servlet>
         <servlet-name>SearchCompanyAdminManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.SearchCompanyAdminManagerServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddminCompanyManagerServlet</servlet-name>
-        <servlet-class>com.se1625.controller.AddminCompanyManagerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CompanyShowIntershipApplicationServlet</servlet-name>
@@ -385,16 +385,16 @@
         <url-pattern>/AdminUpdatePostServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AdminCompanyManagerServlet</servlet-name>
+        <url-pattern>/AdminCompanyManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminUpdateStatusCompanyServlet</servlet-name>
         <url-pattern>/AdminUpdateStatusCompanyServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchCompanyAdminManagerServlet</servlet-name>
         <url-pattern>/SearchCompanyAdminManagerServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddminCompanyManagerServlet</servlet-name>
-        <url-pattern>/AddminCompanyManagerServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowCompanyDashBoardServlet</servlet-name>

@@ -213,7 +213,7 @@
                                                    var="post" 
                                                    varStatus="counter">
                                             <tr>
-                                                <td>${counter.count}</td>
+                                                <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
                                                     <a href="CompanyViewPostDetailController?postID=${post.postID}">${post.title_Post}</a>
                                                 </td>

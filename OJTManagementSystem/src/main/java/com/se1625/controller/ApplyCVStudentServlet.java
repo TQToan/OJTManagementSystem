@@ -10,6 +10,8 @@ import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
@@ -61,25 +63,14 @@ public class ApplyCVStudentServlet extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         //check session và lấy attribute
         HttpSession session = request.getSession(false);
-        String url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.HOME_AFTER_CLICK1_PAGE);
+        String url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.LOGIN_PAGE);
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
                 if (student != null) {
+                    url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.HOME_AFTER_CLICK1_PAGE);
                     // get parameters
-                    // Create a factory for disk-based file items
-                    DiskFileItemFactory factory = new DiskFileItemFactory();
-
-                    // Configure a repository (to ensure a secure temp location is used)
-                    ServletContext servletContext = this.getServletConfig().getServletContext();
-                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                    factory.setRepository(repository);
-
-                    // Create a new file upload handler
-                    ServletFileUpload upload = new ServletFileUpload(factory);
-
-                    // Parse the request
-                    List<FileItem> items = upload.parseRequest(request);
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
 
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
@@ -119,6 +110,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
                     String foreignLanguage = params.get("txtForeignLanguage");
                     String otherSkills = params.get("txtOtherSkills");
                     int postID = Integer.parseInt(params.get("postID"));
+
                     ApplyCVStudentError errors = new ApplyCVStudentError();
                     boolean found = false;
                     //check student infor
@@ -130,6 +122,10 @@ public class ApplyCVStudentServlet extends HttpServlet {
                         request.setAttribute("POST_ID", postID);
                         request.setAttribute("ERRORS", errors);
                     } else {
+                        if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
+                            found = true;
+                            errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
+                        }
                         if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
                             found = true;
                             errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
@@ -185,13 +181,22 @@ public class ApplyCVStudentServlet extends HttpServlet {
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                         TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
                         application.setCompanyPost(companyPost);
+                        TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                        TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                        application.setSemester(currentSemester);
 
                         request.setAttribute("APPLICATION_INFORMATION", application);
 
+                        String errorQuantity = (String) request.getAttribute("ERROR_RUN_OUT_QUANTITY_INTERNS");
+                        if (errorQuantity != null) {
+                            found = true;
+                        }
                         if (found) {
                             if (cvName.trim().isEmpty() == false) {
                                 Files.deleteIfExists(Paths.get(filePath));
                             }
+
+                            request.setAttribute("POST_COMPANY_INFOR", companyPost);
                             request.setAttribute("ERRORS", errors);
                         } else {
                             TblApplicationDAO applicationDAO = new TblApplicationDAO();
@@ -208,6 +213,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
         } catch (NamingException ex) {
             log("NamingException at ApplyCVStudentServlet " + ex.getMessage());
         } catch (Exception ex) {
+            ex.printStackTrace();
             log("Exception at ApplyCVStudentServlet " + ex.getMessage());
             ex.getCause();
         } finally {

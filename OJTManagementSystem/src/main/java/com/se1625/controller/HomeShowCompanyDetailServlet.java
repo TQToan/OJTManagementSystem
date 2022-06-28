@@ -5,6 +5,8 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblcompany_post.CompanyPostDetailError;
@@ -14,6 +16,8 @@ import com.se1625.tblfollowing_post.TblFollowing_PostDAO;
 import com.se1625.tblfollowing_post.TblFollowing_PostDTO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -86,6 +90,12 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
 
                     companyDTO = companyDAO.searchCompanyByCompanyID(companyPostDTO.getCompany().getCompanyID());
                     companyPostDTO.setCompany(companyDTO);
+                    //check the student has applied this post yet
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semester = semesterDAO.getCurrentSemester();
+
+                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                    TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode(), nPostID, semester.getSemesterID());
                     if (companyPostDTO.getQuantityIterns() == 0) {
                         found = true;
                         error.setQuantitytInternsNotEngough("This post has recruited enough interns.");
@@ -99,7 +109,30 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                         found = true;
                         error.setExpirationDateError("This post has expired.");
                     }
-                    
+                    if (application != null) {
+                        if (application.isStudentConfirm() == true
+                                && application.getSchoolConfirm() == 1
+                                && application.getCompanyConfirm() == 1
+                                || application.isStudentConfirm() == true
+                                && application.getSchoolConfirm() == 1
+                                && application.getCompanyConfirm() == 0
+                                || application.isStudentConfirm() == true
+                                && application.getSchoolConfirm() == 0
+                                && application.getCompanyConfirm() == 0) {
+                            found = true;
+                            error.setAppliedTwoTimeError("You applied this company's Job before");
+                        }
+                    }
+
+                    //get applcation of this student in this semester 
+                    // is enough studentconfirm true, schoolConfirm 1, companyConfirm 1
+                    //=> không cho apply thêm bất kì job nào nữa
+                    TblApplicationDTO applicationStudentWorking = applicationDAO.
+                            getApplicationStudentWorking(student.getStudentCode(), semester.getSemesterID());
+                    if (applicationStudentWorking != null) {
+                        found = true;
+                        error.setAppliedJobStudentWorkingError("You joined the internship");
+                    }
                     if (found == true) {
                         request.setAttribute("ERROR_COMPANY_POST", error);
                     }
@@ -116,32 +149,32 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                     } else {
                         sizeOfList = listOtherCompanies.size();
                     }
-                    
+
                     if (xpage == null) {
-                            page = 1;
-                        } // load page save job 
-                        else {
-                            page = Integer.parseInt(xpage);
-                        } // when choose number of page
+                        page = 1;
+                    } // load page save job 
+                    else {
+                        page = Integer.parseInt(xpage);
+                    } // when choose number of page
 
-                        int numberPage = sizeOfList % numberRowsPerPage;
+                    int numberPage = sizeOfList % numberRowsPerPage;
 
-                        if (numberPage == 0) {
-                            numberPage = sizeOfList / numberRowsPerPage;
-                        } else {
-                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
-                        }
-                        start = (page - 1) * numberRowsPerPage;
-                        end = Math.min(page * numberRowsPerPage, sizeOfList);
-                        
-                        List<TblCompany_PostDTO> listOtherCompaniesPerPage = companyPostDAO.
-                                getListByPage(listOtherCompanies, start, end);
-                        
-                        request.setAttribute("LIST_OTHER_COMPANIES", listOtherCompaniesPerPage);
-                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
-                        request.setAttribute("page", page);
-                        request.setAttribute("numberPage", numberPage);
-                        
+                    if (numberPage == 0) {
+                        numberPage = sizeOfList / numberRowsPerPage;
+                    } else {
+                        numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                    }
+                    start = (page - 1) * numberRowsPerPage;
+                    end = Math.min(page * numberRowsPerPage, sizeOfList);
+
+                    List<TblCompany_PostDTO> listOtherCompaniesPerPage = companyPostDAO.
+                            getListByPage(listOtherCompanies, start, end);
+
+                    request.setAttribute("LIST_OTHER_COMPANIES", listOtherCompaniesPerPage);
+                    request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                    request.setAttribute("page", page);
+                    request.setAttribute("numberPage", numberPage);
+
                     companyDAO.getNameCompanies();
                     List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
                     request.setAttribute("COMPANY_NAME", listNameCompany);
@@ -149,14 +182,14 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
                     request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
-                    
+
                     TblFollowing_PostDAO followPostDao = new TblFollowing_PostDAO();
                     followPostDao.getFollowingPost(student.getStudentCode());
 
                     //get number of following post of student
                     List<TblFollowing_PostDTO> listFollowingCompanyPostByFilter
                             = followPostDao.getFollowingPostByFilter();
-                    
+
                     request.setAttribute("LIST_FOLLOWING_POST", listFollowingCompanyPostByFilter);
 
                     RequestDispatcher rd = request.getRequestDispatcher(url);

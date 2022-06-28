@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -138,9 +139,12 @@
 
                         <div class="company__import-file-stu">
                             <form action="" method="POST" enctype="multipart/form-data">
-                                <label for="Import-File">Import Excel: </label>
-                                <input type="file" name="Import File" id="Import-File"/>
-                                <input type="submit" value="Import File" name="btAction" />
+                                <label for="inputFile">Import Excel: 
+                                    <div class="input-file" for="inputFile"></div>
+                                    <span id="displayResult"> </span>
+                                    <input type="file" name="Import File" id="inputFile" hidden="hidden"/>
+                                </label>
+                                <input type="submit" value="Import File" name="btAction" class="cUpdate-btn" />
                             </form>
                         </div>
 
@@ -226,10 +230,10 @@
                                     </thead>
                                     <tbody>
                                         <c:set value="${requestScope.APPLICATION_LIST_BYPAGE}" var="applicationList"/>
-                                        <c:forEach var="applicationDTO" items="${applicationList}" varStatus="count"> 
+                                        <c:forEach var="applicationDTO" items="${applicationList}" varStatus="counter"> 
                                         <form action="CompanyUpdateInternsController" method="POST">
                                             <tr>
-                                                <td>${count.count}</td>
+                                                <td>${my:counter(requestScope.PAGE, counter.count)}</td>
                                                 <td>
                                                     ${applicationDTO.student.account.name}
                                                     <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
@@ -263,14 +267,14 @@
                                                 <td>
                                                     <c:set value="${requestScope.ERROR_MARK}" var="error"/>
                                                     <c:if test="${applicationDTO.grade eq 0}">
-                                                        <input type="number" class="cInterManage__mark" name="txtMark" 
+                                                        <input type="number" step="any" min="0" max="10" class="cInterManage__mark" name="txtMark" 
                                                                <c:if test="${param.studentCode eq applicationDTO.student.studentCode}">
-                                                                   value="${param.txtMark}"
+                                                                   value="${param.txtMark}" 
                                                                </c:if>
                                                                >
                                                     </c:if>          
                                                     <c:if test="${applicationDTO.grade > 0}">
-                                                        <input type="number" class="cInterManage__mark" name="txtMark" value="${applicationDTO.grade}">     
+                                                        <input type="number" step="any" min="0" max="10" class="cInterManage__mark" name="txtMark" value="${applicationDTO.grade}" disabled="disabled">     
                                                     </c:if>              
                                                     <%--<c:if test="${empty error}">--%>
                                                     <!--<h5 class="text-danger text-nowrap"> Mark(0-10)</h5>-->
@@ -285,8 +289,11 @@
                                                     </c:if>
                                                 </td>
                                                 <td>
+                                                    
                                                     <textarea name="txtEvaluation" id="" class="cInterManage__textarea" cols="30"
-                                                              rows="2">${applicationDTO.evaluation}</textarea>
+                                                              rows="2"
+                                                              <c:if test="${param.status ne 0}">disabled ="disabled"</c:if>
+                                                              >${applicationDTO.evaluation}</textarea>
 
                                                 </td>
                                                 <td>
@@ -296,7 +303,12 @@
                                                     <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                     <input type="hidden" name="status" value="${param.status}" />
                                                     <input type="hidden" name="page" value="${param.page}" />
-                                                    <input type="submit" class="cUpdate-btn" value="Update">
+                                                    <c:if test="${param.status eq 0}">
+                                                        <input type="submit" class="btn-regular-green" value="Update">
+                                                    </c:if>
+                                                    <c:if test="${param.status ne 0 }">
+                                                        <input type="submit" class="btn-regular-green-disable" value="Update" disabled="disabled">
+                                                    </c:if>
                                                 </td>
                                             </tr>
                                         </form>
@@ -312,7 +324,7 @@
                             </c:if>
                         </div>
 
-                                <div id="pageX" hidden >${requestScope.PAGE}</div>
+                        <div id="pageX" hidden >${requestScope.PAGE}</div>
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">        
                                 <c:set value="${requestScope.NUMBER_PAGE}" var="numberpage"/>
@@ -325,16 +337,7 @@
                                         <input type="hidden" name="status" value="${param.status}" />
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
-
-                                    <%--<c:url var="url" value="CompanySearchInternsManagementController">
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="txtFullName" value="${param.txtFullName}"/>
-                                        <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                        <c:param name="selectCompanyPost" value="${param.selectCompanyPost}"/>
-                                        <c:param name="status" value="${param.status}"/>
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
-                                    </c:forEach>
+                                </c:forEach>
                             </ul>
                         </div>
 
@@ -352,5 +355,6 @@
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./assets/js/base.js"></script>
+        <script src="./assets/js/inputfile.js"></script>
     </body>
 </html>

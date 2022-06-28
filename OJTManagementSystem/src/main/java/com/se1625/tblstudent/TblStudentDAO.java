@@ -761,4 +761,29 @@ public class TblStudentDAO implements Serializable {
         }
         return false;
     }
+    
+    public void updateStatusInternOfStudent(String studentCode, int is_Intern) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE TblStudent "
+                        + "SET is_Intern = ? "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, is_Intern);
+                stm.setString(2, studentCode);
+                
+                int rows = stm.executeUpdate();
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }
