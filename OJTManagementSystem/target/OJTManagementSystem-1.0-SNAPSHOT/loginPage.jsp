@@ -30,10 +30,10 @@
 
         <div class="main">
 
-            <h1 class="heading">Welcome to FPT_OJT</h1>
+            <h1 class="heading">Welcome to FPT University HCM</h1>
             <div class="row main-body row-cols-sm-1">
                 <div class="container-left offset-xl-1 col-xl-4 offset-md-1 col-md-5 order-xl-1  col-12 order-2">
-                    <h2 class="container__heading">*Company</h2>
+                    <h2 class="container__heading">Company</h2>
                     <div class="heading-btn">
                         <a href="#" class="heading-btn--btn heading-btn--btn--active">Login</a>
                         <a href="RegisterPage1" class="heading-btn--btn">Sign Up</a>
@@ -71,10 +71,10 @@
                 </div>
 
                 <div class="container-right order-1 offset-xl-1 col-xl-5 order-xl-2 offset-md-4 col-md-7  col-12">
-                    <h2 class="container__heading">*FPT University</h2>
+                    <h2 class="container__heading">FPT University</h2>
                     <p class="container__content">
-                        Job information page for FPT university students: <br>
-                        - More than 60 companies <br>
+                        Job information website for FPT University students: <br>
+                        - Many companies to choose <br>
                         - Moderated by the school <br>
                         - Major: SE, English, ......
                     </p>
@@ -105,7 +105,7 @@
         </div>
         <footer class="footer">
             <div class="footer__content">
-                 <i class="fa-regular fa-copyright"></i> Copyright 2022
+                 <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
     </body>

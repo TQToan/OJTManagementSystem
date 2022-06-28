@@ -103,6 +103,9 @@
                 </div>
                 <div class="main-body-hResultPage">
                     <c:set var="result" value="${requestScope.LIST_RESULT}"/>
+                    <c:if test="${empty result}">
+                        <h3>No matches found for your search</h3>
+                    </c:if>
                     <c:if test="${not empty result}">
                         <div class="main-body-hResultPage__content">
 
@@ -110,7 +113,7 @@
                                 <thead>
                                     <tr>
                                         <th>NO.</th>
-                                        <th>Job</th>
+                                        <th>Title Job</th>
                                         <th>Quantity</th>
                                         <th>Company</th>
                                         <th>Location</th>
@@ -196,7 +199,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/js/base.js"></script>

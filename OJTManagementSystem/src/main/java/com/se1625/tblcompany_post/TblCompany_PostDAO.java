@@ -148,7 +148,7 @@ public class TblCompany_PostDAO implements Serializable {
                 String sql = "SELECT cp.postID, cp.title_Post, "
                         + " cp.postingDate, cp.quantityInterns, "
                         + "cp.expirationDate, cp.school_confirm, cp.statusPost, cp.workLocation, "
-                        + "m.majorName, ac.name, ac.avatar \n"
+                        + "m.majorName, ac.name, ac.avatar,cp.vacancy \n"
                         + "FROM tblCompany_Post AS cp INNER JOIN tblMajor AS m ON (cp.majorID = m.majorID) \n"
                         + " INNER JOIN tblCompany AS com ON (cp.companyID = com.companyID) "
                         + "INNER JOIN tblAccount AS ac ON (com.username = ac.username)\n"
@@ -178,6 +178,7 @@ public class TblCompany_PostDAO implements Serializable {
                     String majorName = rs.getNString("majorName");
                     String companyName = rs.getNString("name");
                     String avatar = rs.getString("avatar");
+                    String vacancy = rs.getString("vacancy");
 
                     if (school_confirm == true && statusPost == 2) {
                         TblCompany_PostDTO dto = new TblCompany_PostDTO();
@@ -188,7 +189,8 @@ public class TblCompany_PostDAO implements Serializable {
                         dto.setQuantityIterns(quantityInterns);
                         dto.setWorkLocation(workLocation);
                         dto.setMajorName(majorName);
-
+                        dto.setVacancy(vacancy);
+                                
                         TblAccountDTO account = new TblAccountDTO();
                         account.setName(companyName);
                         account.setAvatar(avatar);
@@ -861,7 +863,7 @@ public class TblCompany_PostDAO implements Serializable {
             if (con != null) {
                 String sql = "SELECT post.title_Post, post.job_Description, post.job_Requirement, post.remuneration,"
                         + "post.workLocation, post.quantityInterns, post.postingDate, post.expirationDate,"
-                        + "post.school_confirm, post.statusPost, post.companyID, major.majorName, com.companyID "
+                        + "post.school_confirm, post.statusPost, post.companyID, major.majorName, com.companyID,post.vacancy "
                         + "FROM tblCompany_Post post JOIN tblMajor major on post.majorID = major.majorID "
                         + "JOIN tblCompany com on com.companyID = post.companyID "
                         + "WHERE post.postID = ?";
@@ -874,6 +876,7 @@ public class TblCompany_PostDAO implements Serializable {
                     String job_Requirement = rs.getNString("job_Requirement");
                     String remuneration = rs.getNString("remuneration");
                     int quanityIntens = rs.getInt("quantityInterns");
+                    String vacancy = rs.getString("vacancy");
 
                     Date postingDate = rs.getDate("postingDate");
                     Date expirationDate = rs.getDate("expirationDate");
@@ -888,6 +891,7 @@ public class TblCompany_PostDAO implements Serializable {
 
                     TblCompany_PostDTO post = new TblCompany_PostDTO(postID, title_Post, job_Description, job_Requirement, remuneration,
                             workLocation, quanityIntens, postingDate, expirationDate, school_confirm, status_Post, company, majorName);
+                    post.setVacancy(vacancy);
                     return post;
                 }
             }

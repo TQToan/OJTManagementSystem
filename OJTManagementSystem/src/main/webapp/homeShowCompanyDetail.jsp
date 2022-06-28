@@ -94,6 +94,7 @@
                         </div>
                         <div class="hComApplDetail__left--content">
                             <p><strong>Job:</strong> ${postDetail.title_Post}</p>
+                            <p><strong>Vacancy:</strong> ${postDetail.vacancy} </p>
                             <p><strong>Quantity:</strong> ${postDetail.quantityIterns}</p>
                             <p><strong>Job Description:</strong> <br>
                                 ${postDetail.job_Description}
@@ -140,27 +141,28 @@
                             </div>
                         </c:if>
                         <c:if test="${not empty errorCompanyPost}" >
-
-                            <c:if test="${not empty errorCompanyPost.quantitytInternsNotEngough}" >
-                                <font>
-                                ${errorCompanyPost.quantitytInternsNotEngough}
-                                </font>
-                            </c:if>
-                            <c:if test="${not empty errorCompanyPost.expirationDateError}" >
-                                <font>
-                                ${errorCompanyPost.expirationDateError}
-                                </font>
-                            </c:if>
-                            <c:if test="${not empty errorCompanyPost.appliedTwoTimeError}" >
-                                <font>
-                                ${errorCompanyPost.appliedTwoTimeError}
-                                </font>
-                            </c:if>
-                            <c:if test="${not empty errorCompanyPost.appliedJobStudentWorkingError}" >
-                                <font>
-                                ${errorCompanyPost.appliedJobStudentWorkingError}
-                                </font>
-                            </c:if>
+                            <h5 class ="text-red"> 
+                                <c:if test="${not empty errorCompanyPost.quantitytInternsNotEngough}" >
+                                    <font>
+                                    ${errorCompanyPost.quantitytInternsNotEngough}
+                                    </font>
+                                </c:if>
+                                <c:if test="${not empty errorCompanyPost.expirationDateError}" >
+                                    <font>
+                                    ${errorCompanyPost.expirationDateError}
+                                    </font>
+                                </c:if>
+                                <c:if test="${not empty errorCompanyPost.appliedTwoTimeError}" >
+                                    <font>
+                                    ${errorCompanyPost.appliedTwoTimeError}
+                                    </font>
+                                </c:if>
+                                <c:if test="${not empty errorCompanyPost.appliedJobStudentWorkingError}" >
+                                    <font >
+                                    ${errorCompanyPost.appliedJobStudentWorkingError}
+                                    </font>
+                                </c:if>
+                            </h5>
                         </c:if>
                     </div>
                 </div>
@@ -270,7 +272,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/js/base.js"></script>

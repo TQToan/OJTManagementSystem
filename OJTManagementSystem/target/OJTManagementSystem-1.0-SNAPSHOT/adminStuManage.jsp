@@ -279,7 +279,8 @@
                                                                    max="100" name="txtNumberOfCredit" value="${param.txtNumberOfCredit}" />
                                                         </c:if>
                                                     </c:if>
-                                                    <c:if test="${student.isIntern eq 1 and student.semester.semesterID eq nowSemester.semesterID or student.isIntern eq 2 and student.semester.semesterID eq nowSemester.semesterID}" >
+                                                    <c:if test="${student.isIntern eq 1 and student.semester.semesterID eq nowSemester.semesterID or student.isIntern eq 2 
+                                                                  and student.semester.semesterID eq nowSemester.semesterID}" >
                                                         <input style="width: 60px" type="number" min="0" 
                                                                max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
                                                     </c:if>
@@ -414,7 +415,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

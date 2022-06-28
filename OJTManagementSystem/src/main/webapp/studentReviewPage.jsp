@@ -157,11 +157,11 @@
             <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
                     <div class="main-body-review offset-3 col-6">
+                        <div class="main-body-review__header">
+                            Personal Review
+                        </div>
                         <c:if test="${not empty studentApp}">
-                            <div class="main-body-review__header">
 
-                                Personal Review*
-                            </div>
                             <div class="review__input row">
                                 <div class="col-4 review--label" >Student Code</div>
                                 <div class="col-8 review--input " >${studentProfile.studentCode}</div>
@@ -230,7 +230,7 @@
                 </div>
                 <c:if test="${empty studentApp}">
 
-                    <div class="text-center " style="font-size: 30px; margin: auto;" for="">You are not intern at any company 
+                    <div class="text-center " style="font-size: 20px; margin: auto;" for="">You are not intern at any company 
                         <!--<br/>    <a style="font-size: 15px;" href="studentDashboardController">Recommend Job</a>-->                             
                     </div>
 
@@ -257,7 +257,7 @@
                                             <img src="./avatars/${recommendPost.company.account.avatar}" alt="${recommendPost.company.account.avatar}">
                                         </div>
                                         <div class="recom-box-content col-8">
-
+                                            <p>Vacancy: ${recommendPost.vacancy}</p>
                                             <p>Quantity: ${recommendPost.quantityIterns}</p>
                                             <p>Location: ${recommendPost.workLocation}</p>
                                             <p>Expiration Date: ${my:changeDateFormat(recommendPost.expirationDate)}</p>
@@ -345,7 +345,7 @@
         </main>
         <footer class="footer">
             <div class="footer__content">
-                @copyright 2022
+                @copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

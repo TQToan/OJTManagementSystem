@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/register.css">
     <link rel="stylesheet" href="./assets/css/register-responsive.css">
+    <script src="./assets/ckeditor/ckeditor.js"></script>
 </head>
 <body>
     <header class="header ">
@@ -45,7 +46,7 @@
                               <div class="text-danger">Your error</div>
                             <input type="password" class="right-form__input" placeholder="*Company Address"> 
                             <div class="text-danger">Your error</div>
-                            <textarea name="" class="right-form__input righ-form-textarea" placeholder="*Company Summary" id="" cols="30" rows="3"></textarea>
+                            <textarea name="" class="right-form__input righ-form-textarea" placeholder="*Company Summary" id="descript" cols="30" rows="3"></textarea>
                             <div class="text-danger">Your error</div>
                             <input type="text" class="right-form__input" placeholder="*Phone">
                             <div class="text-danger">Your error</div>
@@ -77,8 +78,11 @@
 
     <footer class="footer">
         <div class="footer__content">
-            <i class="fa-regular fa-copyright"></i> Copyright 2022
+            <i class="fa-regular fa-copyright"></i> Copyright 2022  <strong> OJT-Team </strong>
         </div>
     </footer>
+    <script>
+            CKEDITOR.replace('descript');
+        </script>
 </body>
 </html>

@@ -149,7 +149,7 @@
                 <div class="row">
                     <div class="main-body-save ">
                         <div class="main-body-save__header">
-                            Save Jobs*
+                            Save Jobs
                         </div>
 
                         <div class="main-body-save__search">
@@ -207,7 +207,7 @@
                                     <thead>
                                         <tr>
                                             <th>NO.</th>
-                                            <th>Type Job</th>
+                                            <th>Title Job</th>
                                             <th>Company</th>
                                             <th>Location</th>
                                             <th>Creation Date</th>
@@ -297,7 +297,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022
+                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
             </div>
         </footer>
 
