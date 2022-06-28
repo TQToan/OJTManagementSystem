@@ -5,26 +5,29 @@
  */
 package com.se1625.controller;
 
-import com.se1625.tblaccount.TblAccountDAO;
-import com.se1625.usergoogle.UserGoogleDTO;
+import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblmajor.TblMajorDAO;
+import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.utils.MyApplicationConstants;
-import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ASUS
+ * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
-@WebServlet(name = "AddStudentServlet", urlPatterns = {"/AddStudentServlet"})
-public class AddStudentServlet extends HttpServlet {
+public class AdminShowAddingStudentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,24 +41,39 @@ public class AddStudentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String url = MyApplicationConstants.AddStudentFeture.STUDENT_HOME_PAGE;
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        ServletContext context = this.getServletContext();
+        Properties properties = (Properties) context.getAttribute("SITE_MAPS");
+        String url = MyApplicationConstants.AdminShowAddingStudentFeature.LOGIN_PAGE;
+        
+        HttpSession session = request.getSession(false);
         try {
-            UserGoogleDTO user = (UserGoogleDTO) request.getAttribute("USER_GOOGLE");
-            TblAccountDAO dao = new TblAccountDAO();
-            String StudentCode = MyApplicationHelper.getStudentCode(user.getEmail());
-            String username = user.getEmail();
-            String name = user.getName();
-            String avatar = user.getPicture();
-            dao.addStudentAccount(username, name, avatar, 2, StudentCode);
+            if (session != null) {
+                TblAccountDTO adminAccount = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
+                if (adminAccount != null) {
+                    //get major name 
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listMajorName = majorDAO.getListNameMajor();
+                    
+                    request.setAttribute("LIST_MAJOR_NAME", listMajorName);
+                    url = properties.getProperty(MyApplicationConstants.AdminShowAddingStudentFeature.ADMIN_ADD_STUDENT_PAGE);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                    
+                } else {
+                    response.sendRedirect(url);
+                }
+            } else {
+                response.sendRedirect(url);
+            }
         } catch (NamingException ex) {
-            log("AddStudentServlet_NamingException " + ex.getMessage());
+            log("NamingException at AdminShowAddingStudentServlet " + ex.getMessage());
         } catch (SQLException ex) {
-            log("AddStudentServlet_SQLException " + ex.getMessage());
-        } finally {
-            response.sendRedirect(url);
+            log("SQLException at AdminShowAddingStudentServlet " + ex.getMessage());
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

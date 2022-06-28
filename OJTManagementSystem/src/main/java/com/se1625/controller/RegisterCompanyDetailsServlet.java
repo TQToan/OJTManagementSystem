@@ -14,7 +14,6 @@ import com.se1625.utils.MyApplicationConstants;
 import com.se1625.utils.MyApplicationHelper;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,16 +33,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 @WebServlet(name = "RegisterCompanyDetailsServlet", urlPatterns = {"/RegisterCompanyDetailsServlet"})
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10,
-        maxRequestSize = 1024 * 1024 * 50)
 public class RegisterCompanyDetailsServlet extends HttpServlet {
 
     /**
@@ -72,19 +67,8 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                 TblAccountDTO accountCompany = (TblAccountDTO) session.getAttribute("ACCOUNT_COMPANY");
                 if (accountCompany != null) {
                     url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.REGISTER_COMPANY_PAGE_1);
-                    // Create a factory for disk-based file items
-                    DiskFileItemFactory factory = new DiskFileItemFactory();
-
-                    // Configure a repository (to ensure a secure temp location is used)
-                    ServletContext servletContext = this.getServletConfig().getServletContext();
-                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-                    factory.setRepository(repository);
-
-                    // Create a new file upload handler
-                    ServletFileUpload upload = new ServletFileUpload(factory);
-
                     // Parse the request
-                    List<FileItem> items = upload.parseRequest(request);
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
 
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
@@ -92,6 +76,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                     String value = "";
                     String fileName = "";
                     String logoName = "";
+                    long fileLength = 0;
                     while (iter.hasNext()) {
                         FileItem item = iter.next();
 
@@ -106,7 +91,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                             } else {
                                 Path path = Paths.get(fileName);
                                 String realPath = request.getServletContext().getRealPath("/avatars");
-                                logoName = path.getFileName().toString();
+                                logoName = params.get("companyPhone") + "_" + path.getFileName().toString();
                                 File uploadFile = new File(realPath + "/" + logoName);
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
@@ -116,6 +101,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                                 } else {
                                     item.write(uploadFile);
                                 }
+                                fileLength = Files.size(Paths.get(uploadFile.toString()));
                             }
                         }
                     }
@@ -155,10 +141,24 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                         found = true;
                         errors.setCompanyPhoneLengthError("company Phone is required 10 characters");
                     }
-
+                    fileLength = (fileLength / (1024));
+                    long sizeMax = 800;
                     if (fileName == null || fileName.equals("")) {
                         found = true;
                         errors.setCompanyLogoLengthError("Company Logo is required.");
+                    } else {
+                        if (fileLength > sizeMax) {
+                            found = true;
+                            errors.setCompanyLogoLengthError("File's size must not exceed 800KB");
+                        } else {
+                            if (logoName.endsWith(".png") == false
+                                    || logoName.endsWith(".jpg") == false
+                                    || logoName.endsWith(".jpeg") == false
+                                    || logoName.endsWith(".svg") == false) {
+                                found = true;
+                                errors.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
+                            }
+                        }
                     }
 
                     if (found) {
@@ -215,7 +215,7 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             log("Exception occurs RegisterCompanyDetailsServlet " + ex.getMessage());
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

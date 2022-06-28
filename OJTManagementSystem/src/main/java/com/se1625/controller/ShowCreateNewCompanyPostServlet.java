@@ -81,8 +81,6 @@ public class ShowCreateNewCompanyPostServlet extends HttpServlet {
             log("SQLException at CreateNewCompanyPostServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at CreateNewCompanyPostServlet " + ex.getMessage());
-        } finally {
-            
         }
     }
 

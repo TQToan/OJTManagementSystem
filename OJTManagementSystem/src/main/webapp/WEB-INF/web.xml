@@ -252,6 +252,14 @@
         <servlet-name>DownloadFileModelServlet</servlet-name>
         <servlet-class>com.se1625.controller.DownloadFileModelServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAddStudentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminAddStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminShowAddingStudentServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminShowAddingStudentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -467,6 +475,14 @@
     <servlet-mapping>
         <servlet-name>DownloadFileModelServlet</servlet-name>
         <url-pattern>/DownloadFileModelServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddStudentServlet</servlet-name>
+        <url-pattern>/AdminAddStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminShowAddingStudentServlet</servlet-name>
+        <url-pattern>/AdminShowAddingStudentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

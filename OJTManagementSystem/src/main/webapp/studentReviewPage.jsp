@@ -171,7 +171,7 @@
                                 <div class="col-8 review--input " >${studentProfile.account.name}</div>
                             </div>
                             <div class="review__input row">
-                                <div class="col-4 review--label" >Birthday</div>
+                                <div class="col-4 review--label" >Birthdate</div>
                                 <div class="col-8 review--input" >${my:changeDateFormat(studentProfile.birthDay)}</div>
                             </div>
                             <div class="detail_internship" disabled="true">

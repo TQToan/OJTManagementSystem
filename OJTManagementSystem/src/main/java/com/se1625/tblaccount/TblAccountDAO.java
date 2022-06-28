@@ -29,7 +29,7 @@ public class TblAccountDAO implements Serializable {
             if (con != null) {
                 String sql = "SELECT acc.username "
                         + "FROM tblAccount AS acc "
-                        + "WHERE acc.username = ? ";
+                        + "WHERE acc.username = ? and acc.isAdmin = 2 ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
 

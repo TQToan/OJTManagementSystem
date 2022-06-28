@@ -131,7 +131,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         error.setErrorAddressLength("Address is required 6-100 characters");
                         checkError = true;
                     }
-                    
+
                     String patternNumberPhone = "^(03|05|07|08|09)([0-9]{8,8})$";
                     //check phone number update
                     if (stringPhone.trim().length() < 10 || stringPhone.trim().length() > 11) {
@@ -143,10 +143,19 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                             error.setErrorPhoneNumberFormat("Number phone is invalid format");
                         }
                     }
-
-                    if (fileLength > sizeMax) {
-                        checkError = true;
-                        error.setErrorFileLength("File's size must not exceed 800KB");
+                    if (avatarName.trim().length() > 0) {
+                        if (fileLength > sizeMax) {
+                            checkError = true;
+                            error.setErrorFileLength("File's size must not exceed 800KB");
+                        } else {
+                            if (avatarName.endsWith(".png") == false
+                                    || avatarName.endsWith(".jpg") == false
+                                    || avatarName.endsWith(".jpeg") == false
+                                    || avatarName.endsWith(".svg") == false) {
+                                checkError = true;
+                                error.setErrorFileType("File type must be .png, .jpg, .jpeg, .svg.");
+                            }
+                        }
                     }
 
                     if (checkError) {
@@ -182,7 +191,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         TblStudentDTO newInforStudent = dao.getStudentInformation(student.getStudentCode());
                         session.setAttribute("STUDENT_ROLE", newInforStudent);
 
-                        if (!postID.isEmpty() && resultIpdateStudent) {   
+                        if (!postID.isEmpty() && resultIpdateStudent) {
                             request.setAttribute("POST_ID", postID);
                             url = properties.getProperty(MyApplicationConstants.UpdateStudentProfileFeature.SHOW_APPLY_CV_CONTROLLER);
                             RequestDispatcher rd = request.getRequestDispatcher(url);

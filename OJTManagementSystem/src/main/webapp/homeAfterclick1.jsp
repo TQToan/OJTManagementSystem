@@ -83,48 +83,83 @@
                                 </div>
                             </div>
 
-                            <div class="inforStu-right col-8">
+                            <div class="inforStu-right col-9">
                                 <div class="inforStu-right__header">
                                     Career Information
                                 </div>
                                 <c:set var="application" value="${requestScope.APPLICATION_INFORMATION}" />
                                 <div class="inforStu-right__content">
                                     <c:set var="errors" value="${requestScope.ERRORS}"/>
-                                    <p>Expected Job: <input type="text" name="txtExpectedJob" value="${application.expected_job}" /> </p>
-                                        <c:if test="${not empty errors.expectedJobLengthError}" >
-                                            ${errors.expectedJobLengthError}
-                                        </c:if>
-                                    <p>Technology: <input type="text" name="txtTechnology" value="${application.technology}" /> </p>
-                                        <c:if test="${not empty errors.technologyLengthError}" >
-                                            ${errors.technologyLengthError}
-                                        </c:if>
-                                    <p>Experience: <select name="txtExperience">
-                                            <option value="Chưa có kinh nghiệm" <c:if test="${application.experience eq 'Chưa có kinh nghiệm'}">
-                                                    selected="selected"
-                                                </c:if>>Chưa có kinh nghiệm</option>
-                                            <option value="1 năm" <c:if test="${application.experience eq '1 năm'}">
-                                                    selected="selected"
-                                                </c:if>>1 năm</option>
-                                            <option value="2 năm" <c:if test="${application.experience eq '2 năm'}">
-                                                    selected="selected"
-                                                </c:if>>2 năm</option>
-                                            <option value="Trên 3 năm" <c:if test="${application.experience eq 'Trên 3 năm'}">
-                                                    selected="selected"
-                                                </c:if>>Trên 3 năm</option>
-                                        </select> </p>
-                                    <p>Foreign Language: <input type="text" name="txtForeignLanguage" value="${application.foreign_Language}" /> </p>
-                                        <c:if test="${not empty errors.foreignLanguageLengthError}" >
-                                            ${errors.foreignLanguageLengthError}
-                                        </c:if>
-                                    <p>Other Skills: <input type="text" name="txtOtherSkills" value="${application.otherSkills}" /> </p>
-                                        <c:if test="${not empty errors.otherSkillsLengthError}" >
-                                            ${errors.otherSkillsLengthError}
-                                        </c:if>
+
+                                    <div class ="row hPage-stuAppl-input"> 
+                                        <label for="expectJob" class="col-3">Expected Job</label>
+                                        <div class="col-9"> 
+                                            <input type="text" name="txtExpectedJob" value="${application.expected_job}" id="expectJob" class="hPage-stuAppl--input"/>
+                                            <c:if test="${not empty errors.expectedJobLengthError}" >
+                                                ${errors.expectedJobLengthError}
+                                            </c:if>
+                                        </div>
+                                    </div>
+
+                                    <div class ="row hPage-stuAppl-input"> 
+                                        <label for="technology" class="col-3">Technology</label>
+                                        <div class="col-9"> 
+                                            <input type="text" name="txtTechnology" value="${application.technology}" id="technology" class="hPage-stuAppl--input"/>
+                                            <c:if test="${not empty errors.technologyLengthError}" >
+                                                ${errors.technologyLengthError}
+                                            </c:if>
+                                        </div>
+                                    </div>
+
+                                    <div class ="row hPage-stuAppl-input"> 
+                                        <label for="experience" class="col-3">Experience</label>
+                                        <div class="col-9"> 
+                                            <select name="txtExperience" id="experience" class="hPage-stuAppl--input">
+                                                <option value="Chưa có kinh nghiệm" <c:if test="${application.experience eq 'Chưa có kinh nghiệm'}">
+                                                        selected="selected"
+                                                    </c:if>>Chưa có kinh nghiệm</option>
+                                                <option value="1 năm" <c:if test="${application.experience eq '1 năm'}">
+                                                        selected="selected"
+                                                    </c:if>>1 năm</option>
+                                                <option value="2 năm" <c:if test="${application.experience eq '2 năm'}">
+                                                        selected="selected"
+                                                    </c:if>>2 năm</option>
+                                                <option value="Trên 3 năm" <c:if test="${application.experience eq 'Trên 3 năm'}">
+                                                        selected="selected"
+                                                    </c:if>>Trên 3 năm</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                    <div class ="row hPage-stuAppl-input"> 
+                                        <label for="foreign" class="col-3">Foreign Language</label>
+                                        <div class="col-9"> 
+                                            <input type="text" name="txtForeignLanguage" value="${application.foreign_Language}" id="foreign" class="hPage-stuAppl--input"/>
+                                            <c:if test="${not empty errors.foreignLanguageLengthError}" >
+                                                ${errors.foreignLanguageLengthError}
+                                            </c:if>
+                                        </div>
+                                    </div>
+
+                                    <div class ="row hPage-stuAppl-input"> 
+                                        <label for="otherskill" class="col-3">Other Skills</label>
+                                        <div class="col-9"> 
+                                            <input type="text" name="txtOtherSkills" value="${application.otherSkills}" id="otherskill" class="hPage-stuAppl--input" />
+                                            <c:if test="${not empty errors.otherSkillsLengthError}" >
+                                                ${errors.otherSkillsLengthError}
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="file-input">
-                                        <label for="myfile" >
+                                        <label for="inputFile" >
                                             Your CV: 
+                                            <div class="input-file" for="inputFile"></div>
+                                            <span id="displayResult"></span>
                                         </label>
-                                        <input type="file" id="myfile" name="myfile" value="${application.attachmentPath}">
+                                        <input type="file" id="inputFile" name="myfile" value="" hidden="hidden">
+                                  <%--      <input type="file" id="inputFile" name="myfile" value="${application.attachmentPath}" hidden="hidden"> --%>
+                                        
                                         <c:if test="${not empty errors.fileUploadError}" >
                                             ${errors.fileUploadError}
                                         </c:if>
@@ -173,7 +208,7 @@
             <div class="footer__content">
                 @copyright 2022
             </div>
-
         </footer>
+        <script src="./assets/js/inputfile.js"></script>
     </body>
 </html>

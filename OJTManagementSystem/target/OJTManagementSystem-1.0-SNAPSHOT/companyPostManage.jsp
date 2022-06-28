@@ -138,7 +138,7 @@
                             Post Management
                         </div>
                         <div class="main-body-cPostManage__create">
-                            <a href="companyCreateNewPostPage" class="main-body-cPostManage__create-btn">
+                            <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </a>

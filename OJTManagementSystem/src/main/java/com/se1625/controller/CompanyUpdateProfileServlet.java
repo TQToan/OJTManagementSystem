@@ -58,7 +58,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE;
-        
+
         RegisterCompanyError error = new RegisterCompanyError();
 
         //get session
@@ -70,15 +70,9 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
 //                TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(account.getEmail())
                 //get company info 
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
-;
+                ;
                 if (companyDTO != null) {
                     boolean checkError = false;
-
-//                    DiskFileItemFactory factory = new DiskFileItemFactory();
-//                    ServletContext servletContext = this.getServletConfig().getServletContext();
-//                    File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-//                    factory.setRepository(repository);
-//                    ServletFileUpload upload = new ServletFileUpload(factory);
                     List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS"); //upload.parseRequest(request);
 
                     Iterator<FileItem> iter = items.iterator();
@@ -102,7 +96,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                             } else {
                                 Path path = Paths.get(fileName);
                                 String realPath = request.getServletContext().getRealPath("/avatars");
-                                avatarName = companyDTO.getCompanyID()+ "_" + path.getFileName().toString();
+                                avatarName = companyDTO.getCompanyID() + "_" + path.getFileName().toString();
                                 File uploadFile = new File(realPath + "/" + avatarName);
                                 filePath = uploadFile.toString();
 
@@ -117,19 +111,19 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                     }
                     fileLength = (fileLength / (1024));
                     long sizeMax = 800;
-                    
+
                     String address = params.get("addressUpdate");
                     String city = params.get("cityUpdate");
                     String stringPhone = params.get("phoneUpdate");
                     String description = params.get("descriptUpdate");
                     String email = params.get("email");
-                    
+
                     //check address input format
                     if (address.trim().length() == 0) {
                         error.setCompanyAddressLengthError("Address is required 6-100 characters");
                         checkError = true;
                     }
-                    
+
                     //check phone number update
                     if (stringPhone.trim().length() != 10) {
                         error.setCompanyPhoneLengthError("Number phone is required 10 characters");
@@ -141,10 +135,18 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                         checkError = true;
                         error.setCompanyDescriptionLegthError("Company description is required 50-2000 characters");
                     }
-                    
+
                     if (fileLength > sizeMax) {
                         checkError = true;
                         error.setCompanyLogoLengthError("File's size must not exceed 800KB");
+                    } else {
+                        if (avatarName.endsWith(".png") == false
+                                || avatarName.endsWith(".jpg") == false
+                                || avatarName.endsWith(".jpeg") == false
+                                || avatarName.endsWith(".svg") == false) {
+                            checkError = true;
+                            error.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
+                        }
                     }
                     if (checkError) {
                         request.setAttribute("ERROR_UPDATE_COMPANYPROFILE", error);
@@ -176,7 +178,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                         url = MyApplicationConstants.CompanyFeatures.COMPANY_PROFILE_CONTROLLER;
                         response.sendRedirect(url);
                     }
-                    
+
                 }//if conmpany exist
                 else {
                     response.sendRedirect(url);
@@ -185,7 +187,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
             else {
                 response.sendRedirect(url);
             }// if session not exist
-            
+
         } catch (FileUploadException ex) {
             log("FileUploadException at CompanyUpdateProfileServlet " + ex.getMessage());
         } catch (NamingException ex) {

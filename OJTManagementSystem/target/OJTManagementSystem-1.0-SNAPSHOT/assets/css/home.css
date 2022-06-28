@@ -387,6 +387,15 @@
     
 }
 
+.hPage-stuAppl-input{
+    margin: 5px 0;
+}
+
+.hPage-stuAppl--input{
+    padding: 5px;
+    border-radius: 5px;
+    width: 400px;
+}
 .file-pdf__cViewStu{
     margin-top: 100px;
 }
@@ -396,10 +405,6 @@
     bottom: 150px;
     right: 50px;
     width: auto;
-}
-
-input[type=file]{
-    display: none;
 }
 
 .input-file{
@@ -420,8 +425,8 @@ input[type=file]{
 }
 
 .file-input{
-    margin: 50px;
-    font-size: 2rem;
+    margin: 30px 5px;
+    font-size: 1.8rem;
     font-weight: 600;
 }
 

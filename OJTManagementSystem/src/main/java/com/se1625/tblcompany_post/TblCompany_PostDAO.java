@@ -659,7 +659,7 @@ public class TblCompany_PostDAO implements Serializable {
                         stm.setDate(3, starDate);
                         stm.setDate(4, endDate);
                         stm.setInt(5, 0);
-                        stm.setInt (5, 3);
+                        stm.setInt (6, 3);
 
                     } else if (nameStatus.equals("Waiting")) {
                         sql += " and post.statusPost = ? ORDER BY post.postingDate DESC ";

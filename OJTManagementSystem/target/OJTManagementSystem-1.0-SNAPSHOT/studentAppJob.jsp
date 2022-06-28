@@ -188,7 +188,7 @@
                                             <option value="Success" class="text-success" <c:if test="${param.nameStatus eq 'Success'}">
                                                     selected="selected"
                                                 </c:if>>Success</option>
-                                            <option value="Canceled" class="text-success" <c:if test="${param.nameStatus eq 'Canceled'}">
+                                            <option value="Canceled" class="text-gray" <c:if test="${param.nameStatus eq 'Canceled'}">
                                                     selected="selected"
                                                 </c:if>>Canceled</option>
                                         </select>
@@ -265,7 +265,7 @@
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq false}">
-                                                    <td class="text-truncate">
+                                                    <td class="text-gray">
                                                         <strong>
                                                             Canceled
                                                         </strong>
@@ -278,7 +278,7 @@
                                                       or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2)}">
                                                     <td>
                                                         <form action="${url}" method="POST">
-                                                            <input type="submit" name="btAction" value="Cancel" />
+                                                            <input type="submit" name="btAction" value="Cancel" class="btn-regular-red" />
                                                         </form>
 
                                                     </td>
@@ -286,7 +286,7 @@
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 0}">
                                                     <td>
                                                         <form action="${url}" method="POST">
-                                                            <input type="submit" name="btAction" value="Cancel" />
+                                                            <input type="submit" name="btAction" value="Cancel" class="btn-regular-red"/>
                                                         </form>
 
                                                     </td>
@@ -298,9 +298,8 @@
                                                       or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1)}">
                                                     <td>
                                                         <form action="${url}" method="POST">
-                                                            <input type="submit" name="btAction" value="Cancel" disabled="disabled" />
+                                                            <input type="submit" name="btAction" value="Cancel"  class="btn-regular-red-disable" disabled="disabled"/>
                                                         </form>
-
                                                     </td>
                                                 </c:if>
                                             </tr>

@@ -139,62 +139,105 @@
                         <div class="main-body-aAddStu__header">
                             Add Student
                         </div>
-                        <form action="" method="POST">
+                        <c:set var="error" value="${requestScope.ERRORS}"/>
+                        <form action="AdminAddStudentController" method="POST">
                             <input type="hidden" name="" value="" />
                             <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="stuID">Student ID</label>
-                                <input type="text" class="col-8 aAddStu--input " name="" id="stuID" value="">
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
-                            </div>
-                            
-                            <div class="aAddStu__input row">
-                                <label class="col-4 aAddStu--label" for="stuName">Student Name</label>
-                                <input type="text" class="col-8 aAddStu--input " name="" id="stuName" value="">
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
+                                <input type="text" class="col-8 aAddStu--input " name="txtStudentID" id="stuID" value="${param.txtStudentID}">
+                                <c:if test="${not empty error.studentIDLengthError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.studentIDLengthError}
+                                    </h5>
+                                </c:if>
+                                <c:if test="${not empty error.existedStudentIDError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.existedStudentIDError}
+                                    </h5>
+                                </c:if>
                             </div>
 
                             <div class="aAddStu__input row">
+                                <label class="col-4 aAddStu--label" for="stuName">Student Name</label>
+                                <input type="text" class="col-8 aAddStu--input " name="txtStudentName" id="stuName" value="${param.txtStudentName}">
+                                <c:if test="${not empty error.studentNameLengthError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.studentNameLengthError}
+                                    </h5>
+                                </c:if>
+                            </div>
+                            <c:set var="listMajorName" value="${requestScope.LIST_MAJOR_NAME}"/>
+                            <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="major">Major</label>
                                 <select name="majorID" class="col-8 aAddStu--input">
-                                    <option value="" selected disabled>Major</option>
-                                    <option value="" >SE</option>
+                                    <option value="" selected>Major</option>
+                                    <c:forEach items="${listMajorName}" var="major">
+                                        <option value="${major.majorName}" <c:if test="${major.majorID eq param.majorID}" >
+                                                selected="selected"
+                                        </c:if>>${major.majorName}</option>
+                                    </c:forEach>
+
                                 </select>
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
+                                <c:if test="${not empty error.majorLengthError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.majorLengthError}
+                                    </h5>
+                                </c:if>
                             </div>
-                            
+
                             <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="mail">Email</label>
-                                <input type="email" class="col-8 aAddStu--input " name="" id="mail" value="">
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
+                                <input type="email" class="col-8 aAddStu--input " name="txtEmail" id="mail" value="${param.txtEmail}">
+                                <c:if test="${not empty error.emailFormatError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.emailFormatError}
+                                    </h5>
+                                </c:if>
+                                <c:if test="${not empty error.emailLengthError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.emailLengthError}
+                                    </h5>
+                                </c:if>
+                                <c:if test="${not empty error.existedEmailError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.existedEmailError}
+                                    </h5>
+                                </c:if>
                             </div>
-                            
+
                             <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="phone">Phone</label>
-                                <input type="number" class="col-8 aAddStu--input " name="" id="phone" value="">
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
+                                <input type="text" class="col-8 aAddStu--input " name="txtPhone" id="phone" value="${param.txtPhone}">
+                                <c:if test="${not empty error.phoneFormatError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.phoneFormatError}
+                                    </h5>
+                                </c:if>
+                                <c:if test="${not empty error.existedPhoneError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.existedPhoneError}
+                                    </h5>
+                                </c:if>
                             </div>
 
                             <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="credit">Credit</label>
-                                <input type="number" class="col-8 aAddStu--input " name="" id="credit" value="">
-                                <h5 class="text-danger offset-4 col-8 text-start ">
-                                    Your error
-                                </h5>
+                                <input type="number" min="0" max="200" class="col-8 aAddStu--input " name="txtCredit" id="credit" value="${param.txtCredit}">
+                                <c:if test="${not empty error.creditError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.creditError}
+                                    </h5>
+                                </c:if>
+                                <c:if test="${not empty error.creditEmptyError}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.creditEmptyError}
+                                    </h5>
+                                </c:if>
                             </div>
-                            
+
                             <div >    
                                 <label class="aAddStu-edit-btn primary-btn" for="btaction"><i class="fas fa-edit"></i>
-                                    <input type="submit" id="btaction" class="aAddStu-edit--input " name="btAction" value="Edit" />
+                                    <input type="submit" id="btaction" class="aAddStu-edit--input " name="btAction" value="Add" />
                                 </label>
                             </div>
                         </form>

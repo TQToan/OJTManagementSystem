@@ -242,7 +242,7 @@ public class MyApplicationConstants {
     
     public class ShowCreateNewCompanyPostFeature {
         public static final String LOGIN_PAGE = "";
-        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyPostEditPage";
+        public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyCreateNewPostPage";
         
     }
     
@@ -284,5 +284,17 @@ public class MyApplicationConstants {
     public class CompanySearchInternsManagementFeature {
         public static final String LOGIN_PAGE = "";
         public static final String COMPANY_APPLICATION_MANAGER_PAGE ="CompanyInternsManagementPage";
+    }
+    
+    public class AdminShowAddingStudentFeature {
+        public static final String LOGIN_PAGE ="";
+        public static final String ADMIN_ADD_STUDENT_PAGE = "adminAddStudentPage";
+    }
+    
+    public class AdminAddStudentFeature {
+        public static final String LOGIN_PAGE ="";
+        public static final String ADMIN_ADD_STUDENT_PAGE = "adminAddStudentPage";
+        public static final String ADMIN_SHOW_ADDING_STUDENT_CONTROLLER = "AdminShowAddingStudentController";
+        public static final String SHOW_ADMIN_STUDENT_MANAGEMENT_CONTROLLER = "ShowAdminStudentManagementController";
     }
 }

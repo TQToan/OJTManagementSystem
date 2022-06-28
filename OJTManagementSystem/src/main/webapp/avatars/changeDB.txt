@@ -1,0 +1,30 @@
+CREATE TABLE tblApplication(
+	applicationID int identity(1,1) NOT NULL,
+	attachmentPath varchar(200) NOT NULL,
+	expected_Job nvarchar(50) NOT NULL,
+	technology nvarchar(50) NOT NULL,
+	experience nvarchar(30) NOT NULL,
+	foreign_Language nvarchar(50) NOT NULL,
+	otherSkills nvarchar(50) NOT NULL,
+	evaluation nvarchar(500),
+	grade decimal(2,1),
+	is_Pass bit,
+	student_Confirm bit,
+	school_Confirm int DEFAULT -1,
+	company_Confirm int DEFAULT -1,
+	studentCode varchar(8) NOT NULL,
+	postID int NOT NULL,
+
+	PRIMARY KEY (applicationID)
+);
+
+
+ALTER TABLE tblApplication
+ADD CONSTRAINT FK_Student_Application FOREIGN KEY (studentCode)
+REFERENCES tblStudent(studentCode);
+
+ALTER TABLE tblApplication
+ADD CONSTRAINT FK_Post_Application FOREIGN KEY (postID)
+REFERENCES tblCompany_Post(postID);
+
+(-1, 0: từ chối, 1: chấp nhận)

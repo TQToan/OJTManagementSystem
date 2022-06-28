@@ -131,6 +131,12 @@
     margin: 20px;
 }
 
+
+.import-file-stu--file{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
 /* Student Management----------------END---------------------------- */
 
 /* Company Management-------------------------------------------- */
@@ -523,9 +529,7 @@
     color: var(--background-orange);
 }
 
-input[type=file]{
-    display: none;
-}
+
 
 .input-file{
     display: inline-block;

@@ -142,8 +142,8 @@
                         <form action="CompanyUpdateProfileController" method="POST" enctype="multipart/form-data">
                             <div class="cprofile__input row">
                                 <label class="col-4 cprofile--label" for="cName">Company's Name</label>
-                                <div class="col-8 cprofile--input  profile--input-none-hover ">${companyProfile.account.name}</div>
-
+                                <div class="col-8  profile--input-none-hover ">${companyProfile.account.name}</div>
+                                <!--cprofile--input--> 
                             </div>
 
                             <div class="cprofile__input row">
@@ -181,7 +181,7 @@
                             </div>
                             <div class="cprofile__input row">
                                 <label class="col-4 cprofile--label" for="email">Contaxt Email</label>
-                                <input type="email" readonly class="col-8 cprofile--input profile--input-none-hover " name="email" id="email" value="${companyProfile.account.email}">
+                                <input type="email" readonly class="col-8  profile--input-none-hover " name="email" id="email" value="${companyProfile.account.email}">
                             </div>
                             <div class="cprofile__input row">
                                 <label class="col-4 cprofile--label" for="phone">Phone</label>
@@ -195,9 +195,9 @@
                             <div class="cprofile__input row">
                                 <label class="col-12 cprofile--label" for="descript">Company Description</label>
                                 <div class="col-12">
-                                <textarea name="descriptUpdate" 
-                                          class=" cprofile--input cprofile--input-textarea" 
-                                          id="descript" cols="30" rows="4" >${companyProfile.company_Description}</textarea>
+                                    <textarea name="descriptUpdate" 
+                                              class=" cprofile--input cprofile--input-textarea" 
+                                              id="descript" cols="30" rows="4" >${companyProfile.company_Description}</textarea>
                                 </div>
                                 <h5 class="text-danger  text-start ">
                                     <c:if test="${not empty errors.companyDescriptionLegthError}">
@@ -206,21 +206,29 @@
                                 </h5>
                             </div>
                             <div class=" cprofile-file-input">
-                                <label for="avatar" >
-                                    Logo:
-                                    <div class="input-file">
-                                        <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="avatar" />
-                                    </div>
-                                </label>
+                                <label for="inputFile" >
+                                    Logo
 
+                                    <div class="input-file" for="inputFile"></div>
+                                    <span id="displayResult">${companyProfile.account.avatar}</span>
+
+                                    <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="inputFile" hidden="hidden"  />
+
+                                    <!--                                    <div class="input-file">
+                                                                            <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="inputFile" />
+                                                                        </div>-->
+                                </label>
                             </div>
-                            <h5 class="text-danger  text-start ">
-                                <c:if test="${not empty errors.companyLogoLengthError}">
-                                    <h5 class="text-danger offset-4 col-8 text-start">
-                                        ${errors.companyLogoLengthError}
-                                    </h5>
-                                </c:if>
-                            </h5>
+                            <c:if test="${not empty errors.companyLogoLengthError}">
+                                <h5 class="text-danger offset-4 col-8 text-start">
+                                    ${errors.companyLogoLengthError}
+                                </h5>
+                            </c:if>
+                            <c:if test="${not empty errors.companyLogoTypeError}">
+                                <h5 class="text-danger offset-4 col-8 text-start">
+                                    ${errors.companyLogoTypeError}
+                                </h5>
+                            </c:if>
                             <div>
 
                                 <label class="cprofile-edit-btn primary-btn" for="ebtAction">
@@ -240,6 +248,7 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/inputfile.js"></script>
         <script>
             CKEDITOR.replace('descript');
         </script>

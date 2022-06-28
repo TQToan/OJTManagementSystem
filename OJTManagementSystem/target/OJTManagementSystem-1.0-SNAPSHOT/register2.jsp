@@ -100,6 +100,11 @@
                                     <div class="text-danger">${errors.companyLogoLengthError}</div>
                                     </font>
                                 </c:if>
+                                <c:if test="${not empty errors.companyLogoTypeError}">
+                                    <font style="color: red">
+                                    <div class="text-danger">${errors.companyLogoTypeError}</div>
+                                    </font>
+                                </c:if>
 
 
                                 <div class="end-form-btn">

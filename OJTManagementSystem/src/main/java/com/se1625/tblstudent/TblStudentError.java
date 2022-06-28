@@ -16,6 +16,7 @@ public class TblStudentError implements Serializable{
     private String errorPhoneNumberLength;
     private String errorDateInvalid;
     private String errorFileLength;
+    private String errorFileType;
     private String errorDateEmpty;
     private String errorPhoneNumberFormat;
     
@@ -95,5 +96,19 @@ public class TblStudentError implements Serializable{
      */
     public void setErrorPhoneNumberFormat(String errorPhoneNumberFormat) {
         this.errorPhoneNumberFormat = errorPhoneNumberFormat;
+    }
+
+    /**
+     * @return the errorFileType
+     */
+    public String getErrorFileType() {
+        return errorFileType;
+    }
+
+    /**
+     * @param errorFileType the errorFileType to set
+     */
+    public void setErrorFileType(String errorFileType) {
+        this.errorFileType = errorFileType;
     }
 }

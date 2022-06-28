@@ -8,13 +8,13 @@ com\se1625\utils\MyApplicationConstants$StudentDasboardFeature.class
 com\se1625\controller\ApplyCVStudentServlet.class
 com\se1625\controller\RegisterCompanyServlet.class
 com\se1625\tblapplication\TblApplicationDTO.class
+com\se1625\controller\AdminShowAddingStudentServlet.class
 com\se1625\controller\CompanyUpdateProfileServlet.class
 com\se1625\customtag\CustomTag.class
 com\se1625\utils\MyApplicationConstants$CompanySearchInternsManagementFeature.class
 com\se1625\utils\MyApplicationConstants$SearchCompanyAdminManagerFeature.class
 com\se1625\utils\MyApplicationConstants$studentDeleteSaveJobFeature.class
 com\se1625\utils\MyApplicationConstants$ImportStudentExcelFileFeature.class
-com\se1625\controller\AddStudentServlet.class
 com\se1625\controller\ShowCompanyDashBoardServlet.class
 com\se1625\controller\AdminShowInternApplicationServlet.class
 com\se1625\controller\CompanyViewPostDetailServlet.class
@@ -62,6 +62,7 @@ com\se1625\tblaccount\TblAccountDTO.class
 com\se1625\controller\DownloadFileModelServlet.class
 com\se1625\controller\LogoutAccountServlet.class
 com\se1625\filter\DispatchFilter.class
+com\se1625\tblstudent\AddStudentError.class
 com\se1625\controller\LoginGoogleServlet.class
 com\se1625\controller\SearchCompanyStudentHomeServlet.class
 com\se1625\controller\SearchStudentAppliedJobServlet.class
@@ -71,6 +72,7 @@ com\se1625\controller\HomeShowCompanyDetailServlet.class
 com\se1625\tblsemester\TblSemesterDAO.class
 com\se1625\utils\MyApplicationConstants$CompanyUpdateStatusIntershipApplicationFeature.class
 com\se1625\utils\MyApplicationConstants$CompanySearchInternsFeature.class
+com\se1625\controller\AdminAddStudentServlet.class
 com\se1625\controller\LoginAccountsServlet.class
 com\se1625\listener\AutoCreateSemesterServletListener.class
 com\se1625\controller\StudentDashboardServlet.class
@@ -84,6 +86,7 @@ com\se1625\controller\CreateNewCompanyPostServlet.class
 com\se1625\controller\RegisterCompanyDetailsServlet.class
 com\se1625\utils\MyApplicationHelper.class
 com\se1625\controller\CompanySearchPostServlet.class
+com\se1625\utils\MyApplicationConstants$AdminAddStudentFeature.class
 com\se1625\controller\CompanySearchInternsManagementServlet.class
 com\se1625\utils\MyApplicationConstants$CreateNewCompanyPostFeature.class
 com\se1625\utils\MyApplicationConstants$SearchStudentByAdminFeature.class
@@ -127,6 +130,7 @@ com\se1625\controller\ShowStudentHomeServlet.class
 com\se1625\utils\MyApplicationConstants$CompanyViewStudentDetailFeature.class
 com\se1625\tblfollowing_post\TblFollowing_PostDAO.class
 com\se1625\utils\MyApplicationConstants$SearchStudentEvaluationFeature.class
+com\se1625\utils\MyApplicationConstants$AdminShowAddingStudentFeature.class
 com\se1625\controller\CompanyUpdatePostServlet.class
 com\se1625\utils\MyApplicationConstants$ReviewInternShipFeature.class
 com\se1625\utils\MyApplicationConstants$Constants.class

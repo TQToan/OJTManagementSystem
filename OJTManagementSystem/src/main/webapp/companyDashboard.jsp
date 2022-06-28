@@ -229,12 +229,12 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="cActive__see-more--btn row">
+                        <div class="cActive__see-more--btn">
                         <c:url var="urlSearchPost" value="CompanySearchPostController">
                             <c:param name="companyID" value="${company.companyID}"/>
                             <c:param name="nameStatus" value="Active"/>
                         </c:url>
-                        <a href="${urlSearchPost}" class="cActive--more--btn offset-10 col-2">
+                        <a href="${urlSearchPost}" class="cActive--more--btn">
                             See More 
                             <i class="fas fa-arrow-right"></i>
                         </a> 
