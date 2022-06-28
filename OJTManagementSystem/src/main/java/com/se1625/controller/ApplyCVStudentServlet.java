@@ -113,7 +113,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
 
                     ApplyCVStudentError errors = new ApplyCVStudentError();
                     boolean found = false;
-
                     //check student infor
                     Date checkBirthday = student.getBirthDay();
                     String checkAddress = student.getAddress();
@@ -180,11 +179,22 @@ public class ApplyCVStudentServlet extends HttpServlet {
                         application.setCompanyPost(companyPost);
 
                         request.setAttribute("APPLICATION_INFORMATION", application);
+                        TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                        TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                        application.setSemester(currentSemester);
 
+                        request.setAttribute("APPLICATION_INFORMATION", application);
+
+                        String errorQuantity = (String) request.getAttribute("ERROR_RUN_OUT_QUANTITY_INTERNS");
+                        if (errorQuantity != null) {
+                            found = true;
+                        }
                         if (found) {
                             if (cvName.trim().isEmpty() == false) {
                                 Files.deleteIfExists(Paths.get(filePath));
                             }
+
+                            request.setAttribute("POST_COMPANY_INFOR", companyPost);
                             request.setAttribute("ERRORS", errors);
                         } else {
                             TblApplicationDAO applicationDAO = new TblApplicationDAO();

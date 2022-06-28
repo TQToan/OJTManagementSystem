@@ -782,7 +782,6 @@ public class TblApplicationDAO implements Serializable {
                 if ("".equals(companyName) == true && "".equals(nameTypeJob) == true
                         && nameLocation.trim().isEmpty() == false && nameStatus.trim().isEmpty() == false) {
                     sql += "WHERE app.studentCode = ? and cp.workLocation LIKE ? and ";
-                    System.out.println(nameLocation);
                     if (nameStatus.equals("Denied")) {
                         sql += "app.student_Confirm = ? and (app.company_Confirm = ? or "
                                 + " app.school_Confirm = ?) ";
@@ -1562,7 +1561,8 @@ public class TblApplicationDAO implements Serializable {
         List<TblApplicationDTO> listApplication = null;
         try {
             con = DBHelper.makeConnection();
-            String sql = "SELECT app.evaluation,app.grade,app.studentCode,app.school_Confirm, "
+            String sql = "SELECT app.attachmentPath, app.expected_Job, app.technology, app.experience, app.foreign_Language, app.otherSkills, "
+                    + "app.evaluation,app.grade,app.studentCode,app.school_Confirm, "
                     + "app.student_Confirm, app.company_Confirm, app.applicationID, app.is_Pass, "
                     + "cp.title_Post, cp.postID,ac.name "
                     + "FROM tblApplication AS app "
@@ -1589,7 +1589,13 @@ public class TblApplicationDAO implements Serializable {
 
             int check_company_confirm = 1;
             while (rs.next()) {
-
+                
+                String attachmentPath = rs.getString("attachmentPath");
+                String expected_job = rs.getString("expected_Job");
+                String technology = rs.getString("technology");
+                String experience = rs.getString("experience");
+                String foreign_Language = rs.getString("foreign_Language");
+                String otherSkills = rs.getString("otherSkills");
                 String evaluation = rs.getString("evaluation");
                 float grade = rs.getFloat("grade");
 
@@ -1610,6 +1616,12 @@ public class TblApplicationDAO implements Serializable {
 
                 TblApplicationDTO applicationDTO = new TblApplicationDTO();
                 applicationDTO.setApplicationID(applicationID);
+                applicationDTO.setAttachmentPath(attachmentPath);
+                applicationDTO.setExpected_job(expected_job);
+                applicationDTO.setTechnology(technology);
+                applicationDTO.setExperience(experience);
+                applicationDTO.setForeign_Language(foreign_Language);
+                applicationDTO.setOtherSkills(otherSkills);
                 applicationDTO.setEvaluation(evaluation);
                 applicationDTO.setGrade(grade);
                 applicationDTO.setIsPass(isPass);

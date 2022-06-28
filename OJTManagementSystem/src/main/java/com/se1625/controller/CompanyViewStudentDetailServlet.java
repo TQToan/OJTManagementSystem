@@ -5,14 +5,20 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -54,22 +60,40 @@ public class CompanyViewStudentDetailServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         try {
             if (session != null) {
-                int companyPostID = Integer.parseInt(companyPostIDString);
-                //get Student information
-                TblStudentDAO studentDAO = new TblStudentDAO();
-                TblStudentDTO studentDTO = studentDAO.getStudentInformation(studentCode);
+                TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
+                if (accountDTO != null) {
+                    int companyPostID = Integer.parseInt(companyPostIDString);
+                    //get Student information
+                    TblStudentDAO studentDAO = new TblStudentDAO();
+                    TblStudentDTO studentDTO = studentDAO.getStudentInformation(studentCode);
+                    //get current Semester
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semesterDTO = semesterDAO.getCurrentSemester();
+                    int currentSemester = semesterDTO.getSemesterID();
+                    // get Company post
+                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                    TblCompany_PostDTO companyPostDTO = companyPostDAO.getCompanyPost(companyPostID);
 
-                // get Company post
-                TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                TblCompany_PostDTO companyPostDTO = companyPostDAO.getCompanyPost(companyPostID);
-
-                request.setAttribute("STUDENT_INFOR", studentDTO);
-                request.setAttribute("COMPANY_POST_INFOR", companyPostDTO);
-                request.setAttribute("COMPANY_COMFIRM", companyConfirm);
-                url = prop.getProperty(
-                        MyApplicationConstants.CompanyViewStudentDetailFeature.COMPANY_VIEW_STUDENT_DETAILE_PAGE);
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
+                    TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                    List<TblApplicationDTO> applicationList = applicationDAO.getApplicationByEmail(accountDTO.getEmail(), -3, currentSemester);
+                    
+                    //get Application of Student apply to this company
+                    TblApplicationDTO applicationDTO = new TblApplicationDTO();
+                    for (TblApplicationDTO tblApplicationDTO : applicationList) {
+                        if(tblApplicationDTO.getStudent().getStudentCode().equals(studentDTO.getStudentCode())){
+                            applicationDTO = tblApplicationDTO;
+                        }
+                    }
+                    
+                    request.setAttribute("APPLICATION_DTO", applicationDTO);
+                    request.setAttribute("STUDENT_INFOR", studentDTO);
+                    request.setAttribute("COMPANY_POST_INFOR", companyPostDTO);
+                    request.setAttribute("COMPANY_COMFIRM", companyConfirm);
+                    url = prop.getProperty(
+                            MyApplicationConstants.CompanyViewStudentDetailFeature.COMPANY_VIEW_STUDENT_DETAILE_PAGE);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                }
             } else {
                 response.sendRedirect(url);
             }

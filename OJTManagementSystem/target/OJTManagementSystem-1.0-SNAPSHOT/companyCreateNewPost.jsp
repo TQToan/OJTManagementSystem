@@ -165,7 +165,7 @@
                                 <label class="col-4 cPostEdit--label" for="major">Major</label>
                                 <select name="txtMajor" id="major" class="col-8 cPostEdit--input ">
                                     <option value="" selected="selected">Major</option>
-                                    <c:forEach items="${requestScope.LIST_MAJOR_NAME}" var="major">
+                                    <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                         <option value="${major.majorID}" <c:if test="${param.txtMajor eq major.majorID}">
                                                 selected="selected"
                                             </c:if> >${major.majorName}</option>

@@ -342,7 +342,7 @@
 
                                                 <c:if test="${student.isIntern eq 0}" >
                                                     <td>
-                                                        <c:if test="${not empty error}">
+                                                           <c:if test="${not empty error}">
                                                             <font style="color: red">
                                                             ${error}
                                                             </font>
