@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -93,7 +94,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
                             } else {
                                 Path path = Paths.get(fileName);
                                 String realPath = request.getServletContext().getRealPath("/CVs");
-                                cvName = student.getStudentCode() + "_" + path.getFileName().toString();
+                                cvName = params.get("postID") + "-" + student.getStudentCode() + "_" + path.getFileName().toString();
                                 File uploadFile = new File(realPath + "/" + cvName);
                                 filePath = uploadFile.toString();
                                 if (Files.exists(Paths.get(realPath)) == false) {
@@ -120,6 +121,9 @@ public class ApplyCVStudentServlet extends HttpServlet {
                     if (checkBirthday == null || checkAddress == null || checkPhone == null) {
                         errors.setStudentInformationError("Please enter all personal information first");
                         request.setAttribute("POST_ID", postID);
+                        TblCompany_PostDAO postDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPost = postDAO.getCompanyPost(postID);
+                        request.setAttribute("POST_COMPANY_INFOR", companyPost);
                         request.setAttribute("ERRORS", errors);
                     } else {
                         if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
@@ -146,11 +150,9 @@ public class ApplyCVStudentServlet extends HttpServlet {
                             found = true;
                             errors.setFileUploadError("File is not empty");
                         } else {
-                            if (cvName.endsWith("doc") == false
-                                    && cvName.endsWith("docx") == false
-                                    && cvName.endsWith("pdf") == false) {
+                            if (cvName.endsWith("pdf") == false) {
                                 found = true;
-                                errors.setFileUploadTypeError("File is required .doc, .docx, .pdf");
+                                errors.setFileUploadTypeError("File is required pdf file");
                             }
                             fileLength = (fileLength / (1024 * 1024));
                             long sizeMax = 1;

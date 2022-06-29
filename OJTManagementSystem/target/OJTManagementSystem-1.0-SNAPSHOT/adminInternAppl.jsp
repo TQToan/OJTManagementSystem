@@ -271,6 +271,20 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
+                                                <c:if test="${intern.companyConfirm eq -2}">
+                                                    <td class="text-gray">
+                                                        <strong>
+                                                            Failed interview
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                    <c:if test="${intern.companyConfirm eq 2}">
+                                                    <td class="text-orange">
+                                                        <strong>
+                                                            Success interview
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
 
                                                 <c:if test="${intern.schoolConfirm eq 0}">
                                                     <td class="text-warning">
@@ -294,43 +308,43 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                   
-                                                        <div class="row row-cols-2">
-                                                            <div class="col">
-                                                                <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                                    <input type="hidden" name="page" value="${i}">
-                                                                    <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                                    <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                                    <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                    <input type="hidden" name="btnAction" value="1">
-                                                                    <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                                        <input type="submit" value="Accept" class="btn-regular-green">
-                                                                    </c:if>
-                                                                     <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                                         <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
-                                                                    </c:if>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col">
-                                                                <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                                    <input type="hidden" name="page" value="${i}">
-                                                                    <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                                    <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                                    <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                    <input type="hidden" name="btnAction" value="-1">
-                                                                    <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                    <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                                        <input type="submit" value="Reject" class="btn-regular-red">
-                                                                    </c:if>
-                                                                     <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                                         <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
-                                                                    </c:if>
-                                                                </form>
-                                                            </div>
+
+                                                    <div class="row row-cols-2">
+                                                        <div class="col">
+                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                                <input type="hidden" name="page" value="${i}">
+                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                                <input type="hidden" name="btnAction" value="1">
+                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                                    <input type="submit" value="Accept" class="btn-regular-green">
+                                                                </c:if>
+                                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                                    <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
+                                                                </c:if>
+                                                            </form>
                                                         </div>
+                                                        <div class="col">
+                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                                <input type="hidden" name="page" value="${i}">
+                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                                <input type="hidden" name="btnAction" value="-1">
+                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                                    <input type="submit" value="Reject" class="btn-regular-red">
+                                                                </c:if>
+                                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                                    <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
+                                                                </c:if>
+                                                            </form>
+                                                        </div>
+                                                    </div>
 
                                                 </td>
                                             </tr>
@@ -348,10 +362,101 @@
                             </c:if>
                         </div>
 
-                        <div id="pageX" hidden >${requestScope.page}</div>
+                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
+                                <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                <c:if test="${requestScope.page gt 5 }">
+                                    <li class="page-item" >
+                                        <form action="AdminShowInternApplicationController" method="POST">
+                                            <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
+                                            <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                            <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                            <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                            <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                            <input type="submit" value="Previous" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
 
+                                <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                    <c:set var="step" value="${i - requestScope.numberPage}" />
+                                    <c:choose>
+                                        <c:when test="${ step le 0}">
+                                            <li class="page-item" >
+                                                <form action="AdminShowInternApplicationController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                                    <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                    <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                            <li class="page-item" >  
+                                                <form action="AdminShowInternApplicationController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                                    <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                    <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i eq requestScope.page and step le 0 }">
+                                            <li class="page-item" >    
+                                                <form action="AdminShowInternApplicationController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                                    <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                                    <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                    <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${step le 0}">
+                                                <li class="page-item" >
+                                                    <form action="AdminShowInternApplicationController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}"/>
+                                                        <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                                        <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                                        <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                                        <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>"/>
+                                                    </form>
+                                                </li>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${step le 0}">
+                                    <li class="page-item" >
+                                        <form action="AdminShowInternApplicationController" method="POST">
+                                            <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                            <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                            <input type="hidden" name="txtCompanyID" value="${companyID}"/>
+                                            <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
+                                            <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
+                                            <input type="submit" value="Next" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
+                                <%--
                                 <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
                                     <form action="AdminShowInternApplicationController" method="POST">
                                         <input type="hidden" name="page" value="${i}"/>
@@ -362,15 +467,15 @@
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
 
-                                    <%--%><c:url var="url" value="AdminShowInternApplicationController">
+                                    <c:url var="url" value="AdminShowInternApplicationController">
                                     <c:param name="page" value="${i}"/>
                                     <c:param name="txtStudentID" value="${studentID}"/>
                                     <c:param name="txtCompanyID" value="${companyID}"/>
                                     <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
                                     <c:param name="txtTitleJob" value="${titleJob}"/>
                                 </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
-                                </c:forEach>
+                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                </c:forEach>--%>
                             </ul>
                         </div>
 

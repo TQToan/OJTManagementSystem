@@ -84,7 +84,7 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                     TblMajorDAO majorDAO = new TblMajorDAO();
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listMajor = majorDAO.getListNameMajor();
-                    request.setAttribute("LIST_NAME_MAJOR", listMajor);
+                    request.setAttribute("LIST_MAJOR_NAME", listMajor);
 
                     if (tiltePost.trim().length() <= 5 || tiltePost.trim().length() > 100) {
                         foundError = true;
@@ -149,7 +149,6 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
                     } else {
-                        System.out.println(listMajor);
                         //create new company post
                         TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                         boolean result = companyPostDAO.createNewCompanyPost(company.getCompanyID(), majorID,

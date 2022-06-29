@@ -232,18 +232,94 @@
                                 </c:forEach>
                             </div>
 
-                            <div id="pageX" hidden>${requestScope.page}</div>
+                            <!--<div id="pageX" hidden>${requestScope.page}</div>-->
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
-                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                        <li class="page-item">
+                                    <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                    <c:if test="${requestScope.page gt 5 }">
+                                        <li class="page-item" >
                                             <form action="HomeShowCompanyDetailController" method="POST">
-                                                <input type="hidden" name="page" value="${i}">
+                                                <input type="hidden" name="page" value="${map['startNum'] - 1}">
                                                 <input type="hidden" name="postID" value="${postDetail.postID}">
-                                                <input type="submit" value="${i}" class="page-link">
+                                                <input type="submit" value="Previous" class="page-link <c:if test="${i eq requestScope.page}">
+                                                       pagination-active
+                                                    </c:if>">
                                             </form>
                                         </li>
+                                        <!--đưa icon vào-->
+                                    </c:if>
+
+                                    <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                        <c:set var="step" value="${i - requestScope.numberPage}" />
+                                        <c:choose>
+                                            <c:when test="${ step le 0}">
+                                                <li class="page-item" >
+                                                    <form action="HomeShowCompanyDetailController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}">
+                                                        <input type="hidden" name="postID" value="${postDetail.postID}">
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>">
+                                                    </form>
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                                <li class="page-item" >  
+                                                    <form action="HomeShowCompanyDetailController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}">
+                                                        <input type="hidden" name="postID" value="${postDetail.postID}">
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>">
+                                                    </form>
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${ i eq requestScope.page and step le 0 }">
+                                                <li class="page-item" >    
+                                                    <form action="HomeShowCompanyDetailController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}">
+                                                        <input type="hidden" name="postID" value="${postDetail.postID}">
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>">
+                                                    </form>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:if test="${step le 0}">
+                                                    <li class="page-item" >
+                                                        <form action="HomeShowCompanyDetailController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}">
+                                                            <input type="hidden" name="postID" value="${postDetail.postID}">
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>">
+                                                        </form>
+                                                    </li>
+                                                </c:if>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
+                                    <c:if test="${step le 0}">
+                                        <li class="page-item" >
+                                            <form action="HomeShowCompanyDetailController" method="POST">
+                                                <input type="hidden" name="page" value="${map['lastNum'] + 1}">
+                                                <input type="hidden" name="postID" value="${postDetail.postID}">
+                                                <input type="submit" value="Next" class="page-link">
+                                            </form>
+                                        </li>
+                                        <!--đưa icon vào-->
+                                    </c:if>
+                                    <%--
+                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                    <li class="page-item">
+                                        <form action="HomeShowCompanyDetailController" method="POST">
+                                            <input type="hidden" name="page" value="${i}">
+                                            <input type="hidden" name="postID" value="${postDetail.postID}">
+                                            <input type="submit" value="${i}" class="page-link">
+                                        </form>
+                                    </li>
+                                </c:forEach> --%>
                                 </ul>
                             </div>
                         </c:if>

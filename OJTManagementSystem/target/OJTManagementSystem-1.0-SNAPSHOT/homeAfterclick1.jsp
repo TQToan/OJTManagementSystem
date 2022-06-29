@@ -102,7 +102,7 @@
                                     </div>
 
                                     <div class ="row hPage-stuAppl-input"> 
-                                        <label for="technology" class="col-3">Technology</label>
+                                        <label for="technology" class="col-3">Main Skill</label>
                                         <div class="col-9"> 
                                             <input type="text" name="txtTechnology" value="${application.technology}" id="technology" class="hPage-stuAppl--input"/>
                                             <c:if test="${not empty errors.technologyLengthError}" >

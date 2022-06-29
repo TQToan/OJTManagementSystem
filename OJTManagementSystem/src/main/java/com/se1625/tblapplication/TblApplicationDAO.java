@@ -992,12 +992,12 @@ public class TblApplicationDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT app.studentCode, app.student_Confirm, app.school_Confirm, app.company_Confirm,"
+                String sql = "SELECT app.studentCode, app.student_Confirm, app.school_Confirm, app.company_Confirm, "
                         + "acc.name, post.title_Post, app.applicationID "
                         + "FROM tblApplication app JOIN tblCompany_Post post on app.postID = post.postID "
                         + "JOIN tblCompany com on com.companyID = post.companyID "
                         + "JOIN tblAccount acc on acc.username = com.username "
-                        + "WHERE app.studentCode Like ? and com.companyID Like ?  and post.title_Post Like ? and app.semesterID = ?";
+                        + "WHERE app.studentCode Like ? and com.companyID Like ?  and post.title_Post Like ? and app.semesterID = ? ";
                 if (iSchoolStatus != 7) {
                     sql += "and app.school_Confirm Like ? ";
                 }

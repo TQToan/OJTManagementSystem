@@ -24,7 +24,7 @@
     <body>
         <header></header>
 
-        
+
         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-                    
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowStudentHomeController" class="nav__logo ">
@@ -228,12 +228,12 @@
                                                 <td>${appliedJob.companyPost.workLocation}</td>
                                                 <td>${my:changeDateFormat(appliedJob.companyPost.expirationDate)}</td>
                                                 <c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 0 and appliedJob.companyConfirm eq 0)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2) }">
-                                                    <td class="text-warning">
-                                                        <strong>
-                                                            Waiting
-                                                        </strong>
-                                                    </td>
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2) }">
+                                                      <td class="text-warning">
+                                                          <strong>
+                                                              Waiting
+                                                          </strong>
+                                                      </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 0}">
                                                     <td class="text-warning">
@@ -250,12 +250,12 @@
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -2)}" >
-                                                    <td class="text-danger">
-                                                        <strong>
-                                                            Denied
-                                                        </strong>
-                                                    </td>
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -2)}" >
+                                                      <td class="text-danger">
+                                                          <strong>
+                                                              Denied
+                                                          </strong>
+                                                      </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1}" >
                                                     <td class="text-success">
@@ -275,13 +275,13 @@
                                                     <c:param name="applicationID" value="${appliedJob.applicationID}" />
                                                 </c:url>
                                                 <c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 0 and appliedJob.companyConfirm eq 0)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2)}">
-                                                    <td>
-                                                        <form action="${url}" method="POST">
-                                                            <input type="submit" name="btAction" value="Cancel" class="btn-regular-red" />
-                                                        </form>
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2)}">
+                                                      <td>
+                                                          <form action="${url}" method="POST">
+                                                              <input type="submit" name="btAction" value="Cancel" class="btn-regular-red" />
+                                                          </form>
 
-                                                    </td>
+                                                      </td>
                                                 </c:if>
                                                 <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 0}">
                                                     <td>
@@ -292,28 +292,119 @@
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${(appliedJob.studentConfirm eq false)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1) 
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -2)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1)
-                                                      or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1)}">
-                                                    <td>
-                                                        <form action="${url}" method="POST">
-                                                            <input type="submit" name="btAction" value="Cancel"  class="btn-regular-red-disable" disabled="disabled"/>
-                                                        </form>
-                                                    </td>
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1) 
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -2)
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1)
+                                                              or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1)}">
+                                                      <td>
+                                                          <form action="${url}" method="POST">
+                                                              <input type="submit" name="btAction" value="Cancel"  class="btn-regular-red-disable" disabled="disabled"/>
+                                                          </form>
+                                                      </td>
                                                 </c:if>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
 
                                 </table>
-                                <div id="pageX" hidden >${requestScope.page}</div>
+                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
-
-                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                            <li>
+                                        <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                        <c:if test="${requestScope.page gt 5 }">
+                                            <li class="page-item" >
                                                 <form action="SearchStudentAppliedJobController" method="POST">
+                                                    <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
+                                                    <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                    <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                    <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                    <input type="submit" value="Previous" class="page-link"/>
+                                                </form>
+                                            </li>
+                                            <!--đưa icon vào-->
+                                        </c:if>
+
+                                        <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                            <c:set var="step" value="${i - requestScope.numberPage}" />
+                                            <c:choose>
+                                                <c:when test="${ step le 0}">
+                                                    <li class="page-item" >
+                                                        <form action="SearchStudentAppliedJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                                    <li class="page-item" >  
+                                                        <form action="SearchStudentAppliedJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:when test="${ i eq requestScope.page and step le 0 }">
+                                                    <li class="page-item" >    
+                                                        <form action="SearchStudentAppliedJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${step le 0}">
+                                                        <li class="page-item" >
+                                                            <form action="SearchStudentAppliedJobController" method="POST">
+                                                                <input type="hidden" name="page" value="${i}"/>
+                                                                <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                                <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                                <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                       pagination-active
+                                                                    </c:if>"/>
+                                                            </form>
+                                                        </li>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <c:if test="${step le 0}">
+                                            <li class="page-item" >
+                                                <form action="SearchStudentAppliedJobController" method="POST">
+                                                    <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                                    <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
+                                                    <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
+                                                    <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                    <input type="submit" value="Next" class="page-link"/>
+                                                </form>
+                                            </li>
+                                            <!--đưa icon vào-->
+                                        </c:if>
+                                        <%--
+                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                        <li>
+                                            <form action="SearchStudentAppliedJobController" method="POST">
                                                 <input type="hidden" name="page" value="${i}"/>
                                                 <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
                                                 <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
@@ -321,8 +412,8 @@
                                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                 <input type="submit" value="${i}" class="page-link"/>
                                             </form>
-                                            </li>
-                                            </c:forEach>
+                                        </li>
+                                    </c:forEach> --%>
                                     </ul>
                                 </div>
 
@@ -345,8 +436,8 @@
                 </div>
             </div>
         </footer>
-                            
-    <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/base.js"></script>
+
+        <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/base.js"></script>
     </body>
 </html>

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 
 <!DOCTYPE html>
 <html>
@@ -210,7 +211,7 @@
                                     Logo
 
                                     <div class="input-file" for="inputFile"></div>
-                                    <span id="displayResult">${companyProfile.account.avatar}</span>
+                                    <span id="displayResult">${my:getAvatarName(companyProfile.account.avatar)}</span>
 
                                     <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="inputFile" hidden="hidden"  />
 

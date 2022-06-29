@@ -485,46 +485,46 @@
                                                     </c:if>
                                                 </td>
                                                 <td>
-<!--                                                    <div class="d-flex justify-content-around">     -->
-                                                        <%--           <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}"> --%>
-                                                        <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
-                                                            <!--param of update-->
-                                                            <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
-                                                            <input type="hidden" name="companyPostID" value="${applicationDTO.companyPost.postID}" />  
-                                                            <input type="hidden" name="page" value="${param.page}" />
-                                                            <!--param of search-->
-                                                            <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
-                                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
-                                                            <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
-                                                            <input type="hidden" name="status" value="${param.status}" />
-                                                            <!--button-->
+                                                    <!--                                                    <div class="d-flex justify-content-around">     -->
+                                                    <%--           <c:if test="${applicationDTO.companyConfirm eq 0 or applicationDTO.companyConfirm eq 2}"> --%>
+                                                    <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
+                                                        <!--param of update-->
+                                                        <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
+                                                        <input type="hidden" name="companyPostID" value="${applicationDTO.companyPost.postID}" />  
+                                                        <input type="hidden" name="page" value="${param.page}" />
+                                                        <!--param of search-->
+                                                        <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
+                                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
+                                                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
+                                                        <input type="hidden" name="status" value="${param.status}" />
+                                                        <!--button-->
 
-                                                            <c:if test="${applicationDTO.companyConfirm eq -1}">
-                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Interview" disabled="disabled" /> 
-                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" disabled="disabled" /> 
-                                                            </c:if>
-                                                            <c:if test="${applicationDTO.companyConfirm eq -2 or applicationDTO.companyConfirm eq 1}">
-                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Accept" disabled="disabled"/>  
-                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" disabled="disabled"/>               
-                                                            </c:if>
-                                                            <c:if test="${applicationDTO.companyConfirm eq 0}">
-                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Interview" /> 
-                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" /> 
-                                                            </c:if>
-
-                                                            <c:if test="${applicationDTO.companyConfirm eq 2}">
-                                                                <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />  
-                                                                <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
-                                                            </c:if>
-                                                        </form>
-                                                        <c:set value="${requestScope.ERROR_QUANTITY_INTERNS}" var="quantityEnough"/>
-                                                        <c:if test="${not empty quantityEnough}">
-                                                            <c:if test="${param.studentCode eq applicationDTO.student.studentCode}">
-                                                                ${quantityEnough.quantitytInternsNotEngough} 
-                                                            </c:if>
+                                                        <c:if test="${applicationDTO.companyConfirm eq -1}">
+                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Interview" disabled="disabled" /> 
+                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" disabled="disabled" /> 
                                                         </c:if>
-                                                        <%-- </c:if> --%>
-<!--                                                    </div>-->
+                                                        <c:if test="${applicationDTO.companyConfirm eq -2 or applicationDTO.companyConfirm eq 1}">
+                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Accept" disabled="disabled"/>  
+                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" disabled="disabled"/>               
+                                                        </c:if>
+                                                        <c:if test="${applicationDTO.companyConfirm eq 0}">
+                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Interview" /> 
+                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject Interview" /> 
+                                                        </c:if>
+
+                                                        <c:if test="${applicationDTO.companyConfirm eq 2}">
+                                                            <input name="action" class="btn btn-outline-success" type="submit" value="Accept" />  
+                                                            <input name="action" class="btn btn-outline-danger" type="submit" value="Reject" />               
+                                                        </c:if>
+                                                    </form>
+                                                    <c:set value="${requestScope.ERROR_QUANTITY_INTERNS}" var="quantityEnough"/>
+                                                    <c:if test="${not empty quantityEnough}">
+                                                        <c:if test="${param.studentCode eq applicationDTO.student.studentCode}">
+                                                            ${quantityEnough.quantitytInternsNotEngough} 
+                                                        </c:if>
+                                                    </c:if>
+                                                    <%-- </c:if> --%>
+                                                    <!--                                                    </div>-->
                                                 </td>              
                                             </tr>     
                                         </c:forEach>
@@ -542,7 +542,98 @@
 
                         <c:set value="${requestScope.NUMBER_PAGE}" var="numberpage"/>
                         <div class="main__pagination">
-                            <ul class="pagination main_cus__pagination">     
+                            <ul class="pagination main_cus__pagination"> 
+                                <c:set var="map" value="${my:paging(requestScope.PAGE, 10, requestScope.NUMBER_PAGE)}"/>
+                                <c:if test="${requestScope.PAGE gt 5 }">
+                                    <li class="page-item" >
+                                        <form action="CompanySearchInternsController" method="POST">
+                                            <input type="hidden" name="PAGE" value="${map['startNum'] - 1}"/>
+                                            <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                            <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                            <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                            <input type="submit" value="Previous" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
+
+                                <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                    <c:set var="step" value="${i - requestScope.NUMBER_PAGE}" />
+                                    <c:choose>
+                                        <c:when test="${ step le 0}">
+                                            <li class="page-item" >
+                                                <form action="CompanySearchInternsController" method="POST">
+                                                    <input type="hidden" name="PAGE" value="${i}"/>
+                                                    <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                                    <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.PAGE}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                            <li class="page-item" >  
+                                                <form action="CompanySearchInternsController" method="POST">
+                                                    <input type="hidden" name="PAGE" value="${i}"/>
+                                                    <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                                    <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.PAGE}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i eq requestScope.PAGE and step le 0 }">
+                                            <li class="page-item" >    
+                                                <form action="CompanySearchInternsController" method="POST">
+                                                    <input type="hidden" name="PAGE" value="${i}"/>
+                                                    <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                                    <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.PAGE}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${step le 0}">
+                                                <li class="page-item" >
+                                                    <form action="CompanySearchInternsController" method="POST">
+                                                        <input type="hidden" name="PAGE" value="${i}"/>
+                                                        <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                                        <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.PAGE}">
+                                                               pagination-active
+                                                            </c:if>"/>
+                                                    </form>
+                                                </li>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${step le 0}">
+                                    <li class="page-item" >
+                                        <form action="CompanySearchInternsController" method="POST">
+                                            <input type="hidden" name="PAGE" value="${map['lastNum'] + 1}"/>
+                                            <input type="hidden" name="txtFullName" value="${param.txtFullName}"/>
+                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                            <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}"/>
+                                            <input type="hidden" name="status" value="${param.selectCompanyPost}"/>
+                                            <input type="submit" value="Next" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if><%--
                                 <c:forEach begin="1" end="${numberpage}" var="i">
                                     <c:url var="url" value="CompanySearchInternsController">
                                         <c:param name="page" value="${i}"/>
@@ -552,7 +643,7 @@
                                         <c:param name="status" value="${param.status}"/>
                                     </c:url>
                                     <li class="page-item"><a class="page-link pagination-active" href="${url}">${i}</a></li>
-                                    </c:forEach>
+                                    </c:forEach>--%>
                             </ul>
                         </div>
 

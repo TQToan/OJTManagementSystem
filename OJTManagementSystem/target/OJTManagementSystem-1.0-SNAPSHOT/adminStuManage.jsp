@@ -150,7 +150,7 @@
                                         <span id="displayResult"> </span>
                                         <input type="file" name="Import File" id="inputFile" hidden="hidden"/>
                                     </label>
-                                     <input type="submit" value="Import File" name="btAction" class="btn-update-green" />
+                                    <input type="submit" value="Import File" name="btAction" class="btn-update-green" />
                                 </form>
                                 <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
                                     ${requestScope.ERROR_IMPORT_EXCEL}
@@ -231,7 +231,7 @@
                                 Result : ${requestScope.SIZE_OF_LIST}
                             </div>
                             <c:if test="${not empty requestScope.LIST_APPLICATION_RESULT}" >
-                                <table class="table table-bordered ">
+                                <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>NO.</th>
@@ -281,8 +281,8 @@
                                                     </c:if>
                                                     <c:if test="${student.isIntern eq 1 and student.semester.semesterID eq nowSemester.semesterID or student.isIntern eq 2 
                                                                   and student.semester.semesterID eq nowSemester.semesterID}" >
-                                                        <input style="width: 60px" type="number" min="0" 
-                                                               max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
+                                                          <input style="width: 60px" type="number" min="0" 
+                                                                 max="100" name="txtNumberOfCredit" value="${student.numberOfCredit}" disabled="disabled" />
                                                     </c:if>
                                                 </td>
                                                 <td>
@@ -347,7 +347,7 @@
 
                                                 <c:if test="${student.isIntern eq 0}" >
                                                     <td>
-                                                           <c:if test="${not empty error}">
+                                                        <c:if test="${not empty error}">
                                                             <font style="color: red">
                                                             ${error}
                                                             </font>
@@ -389,21 +389,118 @@
                             </c:if>
                         </div>
 
-                        <div id="pageX" hidden >${requestScope.page}</div>
+                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
+                                <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                <c:if test="${requestScope.page gt 5 }">
+                                    <li class="page-item" >
+                                        <form action="SearchStudentByAdminController" method="POST">
+                                            <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
+                                            <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                            <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                            <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                            <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                            <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                            <input type="submit" value="Previous" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
 
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <form action="SearchStudentByAdminController" method="POST">
-                                        <input type="hidden" name="page" value="${i}"/>
-                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
-                                        <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
-                                        <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
-                                        <input type="hidden" name="isIntern" value="${param.isIntern}"/>
-                                        <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
-                                        <input type="submit" value="${i}" class="page-link"/>
-                                    </form>
+                                <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                    <c:set var="step" value="${i - requestScope.numberPage}" />
+                                    <c:choose>
+                                        <c:when test="${ step le 0}">
+                                            <li class="page-item" >
+                                                <form action="SearchStudentByAdminController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                    <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                                    <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                                    <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                                    <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                            <li class="page-item" >  
+                                                <form action="SearchStudentByAdminController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                    <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                                    <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                                    <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                                    <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i eq requestScope.page and step le 0 }">
+                                            <li class="page-item" >    
+                                                <form action="SearchStudentByAdminController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                    <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                                    <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                                    <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                                    <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>"/>
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${step le 0}">
+                                                <li class="page-item" >
+                                                    <form action="SearchStudentByAdminController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}"/>
+                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                        <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                                        <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                                        <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                                        <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>"/>
+                                                    </form>
+                                                </li>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
+                                <c:if test="${step le 0}">
+                                    <li class="page-item" >
+                                        <form action="SearchStudentByAdminController" method="POST">
+                                            <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                            <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                            <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                            <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                            <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                            <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                            <input type="submit" value="Next" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
+                                <%--
+                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                <form action="SearchStudentByAdminController" method="POST">
+                                    <input type="hidden" name="page" value="${i}"/>
+                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                    <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
+                                    <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
+                                    <input type="hidden" name="isIntern" value="${param.isIntern}"/>
+                                    <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
+                                    <input type="submit" value="${i}" class="page-link"/>
+                                </form>
+                            </c:forEach> --%>
                             </ul>
                         </div>
 

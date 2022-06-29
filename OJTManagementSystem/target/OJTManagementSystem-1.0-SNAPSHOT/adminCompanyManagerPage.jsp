@@ -252,10 +252,95 @@
                             </c:if>
                         </div>
 
-                        <div id="pageX" hidden >${requestScope.page}</div>
+                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div class="main__pagination">
-                            <ul class="pagination main_cus__pagination">     
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                            <ul class="pagination main_cus__pagination"> 
+                                <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                <c:if test="${requestScope.page gt 5 }">
+                                    <li class="page-item" >
+                                        <form action="SearchCompanyAdminManagerController" method="POST">
+                                            <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
+                                            <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                            <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                            <input type="submit" value="Previous" class="page-link" />
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
+
+                                <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                    <c:set var="step" value="${i - requestScope.numberPage}" />
+                                    <c:choose>
+                                        <c:when test="${ step le 0}">
+                                            <li class="page-item" >
+                                                <form action="SearchCompanyAdminManagerController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>" />
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                            <li class="page-item" >
+                                                <form action="SearchCompanyAdminManagerController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>" />
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:when test="${ i eq requestScope.page and step le 0 }">
+                                            <li class="page-item" >
+                                                <form action="SearchCompanyAdminManagerController" method="POST">
+                                                    <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                    <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                                    <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                           pagination-active
+                                                        </c:if>" />
+                                                </form>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${step le 0}">
+                                                <li class="page-item" >
+                                                    <form action="SearchCompanyAdminManagerController" method="POST">
+                                                        <input type="hidden" name="page" value="${i}"/>
+                                                        <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                                        <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                                        <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                               pagination-active
+                                                            </c:if>" />
+                                                    </form>
+                                                </li>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${step le 0}">
+                                    <li class="page-item" >
+                                        <form action="SearchCompanyAdminManagerController" method="POST">
+                                            <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                            <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
+                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
+                                            <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
+                                            <input type="submit" value="Next" class="page-link"/>
+                                        </form>
+                                    </li>
+                                    <!--đưa icon vào-->
+                                </c:if>
+                                <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
                                     <form action="SearchCompanyAdminManagerController" method="POST">
                                         <input type="hidden" name="page" value="${i}"/>
                                         <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
@@ -264,16 +349,16 @@
                                         <input type="submit" value="${i}" class="page-link"/>
                                     </form>
 
-                                    <%--<c:url var="url" value="SearchCompanyAdminManagerController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="selectCompany" value="${param.selectCompany}"/>
-                                    <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                    <c:param name="selectStatus" value="${param.selectStatus}"/>
-                                </c:url>                       
-                                <li class="page-item">
-                                    <a class="page-link" href="${url}">${i}</a>
-                                </li>--%>
-                                </c:forEach>
+                                <%--<c:url var="url" value="SearchCompanyAdminManagerController">
+                                <c:param name="page" value="${i}"/>
+                                <c:param name="selectCompany" value="${param.selectCompany}"/>
+                                <c:param name="txtEmail" value="${param.txtEmail}"/>
+                                <c:param name="selectStatus" value="${param.selectStatus}"/>
+                            </c:url>                       
+                            <li class="page-item">
+                                <a class="page-link" href="${url}">${i}</a>
+                            </li>
+                            </c:forEach> --%>
                             </ul>
 
                         </div>

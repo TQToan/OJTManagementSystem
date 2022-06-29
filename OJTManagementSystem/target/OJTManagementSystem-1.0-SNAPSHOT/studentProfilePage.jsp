@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -223,7 +224,7 @@
                                 <label for="inputFile" class="profile--label">
                                     Avatar
                                     <div class="input-file" for="inputFile"></div>
-                                    <span id="displayResult">${studentProfile.account.avatar}</span>
+                                    <span id="displayResult">${my:getAvatarName(studentProfile.account.avatar)}</span>
                                     <input type="file" id="inputFile" name="myfile" value="./avatars/${studentProfile.account.avatar}" hidden="hidden">
                                     
 <!--                                    <span id="displayResult">${studentProfile.account.avatar}</span>

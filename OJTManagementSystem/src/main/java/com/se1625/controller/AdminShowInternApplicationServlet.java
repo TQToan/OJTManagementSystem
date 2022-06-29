@@ -144,10 +144,6 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
             log("NamingException occurs AdminShowInternApplicationServlet " + ex.getMessage());
         } catch (NumberFormatException ex) {
             log("NumberFormatException occurs AdminShowInternApplicationServlet " + ex.getMessage());
-
-        } finally {
-
-            
         }
     }
 

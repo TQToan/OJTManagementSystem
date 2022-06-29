@@ -76,7 +76,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                     List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
                     Iterator<FileItem> iter = items.iterator();
                     HashMap<String, String> params = new HashMap<>();
-                    
+
                     String name = "";
                     String value = "";
                     String fileName = "";
@@ -136,20 +136,22 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                         error.setCompanyDescriptionLegthError("Company description is required 50-2000 characters");
                     }
                     //check city update
-                    if (city.equals("")){
+                    if (city.equals("")) {
                         checkError = true;
                         error.setCompanyCityError("City is required!");
-                   }
-                    if (fileLength > sizeMax) {
-                        checkError = true;
-                        error.setCompanyLogoLengthError("File's size must not exceed 800KB");
-                    } else {
-                        if (avatarName.endsWith(".png") == false
-                                || avatarName.endsWith(".jpg") == false
-                                || avatarName.endsWith(".jpeg") == false
-                                || avatarName.endsWith(".svg") == false) {
+                    }
+                    if (avatarName.trim().length() > 0) {
+                        if (fileLength > sizeMax) {
                             checkError = true;
-                            error.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
+                            error.setCompanyLogoLengthError("File's size must not exceed 800KB");
+                        } else {
+                            if (avatarName.endsWith(".png") == false
+                                    || avatarName.endsWith(".jpg") == false
+                                    || avatarName.endsWith(".jpeg") == false
+                                    || avatarName.endsWith(".svg") == false) {
+                                checkError = true;
+                                error.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
+                            }
                         }
                     }
                     if (checkError) {

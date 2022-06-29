@@ -249,32 +249,117 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                
-                                <div id="pageX" hidden >${requestScope.page}</div>
+
+                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
+                                        <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
+                                        <c:if test="${requestScope.page gt 5 }">
+                                            <li class="page-item" >
+                                                <form action="SearchSaveJobController" method="POST">
+                                                    <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
+                                                    <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                    <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                    <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                    <input type="submit" value="Previous" class="page-link"/>
+                                                </form>
+                                            </li>
+                                            <!--đưa icon vào-->
+                                        </c:if>
+
+                                        <c:forEach var="i" begin="${ map['startNum']}" end="${ map['lastNum']}">
+                                            <c:set var="step" value="${i - requestScope.numberPage}" />
+                                            <c:choose>
+                                                <c:when test="${ step le 0}">
+                                                    <li class="page-item" >
+                                                        <form action="SearchSaveJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:when test="${ i > map['lastPageNum'] and step le 0}">
+                                                    <li class="page-item" >  
+                                                        <form action="SearchSaveJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:when test="${ i eq requestScope.page and step le 0 }">
+                                                    <li class="page-item" >    
+                                                        <form action="SearchSaveJobController" method="POST">
+                                                            <input type="hidden" name="page" value="${i}"/>
+                                                            <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                            <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                            <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                            <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                   pagination-active
+                                                                </c:if>"/>
+                                                        </form>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${step le 0}">
+                                                        <li class="page-item" >
+                                                            <form action="SearchSaveJobController" method="POST">
+                                                                <input type="hidden" name="page" value="${i}"/>
+                                                                <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                                <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                                <input type="submit" value="${i}" class="page-link <c:if test="${i eq requestScope.page}">
+                                                                       pagination-active
+                                                                    </c:if>"/>
+                                                            </form>
+                                                        </li>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <c:if test="${step le 0}">
+                                            <li class="page-item" >
+                                                <form action="SearchSaveJobController" method="POST">
+                                                    <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                                    <input type="hidden" name="txtJob" value="${param.txtJob}"/>
+                                                    <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
+                                                    <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
+                                                    <input type="submit" value="Next" class="page-link"/>
+                                                </form>
+                                            </li>
+                                            <!--đưa icon vào-->
+                                        </c:if>
                                         <!--                                        <li class="page-item">
                                                                                         <a class="page-link" href="#" aria-label="Previous">
                                                                                             <span aria-hidden="true">&laquo;</span>
                                                                                         </a>
                                                                                     </li>-->
-                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
+                                        <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
                                             <form action="SearchSaveJobController" method="POST">
                                                 <input type="hidden" name="page" value="${i}"/>
                                                 <input type="hidden" name="txtJob" value="${param.txtJob}"/>
                                                 <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
                                                 <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
                                                 <input type="submit" value="${i}" class="page-link"/>
-                                            </form>
+                                            </form>--%>
 
-                                            <%--<c:url var="url" value="SearchSaveJobController">
-                                                <c:param name="page" value="${i}"/>
-                                                <c:param name="txtJob" value="${param.txtJob}"/>
-                                                <c:param name="txtCompany" value="${param.txtCompany}"/>
-                                                <c:param name="nameLocation" value="${param.nameLocation}"/>
-                                            </c:url>
-                                            <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
-                                        </c:forEach>
+                                        <%--<c:url var="url" value="SearchSaveJobController">
+                                            <c:param name="page" value="${i}"/>
+                                            <c:param name="txtJob" value="${param.txtJob}"/>
+                                            <c:param name="txtCompany" value="${param.txtCompany}"/>
+                                            <c:param name="nameLocation" value="${param.nameLocation}"/>
+                                        </c:url>
+                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
+                                    </c:forEach>--%>
                                         <!--                                        <li class="page-item">
                                                                                         <a class="page-link" href="#" aria-label="Next">
                                                                                             <span aria-hidden="true">&raquo;</span>

@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <div class="file-pdf__cViewStu">
-                        <embed src="./assets/pdf/${applicationInfor.attachmentPath}" type="application/pdf" scrolling="auto" width="100%" height="900px"/>
+                        <embed src="./CVs/${applicationInfor.attachmentPath}" type="application/pdf" scrolling="auto" width="100%" height="900px"/>
                     </div>  
                 </div>
 

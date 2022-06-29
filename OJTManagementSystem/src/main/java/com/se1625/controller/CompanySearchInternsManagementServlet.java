@@ -77,7 +77,7 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
                     int status = 0;
                     if ("Passed".equals(selectStatus)) {
                         status = 1;
-                    }else if("NotPassed".equals(selectStatus)){
+                    }else if("NotPass".equals(selectStatus)){
                         status = -1;
                     }
                     //get current Semester

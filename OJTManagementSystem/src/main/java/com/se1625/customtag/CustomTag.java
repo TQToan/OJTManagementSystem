@@ -5,7 +5,6 @@
  */
 package com.se1625.customtag;
 
-
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany.TblCompanyDTO;
@@ -18,6 +17,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -112,8 +112,50 @@ public class CustomTag {
         }
         return listAvatarOnSlide;
     }
-    
+
+    static int remain;
+
+    public static HashMap<String, Integer> paging(Integer CurrentPage, Integer numberPerPage, Integer numberPages) {
+        final int pageCount = 5;
+        int startNum = 0;
+        int lastNum = 0;
+        int lastPageNum = 0;
+
+        startNum = (int) Math.floor((CurrentPage - 1) / pageCount) * pageCount + 1;
+        lastNum = startNum + (pageCount - 1);
+        //6
+        //1-5 | 2
+        //6 
+        if (numberPerPage % pageCount == 0) {
+            lastPageNum = (int) Math.floor((numberPerPage / pageCount));
+        } else {
+            lastPageNum = (int) Math.floor((numberPerPage / pageCount)) + 1;
+
+        }
+        HashMap<String, Integer> pagingList = new HashMap<>();
+        pagingList.put("startNum", startNum);
+        pagingList.put("lastNum", lastNum);
+        pagingList.put("lastPageNum", lastPageNum);
+
+        return pagingList;
+    }
+
     public static Integer counter(Integer pageNumber, Integer index) {
         return ((pageNumber - 1) * 10) + index;
+    }
+
+    public static String getAvatarName(String avartarName) {
+        if (avartarName != null) {
+            StringTokenizer stk = new StringTokenizer(avartarName, "_");
+            if (stk.countTokens() == 2) {
+                String prefix = stk.nextToken();
+                String name = stk.nextToken();
+                return name;
+            } else {
+                return avartarName;
+            }
+        }
+
+        return null;
     }
 }
