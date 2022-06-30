@@ -135,7 +135,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
 
                         if (technology.trim().length() < 6 || technology.trim().length() > 50) {
                             found = true;
-                            errors.setTechnologyLengthError("Technology is required 6-50 characters");
+                            errors.setTechnologyLengthError("Main Skill is required 6-50 characters");
                         }
 
                         if (foreignLanguage.trim().length() < 6 || foreignLanguage.trim().length() > 50) {

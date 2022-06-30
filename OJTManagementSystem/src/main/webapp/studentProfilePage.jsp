@@ -165,7 +165,7 @@
                                 <div class="col-8  profile--input-none-hover  ">${studentProfile.account.name}</div>
                             </div>
                             <div class="profile__input row">
-                                <label class="col-4 profile--label" for="birthday">Birthday</label>
+                                <label class="col-4 profile--label" for="birthday">Date of Birth</label>
                                 <input type="date" class="col-8 profile--input " name="dateUpdate" id="birthday" value="${studentProfile.birthDay}">
                                 <h5 class="text-danger offset-4 col-8 text-start">
                                     <c:if test="${not empty errorUpdate}">

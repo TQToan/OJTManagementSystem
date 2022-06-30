@@ -70,7 +70,7 @@
                                 </c:if>
                                 <div class="inforStu-left__content">
                                     <p>Name: ${student.account.name} </p>
-                                    <p>Birthday: ${my:changeDateFormat(student.birthDay)}</p>
+                                    <p>Date of Birth: ${my:changeDateFormat(student.birthDay)}</p>
                                     <p>Gender: <c:if test="${student.gender eq true}">
                                             Male
                                         </c:if>
@@ -96,7 +96,9 @@
                                         <div class="col-9"> 
                                             <input type="text" name="txtExpectedJob" value="${application.expected_job}" id="expectJob" class="hPage-stuAppl--input"/>
                                             <c:if test="${not empty errors.expectedJobLengthError}" >
-                                                ${errors.expectedJobLengthError}
+                                                <h5 class="text-red">
+                                                    ${errors.expectedJobLengthError}
+                                                </h5>
                                             </c:if>
                                         </div>
                                     </div>
@@ -106,7 +108,9 @@
                                         <div class="col-9"> 
                                             <input type="text" name="txtTechnology" value="${application.technology}" id="technology" class="hPage-stuAppl--input"/>
                                             <c:if test="${not empty errors.technologyLengthError}" >
-                                                ${errors.technologyLengthError}
+                                                <h5 class="text-red">
+                                                    ${errors.technologyLengthError}
+                                                </h5>
                                             </c:if>
                                         </div>
                                     </div>
@@ -136,7 +140,9 @@
                                         <div class="col-9"> 
                                             <input type="text" name="txtForeignLanguage" value="${application.foreign_Language}" id="foreign" class="hPage-stuAppl--input"/>
                                             <c:if test="${not empty errors.foreignLanguageLengthError}" >
-                                                ${errors.foreignLanguageLengthError}
+                                                <h5 class="text-red">
+                                                    ${errors.foreignLanguageLengthError}
+                                                </h5>
                                             </c:if>
                                         </div>
                                     </div>
@@ -146,11 +152,13 @@
                                         <div class="col-9"> 
                                             <input type="text" name="txtOtherSkills" value="${application.otherSkills}" id="otherskill" class="hPage-stuAppl--input" />
                                             <c:if test="${not empty errors.otherSkillsLengthError}" >
-                                                ${errors.otherSkillsLengthError}
+                                                <h5 class="text-red">
+                                                    ${errors.otherSkillsLengthError}
+                                                </h5>
                                             </c:if>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="file-input">
                                         <label for="inputFile" >
                                             Your CV: 
@@ -158,17 +166,19 @@
                                             <span id="displayResult"></span>
                                         </label>
                                         <input type="file" id="inputFile" name="myfile" value="" hidden="hidden">
-                                  <%--      <input type="file" id="inputFile" name="myfile" value="${application.attachmentPath}" hidden="hidden"> --%>
-                                        
-                                        <c:if test="${not empty errors.fileUploadError}" >
-                                            ${errors.fileUploadError}
-                                        </c:if>
-                                        <c:if test="${not empty errors.fileUploadTypeError}">
-                                            ${errors.fileUploadTypeError}
-                                        </c:if>
-                                        <c:if test="${not empty errors.fileUploadLengthError}" >
-                                            ${errors.fileUploadLengthError}
-                                        </c:if>
+                                        <%--      <input type="file" id="inputFile" name="myfile" value="${application.attachmentPath}" hidden="hidden"> --%>
+                                        <h5 class="text-red">
+                                            <br/>
+                                            <c:if test="${not empty errors.fileUploadError}" >
+                                                ${errors.fileUploadError}
+                                            </c:if>
+                                            <c:if test="${not empty errors.fileUploadTypeError}">
+                                                ${errors.fileUploadTypeError}
+                                            </c:if>
+                                            <c:if test="${not empty errors.fileUploadLengthError}" >
+                                                ${errors.fileUploadLengthError}
+                                            </c:if>
+                                        </h5>
                                     </div>
 
                                     <div class="text-center">
