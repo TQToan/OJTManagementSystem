@@ -348,11 +348,38 @@
                                                 <c:if test="${student.isIntern eq 0}" >
                                                     <td>
                                                         <c:if test="${not empty error}">
-                                                            <font style="color: red">
+<!--                                                            <font style="color: red">
                                                             ${error}
                                                             </font>
                                                             <input type="submit" value="Appcept" name="btAction" />
-                                                            <input type="submit" value="Cancel" name="btAction" />
+                                                            <input type="submit" value="Cancel" name="btAction" />-->
+                                                            <div class="all">
+                                                                <div class="modal-cus" >
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h3 class="modal-title" id="exampleModalLabel">Error</h3>
+                                                                                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                 ${error}
+                                                                            </div>
+                                                                            <div class="text-center">
+                                                                                <div class="row row-cols-2">
+                                                                                    <div class="col">
+                                                                                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                                                                                        <input type="submit" value="Appcept" name="btAction" class="btn-regular-green"/>
+                                                                                    </div>
+                                                                                    <div class="col">
+                                                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                                                        <input type="submit" value="Cancel" name="btAction" class="btn-regular-red" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </c:if>
                                                         <c:if test="${empty error}">
                                                             <input type="submit" value="Update" name="btAction" class="btn-update-green"/>
