@@ -101,7 +101,9 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
                                 } else {
-                                    item.write(uploadFile);
+                                    if (Files.exists(Paths.get(uploadFile.toURI())) == false) {
+                                        item.write(uploadFile);
+                                    }
                                 }
                                 fileLength = Files.size(Paths.get(filePath));
                             }
@@ -146,9 +148,9 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                             error.setErrorFileLength("File's size must not exceed 800KB");
                         } else {
                             if (avatarName.endsWith(".png") == false
-                                    || avatarName.endsWith(".jpg") == false
-                                    || avatarName.endsWith(".jpeg") == false
-                                    || avatarName.endsWith(".svg") == false) {
+                                    && avatarName.endsWith(".jpg") == false
+                                    && avatarName.endsWith(".jpeg") == false
+                                    && avatarName.endsWith(".svg") == false) {
                                 checkError = true;
                                 error.setErrorFileType("File type must be .png, .jpg, .jpeg, .svg.");
                             }
@@ -221,7 +223,6 @@ public class UpdateStudentProfileServlet extends HttpServlet {
         } catch (SQLException ex) {
             log("SQLException at UpdateStudentProfileServlet " + ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
             log("Exception at UpdateStudentProfileServlet " + ex.getMessage());
         }
     }

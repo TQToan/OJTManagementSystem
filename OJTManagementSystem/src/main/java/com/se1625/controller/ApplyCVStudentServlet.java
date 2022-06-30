@@ -100,7 +100,9 @@ public class ApplyCVStudentServlet extends HttpServlet {
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
                                 }
-                                item.write(uploadFile);
+                                if (Files.exists(Paths.get((uploadFile.toURI()))) == false) {
+                                    item.write(uploadFile);
+                                }
                                 fileLength = Files.size(Paths.get(filePath));
                             }
                         }

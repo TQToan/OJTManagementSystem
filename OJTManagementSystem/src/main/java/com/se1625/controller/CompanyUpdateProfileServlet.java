@@ -103,6 +103,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                                 if (Files.exists(Paths.get(realPath)) == false) {
                                     Files.createDirectories(Paths.get(realPath));
                                 } else {
+                                    if (Files.exists(Paths.get(uploadFile.toURI())) == false)
                                     item.write(uploadFile);
                                 }
                                 fileLength = Files.size(Paths.get(filePath));
@@ -146,9 +147,9 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                             error.setCompanyLogoLengthError("File's size must not exceed 800KB");
                         } else {
                             if (avatarName.endsWith(".png") == false
-                                    || avatarName.endsWith(".jpg") == false
-                                    || avatarName.endsWith(".jpeg") == false
-                                    || avatarName.endsWith(".svg") == false) {
+                                    && avatarName.endsWith(".jpg") == false
+                                    && avatarName.endsWith(".jpeg") == false
+                                    && avatarName.endsWith(".svg") == false) {
                                 checkError = true;
                                 error.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
                             }
