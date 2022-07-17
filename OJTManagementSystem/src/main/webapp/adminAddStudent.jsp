@@ -172,7 +172,7 @@
                                 <select name="majorID" class="col-8 aAddStu--input">
                                     <option value="" selected>Major</option>
                                     <c:forEach items="${listMajorName}" var="major">
-                                        <option value="${major.majorName}" <c:if test="${major.majorID eq param.majorID}" >
+                                        <option value="${major.majorName}" <c:if test="${major.majorName eq param.majorID}" >
                                                 selected="selected"
                                         </c:if>>${major.majorName}</option>
                                     </c:forEach>

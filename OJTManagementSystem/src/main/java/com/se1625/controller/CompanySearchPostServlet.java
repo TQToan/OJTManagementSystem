@@ -134,7 +134,7 @@ public class CompanySearchPostServlet extends HttpServlet {
                     TblMajorDAO majorDAO = new TblMajorDAO();
                     majorDAO.getNameMajor();
                     List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-                    request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                    request.setAttribute("LIST_MAJOR_NAME", listNameMajor);
 
                     request.setAttribute("SIZE_OF_LIST", sizeOfList);
                     RequestDispatcher rd = request.getRequestDispatcher(url);

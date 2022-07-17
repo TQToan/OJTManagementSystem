@@ -621,7 +621,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
-                                <c:if test="${step le 0}">
+                                <c:if test="${step lt 0}">
                                     <li class="page-item" >
                                         <form action="CompanySearchInternsController" method="POST">
                                             <input type="hidden" name="PAGE" value="${map['lastNum'] + 1}"/>

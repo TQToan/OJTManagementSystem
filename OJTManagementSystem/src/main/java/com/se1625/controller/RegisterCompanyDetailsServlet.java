@@ -153,9 +153,9 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                             errors.setCompanyLogoLengthError("File's size must not exceed 800KB");
                         } else {
                             if (logoName.endsWith(".png") == false
-                                    || logoName.endsWith(".jpg") == false
-                                    || logoName.endsWith(".jpeg") == false
-                                    || logoName.endsWith(".svg") == false) {
+                                    && logoName.endsWith(".jpg") == false
+                                    && logoName.endsWith(".jpeg") == false
+                                    && logoName.endsWith(".svg") == false) {
                                 found = true;
                                 errors.setCompanyLogoTypeError("File type must be .png, .jpg, .jpeg, .svg.");
                             }

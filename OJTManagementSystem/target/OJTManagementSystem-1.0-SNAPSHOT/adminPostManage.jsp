@@ -394,7 +394,7 @@
                                                     </li>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:if test="${step le 0}">
+                                                    <c:if test="${step lt 0}">
                                                         <li class="page-item" >
                                                             <form action="AdminSearchCompanyPostController" method="POST">
                                                                 <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
