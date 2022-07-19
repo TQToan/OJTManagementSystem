@@ -108,7 +108,7 @@ public class DispatchFilter implements Filter {
         //1. get requestObject
         HttpServletRequest requestObject = (HttpServletRequest) request;
         HttpServletResponse responseObject = (HttpServletResponse) response;
-
+        
         responseObject.setContentType("text/html; charset=UTF-8");
         requestObject.setCharacterEncoding("UTF-8");
         //2. get UR from requestObject

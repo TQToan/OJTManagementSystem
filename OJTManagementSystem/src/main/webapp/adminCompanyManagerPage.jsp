@@ -46,13 +46,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="AdminCompanyManagerController" class="nav__item--link">
+                            <a href="AdminCompanyManagerController" class="nav__item--link link-active">
                                 <i class="far fa-building"></i>
                                 Company Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="AdminShowPostManagementController" class="nav__item--link link-active">
+                            <a href="AdminShowPostManagementController" class="nav__item--link">
                                 <i class="fas fa-pen"></i>
                                 Post Management
                             </a>

@@ -169,10 +169,6 @@
         <servlet-class>com.se1625.controller.AdminUpdatePostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminCompanyManagerServlet</servlet-name>
-        <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminUpdateStatusCompanyServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminUpdateStatusCompanyServlet</servlet-class>
     </servlet>
@@ -259,6 +255,10 @@
     <servlet>
         <servlet-name>AdminShowAddingStudentServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminShowAddingStudentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminCompanyManagerServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
@@ -393,10 +393,6 @@
         <url-pattern>/AdminUpdatePostServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminCompanyManagerServlet</servlet-name>
-        <url-pattern>/AdminCompanyManagerServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminUpdateStatusCompanyServlet</servlet-name>
         <url-pattern>/AdminUpdateStatusCompanyServlet</url-pattern>
     </servlet-mapping>
@@ -483,6 +479,10 @@
     <servlet-mapping>
         <servlet-name>AdminShowAddingStudentServlet</servlet-name>
         <url-pattern>/AdminShowAddingStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminCompanyManagerServlet</servlet-name>
+        <url-pattern>/AdminCompanyManagerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
