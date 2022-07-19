@@ -138,13 +138,35 @@
                             Post Management
                         </div>
                         <div class="main-body-cPostManage__create">
-                            <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
+                            <!-- Đặt điều kiện ở đây -->
+                           <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
                                 <i class="fa-solid fa-plus"></i>
                                 Create
                             </a>
+
+                            <!-- hiển thị popup,title và nội dung tự viết, viết dài ra -->
+                            <button type="button" class="main-body-cPostManage__create-btn1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                 <i class="fa-solid fa-plus"></i>
+                                Create
+                            </button>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Error</h3>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            You can not create post
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
                         <div class="main-body-cPostManage__search">
                             <form action="CompanySearchPostController" method="POST">
 
@@ -398,7 +420,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
 
         </footer>

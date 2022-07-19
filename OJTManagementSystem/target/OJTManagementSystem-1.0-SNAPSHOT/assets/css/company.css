@@ -48,7 +48,7 @@
 
 /* footer-------------------------------------------- */
 .footer{
-    position: relative;
+   // position: relative;
     bottom: 0;
     left: 0;
     right: 0;
@@ -410,6 +410,23 @@
     padding: 7px 19px; 
     color: var(--text-color-white);
 }
+
+.main-body-cPostManage__create-btn1{
+    text-decoration: none;
+    background-color: var(--background-aquar);
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 100px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: var(--text-color-white);
+}
+
+.main-body-cPostManage__create-btn1:hover{
+    transform: scale(1.1);
+}
 /* Main-body--------------------Posts----END------------------- */
 
 /* Main-body-------------------Post Edit------------------------ */
@@ -429,7 +446,7 @@
 }
 
 .cPostEdit--input{
-    text-align: center;
+    text-align: left;
     outline: none;
     border: none;
     padding-bottom: 5px;

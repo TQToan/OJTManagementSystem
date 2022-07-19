@@ -42,6 +42,12 @@
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
+                            <a href="AdminDashboardController" class="nav__item--link">
+                                <i class="fas fa-palette"></i>
+                                Admin Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="ShowAdminStudentManagementController" class="nav__item--link">
                                 <i class="fas fa-university"></i>
                                 Student Management
@@ -94,6 +100,12 @@
                 </a>
 
                 <ul class="nav__content">
+                    <li class="nav__items">
+                        <a href="AdminDashboardController" class="nav__item--link ">
+                            <i class="fas fa-palette"></i>
+                            Admin Dashboard
+                        </a>
+                    </li>
                     <li class="nav__items">
                         <a href="ShowAdminStudentManagementController" class="nav__item--link">
                             <i class="fas fa-university"></i>
@@ -401,7 +413,7 @@
 
     <footer class="footer">
         <div class="footer__content">
-            <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+            <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
         </div>
     </footer>
 
