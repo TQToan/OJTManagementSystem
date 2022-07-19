@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
-        
+
     </head>
 
     <body>
@@ -138,6 +138,7 @@
                         <div class="main-body-cPostManage__header">
                             Post Management
                         </div>
+                        <%--<<<<<<< HEAD
                         <c:set  var="error" value="${requestScope.COMPANY_NOT_ALLOW_CREATE_POST}"/>
                         <c:if test="${not empty error}">
                             <p id="error" style="display: none">${error}</p>
@@ -149,7 +150,7 @@
                                     Create
                                 </a>
                                 <h5 class="text-danger text-start " id="demo" style="display: none">
-                                    
+
                                 </h5>
                             </div>
                         </c:if>
@@ -160,10 +161,47 @@
                                     Create
                                 </a>
                             </div>
-                        </c:if>
+                        </c:if>--%>
 
 
 
+                        <!--=======-->
+                        <c:set  var="error" value="${requestScope.COMPANY_NOT_ALLOW_CREATE_POST}"/>
+                        <div class="main-body-cPostManage__create">
+                            <!-- Đặt điều kiện ở đây -->
+                            <c:if test="${company.is_Signed eq true}">
+
+                                <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Create
+                                </a>
+                            </c:if>
+                            <!-- hiển thị popup,title và nội dung tự viết, viết dài ra -->
+                            <c:if test="${company.is_Signed eq false}">
+
+                                <button type="button" class="main-body-cPostManage__create-btn1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Create
+                                </button>
+                            </c:if>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Error</h3>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            You can not create post
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%-->>>>>>> 042b312904c18d5b82cc0faf24c0159bd12e2074--%>
                         <div class="main-body-cPostManage__search">
                             <form action="CompanySearchPostController" method="POST">
 
@@ -417,7 +455,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
 
         </footer>
@@ -425,10 +463,10 @@
         <script src="./assets/js/base.js"></script>
         <script>
 
-            function displayDate() {
-                var error = document.getElementById("error");
-                alert(document.getElementById("demo").innerHTML = error.innerHTML);
-            }
+                                    function displayDate() {
+                                        var error = document.getElementById("error");
+                                        alert(document.getElementById("demo").innerHTML = error.innerHTML);
+                                    }
         </script>
     </body>
 </html>

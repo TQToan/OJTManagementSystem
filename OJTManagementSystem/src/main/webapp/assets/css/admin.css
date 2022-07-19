@@ -53,7 +53,7 @@
 
 /* footer-------------------------------------------- */
 .footer{
-    position: relative;
+    //position: relative;
     bottom: 0;
     left: 0;
     right: 0;
@@ -66,7 +66,108 @@
     padding-bottom: 50px;
 }
 
+/* Admin Dashboard----------------------------------------------*/
+.admindashboard{
+            background-color: antiquewhite;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+        }
 
+        .admindashboard__content{
+            height: 400px;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--background-white);
+        }
+
+        .filterdashboard{
+            background-color: white;
+            border-radius: 10px;
+            font-size: 1.4rem;
+        }
+
+        .filterdashboard__select{
+            background-color: transparent;
+            border: none;
+            padding: 2px;
+            margin: 0px 5px;
+            border-bottom: 1px solid var(--background-orange);
+        }
+
+        .filterdashboard__button{
+            padding: 7px 15px;
+            background-color: var(--background-orange);
+            border: 1px solid var(--background-orange);
+            color: white;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .filterdashboard__button:hover{
+            background-color: orangered;
+        }
+
+        .dashboard-card{
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            padding: 10px 50px;
+            margin: 10px auto;
+            max-width: 300px;
+        }
+        
+        .dashboard-card:hover{
+            transform: scale(1.05);
+        }
+        
+        .dashboard-card--link{
+            text-decoration: none;
+            color: #000;
+        }
+        
+        .dashboard-card--link:hover{
+            color: #000;
+        }
+        
+        .signed-company{
+            background-color: #4dea4d;
+            padding: 10px 0 10px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .total-student{
+            background-color: orange;
+            padding: 10px 0 10px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .pending-posts{
+            background-color: #ffff00;
+            padding: 10px 0 10px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .unsigned-company{
+            background-color: #ff0000;
+            padding: 10px 0 10px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .dashboard-card__content{
+            background-color: var(--background-gray);
+            padding: 10px 0 10px 0;
+            color: var(--text-color-white);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+
+/* Admin Dashboard--------------------------END--------------------*/
 
 /* Student Management-------------------------------------------- */
 .main-body-aStuManage{
@@ -500,7 +601,7 @@
 }
 
 .aAddStu--input{
-    text-align: center;
+    text-align: left;
     outline: none;
     border: none;
     padding-bottom: 5px;
