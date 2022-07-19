@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -122,6 +123,11 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                     //Check date update
                     if (date.compareTo(nowDate) > 0) {
                         error.setErrorDateInvalid("Your birthDay is illegal");
+                        checkError = true;
+                    }
+                    Period p = Period.between(LocalDate.parse(date), today);
+                    if (p.getYears() < 16) {
+                        error.setErrorDateInvalid("Your age must over 16 year old");
                         checkError = true;
                     }
 

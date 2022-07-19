@@ -260,6 +260,10 @@
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <servlet-class>com.se1625.controller.AdminCompanyManagerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.se1625.controller.AdminDashboardServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ImportStudentExcelFileServlet</servlet-name>
         <url-pattern>/ImportStudentExcelFileServlet</url-pattern>
@@ -483,6 +487,10 @@
     <servlet-mapping>
         <servlet-name>AdminCompanyManagerServlet</servlet-name>
         <url-pattern>/AdminCompanyManagerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/AdminDashboardServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

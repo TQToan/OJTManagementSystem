@@ -42,6 +42,12 @@
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
+                            <a href="AdminDashboardController" class="nav__item--link">
+                                <i class="fas fa-palette"></i>
+                                Admin Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="ShowAdminStudentManagementController" class="nav__item--link">
                                 <i class="fas fa-university"></i>
                                 Student Management
@@ -93,6 +99,12 @@
                 </a>
 
                 <ul class="nav__content">
+                    <li class="nav__items">
+                        <a href="AdminDashboardController" class="nav__item--link ">
+                            <i class="fas fa-palette"></i>
+                            Admin Dashboard
+                        </a>
+                    </li>
                     <li class="nav__items">
                         <a href="ShowAdminStudentManagementController" class="nav__item--link">
                             <i class="fas fa-university"></i>
@@ -295,27 +307,54 @@
 
 
                                                         <div class=" col">
-                                                            <form action="AdminUpdatePostController" method="POST">    
-                                                                <div>
-                                                                    <input type="hidden" name="save" value="adminPostManagePage" />
-                                                                    <input type="hidden" name="school_confirm" value="false" />
-                                                                    <input type="hidden" name="statusPost" value="0" />
-                                                                    <input type="hidden" name="postID" value="${post.postID}" />
-                                                                    <input type="hidden" name="page" value="${requestScope.page}"/>
-                                                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
-                                                                    <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
-                                                                    <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                                                    <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                                    <c:if test="${post.statusPost eq 1}">
-                                                                        <input type="submit" value="Reject" class="btn-regular-red" >
-                                                                    </c:if>
-                                                                    <c:if test="${post.statusPost ne 1}">
-                                                                        <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
-                                                                    </c:if>
+
+                                                            <c:if test="${post.statusPost ne 1}">
+                                                                <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
+                                                            </c:if>
+                                                            <c:if test="${post.statusPost eq 1}">       
+                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                    Reject
+                                                                </button>
+                                                            </c:if>
+
+
+
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h3 class="modal-title" id="exampleModalLabel">Reason Reject</h3>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <form action="AdminUpdatePostController" method="POST"> 
+                                                                            <div class="modal-body">
+                                                                                <textarea name="" id="" cols="70" rows="5" style="resize:none"></textarea>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <div>
+                                                                                        <input type="hidden" name="save" value="adminPostManagePage" />
+                                                                                        <input type="hidden" name="school_confirm" value="false" />
+                                                                                        <input type="hidden" name="statusPost" value="0" />
+                                                                                        <input type="hidden" name="postID" value="${post.postID}" />
+                                                                                        <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                                                        <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                                                        <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                                                        <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                                                        <input type="submit" value="Reject" class="btn-regular-red" >
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
-                                                            </form>
+
+
+
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -463,7 +502,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
 
         </footer>
