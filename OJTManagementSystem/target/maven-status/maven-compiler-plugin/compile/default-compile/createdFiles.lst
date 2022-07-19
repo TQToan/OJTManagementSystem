@@ -107,6 +107,7 @@ com\se1625\tblcompany_post\TblCompany_PostDAO.class
 com\se1625\utils\MyApplicationConstants$AdminCompanyManagerFeature.class
 com\se1625\controller\SearchStudentByAdminServlet.class
 com\se1625\controller\AdminViewPostDetailsServlet.class
+com\se1625\utils\MyApplicationConstants$AdminDashboardFeature.class
 com\se1625\utils\MyApplicationConstants$ShowStudentAppliedJobFeature.class
 com\se1625\tblfollowing_post\TblFollowing_PostDTO.class
 com\se1625\controller\StudentDeleteSaveJobServlet.class
@@ -128,6 +129,7 @@ com\se1625\controller\ShowStudentProfileServlet.class
 com\se1625\utils\MyApplicationConstants$ShowStudentHomeFeature.class
 com\se1625\controller\ShowStudentHomeServlet.class
 com\se1625\utils\MyApplicationConstants$CompanyViewStudentDetailFeature.class
+com\se1625\controller\AdminDashboardServlet.class
 com\se1625\tblfollowing_post\TblFollowing_PostDAO.class
 com\se1625\utils\MyApplicationConstants$SearchStudentEvaluationFeature.class
 com\se1625\utils\MyApplicationConstants$AdminShowAddingStudentFeature.class

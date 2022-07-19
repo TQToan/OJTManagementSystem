@@ -238,6 +238,7 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyCreateNewPostPage";
         public static final String SHOW_COMPANY_DASHBOARD_CONTROLLER = "ShowCompanyDashBoardController";
+        public static final String SHOW_COMPANY_POST_MANAGER_CONTROLLER = "CompanyShowPostController";
     }
     
     public class ShowCreateNewCompanyPostFeature {
@@ -296,5 +297,11 @@ public class MyApplicationConstants {
         public static final String ADMIN_ADD_STUDENT_PAGE = "adminAddStudentPage";
         public static final String ADMIN_SHOW_ADDING_STUDENT_CONTROLLER = "AdminShowAddingStudentController";
         public static final String SHOW_ADMIN_STUDENT_MANAGEMENT_CONTROLLER = "ShowAdminStudentManagementController";
+    }
+    
+    public class AdminDashboardFeature{
+        public static final String ADMIN_DASHBOARD_PAGE = "AdminDashboardPage";
+        public static final String ADMIN_DASHBOARD_CONTROLLER = "AdminDashboardController";
+        public static final String LOGIN_PAGE = "";
     }
 }

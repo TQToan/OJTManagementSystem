@@ -77,8 +77,9 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
                 if (student != null) {
                     if ("".equals(jobName) && "".equals(companyName)
                             && nameLocation.trim().isEmpty() && statusName.isEmpty()) {
-                        url = MyApplicationConstants.SearchStudentAppliedJobFeature.STUDENT_APPLIED_JOB_PAGE;
-                        response.sendRedirect(url);
+                        url = properties.getProperty(MyApplicationConstants.SearchStudentAppliedJobFeature.STUDENT_APPLIED_JOB_PAGE);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
                         url = properties.getProperty(MyApplicationConstants.SearchStudentAppliedJobFeature.STUDENT_APPLIED_JOBS_PAGE);
                         listApplication = applicationDAO.getApplicationByFilter(student, companyName,

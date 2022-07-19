@@ -60,58 +60,73 @@ public class CompanyShowPostServlet extends HttpServlet {
         int start;
         int end;
         int sizeOfList;
-
+        int numberPage;
         //get session
         HttpSession session = request.getSession(false);
         try {
 
             if (session != null) {
+
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
                 TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                 if (companyDTO != null) {
-                    url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
 
-                    //Lay danh sach cac bai post
-                    companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
-                    List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
-                    //Phan trang
-                    if (companyPostList != null) {
-                        sizeOfList = companyPostList.size();
-                        if (xpage == null) {
-                            page = 1;
-                        } // load page save job 
+                    if (companyDTO.isIs_Signed() == false) {
+                        url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
+                        request.setAttribute("COMPANY_NOT_ALLOW_CREATE_POST", "Company isn's signed, so can't not create a new post!");
+                    } else {
+
+                        url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
+
+                        //Lay danh sach cac bai post
+                        companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
+                        List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
+                        List<TblCompany_PostDTO> companyPostPerPage = null;
+                        //Phan trang
+                        if (companyPostList != null) {
+                            sizeOfList = companyPostList.size();
+                            if (xpage == null) {
+                                page = 1;
+                            } // load page save job 
+                            else {
+                                page = Integer.parseInt(xpage);
+                            } // when choose number of page
+
+                            numberPage = sizeOfList % numberRowsPerPage;
+
+                            if (numberPage == 0) {
+                                numberPage = sizeOfList / numberRowsPerPage;
+                            } else {
+                                numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                            }
+                            start = (page - 1) * numberRowsPerPage;
+                            end = Math.min(page * numberRowsPerPage, sizeOfList);
+
+                            companyPostPerPage = companyPostDAO.
+                                    getListByPage(companyPostList, start, end);
+                        } // if company have posts
                         else {
-                            page = Integer.parseInt(xpage);
-                        } // when choose number of page
-
-                        int numberPage = sizeOfList % numberRowsPerPage;
-
-                        if (numberPage == 0) {
-                            numberPage = sizeOfList / numberRowsPerPage;
-                        } else {
-                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
-                        }
-                        start = (page - 1) * numberRowsPerPage;
-                        end = Math.min(page * numberRowsPerPage, sizeOfList);
-
-                        List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
-                                getListByPage(companyPostList, start, end);
-
+                            companyPostPerPage = companyPostList;
+                            sizeOfList = 0;
+                            page = 0;
+                            numberPage = 0;
+                        } // if company haven't post
                         //Set attribute
+
                         request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
                         request.setAttribute("page", page);
                         request.setAttribute("numberPage", numberPage);
-
+}
                         //get list major
                         TblMajorDAO majorDAO = new TblMajorDAO();
                         majorDAO.getNameMajor();
                         List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-                        request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                        request.setAttribute("LIST_MAJOR_NAME", listNameMajor);
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
 
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
-                    }
                 }//if company exist
                 else {
                     response.sendRedirect(url);

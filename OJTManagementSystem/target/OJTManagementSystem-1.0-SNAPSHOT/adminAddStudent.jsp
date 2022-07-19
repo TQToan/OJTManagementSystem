@@ -40,6 +40,12 @@
                         <font> ${Admin.name} </font>
                     </a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         <li class="nav-item">
+                            <a href="AdminDashboardController" class="nav__item--link">
+                                <i class="fas fa-palette"></i>
+                                Admin Dashboard
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="ShowAdminStudentManagementController" class="nav__item--link link-active">
                                 <i class="fas fa-university"></i>
@@ -93,6 +99,12 @@
                 </a>
 
                 <ul class="nav__content">
+                    <li class="nav__items">
+                        <a href="AdminDashboardController" class="nav__item--link ">
+                            <i class="fas fa-palette"></i>
+                            Admin Dashboard
+                        </a>
+                    </li>
                     <li class="nav__items">
                         <a href="ShowAdminStudentManagementController" class="nav__item--link link-active">
                             <i class="fas fa-university"></i>
@@ -172,7 +184,7 @@
                                 <select name="majorID" class="col-8 aAddStu--input">
                                     <option value="" selected>Major</option>
                                     <c:forEach items="${listMajorName}" var="major">
-                                        <option value="${major.majorName}" <c:if test="${major.majorID eq param.majorID}" >
+                                        <option value="${major.majorName}" <c:if test="${major.majorName eq param.majorID}" >
                                                 selected="selected"
                                         </c:if>>${major.majorName}</option>
                                     </c:forEach>
@@ -249,7 +261,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

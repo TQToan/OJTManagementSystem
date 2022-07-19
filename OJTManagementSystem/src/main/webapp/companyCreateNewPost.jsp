@@ -130,6 +130,7 @@
                 </ul>
 
             </nav>
+
             <div class="main-body offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
                 <div class="row">
                     <div class="main-body-cPostEdit  offset-2 col-8">
@@ -229,8 +230,8 @@
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="descript">Job Description</label>
                                 <div class="col-12">
-                                <textarea name="txtJobDescription" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
-                                          cols="30" rows="4">${param.txtJobDescription}</textarea>
+                                    <textarea name="txtJobDescription" class="col-12 cPostEdit--input cPostEdit--input-textarea" id="descript"
+                                              cols="30" rows="4">${param.txtJobDescription}</textarea>
                                 </div>
                                 <c:if test="${not empty error.jobDescriptionEmptyError}">
                                     <h5 class="text-danger  text-start ">
@@ -265,12 +266,27 @@
                                 </c:if>
 
                             </div>
-
+                            <%--<c:set var="company_isSigned" value="${requestScope.COMPANY_ISSIGNED}"/>
+                            <c:set var="company_isSigned" value="${requestScope.ERROR_NOTSIGNED}"/>--%>
                             <div class="cPostEdit-edit-btn primary-btn">
                                 <i class="fas fa-edit"></i>
                                 <label for="btaction"></label>
-                                <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post" />
+                                <%--<c:if test="${company_isSigned eq false}">
+                                    <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post" disabled="disabled"/>
+                                </c:if>
+                                <c:if test="${company_isSigned}">
+                                    <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
+                                </c:if>--%>
+
+                                <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
+
                             </div>
+                            <c:if test="${not empty error.companyNotSignedError}">
+                                <h5 class="text-danger text-start ">
+                                    ${error.companyNotSignedError}
+                                </h5>
+                            </c:if>
+
                         </form>
                     </div>
                 </div>
@@ -280,7 +296,7 @@
 
         <footer class="footer">
             <div class="footer__content">
-                <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

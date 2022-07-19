@@ -388,7 +388,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
-                                        <c:if test="${step le 0}">
+                                        <c:if test="${step lt 0}">
                                             <li class="page-item" >
                                                 <form action="SearchStudentAppliedJobController" method="POST">
                                                     <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
@@ -432,7 +432,7 @@
         <footer class="footer">
             <div class="container-fluid">
                 <div class="footer__content">
-                    <i class="fa-regular fa-copyright"></i> Copyright 2022 <strong> OJT-Team </strong>
+                    <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
                 </div>
             </div>
         </footer>
