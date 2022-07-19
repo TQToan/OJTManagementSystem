@@ -21,8 +21,17 @@ public class CreateNewCompanyPostError implements Serializable{
     private String jobDescriptionEmptyError;
     private String jobRequirementsEmptyError;
     private String remunerationEmptyError;
-
+    private String companyNotSignedError;
+ 
     public CreateNewCompanyPostError() {
+    }
+
+    public String getCompanyNotSignedError() {
+        return companyNotSignedError;
+    }
+
+    public void setCompanyNotSignedError(String companyNotSignedError) {
+        this.companyNotSignedError = companyNotSignedError;
     }
 
     /**

@@ -80,88 +80,93 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                 if (companyAccount != null) {
                     TblCompanyDAO companyDAO = new TblCompanyDAO();
                     TblCompanyDTO company = companyDAO.getCompanyInformation(companyAccount.getEmail());
+                    request.setAttribute("COMPANY_ISSIGNED", company.isIs_Signed());
+                    
+                        TblMajorDAO majorDAO = new TblMajorDAO();
+                        majorDAO.getNameMajor();
+                        List<TblMajorDTO> listMajor = majorDAO.getListNameMajor();
+                        request.setAttribute("LIST_MAJOR_NAME", listMajor);
 
-                    TblMajorDAO majorDAO = new TblMajorDAO();
-                    majorDAO.getNameMajor();
-                    List<TblMajorDTO> listMajor = majorDAO.getListNameMajor();
-                    request.setAttribute("LIST_MAJOR_NAME", listMajor);
+                        if (tiltePost.trim().length() <= 5 || tiltePost.trim().length() > 100) {
+                            foundError = true;
+                            errors.setTitlePostEmptyError("Title post is required 6 to 100 characters!");
+                        }
+                        if (vacancy.trim().length() <= 5 || vacancy.trim().length() > 100) {
+                            foundError = true;
+                            errors.setVacancyEmptyError("Vacancy is required 6 to 100 characters!");
+                        }
+                        if (txtMajorID.equals("")) {
+                            foundError = true;
+                            errors.setMajorChooseError("Major cannot be left blank!");
+                        } else {
+                            majorID = Integer.parseInt(txtMajorID);
+                        }
 
-                    if (tiltePost.trim().length() <= 5 || tiltePost.trim().length() > 100) {
-                        foundError = true;
-                        errors.setTitlePostEmptyError("Title post is required 6 to 100 characters!");
-                    }
-                    if (vacancy.trim().length() <= 5 || vacancy.trim().length() > 100) {
-                        foundError = true;
-                        errors.setVacancyEmptyError("Vacancy is required 6 to 100 characters!");
-                    }
-                    if (txtMajorID.equals("")) {
-                        foundError = true;
-                        errors.setMajorChooseError("Major cannot be left blank!");
-                    } else {
-                        majorID = Integer.parseInt(txtMajorID);
-                    }
+                        if (txtQuantity.trim().length() <= 0) {
+                            foundError = true;
+                            errors.setQuantityEmptyError("Quantity cannot be left blank!");
+                        } else {
+                            quantity = Integer.parseInt(txtQuantity);
+                        }
 
-                    if (txtQuantity.trim().length() <= 0) {
-                        foundError = true;
-                        errors.setQuantityEmptyError("Quantity cannot be left blank!");
-                    } else {
-                        quantity = Integer.parseInt(txtQuantity);
-                    }
-
-                    if (txtExpirationDate.trim().isEmpty()) {
-                        foundError = true;
-                        errors.setExpirationdateIllegal("The Expiration date is invalid!");
-                    } else {
-                        LocalDate today = LocalDate.now();
-                        DateTimeFormatter dayFormat
-                                = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        expirationDate = Date.valueOf(txtExpirationDate);
-                        currentDate = Date.valueOf(today.format(dayFormat));
-                        if (expirationDate.before(currentDate)) {
+                        if (txtExpirationDate.trim().isEmpty()) {
                             foundError = true;
                             errors.setExpirationdateIllegal("The Expiration date is invalid!");
+                        } else {
+                            LocalDate today = LocalDate.now();
+                            DateTimeFormatter dayFormat
+                                    = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            expirationDate = Date.valueOf(txtExpirationDate);
+                            currentDate = Date.valueOf(today.format(dayFormat));
+                            if (expirationDate.before(currentDate)) {
+                                foundError = true;
+                                errors.setExpirationdateIllegal("The Expiration date is invalid!");
+                            }
                         }
-                    }
 
-                    if (txtWorkLocation.trim().isEmpty()) {
-                        foundError = true;
-                        errors.setWorkLocationEmptyError("The work location cannot be left blank!");
-                    }
+                        if (txtWorkLocation.trim().isEmpty()) {
+                            foundError = true;
+                            errors.setWorkLocationEmptyError("The work location cannot be left blank!");
+                        }
 
-                    if (txtJobDescription.trim().length() < 6 || txtJobDescription.trim().length() > 1500) {
-                        foundError = true;
-                        errors.setJobDescriptionEmptyError("The job description is required 6 to 1500 characters!");
-                    }
+                        if (txtJobDescription.trim().length() < 6 || txtJobDescription.trim().length() > 1500) {
+                            foundError = true;
+                            errors.setJobDescriptionEmptyError("The job description is required 6 to 1500 characters!");
+                        }
 
-                    if (txtRequirement.trim().length() < 6 || txtRequirement.trim().length() > 1500) {
-                        foundError = true;
-                        errors.setJobRequirementsEmptyError("The job requirement is required 6 to 1500 characters!");
-                    }
+                        if (txtRequirement.trim().length() < 6 || txtRequirement.trim().length() > 1500) {
+                            foundError = true;
+                            errors.setJobRequirementsEmptyError("The job requirement is required 6 to 1500 characters!");
+                        }
 
-                    if (txtRemuneration.trim().length() < 6 || txtRequirement.trim().length() > 1500) {
-                        foundError = true;
-                        errors.setRemunerationEmptyError("The job requirement is required 6 to 1500 characters!");
-                    }
-
-                    if (foundError) {
-                        request.setAttribute("ERRORS", errors);
-                        url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_CREATE_COMPANY_POST_PAGE);
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
-                    } else {
-                        //create new company post
-                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                        boolean result = companyPostDAO.createNewCompanyPost(company.getCompanyID(), majorID,
-                                tiltePost, txtJobDescription, txtRequirement, txtRemuneration,
-                                txtWorkLocation, quantity, currentDate, expirationDate,
-                                1, vacancy);
-                        if (result) {
-                            
-                            url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_DASHBOARD_CONTROLLER);
+                        if (txtRemuneration.trim().length() < 6 || txtRequirement.trim().length() > 1500) {
+                            foundError = true;
+                            errors.setRemunerationEmptyError("The job requirement is required 6 to 1500 characters!");
+                        }
+                        if (company.isIs_Signed() == false){
+                            foundError = true;
+                            errors.setCompanyNotSignedError("Company isn's signed before, so can't not create a new post!");
+                        }
+                        
+                        if (foundError) {
+                            request.setAttribute("ERRORS", errors);
+                            url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_CREATE_COMPANY_POST_PAGE);
                             RequestDispatcher rd = request.getRequestDispatcher(url);
                             rd.forward(request, response);
+                        } else {
+                            //create new company post
+                            TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                            boolean result = companyPostDAO.createNewCompanyPost(company.getCompanyID(), majorID,
+                                    tiltePost, txtJobDescription, txtRequirement, txtRemuneration,
+                                    txtWorkLocation, quantity, currentDate, expirationDate,
+                                    1, vacancy);
+                            if (result) {
+
+                                url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_DASHBOARD_CONTROLLER);
+                                RequestDispatcher rd = request.getRequestDispatcher(url);
+                                rd.forward(request, response);
+                            }
                         }
-                    }
                 } //if company is created
                 else {
                     response.sendRedirect(url);

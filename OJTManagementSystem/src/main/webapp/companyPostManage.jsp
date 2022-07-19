@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/company.css">
         <link rel="stylesheet" href="./assets/css/company-responsive.css">
+        
     </head>
 
     <body>
@@ -137,12 +138,30 @@
                         <div class="main-body-cPostManage__header">
                             Post Management
                         </div>
-                        <div class="main-body-cPostManage__create">
-                            <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
-                                <i class="fa-solid fa-plus"></i>
-                                Create
-                            </a>
-                        </div>
+                        <c:set  var="error" value="${requestScope.COMPANY_NOT_ALLOW_CREATE_POST}"/>
+                        <c:if test="${not empty error}">
+                            <p id="error" style="display: none">${error}</p>
+                        </c:if>
+                        <c:if test="${company.is_Signed eq false}">
+                            <div class="main-body-cPostManage__create">
+                                <a onclick="displayDate()" href="#" id="myBtn" class="main-body-cPostManage__create-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Create
+                                </a>
+                                <h5 class="text-danger text-start " id="demo" style="display: none">
+                                    
+                                </h5>
+                            </div>
+                        </c:if>
+                        <c:if test="${company.is_Signed eq true}">
+                            <div class="main-body-cPostManage__create">
+                                <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Create
+                                </a>
+                            </div>
+                        </c:if>
+
 
 
                         <div class="main-body-cPostManage__search">
@@ -404,5 +423,12 @@
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 
         <script src="./assets/js/base.js"></script>
+        <script>
+
+            function displayDate() {
+                var error = document.getElementById("error");
+                alert(document.getElementById("demo").innerHTML = error.innerHTML);
+            }
+        </script>
     </body>
 </html>

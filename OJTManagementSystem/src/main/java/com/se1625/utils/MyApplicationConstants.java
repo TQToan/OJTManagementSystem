@@ -238,6 +238,7 @@ public class MyApplicationConstants {
         public static final String LOGIN_PAGE = "";
         public static final String SHOW_CREATE_COMPANY_POST_PAGE = "companyCreateNewPostPage";
         public static final String SHOW_COMPANY_DASHBOARD_CONTROLLER = "ShowCompanyDashBoardController";
+        public static final String SHOW_COMPANY_POST_MANAGER_CONTROLLER = "CompanyShowPostController";
     }
     
     public class ShowCreateNewCompanyPostFeature {
