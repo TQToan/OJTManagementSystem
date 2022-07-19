@@ -151,7 +151,7 @@
                         <div class="main-body-aInterAppl__search">
                             <form action="AdminShowInternApplicationController" method="POST">
                                 <div class="row">
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <c:set var="nowSemester" value="${requestScope.CURRENT_SEMESTER.semesterID}" />
                                         <select name="semester" class="admin--select">
                                             <c:forEach items="${requestScope.LIST_SEMESTER}" var="semester">
@@ -164,7 +164,7 @@
                                     <div class="col-2">
                                         <input type="text" name="txtStudentID" id="" placeholder="ID" class="admin--input" value="${studentID}">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <input type="text" placeholder="Title Job" name="txtTitleJob" class="admin--input" value="${param.txtTitleJob}">
                                     </div>
                                     <div class="col-3">
@@ -180,7 +180,7 @@
                                     </div>
 
 
-                                    <div class="col-2">
+<!--                                    <div class="col-2">
                                         <select id="status"  name="txtSchoolStatus"  class="admin--select">
                                             <option value="">
                                                 School Status
@@ -198,7 +198,7 @@
                                                     Denied
                                                 </option>
                                             </select>           
-                                        </div>
+                                        </div>-->
                                         <div class="col-1">
                                             <input type="submit" value="Search" class="admin-search-btn">
                                         </div>
@@ -222,8 +222,8 @@
                                             <th>Title Job</th>
                                             <th>Student Applied</th>
                                             <th>Company Accepted</th>
-                                            <th>School Confirm</th>
-                                            <th>Action</th>
+                                            <!--                                            <th>School Confirm</th>
+                                                                                        <th>Action</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -278,75 +278,77 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                    <c:if test="${intern.companyConfirm eq 2}">
+                                                <c:if test="${intern.companyConfirm eq 2}">
                                                     <td class="text-orange">
                                                         <strong>
                                                             Success interview
                                                         </strong>
                                                     </td>
                                                 </c:if>
-
-                                                <c:if test="${intern.schoolConfirm eq 0}">
-                                                    <td class="text-warning">
-                                                        <strong>
-                                                            Waiting
-                                                        </strong>
-                                                    </td>
+                                                <%--
+                                           <c:if test="${intern.schoolConfirm eq 0}">
+                                               <td class="text-warning">
+                                                   <strong>
+                                                       Waiting
+                                                   </strong>
+                                               </td>
+                                           </c:if>
+                                           <c:if test="${intern.schoolConfirm eq -1}">
+                                               <td class="text-danger">
+                                                   <strong>
+                                                       Denied
+                                                   </strong>
+                                               </td>
+                                           </c:if>
+                                           <c:if test="${intern.schoolConfirm eq 1}">
+                                               <td class="text-success">
+                                                   <strong>
+                                                       Accepted
+                                                   </strong>
+                                               </td>
+                                                
+                                           </c:if>
+                                                --%>
+                                                <!--                                                <td>
+                                                
+                                                                                                    <div class="row row-cols-2">
+                                                                                                        <div class="col">
+                                                                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                                                                                <input type="hidden" name="page" value="${i}">
+                                                                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                                                                                <input type="hidden" name="btnAction" value="1">
+                                                                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                    <input type="submit" value="Accept" class="btn-regular-green">
                                                 </c:if>
-                                                <c:if test="${intern.schoolConfirm eq -1}">
-                                                    <td class="text-danger">
-                                                        <strong>
-                                                            Denied
-                                                        </strong>
-                                                    </td>
+                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                    <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
                                                 </c:if>
-                                                <c:if test="${intern.schoolConfirm eq 1}">
-                                                    <td class="text-success">
-                                                        <strong>
-                                                            Accepted
-                                                        </strong>
-                                                    </td>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
+                                                <input type="hidden" name="page" value="${i}">
+                                                <input type="hidden" name="txtStudentID" value="${studentID}">
+                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
+                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
+                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
+                                                <input type="hidden" name="btnAction" value="-1">
+                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
+                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
+                                                    <input type="submit" value="Reject" class="btn-regular-red">
                                                 </c:if>
-                                                <td>
+                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
+                                                    <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
+                                                </c:if>
+                                            </form>
+                                        </div>
+                                    </div>
 
-                                                    <div class="row row-cols-2">
-                                                        <div class="col">
-                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                                <input type="hidden" name="page" value="${i}">
-                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                <input type="hidden" name="btnAction" value="1">
-                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                                    <input type="submit" value="Accept" class="btn-regular-green">
-                                                                </c:if>
-                                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                                    <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
-                                                                </c:if>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col">
-                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                                <input type="hidden" name="page" value="${i}">
-                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                <input type="hidden" name="btnAction" value="-1">
-                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                                    <input type="submit" value="Reject" class="btn-regular-red">
-                                                                </c:if>
-                                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                                    <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
-                                                                </c:if>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
+                                </td>-->
                                             </tr>
                                         </c:forEach>      
 

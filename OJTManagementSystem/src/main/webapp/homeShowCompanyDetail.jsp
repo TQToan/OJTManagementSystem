@@ -144,22 +144,27 @@
                             <h5 class ="text-red"> 
                                 <c:if test="${not empty errorCompanyPost.quantitytInternsNotEngough}" >
                                     <font>
-                                    ${errorCompanyPost.quantitytInternsNotEngough}
+                                    ${errorCompanyPost.quantitytInternsNotEngough}</br>
                                     </font>
                                 </c:if>
                                 <c:if test="${not empty errorCompanyPost.expirationDateError}" >
                                     <font>
-                                    ${errorCompanyPost.expirationDateError}
+                                    ${errorCompanyPost.expirationDateError}</br>
                                     </font>
                                 </c:if>
                                 <c:if test="${not empty errorCompanyPost.appliedTwoTimeError}" >
                                     <font>
-                                    ${errorCompanyPost.appliedTwoTimeError}
+                                    ${errorCompanyPost.appliedTwoTimeError}</br>
                                     </font>
                                 </c:if>
                                 <c:if test="${not empty errorCompanyPost.appliedJobStudentWorkingError}" >
                                     <font >
-                                    ${errorCompanyPost.appliedJobStudentWorkingError}
+                                    ${errorCompanyPost.appliedJobStudentWorkingError}</br>
+                                    </font>
+                                </c:if>
+                                <c:if test="${not empty errorCompanyPost.studentCompletedError}" >
+                                    <font >
+                                    ${errorCompanyPost.studentCompletedError}</br>
                                     </font>
                                 </c:if>
                             </h5>
