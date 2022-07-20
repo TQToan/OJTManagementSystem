@@ -22,11 +22,12 @@ public class CompanyPostDetailError implements Serializable{
     private String remunerationLenghtError;
     private String appliedTwoTimeError;
     private String appliedJobStudentWorkingError;
+    private String studentCompletedError;
     
     public CompanyPostDetailError() {
     }
 
-    public CompanyPostDetailError(String quantitytInternsNotEngough, String expirationDateError, String expirationDateEmptyError, String titlePostLenghtError, String descriptionLenghtError, String requirementLenghtError, String remunerationLenghtError, String vacancyLengthError) {
+    public CompanyPostDetailError(String quantitytInternsNotEngough, String expirationDateError, String expirationDateEmptyError, String titlePostLenghtError, String descriptionLenghtError, String requirementLenghtError, String remunerationLenghtError, String vacancyLengthError, String studentCompletedError) {
         this.quantitytInternsNotEngough = quantitytInternsNotEngough;
         this.expirationDateError = expirationDateError;
         this.expirationDateEmptyError = expirationDateEmptyError;
@@ -35,6 +36,7 @@ public class CompanyPostDetailError implements Serializable{
         this.requirementLenghtError = requirementLenghtError;
         this.remunerationLenghtError = remunerationLenghtError;
         this.vacancyLengthError = vacancyLengthError;
+        this.studentCompletedError = studentCompletedError;
     }
 
     
@@ -171,4 +173,13 @@ public class CompanyPostDetailError implements Serializable{
     public void setAppliedJobStudentWorkingError(String appliedJobStudentWorkingError) {
         this.appliedJobStudentWorkingError = appliedJobStudentWorkingError;
     }
+
+    public String getStudentCompletedError() {
+        return studentCompletedError;
+    }
+
+    public void setStudentCompletedError(String studentCompletedError) {
+        this.studentCompletedError = studentCompletedError;
+    }
+    
 }

@@ -1775,9 +1775,9 @@ public class TblApplicationDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, studentCode);
                 stm.setInt(2, semesterID);
-
+                
                 rs = stm.executeQuery();
-
+                
                 if (rs.next()) {
                     int applicationID = rs.getInt("applicationID");
                     TblApplicationDTO application = getApplication(applicationID);
