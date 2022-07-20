@@ -272,9 +272,9 @@
                         },
                         options: {
                             legend: {display: true},
-                            scales: {
-                                yAxes: [{ticks: {min: 0, max:10}}],
-                              }
+//                            scales: {
+//                                yAxes: [{ticks: {min: 0, max:10}}],
+//                              }
                         }
                         });
                     </script>
