@@ -65,7 +65,8 @@
                         <div class="col-4">
                             <!--                            <input type="text" name="" id="" placeholder="Job">-->
                             <select name="nameMajor">
-                                <option value="">Major</option>
+                                <option value="" hidden="">Major</option>
+                                <option value="">All Major</option>
                                 <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                     <option value="${major.majorID}" <c:if test="${major.majorID eq majorID}">
                                             selected="selected"
