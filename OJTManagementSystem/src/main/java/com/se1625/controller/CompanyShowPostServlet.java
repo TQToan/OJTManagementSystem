@@ -55,12 +55,12 @@ public class CompanyShowPostServlet extends HttpServlet {
         //get parameter
         String xpage = request.getParameter("page");
 
-        int page;
+        int page = 0;
         int numberRowsPerPage = 10;
-        int start;
-        int end;
-        int sizeOfList;
-        int numberPage;
+        int start = 0;
+        int end = 0;
+        int sizeOfList = 0;
+        int numberPage = 0;
         //get session
         HttpSession session = request.getSession(false);
         try {
@@ -70,7 +70,7 @@ public class CompanyShowPostServlet extends HttpServlet {
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
                 TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                 if (companyDTO != null) {
-
+                    List<TblCompany_PostDTO> companyPostPerPage = null;
                     if (companyDTO.isIs_Signed() == false) {
                         url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
                         request.setAttribute("COMPANY_NOT_ALLOW_CREATE_POST", "Company isn's signed, so can't not create a new post!");
@@ -81,7 +81,7 @@ public class CompanyShowPostServlet extends HttpServlet {
                         //Lay danh sach cac bai post
                         companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
                         List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
-                        List<TblCompany_PostDTO> companyPostPerPage = null;
+
                         //Phan trang
                         if (companyPostList != null) {
                             sizeOfList = companyPostList.size();
@@ -112,18 +112,19 @@ public class CompanyShowPostServlet extends HttpServlet {
                             numberPage = 0;
                         } // if company haven't post
                         //Set attribute
+                    }
 
-                        request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
-                        request.setAttribute("SIZE_OF_LIST", sizeOfList);
-                        request.setAttribute("page", page);
-                        request.setAttribute("numberPage", numberPage);
-}
-                        //get list major
-                        TblMajorDAO majorDAO = new TblMajorDAO();
-                        majorDAO.getNameMajor();
-                        List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-                        request.setAttribute("LIST_MAJOR_NAME", listNameMajor);
-                    
+                    request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
+                    request.setAttribute("SIZE_OF_LIST", sizeOfList);
+                    request.setAttribute("page", page);
+                    request.setAttribute("numberPage", numberPage);
+
+                    //get list major
+                    TblMajorDAO majorDAO = new TblMajorDAO();
+                    majorDAO.getNameMajor();
+                    List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                    request.setAttribute("LIST_MAJOR_NAME", listNameMajor);
+
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
 

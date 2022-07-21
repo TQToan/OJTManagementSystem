@@ -155,7 +155,7 @@
 
 
                         <div class="main-body-aComManage__search">
-                            <form action="SearchCompanyAdminManagerController">
+                            <form action="SearchCompanyAdminManagerController" method="POST">
                                 <div class="row">
                                     <div class="col-4">
                                         <select id="city" name="selectCompany"  class="admin--select" >
