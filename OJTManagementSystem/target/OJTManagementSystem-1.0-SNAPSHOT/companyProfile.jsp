@@ -160,7 +160,7 @@
                                 <label class="col-4 cprofile--label" for="city">City</label>
 
                                 <select id="city" name="cityUpdate"  class="col-8 cprofile--input " >
-                                    <option value="" selected>Choose City</option>
+                                    <option value="" hidden>Choose City</option>
                                     <option value="TP.HCM" <c:if test="${companyProfile.city eq 'TP.HCM'}" >
                                             selected="selected"
                                         </c:if> >TP.HCM</option>

@@ -70,7 +70,7 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
 //                TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(account.getEmail())
                 //get company info 
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
-                ;
+                
                 if (companyDTO != null) {
                     boolean checkError = false;
                     List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");

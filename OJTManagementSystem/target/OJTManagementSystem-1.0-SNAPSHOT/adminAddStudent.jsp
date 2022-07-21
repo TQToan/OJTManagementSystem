@@ -182,7 +182,7 @@
                             <div class="aAddStu__input row">
                                 <label class="col-4 aAddStu--label" for="major">Major</label>
                                 <select name="majorID" class="col-8 aAddStu--input">
-                                    <option value="" selected>Major</option>
+                                    <option value="" hidden>Major</option>
                                     <c:forEach items="${listMajorName}" var="major">
                                         <option value="${major.majorName}" <c:if test="${major.majorName eq param.majorID}" >
                                                 selected="selected"

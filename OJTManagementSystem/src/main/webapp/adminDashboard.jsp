@@ -244,7 +244,7 @@
                 <div class="admindashboard__header">
                     <div class="row">
                         <div class="">
-                            <h4><strong>Score Spectrum</strong></h4>
+                            <h4><strong>Pass Rating</strong></h4>
                         </div>
                     </div>
                 </div>
@@ -272,9 +272,9 @@
                         },
                         options: {
                             legend: {display: true},
-//                            scales: {
-//                                yAxes: [{ticks: {min: 0, max:10}}],
-//                              }
+                            scales: {
+                                yAxes: [{ticks: {min: 0, max:20}}],
+                              }
                         }
                         });
                     </script>

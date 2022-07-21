@@ -63,7 +63,7 @@ public class AdminDashboardServlet extends HttpServlet {
         try {
             if (session != null) {
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
-                if (account.getIs_Admin() == 1) {
+                if (account != null) {
                     url = properties.getProperty(MyApplicationConstants.AdminDashboardFeature.ADMIN_DASHBOARD_PAGE);
 
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
