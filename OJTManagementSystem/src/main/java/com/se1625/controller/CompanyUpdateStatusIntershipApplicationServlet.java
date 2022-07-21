@@ -5,6 +5,7 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
@@ -16,12 +17,15 @@ import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -87,14 +91,45 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         TblApplicationDAO applicationDAO = new TblApplicationDAO();
                         boolean result = applicationDAO.updateStatusCompanyConfirm(studentCode, companyPostID, companyConfirm);
                         if (result) {
-                            
+                            String subject = "The result of application internship";
+                            TblStudentDAO studentDAO = new TblStudentDAO();
+                            TblStudentDTO studentInfor = studentDAO.getStudent(studentCode);
+                            TblAccountDAO accountDAO = new TblAccountDAO();
+                            TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                            String link = "http://localhost:8080/OJTManagementSystem/ShowStudentAppliedJobController";
+                            String message = "Dear " + studentInfor.getAccount().getName() + ",\n"
+                                    + "\n";
+                            if (companyConfirm == -2) {
+                                message += "The OJT system wants to announce that you were denied an interview by " + companyPostDTO.getCompany().getAccount().getName() + " company."
+                                        + " Please click on the link " + link 
+                                        + " so as not to miss any information."
+                                        + "\n"
+                                        + "Regards,"
+                                        + "The support OJT team";
+                            }
+                            if (companyConfirm == 2) {
+                                message += "The OJT system wants to announce that you were accepted an interview by " + companyPostDTO.getCompany().getAccount().getName() + " company."
+                                        + " You should actively send an email to the company " + companyPostDTO.getCompany().getAccount().getEmail() +" so that you can receive an interview schedule."
+                                        + " Please click on the link " + link 
+                                        + " so as not to miss any information.\n"
+                                        + "\n"
+                                        + "Regards,"
+                                        + "The support OJT team";
+                            }
+                            if (companyConfirm == -1) {
+                                message += "The OJT system wants to announce that you were Denied for the job " + companyPostDTO.getTitle_Post() + " by " + companyPostDTO.getCompany().getAccount().getName() + " company."
+                                        + " Please click on the link " + link 
+                                        + " so as not to miss any information."
+                                        + "\n"
+                                        + "Regards,"
+                                        + "The support OJT team";
+                            }
                             if (companyConfirm == 1) {
                                 TblSemesterDAO semesterDAO = new TblSemesterDAO();
                                 TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
                                 //update quantityInterns if accepted
                                 companyPostDAO.updateQuantityInterns(companyPostID);
                                 //update isIntern của sinh viên 
-                                TblStudentDAO studentDAO = new TblStudentDAO();
                                 studentDAO.updateStatusInternOfStudent(studentCode, 1);
                                 //update status all of application of student when the post was accepted by company
                                 //get list application of this student except this accepted post
@@ -127,7 +162,15 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                                     //change status to cancel
                                     applicationDAO.changeStudentConfirmStatus(listApplicationChageStatus);
                                 }
+                                message = "The OJT system wants to announce that you were accepted for the job " + companyPostDTO.getTitle_Post() + " by " + companyPostDTO.getCompany().getAccount().getName() + " company."
+                                        + " You should actively send email to the company " + companyPostDTO.getCompany().getAccount().getEmail() + " so that you can receive information about the job."
+                                        + " Please click on the link " + link 
+                                        + " so as not to miss any information."
+                                        + "\n"
+                                        + "Regards,"
+                                        + "The support OJT team";
                             }
+                            MyApplicationHelper.sendEmail(studentInfor.getAccount(), systemAccount, message, subject);
                         }
                     }
                     url = prop.getProperty(
@@ -135,6 +178,8 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
 
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
             } else {
                 response.sendRedirect(url);
@@ -143,6 +188,10 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
             log("NamingException at CompanyUpdateStatusIntershipApplicationServlet " + ex.getMessage());
         } catch (SQLException ex) {
             log("SQLException at CompanyUpdateStatusIntershipApplicationServlet " + ex.getMessage());
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         }
     }
 

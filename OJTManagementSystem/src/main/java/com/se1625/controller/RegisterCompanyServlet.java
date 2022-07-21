@@ -85,14 +85,25 @@ public class RegisterCompanyServlet extends HttpServlet {
                 session.removeAttribute("ACCOUNT_COMPANY");
             } else {
                 //gui ma xac nhan
-                TblAccountDTO accountSchool = accountDAO.getAccountSchool();
+                //TblAccountDTO accountSchool = accountDAO.getAccountSchool();
+                TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
                 TblAccountDTO accountCompany = new TblAccountDTO();
                 accountCompany.setEmail(email);
                 accountCompany.setPassword(password);
                 String code = MyApplicationHelper.getRandom();
                 accountCompany.setVerifyCode(code);
-
-                boolean test = MyApplicationHelper.sendEmail(accountCompany, accountSchool);
+                String subject = "User Email Verification";
+                String message = "Dear " + accountCompany.getEmail() + " ,\n"
+                        + "\n"
+                        + "Your verification code is " + accountCompany.getVerifyCode() + ".\n"
+                        + "\n"
+                        + "Enter this code in our website to activate your account.\n"
+                        + "\n"
+                        + "If you have any questions, send us an email " + systemAccount.getEmail() + ".\n"
+                        + "\n"
+                        + "We’re glad you’re here,\n"
+                        + "The support OJT team";
+                boolean test = MyApplicationHelper.sendEmail(accountCompany, systemAccount, message, subject);
                 if (test) {
                     //request.setAttribute("AccountCompany", accountCompany);
                     session.setAttribute("ACCOUNT_COMPANY", accountCompany);

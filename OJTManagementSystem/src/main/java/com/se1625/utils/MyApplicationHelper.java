@@ -100,13 +100,13 @@ public class MyApplicationHelper {
         return String.format("%06d", number);
     }
     
-    public static boolean sendEmail(TblAccountDTO company, TblAccountDTO school)
+    public static boolean sendEmail(TblAccountDTO toAccount, TblAccountDTO fromAccount, String message, String subject)
             throws AddressException, MessagingException {
         boolean test = false;
         
-        String toEmail = company.getEmail();
-        final String fromEmail = school.getEmail().trim();
-        final String password = school.getPassword().trim();
+        String toEmail = toAccount.getEmail();
+        final String fromEmail = fromAccount.getEmail().trim();
+        final String password = fromAccount.getPassword().trim();
         Properties pr = new Properties();
         pr.setProperty("mail.smtp.host", "smtp.gmail.com");
         pr.setProperty("mail.smtp.port", "587");
@@ -128,17 +128,8 @@ public class MyApplicationHelper {
         mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
         mess.setFrom(new InternetAddress(fromEmail));
         
-        mess.setSubject("User Email Verification");
-        mess.setText("Hi " + toEmail + " !\n"
-                + "\n"
-                + "Your verification code is " + company.getVerifyCode() +".\n"
-                + "\n"
-                + "Enter this code in our website to activate your account.\n"
-                + "\n"
-                + "If you have any questions, send us an email " + fromEmail +".\n"
-                + "\n"
-                + "We’re glad you’re here!\n"
-                + "The Support OJT team");
+        mess.setSubject(subject);
+        mess.setText(message);
         Transport.send(mess);
         test = true;
         

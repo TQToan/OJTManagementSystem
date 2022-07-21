@@ -5,15 +5,23 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationError;
+import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany_post.TblCompany_PostDAO;
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -88,12 +96,35 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
                         boolean result = applicationDAO.updateGradeAndEvaluation(studentCode, postID, grade, txtEvaluation, isPass);
                         if (result) {
                             TblStudentDAO studentDAO = new TblStudentDAO();
+                            TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
                             if (isPass == 1) {
-                                TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
                                 //cập nhật số tín chỉ khi pass + 10 tín chỉ
                                 studentDAO.updateCreditOfStudent(studentCode, student.getNumberOfCredit() + 10);
                             }
                             studentDAO.updateStatusInternOfStudent(studentCode, 2);
+                            TblCompany_PostDAO postCompanyDAO = new TblCompany_PostDAO();
+                            TblCompany_PostDTO companyPost = postCompanyDAO.getCompanyPost(postID);
+                            TblAccountDAO accountDAO = new TblAccountDAO();
+                            TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                            String courseStatus = ""; 
+                            if (isPass == 1) {
+                                courseStatus = "Passed";
+                            } else {
+                                courseStatus = "Not Pass";
+                            }
+                            String link = "http://localhost:8080/OJTManagementSystem/ShowStudentEvaluationController";
+                            String subject = "The result of the internship";
+                            String message = "Dear " + student.getAccount().getName() + ",\n"
+                                    + "\n"
+                                    + "The OJT system wants to announce that the company " + companyPost.getCompany().getAccount().getName() 
+                                    + " evaluated your internship. The result of your internship with the grade: " + grade
+                                    + " and course status: " + courseStatus + ". "
+                                    + "Please click on the link " + link
+                                    + " so as not to miss any information.\n"
+                                    + "\n"
+                                    + "Regards,\n"
+                                    + "The support OJT team";
+                            MyApplicationHelper.sendEmail(student.getAccount(), systemAccount, message, subject);
                             url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
                         }
                     }
@@ -107,8 +138,10 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
             log("NamingException at CompanyUpdateInternsServlet " + ex.getMessage());
         } catch (SQLException ex) {
             log("SQLException at CompanyUpdateInternsServlet" + ex.getMessage());
-        } finally {
-
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         }
     }
 

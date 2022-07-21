@@ -18,6 +18,7 @@ import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
 import com.se1625.tblsemester.TblSemesterDAO;
 import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -90,12 +91,18 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
 
                     companyDTO = companyDAO.searchCompanyByCompanyID(companyPostDTO.getCompany().getCompanyID());
                     companyPostDTO.setCompany(companyDTO);
+
+                    //check student student completed
+                    TblStudentDAO studentDAO = new TblStudentDAO();
+                    TblStudentDTO studentDTO = studentDAO.getStudent(student.getStudentCode());
+
                     //check the student has applied this post yet
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO semester = semesterDAO.getCurrentSemester();
 
                     TblApplicationDAO applicationDAO = new TblApplicationDAO();
                     TblApplicationDTO application = applicationDAO.getApplication(student.getStudentCode(), nPostID, semester.getSemesterID());
+
                     if (companyPostDTO.getQuantityIterns() == 0) {
                         found = true;
                         error.setQuantitytInternsNotEngough("This post has recruited enough interns.");
@@ -124,12 +131,22 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                         }
                     }
 
-                    //get applcation of this student in this semester 
-                    // is enough studentconfirm true, schoolConfirm 1, companyConfirm 1
-                    //=> không cho apply thêm bất kì job nào nữa
-                    TblApplicationDTO applicationStudentWorking = applicationDAO.
-                            getApplicationStudentWorking(student.getStudentCode(), semester.getSemesterID());
-                    if (applicationStudentWorking != null) {
+                    if (studentDTO.getIsIntern() == 2) {
+                        found = true;
+                        error.setStudentCompletedError("You have already completed your internship");
+                    } else if (studentDTO.getIsIntern() == 1) {
+                        //get applcation of this student in this semester 
+                        // is enough studentconfirm true, schoolConfirm 1, companyConfirm 1
+                        //=> không cho apply thêm bất kì job nào nữa
+
+                        /* Thanh comment
+                        TblApplicationDTO applicationStudentWorking = applicationDAO.
+                                getApplicationStudentWorking(student.getStudentCode(), semester.getSemesterID());
+                                                     
+                        if (applicationStudentWorking != null) {                           
+                            found = true;
+                            error.setAppliedJobStudentWorkingError("You joined the internship");
+                        }*/
                         found = true;
                         error.setAppliedJobStudentWorkingError("You joined the internship");
                     }

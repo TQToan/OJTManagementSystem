@@ -63,7 +63,7 @@ public class TblAccountDAO implements Serializable {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "SELECT acc.username, acc.password "
+                String sql = "SELECT acc.username, acc.password, name "
                         + "FROM tblAccount AS acc "
                         + "WHERE acc.isAdmin = ? ";
                 stm = con.prepareStatement(sql);
@@ -73,10 +73,11 @@ public class TblAccountDAO implements Serializable {
                 if (rs.next()) {
                     String username = rs.getString("username");
                     String password = rs.getString("password");
-
+                    String name = rs.getString("name");
                     account = new TblAccountDTO();
                     account.setEmail(username);
                     account.setPassword(password);
+                    account.setName(name);
 
                     return account;
                 }
@@ -350,5 +351,45 @@ public class TblAccountDAO implements Serializable {
             }
         }
         return false;
+    }
+    
+    public TblAccountDTO GetAccountByRole(int role) 
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT username, password, name, isAdmin "
+                        + "FROM tblAccount "
+                        + "WHERE isAdmin = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, role);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String name = rs.getString("name");
+                    int isAdmin = rs.getInt("isAdmin");
+                    TblAccountDTO account = new TblAccountDTO();
+                    account.setEmail(username);
+                    account.setPassword(password);
+                    account.setName(name);
+                    return account;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
     }
 }

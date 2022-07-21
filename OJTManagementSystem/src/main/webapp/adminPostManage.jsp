@@ -312,7 +312,7 @@
                                                                 <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
                                                             </c:if>
                                                             <c:if test="${post.statusPost eq 1}">       
-                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal_${post.postID}">
                                                                     Reject
                                                                 </button>
                                                             </c:if>
@@ -320,7 +320,7 @@
 
 
                                                             <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="exampleModal_${post.postID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -329,7 +329,7 @@
                                                                         </div>
                                                                         <form action="AdminUpdatePostController" method="POST"> 
                                                                             <div class="modal-body">
-                                                                                <textarea name="" id="" cols="70" rows="5" style="resize:none"></textarea>
+                                                                                <textarea name="txtReason" id="" cols="70" rows="5" style="resize:none"></textarea>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                                     <div>

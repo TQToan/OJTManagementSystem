@@ -5,12 +5,18 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -55,7 +61,19 @@ public class AdminUpdateStatusCompanyServlet extends HttpServlet {
             if(session != null){
                 TblCompanyDAO companyDAO = new TblCompanyDAO();
                 boolean result = companyDAO.updateCompanyStatus(companyID, status);
-                if(result){                  
+                if(result){
+                    TblCompanyDTO company = companyDAO.getCompany(companyID);
+                    TblAccountDAO accountDAO = new TblAccountDAO();
+                    TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                    String subject = "The signing result";
+                    String message = "Dear " + company.getAccount().getName() + " company,\n"
+                            + "\n"
+                            + "The OJT system wants to announce that your company was changed signed status by FPT University."
+                            + "You can create new posts to start recruiting interns for your jobs.\n"
+                            + "\n"
+                            + "Regards,\n"
+                            + "The support OJT team";
+                    MyApplicationHelper.sendEmail(company.getAccount(), systemAccount, message, subject);
                     url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.ADMIN_COMPANY_MANAGER_CONTROLLER);
                 }
             }
@@ -63,7 +81,11 @@ public class AdminUpdateStatusCompanyServlet extends HttpServlet {
             log("AdminUpdateStatusCompanyServlet_NamingException " + ex.getMessage());
         }catch(SQLException ex){
             log("AdminUpdateStatusCompanyServlet_SQLException " + ex.getMessage());
-        }finally{
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } finally{
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
