@@ -192,7 +192,8 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
-                                            You can not create post
+                                            <h4> ${error}
+                                            </h4>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -463,10 +464,10 @@
         <script src="./assets/js/base.js"></script>
         <script>
 
-                                    function displayDate() {
-                                        var error = document.getElementById("error");
-                                        alert(document.getElementById("demo").innerHTML = error.innerHTML);
-                                    }
+            function displayDate() {
+                var error = document.getElementById("error");
+                alert(document.getElementById("demo").innerHTML = error.innerHTML);
+            }
         </script>
     </body>
 </html>

@@ -201,7 +201,8 @@
 
                                     <div class="col-4">
                                         <select name="txtMajor" class="admin--select">
-                                            <option value="">Major</option>
+                                            <option value="" hidden  >Major</option>
+                                            <option value="">All Major</option>
                                             <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                                 <option value="${major.majorName}"<c:if test="${param.txtMajor eq major.majorName}" >
                                                         selected="selected"
@@ -212,7 +213,8 @@
 
                                     <div class="col-2">
                                         <select id="city" name="isIntern"  class="admin--select" >
-                                            <option value="" selected>Status</option>
+                                           <option value=""hidden >Status</option>
+                                            <option value="">All Status</option>
                                             <option value="1" class="text-success" <c:if test="${param.isIntern eq '1'}" >
                                                     selected="selected"
                                                 </c:if>>

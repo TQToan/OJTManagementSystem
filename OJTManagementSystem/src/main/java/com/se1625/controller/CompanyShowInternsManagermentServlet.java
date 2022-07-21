@@ -116,6 +116,8 @@ public class CompanyShowInternsManagermentServlet extends HttpServlet {
                     url = prop.getProperty(MyApplicationConstants.CompanyShowInternsManagermentFeature.COMPANY_INTERNS_MANAGEMENT_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
             } else {
                 response.sendRedirect(url);

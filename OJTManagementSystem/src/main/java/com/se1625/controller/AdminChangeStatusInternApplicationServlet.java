@@ -57,7 +57,7 @@ public class AdminChangeStatusInternApplicationServlet extends HttpServlet {
         try {
             if (session != null) {
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
-                if (account.getIs_Admin() == 1) {
+                if (account != null) {
                     if (applicationID != null && !"".equals(applicationID)){
                          applID = Integer.parseInt(applicationID);
                      }

@@ -50,7 +50,8 @@
                     <div class="row">
                         <div class="col-4">
                             <select name="nameCompany">
-                                <option value="">Company Name</option>
+                                <option value=""hidden>Company Name</option>
+                                <option value="">All Company </option>
                                 <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
                                     <option value="${company.companyID}" <c:if test="${company.companyID eq companyID}">
                                             selected="selected"
@@ -60,7 +61,8 @@
                         </div>
                         <div class="col-4">
                             <select name="nameMajor">
-                                <option value="">Major</option>
+                                <option value=""hidden>Major</option>
+                                <option value="">All Major</option>
                                 <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                     <option value="${major.majorID}" <c:if test="${major.majorID eq majorID}">
                                             selected="selected"
@@ -70,7 +72,8 @@
                         </div>
                         <div class="col-2">
                             <select id="city" name="nameLocation"  class="main__search_select" >
-                                <option value="">Location</option>
+                                <option value="" hidden>Location</option>
+                                <option value="">All Location</option>
                                 <option value="TP.HCM">TP.HCM</option>
                                 <option value="Đồng Nai">Đồng Nai</option>
                                 <option value="Tây Ninh">Tây Ninh</option>

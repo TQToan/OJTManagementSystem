@@ -157,7 +157,7 @@
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="major">Major</label>
                                 <select name="majorID" class="col-8 cPostEdit--input">
-                                    <option value="" selected disabled>Major</option>
+                                    <option value="" hidden>Major</option>
                                     <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                         <option value="${major.majorID}" <c:if test="${companyPost.major.majorID eq major.majorID}">
                                                 selected="selected"
@@ -198,7 +198,7 @@
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="city">Work Location</label>
                                 <select id="city" name="workLocation" class="col-8 cPostEdit--input ">
-                                    <option value="" selected disabled>City</option>
+                                    <option value="" hidden>City</option>
 
                                     <option value="${companyPost.workLocation}"<c:if test="${companyPost.workLocation eq 'TP.HCM'}">
                                             selected="selected"

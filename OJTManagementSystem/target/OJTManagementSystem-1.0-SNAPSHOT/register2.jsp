@@ -41,7 +41,7 @@
                         <div class="header-right--step">STEP 2: COMPANY INFORMATION </div>
                         <div class="right-form">
                             <form action="RegisterCompanyDetailsController" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
-                                <input type="text" class="right-form__input" name="companyName" value="${requestScope.companyName}" placeholder="*Company Name" /> 
+                                <input type="text" class="right-form__input" name="companyName" value="${requestScope.companyName}" placeholder="Company Name" /> 
                                 <c:if test="${not empty errors.companyNameLengthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyNameLengthError}</div>
@@ -49,7 +49,7 @@
                                 </c:if>
 
                                 <select id="city" name="city"  class="right-form__input" >
-                                    <option value="" selected>*Choose City</option>
+                                    <option value="" hidden>Choose City</option>
                                     <option value="TP.HCM" <c:if test="${requestScope.city eq 'TP.HCM'}" >
                                             selected="selected"
                                         </c:if> >TP.HCM</option>
@@ -68,22 +68,22 @@
                                     <div class="text-danger">${errors.companyCityError}</div>
                                     </font>
                                 </c:if>
-                                <input type="text" name="companyAddress" value="${requestScope.companyAddress}" class="right-form__input" placeholder="*Company Address" /> 
+                                <input type="text" name="companyAddress" value="${requestScope.companyAddress}" class="right-form__input" placeholder="Company Address" /> 
                                 <c:if test="${not empty errors.companyAddressLengthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyAddressLengthError}</div>
                                     </font>
                                 </c:if>
-                                <h3 style="margin-top: 20px;color: gray;font-weight: 400">*Company Description</h3>
+                                <h3 style="margin-top: 20px;color: gray;font-weight: 400">Company Description</h3>
                                 <textarea name="companyDescription" class="right-form__input righ-form-textarea" 
-                                          placeholder="*Company Summary" id="descript" cols="30" rows="3">${requestScope.companyDescription}</textarea>
+                                          placeholder="Company Summary" id="descript" cols="30" rows="3">${requestScope.companyDescription}</textarea>
                                 <c:if test="${not empty errors.companyDescriptionLegthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyDescriptionLegthError}</div>
                                     </font>
                                 </c:if>
 
-                                <input type="text" name="companyPhone" value="${requestScope.companyPhone}" class="right-form__input" placeholder="*Phone" />
+                                <input type="text" name="companyPhone" value="${requestScope.companyPhone}" class="right-form__input" placeholder="Phone" />
                                 <c:if test="${not empty errors.companyPhoneLengthError}">
                                     <font style="color: red">
                                     <div class="text-danger">${errors.companyPhoneLengthError}</div>
@@ -96,7 +96,7 @@
                                                                         </label>
                                                                         <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>-->
                                     <label for="inputFile" >
-                                        *Logo:
+                                        Logo:
                                         <div class="input-file" for="inputFile"></div>
                                         <span id="displayResult">${requestScope.companyLogo}</span>
 

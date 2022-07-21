@@ -63,7 +63,7 @@ public class AdminDashboardServlet extends HttpServlet {
         try {
             if (session != null) {
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
-                if (account.getIs_Admin() == 1) {
+                if (account != null) {
                     url = properties.getProperty(MyApplicationConstants.AdminDashboardFeature.ADMIN_DASHBOARD_PAGE);
 
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
@@ -76,7 +76,11 @@ public class AdminDashboardServlet extends HttpServlet {
                     request.setAttribute("SELECTED_SEMESTER", semesterID);
 
                     TblStudentDAO studentDAO = new TblStudentDAO();
-                    int totalStudent = studentDAO.getListStudent(currentSemester.getSemesterID()).size();
+                    int totalStudent = 0;
+                    if(studentDAO.getListStudent(currentSemester.getSemesterID()) != null){
+                        totalStudent = studentDAO.getListStudent(currentSemester.getSemesterID()).size();
+                    }
+                    
                     request.setAttribute("TOTAL_STUDENT", totalStudent);
 
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
@@ -89,14 +93,14 @@ public class AdminDashboardServlet extends HttpServlet {
                     List<TblCompanyDTO> listAllCompany = companydao.getListAllCompany();
                     int totalSignedCompany = 0;
                     int totalUnsignedCompany = 0;
-                    if (listAllCompany != null){
-                    for (TblCompanyDTO tblCompanyDTO : listAllCompany) {
-                        if (tblCompanyDTO.isIs_Signed()) {
-                            totalSignedCompany++;
-                        } else {
-                            totalUnsignedCompany++;
+                    if (listAllCompany != null) {
+                        for (TblCompanyDTO tblCompanyDTO : listAllCompany) {
+                            if (tblCompanyDTO.isIs_Signed()) {
+                                totalSignedCompany++;
+                            } else {
+                                totalUnsignedCompany++;
+                            }
                         }
-                    }
                     }
                     request.setAttribute("TOTAL_SIGNED_COMPANY", totalSignedCompany);
                     request.setAttribute("TOTAL_UNSIGNED_COMPANY", totalUnsignedCompany);
@@ -131,47 +135,47 @@ public class AdminDashboardServlet extends HttpServlet {
                     int totalGrade8 = 0;
                     int totalGrade9 = 0;
                     int totalGrade10 = 0;
-                    
-                    if (listApplicationGrade != null){
-                    for (TblApplicationDTO tblApplicationDTO : listApplicationGrade) {
-                        if (tblApplicationDTO.getIsPass() != 0) {
-                            switch ((int) tblApplicationDTO.getGrade()) {
-                                case 0:
-                                    totalGrade0++;
-                                    break;
-                                case 1:
-                                    totalGrade1++;
-                                    break;
-                                case 2:
-                                    totalGrade2++;
-                                    break;
-                                case 3:
-                                    totalGrade3++;
-                                    break;
-                                case 4:
-                                    totalGrade4++;
-                                    break;
-                                case 5:
-                                    totalGrade5++;
-                                    break;
-                                case 6:
-                                    totalGrade6++;
-                                    break;
-                                case 7:
-                                    totalGrade7++;
-                                    break;
-                                case 8:
-                                    totalGrade8++;
-                                    break;
-                                case 9:
-                                    totalGrade9++;
-                                    break;
-                                case 10:
-                                    totalGrade10++;
-                                    break;
+
+                    if (listApplicationGrade != null) {
+                        for (TblApplicationDTO tblApplicationDTO : listApplicationGrade) {
+                            if (tblApplicationDTO.getIsPass() != 0) {
+                                switch ((int) tblApplicationDTO.getGrade()) {
+                                    case 0:
+                                        totalGrade0++;
+                                        break;
+                                    case 1:
+                                        totalGrade1++;
+                                        break;
+                                    case 2:
+                                        totalGrade2++;
+                                        break;
+                                    case 3:
+                                        totalGrade3++;
+                                        break;
+                                    case 4:
+                                        totalGrade4++;
+                                        break;
+                                    case 5:
+                                        totalGrade5++;
+                                        break;
+                                    case 6:
+                                        totalGrade6++;
+                                        break;
+                                    case 7:
+                                        totalGrade7++;
+                                        break;
+                                    case 8:
+                                        totalGrade8++;
+                                        break;
+                                    case 9:
+                                        totalGrade9++;
+                                        break;
+                                    case 10:
+                                        totalGrade10++;
+                                        break;
+                                }
                             }
                         }
-                    }
                     }
                     String listGrade = totalGrade0 + ", "
                             + totalGrade1 + ", "
@@ -212,8 +216,7 @@ public class AdminDashboardServlet extends HttpServlet {
                     request.setAttribute("LIST_FAILED", listFailed);
                     request.setAttribute("LIST_PASSED", listPassed);
                     request.setAttribute("LIST_SEMESTER_STRING", sListSemester);
-                    
-                    
+
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
 

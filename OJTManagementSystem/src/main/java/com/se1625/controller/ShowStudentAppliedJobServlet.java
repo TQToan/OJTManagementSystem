@@ -80,7 +80,6 @@ public class ShowStudentAppliedJobServlet extends HttpServlet {
                         else {
                             page = Integer.parseInt(xpage);
                         } // when choose number of page
-                        System.out.println(page);
                         int numberPage = sizeOfList % numberRowsPerPage;
 
                         if (numberPage == 0) {

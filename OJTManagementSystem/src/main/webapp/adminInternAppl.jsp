@@ -181,7 +181,8 @@
                                     </div>
                                     <div class="col-3">
                                         <select name="txtCompanyID" class="admin--select">
-                                            <option value="">Company Name</option>
+                                            <option value=""hidden >Company Name</option>
+                                            <option value="">All Company </option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
                                                 <option value="${company.companyID}" <c:if test="${company.companyID eq companyID}">
                                                         selected="selected"
