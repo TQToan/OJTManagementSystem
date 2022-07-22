@@ -194,8 +194,32 @@
                                                 <a href="${url}">Click here to update your information</a>
                                             </div>
                                         </c:if>
-
                                     </div>
+                                    <c:set var="errorCompanyPost" value="${requestScope.ERROR_COMPANY_POST}"/>
+                                    <c:if test="${not empty errorCompanyPost}" >
+                                        <h3 class ="text-red text-center"> 
+                                            <c:if test="${not empty errorCompanyPost.expirationDateError}" >
+                                                <font>
+                                                ${errorCompanyPost.expirationDateError}</br>
+                                                </font>
+                                            </c:if>
+                                            <c:if test="${not empty errorCompanyPost.appliedTwoTimeError}" >
+                                                <font>
+                                                ${errorCompanyPost.appliedTwoTimeError}</br>
+                                                </font>
+                                            </c:if>
+                                            <c:if test="${not empty errorCompanyPost.appliedJobStudentWorkingError}" >
+                                                <font >
+                                                ${errorCompanyPost.appliedJobStudentWorkingError}</br>
+                                                </font>
+                                            </c:if>
+                                            <c:if test="${not empty errorCompanyPost.studentCompletedError}" >
+                                                <font >
+                                                ${errorCompanyPost.studentCompletedError}</br>
+                                                </font>
+                                            </c:if>
+                                        </h3>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -205,8 +229,11 @@
                     <c:if test="${not empty ERROR_RUN_OUT_QUANTITY_INTERNS}" >
                         ${ ERROR_RUN_OUT_QUANTITY_INTERNS}
                     </c:if>
-                    <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn">
-
+                    <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn" 
+                           <c:if test="${not empty errorCompanyPost}">
+                               disabled
+                           </c:if>
+                        >
                     <c:url var="linkOther" value="HomeShowCompanyDetailController">
                         <c:param name="postID" value="${companyPost.postID}"/>
                     </c:url>

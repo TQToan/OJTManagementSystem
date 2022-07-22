@@ -12,6 +12,7 @@ import com.se1625.tblapplication.TblApplicationError;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblcompany.TblCompanyDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
@@ -64,73 +65,77 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
         boolean checkError = false;
         try {
             if (session != null) {
-                float mark = 0;
-                if (txtMark.isEmpty()) {
-                    error.setErrorEmptyMark("Please enter mark");
-                    checkError = true;
-                } else {
-                    mark = Float.parseFloat(txtMark);
-                }
-
-                if (checkError) {
-                    request.setAttribute("ERROR_MARK", error);
-                    url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
-                } else {
-                    if (mark < 0 || mark > 10) {
-                        error.setErrorInputInvalidMark("Please enter mark 0-10");
+                TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
+                if (companyDTO != null) {
+                    float mark = 0;
+                    if (txtMark.isEmpty()) {
+                        error.setErrorEmptyMark("Please enter mark");
                         checkError = true;
+                    } else {
+                        mark = Float.parseFloat(txtMark);
                     }
 
                     if (checkError) {
                         request.setAttribute("ERROR_MARK", error);
                         url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
                     } else {
-                        float grade = Float.parseFloat(txtMark);
-                        int postID = Integer.parseInt(txtPostID);
-                        TblApplicationDAO applicationDAO = new TblApplicationDAO();
-                        int isPass = 1;
-                        if (grade < 5) {
-                            isPass = -1;
+                        if (mark < 0 || mark > 10) {
+                            error.setErrorInputInvalidMark("Please enter mark 0-10");
+                            checkError = true;
                         }
-
-                        boolean result = applicationDAO.updateGradeAndEvaluation(studentCode, postID, grade, txtEvaluation, isPass);
-                        if (result) {
-                            TblStudentDAO studentDAO = new TblStudentDAO();
-                            TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
-                            if (isPass == 1) {
-                                //cập nhật số tín chỉ khi pass + 10 tín chỉ
-                                studentDAO.updateCreditOfStudent(studentCode, student.getNumberOfCredit() + 10);
-                            }
-                            studentDAO.updateStatusInternOfStudent(studentCode, 2);
-                            TblCompany_PostDAO postCompanyDAO = new TblCompany_PostDAO();
-                            TblCompany_PostDTO companyPost = postCompanyDAO.getCompanyPost(postID);
-                            TblAccountDAO accountDAO = new TblAccountDAO();
-                            TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
-                            String courseStatus = ""; 
-                            if (isPass == 1) {
-                                courseStatus = "Passed";
-                            } else {
-                                courseStatus = "Not Pass";
-                            }
-                            String link = "http://localhost:8080/OJTManagementSystem/ShowStudentEvaluationController";
-                            String subject = "The result of the internship";
-                            String message = "Dear " + student.getAccount().getName() + ",\n"
-                                    + "\n"
-                                    + "The OJT system wants to announce that the company " + companyPost.getCompany().getAccount().getName() 
-                                    + " evaluated your internship. The result of your internship with the grade: " + grade
-                                    + " and course status: " + courseStatus + ". "
-                                    + "Please click on the link " + link
-                                    + " so as not to miss any information.\n"
-                                    + "\n"
-                                    + "Regards,\n"
-                                    + "The support OJT team";
-                            MyApplicationHelper.sendEmail(student.getAccount(), systemAccount, message, subject);
+                        if (checkError) {
+                            request.setAttribute("ERROR_MARK", error);
                             url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
+                        } else {
+                            float grade = Float.parseFloat(txtMark);
+                            int postID = Integer.parseInt(txtPostID);
+                            TblApplicationDAO applicationDAO = new TblApplicationDAO();
+                            int isPass = 1;
+                            if (grade < 5) {
+                                isPass = -1;
+                            }
+
+                            boolean result = applicationDAO.updateGradeAndEvaluation(studentCode, postID, grade, txtEvaluation, isPass);
+                            if (result) {
+                                TblStudentDAO studentDAO = new TblStudentDAO();
+                                TblStudentDTO student = studentDAO.getStudentInfor(studentCode);
+                                if (isPass == 1) {
+                                    //cập nhật số tín chỉ khi pass + 10 tín chỉ
+                                    studentDAO.updateCreditOfStudent(studentCode, student.getNumberOfCredit() + 10);
+                                }
+                                studentDAO.updateStatusInternOfStudent(studentCode, 2);
+                                TblCompany_PostDAO postCompanyDAO = new TblCompany_PostDAO();
+                                TblCompany_PostDTO companyPost = postCompanyDAO.getCompanyPost(postID);
+                                TblAccountDAO accountDAO = new TblAccountDAO();
+                                TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                                String courseStatus = "";
+                                if (isPass == 1) {
+                                    courseStatus = "Passed";
+                                } else {
+                                    courseStatus = "Not Pass";
+                                }
+                                String link = "http://localhost:8080/OJTManagementSystem/ShowStudentEvaluationController";
+                                String subject = "The result of the internship";
+                                String message = "Dear " + student.getAccount().getName() + ",\n"
+                                        + "\n"
+                                        + "The OJT system wants to announce that the company " + companyPost.getCompany().getAccount().getName()
+                                        + " evaluated your internship. The result of your internship with the grade: " + grade
+                                        + " and course status: " + courseStatus + ". "
+                                        + "Please click on the link " + link
+                                        + " so as not to miss any information.\n"
+                                        + "\n"
+                                        + "Regards,\n"
+                                        + "The support OJT team";
+                                MyApplicationHelper.sendEmail(student.getAccount(), systemAccount, message, subject);
+                                url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
+                            }
                         }
                     }
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
             } else {
                 response.sendRedirect(url);
             }
@@ -145,7 +150,7 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -44,50 +44,56 @@ public class AdminUpdateStatusCompanyServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String companyID = request.getParameter("companyID");
         String companyStatus = request.getParameter("Status");
-        
+
         ServletContext context = this.getServletContext();
-        Properties prop = (Properties)context.getAttribute("SITE_MAPS");
-        
-        String url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.LOGIN_PAGE);
+        Properties prop = (Properties) context.getAttribute("SITE_MAPS");
+
+        String url = MyApplicationConstants.AdminUpdateStatusCompanyFeature.LOGIN_PAGE;
         HttpSession session = request.getSession(false);
-        try{
+        try {
             boolean status = false;
-            if("Success".equals(companyStatus)){
+            if ("Success".equals(companyStatus)) {
                 status = true;
             }
-            if(session != null){
-                TblCompanyDAO companyDAO = new TblCompanyDAO();
-                boolean result = companyDAO.updateCompanyStatus(companyID, status);
-                if(result){
-                    TblCompanyDTO company = companyDAO.getCompany(companyID);
-                    TblAccountDAO accountDAO = new TblAccountDAO();
-                    TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
-                    String subject = "The signing result";
-                    String message = "Dear " + company.getAccount().getName() + " company,\n"
-                            + "\n"
-                            + "The OJT system wants to announce that your company was changed signed status by FPT University."
-                            + "You can create new posts to start recruiting interns for your jobs.\n"
-                            + "\n"
-                            + "Regards,\n"
-                            + "The support OJT team";
-                    MyApplicationHelper.sendEmail(company.getAccount(), systemAccount, message, subject);
-                    url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.ADMIN_COMPANY_MANAGER_CONTROLLER);
+            if (session != null) {
+                TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
+                if (accountDTO != null) {
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    boolean result = companyDAO.updateCompanyStatus(companyID, status);
+                    if (result) {
+                        TblCompanyDTO company = companyDAO.getCompany(companyID);
+                        TblAccountDAO accountDAO = new TblAccountDAO();
+                        TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                        String subject = "The signing result";
+                        String message = "Dear " + company.getAccount().getName() + " company,\n"
+                                + "\n"
+                                + "The OJT system wants to announce that your company was changed signed status by FPT University."
+                                + "You can create new posts to start recruiting interns for your jobs.\n"
+                                + "\n"
+                                + "Regards,\n"
+                                + "The support OJT team";
+                        MyApplicationHelper.sendEmail(company.getAccount(), systemAccount, message, subject);
+                        url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.ADMIN_COMPANY_MANAGER_CONTROLLER);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    }
+                } else {
+                   response.sendRedirect(url);
                 }
+            } else {
+                response.sendRedirect(url);
             }
-        }catch(NamingException ex){
+        } catch (NamingException ex) {
             log("AdminUpdateStatusCompanyServlet_NamingException " + ex.getMessage());
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             log("AdminUpdateStatusCompanyServlet_SQLException " + ex.getMessage());
         } catch (AddressException ex) {
             log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
         } catch (MessagingException ex) {
             log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
-        } finally{
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
         }
     }
 
