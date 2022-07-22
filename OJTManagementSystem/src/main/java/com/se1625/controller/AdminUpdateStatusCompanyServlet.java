@@ -5,6 +5,7 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -38,32 +39,35 @@ public class AdminUpdateStatusCompanyServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String companyID = request.getParameter("companyID");
         String companyStatus = request.getParameter("Status");
-        
+
         ServletContext context = this.getServletContext();
-        Properties prop = (Properties)context.getAttribute("SITE_MAPS");
-        
+        Properties prop = (Properties) context.getAttribute("SITE_MAPS");
+
         String url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.LOGIN_PAGE);
         HttpSession session = request.getSession(false);
-        try{
+        try {
             boolean status = false;
-            if("Success".equals(companyStatus)){
+            if ("Success".equals(companyStatus)) {
                 status = true;
             }
-            if(session != null){
-                TblCompanyDAO companyDAO = new TblCompanyDAO();
-                boolean result = companyDAO.updateCompanyStatus(companyID, status);
-                if(result){                  
-                    url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.ADMIN_COMPANY_MANAGER_CONTROLLER);
+            if (session != null) {
+                TblAccountDTO accountDTO = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
+                if (accountDTO != null) {
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    boolean result = companyDAO.updateCompanyStatus(companyID, status);
+                    if (result) {
+                        url = prop.getProperty(MyApplicationConstants.AdminUpdateStatusCompanyFeature.ADMIN_COMPANY_MANAGER_CONTROLLER);
+                    }
                 }
             }
-        }catch(NamingException ex){
+        } catch (NamingException ex) {
             log("AdminUpdateStatusCompanyServlet_NamingException " + ex.getMessage());
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             log("AdminUpdateStatusCompanyServlet_SQLException " + ex.getMessage());
-        }finally{
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

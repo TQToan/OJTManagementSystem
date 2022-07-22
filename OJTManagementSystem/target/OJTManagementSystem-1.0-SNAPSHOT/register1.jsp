@@ -42,7 +42,7 @@
                         <div class="right-form">
                             <c:set var="errors" value="${requestScope.ERROR_REGISTER}" />
                             <form action="RegisterCompanyController" method="POST">
-                                <input type="text" name="email" value="${param.email}" class="right-form__input" placeholder="*Login Email" 
+                                <input type="text" name="email" value="${param.email}" class="right-form__input" placeholder="Email" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
                                            disabled="disabled"
                                        </c:if>/> 
@@ -57,7 +57,7 @@
                                     </font>
                                 </c:if>
                                 <c:set var="email" value="${param.email}" />
-                                <input type="password" name="password" value="${param.password}" class="right-form__input" placeholder="*Password" 
+                                <input type="password" name="password" value="${param.password}" class="right-form__input" placeholder="Password" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
                                        disabled="disabled"
                                     </c:if> /> 
@@ -67,7 +67,7 @@
                                     <div class="text-danger">${errors.passwordLengthError}</div>
                                     </font>
                                 </c:if>
-                                    <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="*Re-enter Password" 
+                                    <input type="password" name="confirmPassword" value="${param.confirmPassword}" class="right-form__input" placeholder="Re-enter Password" 
                                        <c:if test="${not empty sessionScope.ACCOUNT_COMPANY}" >
                                            disabled="disabled"
                                        </c:if> /> 
@@ -86,7 +86,7 @@
                             <c:set var="verifyEmail" value="${sessionScope.ACCOUNT_COMPANY}"/>
                             <c:if test="${not empty verifyEmail}">
                                 <form action="EmailVerificationController" method="POST">
-                                    <input type="text" name="varification" value="${param.varification}" class="right-form__input" placeholder="*Verify Code" />
+                                    <input type="text" name="varification" value="${param.varification}" class="right-form__input" placeholder="Verify Code" />
                                     <c:if test="${not empty requestScope.SUCCESS_VERIFY}">
                                         <font style="color: green"> 
                                         <div class="text-success">${requestScope.SUCCESS_VERIFY}</div>

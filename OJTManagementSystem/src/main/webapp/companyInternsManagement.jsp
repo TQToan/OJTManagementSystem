@@ -167,7 +167,8 @@
                                     <c:set value="${requestScope.SELECTED}" var="selected"/>
                                     <div class="col-2">
                                         <select id="status" name="status" class="company--select">
-                                            <option value="">Status</option>
+                                            <option value=""hidden>Status</option>
+                                            <option value="">All Status</option>
                                             <option value="Passed" class="text-success"
                                                     <c:if test="${selected eq 'Passed'}">
                                                         selected="selected"

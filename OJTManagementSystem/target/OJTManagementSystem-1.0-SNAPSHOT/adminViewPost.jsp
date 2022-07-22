@@ -10,7 +10,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    
+
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -175,28 +175,28 @@
                             ${my:changeDateFormat(post.expirationDate)}
                         </p>
                         <p><strong>Status: </strong>
-                        <c:if test="${post.statusPost eq 2}">
-                            <span class="text-success">
-                                <strong>
-                                    Accept
-                                </strong>
-                            </span>
-                        </c:if>
-                        <c:if test="${post.statusPost eq 0 or post.statusPost eq 3}">
-                            <span class="text-danger">
-                                <strong>
-                                    Denied
-                                </strong>
-                            </span>
-                        </c:if>  
-                        <c:if test="${post.statusPost eq 1}">
-                            <span class="text-warning">
-                                <strong>
-                                    Waiting
-                                </strong>
-                            </span>
-                        </c:if>
-                            </p>
+                            <c:if test="${post.statusPost eq 2}">
+                                <span class="text-success">
+                                    <strong>
+                                        Accept
+                                    </strong>
+                                </span>
+                            </c:if>
+                            <c:if test="${post.statusPost eq 0 or post.statusPost eq 3}">
+                                <span class="text-danger">
+                                    <strong>
+                                        Denied
+                                    </strong>
+                                </span>
+                            </c:if>  
+                            <c:if test="${post.statusPost eq 1}">
+                                <span class="text-warning">
+                                    <strong>
+                                        Waiting
+                                    </strong>
+                                </span>
+                            </c:if>
+                        </p>
                     </div>
 
                     <div class="aViewPost-btn">
@@ -216,18 +216,61 @@
                                        <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
                                            autocomplete="off" hidden 
                                        </c:if> />
-
-
                             </div>
 
                         </form>
-                        <form action="AdminUpdatePostController" method="POST">    
+                        <div>
+                            
+                                <button type="button" class="primary-btn reject-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                        <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">hidden="hidden"</c:if> >
+                                    Reject
+                                </button>
+                            
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Reason Reject</h3>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="AdminUpdatePostController" method="POST"> 
+                                            <div class="modal-body">
+                                                <textarea name="" id="" cols="60" rows="5" style="resize:none"></textarea>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <div>
+                                                        <input type="hidden" name="save" value="adminViewPostPage" />
+                                                        <input type="hidden" name="school_confirm" value="false" />
+                                                        <input type="hidden" name="statusPost" value="0"/>
+                                                        <input type="hidden" name="postID" value="${post.postID}" />
+                                                        <!-- lay param de back lai trang cu~ -->
+                                                        <input type="hidden" name="page" value="${requestScope.page}" />
+                                                        <input type="hidden" name="semester" value="${param.semester}" />
+                                                        <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                        <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                        <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                        <input type="submit" value="Reject" class="btn-regular-red"
+                                                               <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
+                                                                   autocomplete="off" hidden 
+                                                               </c:if> />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%--<form action="AdminUpdatePostController" method="POST">    
                             <div>
                                 <input type="hidden" name="save" value="adminViewPostPage" />
                                 <input type="hidden" name="school_confirm" value="false" />
                                 <input type="hidden" name="statusPost" value="0"/>
                                 <input type="hidden" name="postID" value="${post.postID}" />
-                                <%-- lay param de back lai trang cu~ --%>
+                                <!-- lay param de back lai trang cu~ -->
                                 <input type="hidden" name="page" value="${requestScope.page}" />
                                 <input type="hidden" name="semester" value="${param.semester}" />
                                 <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
@@ -238,15 +281,15 @@
                                            autocomplete="off" hidden 
                                        </c:if> />
                             </div>
-                        </form> 
+                        </form> --%>
 
 
- <%--                       <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
-                            <font style="color: green"> 
-                            <div class="text-success">${requestScope.UPDATE_SUSCESS}</div>
-                            </font>
-                        </c:if>
---%>
+                        <%--                       <c:if test="${not empty requestScope.UPDATE_SUSCESS}">
+                                                   <font style="color: green"> 
+                                                   <div class="text-success">${requestScope.UPDATE_SUSCESS}</div>
+                                                   </font>
+                                               </c:if>
+                        --%>
 
                     </div>
                     <div class="text-center">

@@ -70,7 +70,7 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
         try {
             if (session != null) {
                 TblAccountDTO account = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
-                if (account.getIs_Admin() == 1) {
+                if (account != null) {
                     url = properties.getProperty(MyApplicationConstants.AdminInternApplication.ADMIN_SHOW_INTERN_APPLICATION_JSP);
 
                      TblSemesterDAO semesterDAO = new TblSemesterDAO();
@@ -134,7 +134,6 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
                         rd.forward(request, response);
                 } else{
                     response.sendRedirect(url);
-
                 }
             }
             else response.sendRedirect(url);

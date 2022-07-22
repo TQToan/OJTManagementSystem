@@ -116,7 +116,7 @@ public class MyApplicationConstants {
 
     public class LoginGoogleFeture {
 
-        public static final String ADMIN_DASHBOARD_PAGE = "ShowAdminStudentManagementController";
+        public static final String ADMIN_DASHBOARD_PAGE = "AdminDashboardController";
         public static final String LOGIN_PAGE = "loginPage";
 
         public static final String SHOW_STUDENT_HOME_PAGE = "ShowStudentHomeController";

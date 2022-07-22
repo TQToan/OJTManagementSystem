@@ -161,7 +161,10 @@
                                     </div>
                                     <div class="col-4">
                                         <select id="city" name="txtCompany"  class="student--select" >
-                                            <option value="" >Company</option>
+                                            <option value="" hidden>Company</option>
+                                            <c:if test="${requestScope.SIZE_OF_LIST eq 0}">
+                                                <option value="" disabled="disabled">No Company to choose</option>
+                                            </c:if>
                                             <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
                                                 <option value="${allCompany.account.name}"
                                                         <c:if test="${allCompany.account.name eq param.txtCompany}">
@@ -175,7 +178,8 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="city" name="nameLocation" class="student--select"  >
-                                            <option value="">Location</option>
+                                            <option value=""hidden>Location</option>
+                                            <option value="">All Location</option>
                                             <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
                                                     selected="selected"
                                                 </c:if>>TP.HCM</option>

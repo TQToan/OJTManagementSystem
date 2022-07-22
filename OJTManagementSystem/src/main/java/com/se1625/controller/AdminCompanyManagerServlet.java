@@ -83,15 +83,20 @@ public class AdminCompanyManagerServlet extends HttpServlet {
                     request.setAttribute("page", page);
                     request.setAttribute("numberPage", numberPage);
                     url = prop.getProperty(MyApplicationConstants.AdminCompanyManagerFeature.ADMIN_COMPANY_MANAGER_PAGE);
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+                } else{
+                     response.sendRedirect(url);
                 }
+            } else{
+                 response.sendRedirect(url);
             }
         } catch (NamingException ex) {
             log("AdminCompanyManagerServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("AdminCompanyManagerServlet_SQLException " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            
         }
     }
 

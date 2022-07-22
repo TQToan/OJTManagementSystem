@@ -155,11 +155,12 @@
 
 
                         <div class="main-body-aComManage__search">
-                            <form action="SearchCompanyAdminManagerController">
+                            <form action="SearchCompanyAdminManagerController" method="POST">
                                 <div class="row">
                                     <div class="col-4">
                                         <select id="city" name="selectCompany"  class="admin--select" >
-                                            <option value="" >Company</option>
+                                            <option value="" hidden>Company</option>
+                                            <option value="" >All Company</option>
                                             <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
                                                 <option value="${allCompany.companyID}"
                                                         <c:if test="${allCompany.companyID eq param.selectCompany}">
@@ -178,7 +179,8 @@
 
                                     <div class="col-2">
                                         <select id="city" name="selectStatus"  class="admin--select" >
-                                            <option value="">Status</option>
+                                            <option value=""hidden >Status</option>
+                                            <option value="">All Status</option>
                                             <option value="Success" class="text-success"
                                                     <c:if test="${param.selectStatus eq 'Success'}">
                                                         selected="selected"

@@ -162,9 +162,8 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                                     1, vacancy);
                             if (result) {
 
-                                url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_DASHBOARD_CONTROLLER);
-                                RequestDispatcher rd = request.getRequestDispatcher(url);
-                                rd.forward(request, response);
+                                url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_POST_MANAGER_CONTROLLER);
+                                response.sendRedirect(url);
                             }
                         }
                 } //if company is created
