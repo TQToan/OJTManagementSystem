@@ -178,7 +178,8 @@
                                     </div>
                                     <div class="col-3">
                                         <select id="city" name="txtCompanyName"  class="admin--select" >
-                                            <option value="" >Company</option>
+                                            <option value="" hidden>Company</option>
+                                            <option value="" >All Company</option>
                                             <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
                                                 <option value="${allCompany.account.name}"
                                                         <c:if test="${allCompany.account.name eq param.txtCompanyName}">
@@ -193,7 +194,8 @@
 
                                     <div class="col-2">
                                         <select id="city" name="nameStatus" class="admin--select" >
-                                            <option value="" selected>Status</option>
+                                            <option value="" hidden>Status</option>
+                                            <option value="">All Status</option>
                                             <option value="Accept" class="text-success" <c:if test="${param.nameStatus eq 'Accept'}">
                                                     selected="selected"
                                                 </c:if>>Accept</option>
@@ -488,7 +490,7 @@
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    You have not any post job yet!
+                                    Post job list does not have any result!
                                 </h3>
                             </c:if>
 

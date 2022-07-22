@@ -161,7 +161,8 @@
                                     <div class="col-2">
                                         <select id="city" name="nameLocation"  class="student--select" >
                                             <!-->>>>>>> 9edfda73613ca59615b350eb609bf0303156bf1c-->
-                                            <option value="">Location</option>
+                                            <option value="" hidden>Location</option>
+                                            <option value="">All Location</option>
                                             <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
                                                     selected="selected"
                                                 </c:if>>TP.HCM</option>
@@ -178,7 +179,8 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="city" name="nameStatus"  class="student--select" >
-                                            <option value="" selected>Status</option>
+                                            <option value="" hidden>Status</option>
+                                            <option value="" >All Status</option>
                                             <option value="Denied" class="text-danger" <c:if test="${param.nameStatus eq 'Denied'}">
                                                     selected="selected"
                                                 </c:if>>Denied</option>

@@ -463,10 +463,10 @@
         <script src="./assets/js/base.js"></script>
         <script>
 
-                                    function displayDate() {
-                                        var error = document.getElementById("error");
-                                        alert(document.getElementById("demo").innerHTML = error.innerHTML);
-                                    }
+            function displayDate() {
+                var error = document.getElementById("error");
+                alert(document.getElementById("demo").innerHTML = error.innerHTML);
+            }
         </script>
     </body>
 </html>

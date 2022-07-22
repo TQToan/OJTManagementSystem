@@ -178,7 +178,8 @@
                                     </div>
                                     <div class="col-4">
                                         <select name="txtCompanyName" class="admin--select">
-                                            <option value="">Company Name</option>
+                                            <option value="" hidden >Company Name</option>
+                                            <option value="">All Company</option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="companyName">
                                                 <option value="${companyName.companyID}" <c:if test="${param.txtCompanyName eq companyName.companyID}">
                                                         selected="selected"
@@ -192,7 +193,8 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="city" name="isPass"  class="admin--select" >
-                                            <option value="">Status</option>
+                                            <option value=""hidden >Status</option>
+                                            <option value="">All Status</option>
                                             <option value="true" class="text-success" <c:if test="${param.isPass eq 'true'}">
                                                     selected="selected"
                                                 </c:if>>
@@ -274,7 +276,7 @@
 
                         <c:if test="${empty requestScope.LIST_APPLICATION_RESULT}" >
                             <h3 class="text-center" style="margin-top: 20px">
-                                Evaluation List does not has any result!
+                                Evaluation list does not have any result!
                             </h3>
                         </c:if>
                     </div>

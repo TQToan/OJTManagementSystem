@@ -55,11 +55,12 @@ public class CompanySearchPostServlet extends HttpServlet {
         String companyID = request.getParameter("companyID");
         String xpage = request.getParameter("page");
         //Phan trang
-        int page;
+        int page = 0;
         int numberRowsPerPage = 10;
-        int start;
-        int end;
-        int sizeOfList;
+        int start = 0;
+        int end = 0;
+        int sizeOfList = 0;
+        int numberPage = 0;
         //URL
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
@@ -75,6 +76,7 @@ public class CompanySearchPostServlet extends HttpServlet {
                 TblCompanyDAO companyDAO = new TblCompanyDAO();
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
                 if (companyDTO != null) {
+                    List<TblCompany_PostDTO> companyPostPerPage = null;
                     if (companyDTO.isIs_Signed() == false) {
                         url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
                         request.setAttribute("COMPANY_NOT_ALLOW_CREATE_POST", "Company isn's signed, so can't not create a new post!");
@@ -110,7 +112,7 @@ public class CompanySearchPostServlet extends HttpServlet {
                                 page = Integer.parseInt(xpage);
                             } // when choose number of page
 
-                            int numberPage = sizeOfList % numberRowsPerPage;
+                            numberPage = sizeOfList % numberRowsPerPage;
 
                             if (numberPage == 0) {
                                 numberPage = sizeOfList / numberRowsPerPage;
@@ -120,19 +122,20 @@ public class CompanySearchPostServlet extends HttpServlet {
                             start = (page - 1) * numberRowsPerPage;
                             end = Math.min(page * numberRowsPerPage, sizeOfList);
 
-                            List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
+                            companyPostPerPage = companyPostDAO.
                                     getListByPage(listCompanyPost, start, end);
                             //Set attribute                                                
-                            request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
-                            request.setAttribute("page", page);
-                            request.setAttribute("numberPage", numberPage);
-                            request.setAttribute("SIZE_OF_LIST", sizeOfList);
+
                         } // if company post list exisst
                         else {
                             url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
                             sizeOfList = 0;
                         } // if company post list NOT exisst
                     }
+                    request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
+                    request.setAttribute("page", page);
+                    request.setAttribute("numberPage", numberPage);
+                    request.setAttribute("SIZE_OF_LIST", sizeOfList);
                     //get list major
                     TblMajorDAO majorDAO = new TblMajorDAO();
                     majorDAO.getNameMajor();

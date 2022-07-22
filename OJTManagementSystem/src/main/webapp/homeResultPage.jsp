@@ -54,7 +54,8 @@
                         <div class="col-4">
                             <!--                            <input type="text" name="" id="" placeholder="Company">-->
                             <select name="nameCompany">
-                                <option value="">Company Name</option>
+                                <option value=""hidden>Company Name</option>
+                                <option value="">All Company</option>
                                 <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
                                     <option value="${company.companyID}" <c:if test="${company.companyID eq companyID}">
                                             selected="selected"
@@ -65,7 +66,8 @@
                         <div class="col-4">
                             <!--                            <input type="text" name="" id="" placeholder="Job">-->
                             <select name="nameMajor">
-                                <option value="">Major</option>
+                                <option value="" hidden="">Major</option>
+                                <option value="">All Major</option>
                                 <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                     <option value="${major.majorID}" <c:if test="${major.majorID eq majorID}">
                                             selected="selected"
@@ -75,7 +77,8 @@
                         </div>
                         <div class="col-2">
                             <select id="city" name="nameLocation"   >
-                                <option value="">Location</option>
+                                <option value=""hidden>Location</option>
+                                <option value="">All Location</option>
                                 <option value="TP.HCM" <c:if test="${nameLocation eq 'TP.HCM'}">
                                         selected="selected"
                                     </c:if>>TP.HCM</option>

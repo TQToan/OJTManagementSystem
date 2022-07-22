@@ -53,7 +53,8 @@
                         <div class="col-4">
                             <!--                            <input type="text" name="" id="" placeholder="Company">-->
                             <select name="nameCompany">
-                                <option value="">Company Name</option>
+                                <option value="" hidden>Company Name</option>
+                                <option value="">All Company</option>
                                 <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
                                     <option value="${company.companyID}">${company.account.name}</option>
                                 </c:forEach>
@@ -62,7 +63,8 @@
                         <div class="col-4">
                             <!--                            <input type="text" name="" id="" placeholder="Job">-->
                             <select name="nameMajor">
-                                <option value="">Major</option>
+                                <option value="" hidden="">Major</option>
+                                <option value="">All Major</option>
                                 <c:forEach items="${requestScope.LIST_NAME_MAJOR}" var="major">
                                     <option value="${major.majorID}">${major.majorName}</option>
                                 </c:forEach>
@@ -70,7 +72,8 @@
                         </div>
                         <div class="col-2 ">
                             <select id="city" name="nameLocation" class="form__select"  >
-                                <option value="">Location</option>
+                                <option value="" hidden>Location</option>
+                                <option value="">All Location</option>
                                 <option value="TP.HCM">TP.HCM</option>
                                 <option value="Đồng Nai">Đồng Nai</option>
                                 <option value="Tây Ninh">Tây Ninh</option>

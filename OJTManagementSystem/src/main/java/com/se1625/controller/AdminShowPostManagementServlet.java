@@ -52,12 +52,10 @@ public class AdminShowPostManagementServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = MyApplicationConstants.LoginFeture.LOGIN_PAGE;
+        String url = MyApplicationConstants.AdminShowPostManagementFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
-        
-        
-        
+
         int page;
         int numberRowsPerPage = 10;
         int start;
@@ -85,13 +83,10 @@ public class AdminShowPostManagementServlet extends HttpServlet {
                             currentSemester = semesterDAO.getSemesterByID(semesterID);
                         }
                     }
-                    
+
                     companyPostDAO.getListPost(currentSemester.getSemesterID());
                     List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostListAdminPage();
                     //Phan trang
-                    if (companyPostList == null) {
-                        
-                    }
                     if (companyPostList != null) {
                         sizeOfList = companyPostList.size();
 
@@ -114,28 +109,27 @@ public class AdminShowPostManagementServlet extends HttpServlet {
 
                         List<TblCompany_PostDTO> companyPostPerPage = companyPostDAO.
                                 getListByPage(companyPostList, start, end);
-
-                        //lay list company
-                        TblCompanyDAO companyDAO = new TblCompanyDAO();
-                        companyDAO.getNameCompanies();
-                        List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
-                        request.setAttribute("LIST_ALL_COMPANY", listNameCompany);
-
-                        //List semester
-                        List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
-                        request.setAttribute("LIST_SEMESTER", listSemester);
-                        request.setAttribute("CURRENT_SEMESTER", currentSemester);
-                        request.setAttribute("NOW_SEMESTER", nowSemester);
-
                         //Set attribute
                         request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
                         request.setAttribute("page", page);
                         request.setAttribute("numberPage", numberPage);
 
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
                     } // if company post list exisst
+                    //lay list company
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    companyDAO.getNameCompanies();
+                    List<TblCompanyDTO> listNameCompany = companyDAO.getListNameCompany();
+                    request.setAttribute("LIST_ALL_COMPANY", listNameCompany);
+
+                    //List semester
+                    List<TblSemesterDTO> listSemester = semesterDAO.getListSemester();
+                    request.setAttribute("LIST_SEMESTER", listSemester);
+                    request.setAttribute("CURRENT_SEMESTER", currentSemester);
+                    request.setAttribute("NOW_SEMESTER", nowSemester);
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
                 } // if admin exist
                 else {
                     response.sendRedirect(url);

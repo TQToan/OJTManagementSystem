@@ -242,7 +242,7 @@
                     </c:if>
                     <c:if test="${empty listActiveJobs}">
                         <div class ="text-center" style="padding: 30px">
-                             <h3>Lest's Add your new posts to recruit more candidates.</h3>
+                             <h3>Add your new posts to recruit more candidates.</h3>
                             <a href="">Add a new Post!</a>
                         </div>
                     </c:if>

@@ -51,18 +51,24 @@ public class CompanyShowProfileServlet extends HttpServlet {
 
             if (session != null) {
                 TblAccountDTO company = (TblAccountDTO) session.getAttribute("COMPANY_ROLE");
-                TblCompanyDAO companyDAO = new TblCompanyDAO();
-                TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(company.getEmail());
+                if (company != null) {
+                    TblCompanyDAO companyDAO = new TblCompanyDAO();
+                    TblCompanyDTO companyDTO = companyDAO.getCompanyByEmail(company.getEmail());
 
-                if (companyDTO != null) {
-                    request.setAttribute("COMPANY_PROFILE", companyDTO);
-                    url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_PROFILE_PAGE_JSP);
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
-                }//if company exist
+                    if (companyDTO != null) {
+                        request.setAttribute("COMPANY_PROFILE", companyDTO);
+                        url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_PROFILE_PAGE_JSP);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
+                    }//if company exist
+                    else {
+                        response.sendRedirect(url);
+                    }// if company not exist
+                } //if company session exist
                 else {
                     response.sendRedirect(url);
-                }// if company not exist
+                } // if session company not exist
+
             }//if session exist
             else {
                 response.sendRedirect(url);

@@ -7,8 +7,11 @@ package com.se1625.tblstudent;
 
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblapplication.TblApplicationDAO;
+import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblsemester.TblSemesterDAO;
 import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblsemester_student.TblSemester_StudentDAO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -230,7 +233,7 @@ public class TblStudentDAO implements Serializable {
         }
         return student;
     }
-    
+
     public TblStudentDTO getStudent(String studentCode)
             throws SQLException, NamingException {
         Connection con = null;
@@ -453,10 +456,10 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == false
                         && numberOfCredit != -1 && isIntern != -1) {
-                    sql += "WHERE student.studentCode = ? and major LIKE ? "
+                    sql += "WHERE student.studentCode LIKE ? and major LIKE ? "
                             + "and numberOfCredit = ? and is_Intern = ? and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setNString(2, "%" + major + "%");
                     stm.setInt(3, numberOfCredit);
                     stm.setInt(4, isIntern);
@@ -466,10 +469,10 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == false
                         && numberOfCredit != -1 && isIntern == -1) {
-                    sql += "WHERE student.studentCode = ? and major LIKE ? "
+                    sql += "WHERE student.studentCode LIKE ? and major LIKE ? "
                             + "and numberOfCredit = ? and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setNString(2, "%" + major + "%");
                     stm.setInt(3, numberOfCredit);
                     stm.setInt(4, semesterID);
@@ -478,10 +481,10 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == false
                         && numberOfCredit == -1 && isIntern != -1) {
-                    sql += "WHERE student.studentCode = ? and major LIKE ? "
+                    sql += "WHERE student.studentCode LIKE ? and major LIKE ? "
                             + " and is_Intern = ? and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setNString(2, "%" + major + "%");
                     stm.setInt(3, isIntern);
                     stm.setInt(4, semesterID);
@@ -490,10 +493,10 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == true
                         && numberOfCredit != -1 && isIntern != -1) {
-                    sql += "WHERE student.studentCode = ? "
+                    sql += "WHERE student.studentCode LIKE ? "
                             + "and numberOfCredit = ? and is_Intern = ? and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setInt(2, numberOfCredit);
                     stm.setInt(3, isIntern);
                     stm.setInt(4, semesterID);
@@ -514,19 +517,19 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == false
                         && numberOfCredit == -1 && isIntern == -1) {
-                    sql += "WHERE student.studentCode = ? and major LIKE ?  and semester.semesterID = ? and is_Disabled = ?  ";
+                    sql += "WHERE student.studentCode LIKE ? and major LIKE ?  and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setNString(2, "%" + major + "%");
                     stm.setInt(3, isDisabled);
                 }
 
                 if ("".equals(studentCode) == false && "".equals(major) == true
                         && numberOfCredit != -1 && isIntern == -1) {
-                    sql += "WHERE student.studentCode = ? "
+                    sql += "WHERE student.studentCode LIKE ? "
                             + "and numberOfCredit = ? and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setInt(2, numberOfCredit);
                     stm.setInt(3, semesterID);
                     stm.setInt(4, isDisabled);
@@ -545,10 +548,10 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == true
                         && numberOfCredit == -1 && isIntern != -1) {
-                    sql += "WHERE student.studentCode = ? "
+                    sql += "WHERE student.studentCode LIKE ? "
                             + "and is_Intern = ?  and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setInt(2, isIntern);
                     stm.setInt(3, isDisabled);
                 }
@@ -575,9 +578,9 @@ public class TblStudentDAO implements Serializable {
 
                 if ("".equals(studentCode) == false && "".equals(major) == true
                         && numberOfCredit == -1 && isIntern == -1) {
-                    sql += "WHERE student.studentCode = ?  and semester.semesterID = ? and is_Disabled = ?  ";
+                    sql += "WHERE student.studentCode LIKE ?  and semester.semesterID = ? and is_Disabled = ?  ";
                     stm = con.prepareStatement(sql);
-                    stm.setString(1, studentCode);
+                    stm.setString(1, "%" + studentCode + "%");
                     stm.setInt(2, semesterID);
                     stm.setInt(3, isDisabled);
                 }
@@ -620,6 +623,14 @@ public class TblStudentDAO implements Serializable {
                     String semesterName = rs.getString("semesterName");
                     int studentSemesterID = rs.getInt("semesterID");
                     boolean is_Disabled = rs.getBoolean("is_Disabled");
+
+                    TblSemester_StudentDAO semesterStudentDAO = new TblSemester_StudentDAO();
+                    TblSemesterDTO studentSemester = semesterStudentDAO.getSemesterOfStudent(studentRoll);
+                    if (studentSemester != null) {
+                        if (studentSemesterID != studentSemester.getSemesterID()) {
+                            continue;
+                        }
+                    }
 
                     TblStudentDTO student = new TblStudentDTO();
                     student.setMajor(majorStudent);
@@ -672,6 +683,36 @@ public class TblStudentDAO implements Serializable {
                         + "WHERE studentCode = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, credit);
+                stm.setString(2, studentCode);
+
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean updateDisableStatusOfStudent(boolean isDisabled, String studentCode)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblStudent "
+                        + "SET is_Disabled = ? "
+                        + "WHERE studentCode = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setBoolean(1, isDisabled);
                 stm.setString(2, studentCode);
 
                 int rows = stm.executeUpdate();
@@ -747,7 +788,7 @@ public class TblStudentDAO implements Serializable {
         }
         return false;
     }
-    
+
     public boolean checkExistedStudent(String studentCode) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -778,7 +819,7 @@ public class TblStudentDAO implements Serializable {
         }
         return false;
     }
-    
+
     public boolean checkExistedNumberPhone(String numberPhone) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -809,7 +850,7 @@ public class TblStudentDAO implements Serializable {
         }
         return false;
     }
-    
+
     public void updateStatusInternOfStudent(String studentCode, int is_Intern) throws SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -822,7 +863,7 @@ public class TblStudentDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, is_Intern);
                 stm.setString(2, studentCode);
-                
+
                 int rows = stm.executeUpdate();
             }
         } finally {

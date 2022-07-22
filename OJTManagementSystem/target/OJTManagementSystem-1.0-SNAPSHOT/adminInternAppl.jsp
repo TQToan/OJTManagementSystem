@@ -181,7 +181,8 @@
                                     </div>
                                     <div class="col-3">
                                         <select name="txtCompanyID" class="admin--select">
-                                            <option value="">Company Name</option>
+                                            <option value=""hidden >Company Name</option>
+                                            <option value="">All Company </option>
                                             <c:forEach items="${requestScope.COMPANY_NAME}" var="company">
                                                 <option value="${company.companyID}" <c:if test="${company.companyID eq companyID}">
                                                         selected="selected"
@@ -371,7 +372,7 @@
                             </c:if>
                             <c:if test="${empty listIntern}">
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    Internship Application List does not has any result!
+                                    Internship application list does not have any result!
                                 </h3>
                             </c:if>
                         </div>
@@ -385,6 +386,7 @@
                                         <form action="AdminShowInternApplicationController" method="POST">
                                             <input type="hidden" name="page" value="${map['startNum'] - 1}"/>
                                             <input type="hidden" name="txtStudentID" value="${studentID}"/>
+                                            <input type="hidden" name="semester" value="${nowSemester}" />
                                             <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                             <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
                                             <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
@@ -401,6 +403,7 @@
                                             <li class="page-item" >
                                                 <form action="AdminShowInternApplicationController" method="POST">
                                                     <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${nowSemester}" />
                                                     <input type="hidden" name="txtStudentID" value="${studentID}"/>
                                                     <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                                     <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
@@ -415,6 +418,7 @@
                                             <li class="page-item" >  
                                                 <form action="AdminShowInternApplicationController" method="POST">
                                                     <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${nowSemester}" />
                                                     <input type="hidden" name="txtStudentID" value="${studentID}"/>
                                                     <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                                     <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
@@ -429,6 +433,7 @@
                                             <li class="page-item" >    
                                                 <form action="AdminShowInternApplicationController" method="POST">
                                                     <input type="hidden" name="page" value="${i}"/>
+                                                    <input type="hidden" name="semester" value="${nowSemester}" />
                                                     <input type="hidden" name="txtStudentID" value="${studentID}"/>
                                                     <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                                     <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
@@ -444,6 +449,7 @@
                                                 <li class="page-item" >
                                                     <form action="AdminShowInternApplicationController" method="POST">
                                                         <input type="hidden" name="page" value="${i}"/>
+                                                        <input type="hidden" name="semester" value="${nowSemester}" />
                                                         <input type="hidden" name="txtStudentID" value="${studentID}"/>
                                                         <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                                         <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
@@ -461,6 +467,7 @@
                                     <li class="page-item" >
                                         <form action="AdminShowInternApplicationController" method="POST">
                                             <input type="hidden" name="page" value="${map['lastNum'] + 1}"/>
+                                            <input type="hidden" name="semester" value="${nowSemester}" />
                                             <input type="hidden" name="txtStudentID" value="${studentID}"/>
                                             <input type="hidden" name="txtCompanyID" value="${companyID}"/>
                                             <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
