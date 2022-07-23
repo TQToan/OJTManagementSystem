@@ -48,7 +48,7 @@
             <img src="./assets/img/main.png" alt="" class="main__img">
             <div class="main__search">
                 <h2>Search Jobs</h2>
-                <form action="SearchCompanyStudentHomeController" class="main__search-form">
+                <form action="SearchCompanyStudentHomeController" class="main__search-form" method="post">
                     <div class="row">
                         <div class="col-4">
                             <select name="nameCompany">
@@ -105,7 +105,7 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
-                                
+
                                 <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
                                 <c:if test="${statusFollowing eq true}">
                                     <form action="StudentDeleteSaveJobController" method="POST">
@@ -132,10 +132,10 @@
                 </div>
                 <div class="home_see-more">
                     <c:url var="urlSearchHome" value="SearchCompanyStudentHomeController">
-                            <c:param name="nameCompany" value=""/>
-                            <c:param name="nameMajor" value=""/>
-                            <c:param name="nameLocation" value=""/>
-                        </c:url>
+                        <c:param name="nameCompany" value=""/>
+                        <c:param name="nameMajor" value=""/>
+                        <c:param name="nameLocation" value=""/>
+                    </c:url>
                     <a href="${urlSearchHome}" class="home_see-more--btn ">
                         See More 
                         <i class="fas fa-arrow-right"></i>
@@ -150,10 +150,10 @@
                             <c:forEach items="${my:getList(requestScope.LIST_AVATAR_SIGNED_COMPANY, index)}" var="item">
                                 <span style="margin:10px">
                                     <a href="SearchCompanyStudentHomeController?nameCompany=${item.companyID}&nameMajor=&nameLocation=" class="icon-company-link">
-                                    <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
-                                </a> 
+                                        <img src="./avatars/${item.account.avatar}" alt="${item.account.avatar}" class="main__company-img ">
+                                    </a> 
                                 </span>
-                                
+
                             </c:forEach> 
                         </div>
                     </c:forEach>
@@ -167,7 +167,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-
+            
         </main>
 
         <footer class="footer">

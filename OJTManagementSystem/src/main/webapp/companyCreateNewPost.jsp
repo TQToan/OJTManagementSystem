@@ -264,14 +264,11 @@
                                 </c:if>
 
                             </div>
-                            
-                            <div class="cPostEdit-edit-btn primary-btn">
+                                
+                            <label class="cPostEdit-edit-btn primary-btn" for="btaction">
                                 <i class="fas fa-edit"></i>
-                                <label for="btaction"></label>
-
                                 <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
-
-                            </div>
+                            </label>
                             <c:if test="${not empty error.companyNotSignedError}">
                                 <h5 class="text-danger text-start ">
                                     ${error.companyNotSignedError}

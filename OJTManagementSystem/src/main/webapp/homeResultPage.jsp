@@ -49,7 +49,7 @@
                 <c:set var="majorID" value="${param.nameMajor}"/>
                 <c:set var="nameLocation" value="${param.nameLocation}"/>
                 <c:set var="page" value="${requestScope.page}"/>
-                <form action="SearchCompanyStudentHomeController" class="main__search-form">
+                <form action="SearchCompanyStudentHomeController" class="main__search-form" method="post">
                     <div class="row">
                         <div class="col-4">
                             <select name="nameCompany">
@@ -114,6 +114,7 @@
                                     <tr>
                                         <th>NO.</th>
                                         <th>Title Job</th>
+                                        <th>Vacancy</th>
                                         <th>Quantity</th>
                                         <th>Company</th>
                                         <th>Location</th>
@@ -133,8 +134,11 @@
                                                     <c:param name="postID" value="${post.postID}"/>
                                                 </c:url>
                                                 <a href="${showDetail}">
-                                                    ${post.majorName}
+                                                    ${post.title_Post}
                                                 </a>
+                                            </td>
+                                            <td>
+                                                ${post.vacancy}
                                             </td>
                                             <td>
                                                 ${post.quantityIterns}

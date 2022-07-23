@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css"/>
     </head>
 
     <body>
@@ -331,7 +331,7 @@
                                                                         </div>
                                                                         <form action="AdminUpdatePostController" method="POST"> 
                                                                             <div class="modal-body">
-                                                                                <textarea name="txtReason" id="" cols="70" rows="5" style="resize:none"></textarea>
+                                                                                <textarea name="txtReason"  cols="70" rows="5" style="resize:none"></textarea>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                                     <div>
@@ -487,5 +487,8 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
     </body>
 </html>
