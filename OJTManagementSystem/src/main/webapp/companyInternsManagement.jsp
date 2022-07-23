@@ -230,10 +230,6 @@
                                                 </td>
                                                 <td>${applicationDTO.student.account.email}</td>
                                                 <td>
-                                                    <!--                                                <select name="" id="">
-                                                                                                        <option value="" selected>Thực tập sinh Java</option>
-                                                                                                        <option value="">Thực tập sinh C#</option>
-                                                                                                    </select>-->
                                                     ${applicationDTO.companyPost.title_Post}
                                                     <input type="hidden" name="txtPostID" value="${applicationDTO.companyPost.postID}" />
                                                 </td>
@@ -264,10 +260,7 @@
                                                     </c:if>    
                                                     <c:if test="${applicationDTO.isPass eq -1}">
                                                         <input type="number" step="any" min="0" max="10" class="cInterManage__mark" name="txtMark" value="${applicationDTO.grade}" disabled="disabled">     
-                                                    </c:if>   
-                                                    <%--<c:if test="${empty error}">--%>
-                                                    <!--<h5 class="text-danger text-nowrap"> Mark(0-10)</h5>-->
-                                                    <%--</c:if>--%>                   
+                                                    </c:if>              
                                                     <c:if test="${not empty error}">
                                                         <c:if test="${param.studentCode eq applicationDTO.student.studentCode}">
                                                             <font class="text-danger">
@@ -313,7 +306,6 @@
                             </c:if>
                         </div>
 
-                        <!--<div id="pageX" hidden >${requestScope.PAGE}</div>-->
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination">        
                                 <c:set var="map" value="${my:paging(requestScope.PAGE, 10, requestScope.NUMBER_PAGE)}"/>
@@ -407,18 +399,6 @@
                                     </li>
                                     <!--đưa icon vào-->
                                 </c:if>
-                                <%--
-                            <c:set value="${requestScope.NUMBER_PAGE}" var="numberpage"/>
-                            <c:forEach begin="1" end="${numberpage}" var="i">
-                                <form action="CompanySearchInternsManagementController" method="POST">
-                                    <input type="hidden" name="page" value="${i}"/>
-                                    <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
-                                    <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
-                                    <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
-                                    <input type="hidden" name="status" value="${param.status}" />
-                                    <input type="submit" value="${i}" class="page-link"/>
-                                </form>
-                            </c:forEach>--%>
                             </ul>
                         </div>
 
@@ -435,7 +415,6 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
         <script src="./assets/js/inputfile.js"></script>
     </body>
 </html>

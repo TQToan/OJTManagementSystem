@@ -360,14 +360,10 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
-
                                     </tbody>
-
                                 </table>
 
 
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div  class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -467,24 +463,6 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <!--                                     <li class="page-item">
-                                                                                <a class="page-link" href="#" aria-label="Previous">
-                                                                                     <span aria-hidden="true">&laquo;</span>
-                                                                                </a>
-                                                                            </li>-->
-                                        <%--
-                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-
-                                            <form action="AdminSearchCompanyPostController" method="POST">
-                                                <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
-                                                <input type="hidden" name="page" value="${i}" />
-                                                <input type="hidden" name="semester" value="${currentSemester.semesterID}" />
-                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}" />
-                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}" />
-                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}" />
-                                                <input type="submit" value="${i}" class="page-link" />
-                                            </form>
-                                        </c:forEach>--%>
                                     </ul>
                                 </div>
                             </c:if>
@@ -509,6 +487,5 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

@@ -91,10 +91,6 @@
                                 </c:if>
 
                                 <div class="right-file-input">
-                                    <!--                                    <label for="myfile" >
-                                                                            *Logo:
-                                                                        </label>
-                                                                        <input type="file" name="companyLogo" value="${requestScope.companyLogo}" id="myfile"/>-->
                                     <label for="inputFile" >
                                         Logo:
                                         <div class="input-file" for="inputFile"></div>

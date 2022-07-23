@@ -240,7 +240,6 @@
                                 </c:forEach>
                             </div>
 
-                            <!--<div id="pageX" hidden>${requestScope.page}</div>-->
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
                                     <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -318,16 +317,7 @@
                                         </li>
                                         <!--đưa icon vào-->
                                     </c:if>
-                                    <%--
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <li class="page-item">
-                                        <form action="HomeShowCompanyDetailController" method="POST">
-                                            <input type="hidden" name="page" value="${i}">
-                                            <input type="hidden" name="postID" value="${postDetail.postID}">
-                                            <input type="submit" value="${i}" class="page-link">
-                                        </form>
-                                    </li>
-                                </c:forEach> --%>
+                                   
                                 </ul>
                             </div>
                         </c:if>
@@ -359,6 +349,5 @@
                 <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
         </footer>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

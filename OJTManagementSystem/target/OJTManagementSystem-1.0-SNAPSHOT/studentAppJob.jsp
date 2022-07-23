@@ -160,7 +160,6 @@
                                     </div>
                                     <div class="col-2">
                                         <select id="city" name="nameLocation"  class="student--select" >
-                                            <!-->>>>>>> 9edfda73613ca59615b350eb609bf0303156bf1c-->
                                             <option value="" hidden>Location</option>
                                             <option value="">All Location</option>
                                             <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
@@ -309,7 +308,6 @@
                                     </tbody>
 
                                 </table>
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -403,19 +401,6 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <%--
-                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                        <li>
-                                            <form action="SearchStudentAppliedJobController" method="POST">
-                                                <input type="hidden" name="page" value="${i}"/>
-                                                <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
-                                                <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
-                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
-                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                <input type="submit" value="${i}" class="page-link"/>
-                                            </form>
-                                        </li>
-                                    </c:forEach> --%>
                                     </ul>
                                 </div>
 
@@ -440,6 +425,5 @@
         </footer>
 
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

@@ -166,7 +166,6 @@
                                             <span id="displayResult"></span>
                                         </label>
                                         <input type="file" id="inputFile" name="myfile" value="" hidden="hidden">
-                                        <%--      <input type="file" id="inputFile" name="myfile" value="${application.attachmentPath}" hidden="hidden"> --%>
                                         <h5 class="text-red">
                                             <br/>
                                             <c:if test="${not empty errors.fileUploadError}" >

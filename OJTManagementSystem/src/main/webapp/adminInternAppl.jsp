@@ -192,26 +192,6 @@
 
                                     </div>
 
-
-<!--                                    <div class="col-2">
-                                        <select id="status"  name="txtSchoolStatus"  class="admin--select">
-                                            <option value="">
-                                                School Status
-                                            </option>
-                                            <option value="1" class="text-success" <c:if test="${schoolStatus eq '1'}"> 
-                                                    selected="selected" </c:if>>
-                                                    Accepted 
-                                                </option>
-                                                <option value="0" class="text-warning"<c:if test="${schoolStatus eq '0'}">
-                                                    selected="selected" </c:if>>
-                                                    Waiting
-                                                </option>
-                                                <option value="-1" class="text-danger"<c:if test="${schoolStatus eq '-1'}">
-                                                    selected="selected" </c:if>>
-                                                    Denied
-                                                </option>
-                                            </select>           
-                                        </div>-->
                                         <div class="col-1">
                                             <input type="submit" value="Search" class="admin-search-btn">
                                         </div>
@@ -235,8 +215,7 @@
                                             <th>Title Job</th>
                                             <th>Student Applied</th>
                                             <th>Company Accepted</th>
-                                            <!--                                            <th>School Confirm</th>
-                                                                                        <th>Action</th>-->
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -298,70 +277,6 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <%--
-                                           <c:if test="${intern.schoolConfirm eq 0}">
-                                               <td class="text-warning">
-                                                   <strong>
-                                                       Waiting
-                                                   </strong>
-                                               </td>
-                                           </c:if>
-                                           <c:if test="${intern.schoolConfirm eq -1}">
-                                               <td class="text-danger">
-                                                   <strong>
-                                                       Denied
-                                                   </strong>
-                                               </td>
-                                           </c:if>
-                                           <c:if test="${intern.schoolConfirm eq 1}">
-                                               <td class="text-success">
-                                                   <strong>
-                                                       Accepted
-                                                   </strong>
-                                               </td>
-                                                
-                                           </c:if>
-                                                --%>
-                                                <!--                                                <td>
-                                                
-                                                                                                    <div class="row row-cols-2">
-                                                                                                        <div class="col">
-                                                                                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                                                                                <input type="hidden" name="page" value="${i}">
-                                                                                                                <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                                                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                                                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                                                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                                                                                <input type="hidden" name="btnAction" value="1">
-                                                                                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                    <input type="submit" value="Accept" class="btn-regular-green">
-                                                </c:if>
-                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                    <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled">
-                                                </c:if>
-                                            </form>
-                                        </div>
-                                        <div class="col">
-                                            <form action="AdminChangeStatusInternApplicationServlet" method="post">
-                                                <input type="hidden" name="page" value="${i}">
-                                                <input type="hidden" name="txtStudentID" value="${studentID}">
-                                                <input type="hidden" name="txtCompanyID" value="${companyID}">
-                                                <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}">
-                                                <input type="hidden" name="txtTitleJob" value="${titleJob}">
-                                                <input type="hidden" name="btnAction" value="-1">
-                                                <input type="hidden" name="txtApplicationID" value="${intern.applicationID}">
-                                                <c:if test="${intern.schoolConfirm eq '0' and intern.studentConfirm eq true}">
-                                                    <input type="submit" value="Reject" class="btn-regular-red">
-                                                </c:if>
-                                                <c:if test="${intern.schoolConfirm ne '0' or intern.studentConfirm ne true}">
-                                                    <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled">
-                                                </c:if>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </td>-->
                                             </tr>
                                         </c:forEach>      
 
@@ -377,7 +292,6 @@
                             </c:if>
                         </div>
 
-                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
                                 <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -477,26 +391,6 @@
                                     </li>
                                     <!--đưa icon vào-->
                                 </c:if>
-                                <%--
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <form action="AdminShowInternApplicationController" method="POST">
-                                        <input type="hidden" name="page" value="${i}"/>
-                                        <input type="hidden" name="txtStudentID" value="${studentID}"/>
-                                        <input type="hidden" name="txtCompanyID" value="${companyID}"/>
-                                        <input type="hidden" name="txtSchoolStatus" value="${schoolStatus}"/>
-                                        <input type="hidden"name="txtTitleJob" value="${titleJob}"/>
-                                        <input type="submit" value="${i}" class="page-link"/>
-                                    </form>
-
-                                    <c:url var="url" value="AdminShowInternApplicationController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="txtStudentID" value="${studentID}"/>
-                                    <c:param name="txtCompanyID" value="${companyID}"/>
-                                    <c:param name="txtSchoolStatus" value="${schoolStatus}"/>
-                                    <c:param name="txtTitleJob" value="${titleJob}"/>
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                </c:forEach>--%>
                             </ul>
                         </div>
 
@@ -514,7 +408,6 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
     </body>
 
 </html>

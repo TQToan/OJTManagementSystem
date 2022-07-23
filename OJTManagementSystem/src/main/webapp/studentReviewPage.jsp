@@ -183,13 +183,10 @@
                                     <div class="col-4 review--label" >Type Job</div>
                                     <div class="col-8 review--input ">${companyPost.title_Post}</div>
                                 </div>
-                                <!--                            <div class="review__input row">
-                                                                <div class="col-4 review--label" >Date applied</div>
-                                                                <div class="col-8 review--input " >15-6-2022</div>
-                                                            </div>-->
+                               
                                 <div class="review__input row ">
                                     <div class="col-4 review--label" >Evaluation</div> <br>
-                                    <!--                                    review--input--evaluate-->
+                                    <!-- review--input--evaluate-->
                                     <div class="col-8 review--input" >
                                         <c:if test="${studentApp.student.isIntern eq 2}" >
                                             ${studentApp.evaluation}
@@ -230,8 +227,8 @@
                 </div>
                 <c:if test="${empty studentApp}">
 
-                    <div class="text-center " style="font-size: 20px; margin: auto;" for="">You are not intern at any company 
-                        <!--<br/>    <a style="font-size: 15px;" href="studentDashboardController">Recommend Job</a>-->                             
+                    <div class="text-center " style="font-size: 20px; margin: auto;" for="">
+                        You are not intern at any company                           
                     </div>
 
                     <%--Recomment Jobs--%>
@@ -266,19 +263,6 @@
                                             <c:set var="statusFollowingPost" value="${my:getStatusSaveJob(listFollowingPost, recommendPost.postID)}"/>
                                             <p>
                                                 <c:if test="${statusFollowingPost eq true}">
-                                                    <!--                                                <form action="StudentDeleteSaveJobController" method="POST">
-                                                                                                        <input type="hidden" name="unSave" value="studentDashboardPage" />
-                                                                                                        <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                                                                        <input type="submit" value="Unsave Job" class="far fa-heart save-btn save-btn-active" />
-                                                                                                    </form>-->
-                                                    <%--  <c:url var="unsaveJob" value="StudentDeleteSaveJobController">
-                                                          <c:param name="postID" value="${recommendPost.postID}"/>
-                                                          <c:param name="unSave" value="studentDashboardPage"/> 
-                                                    
-                                                          
-                                                      </c:url>
-                                                      <a href="${unsaveJob}" class="far fa-heart save-btn save-btn-active"></a>
-                                                    --%>      
                                                 <form action="StudentDeleteSaveJobController" method="POST">
                                                     <input type="hidden" name="postID" value="${recommendPost.postID}" />
                                                     <input type="hidden" name="unSave" value="studentDashboardPage" />
@@ -287,14 +271,6 @@
                                                 </form>
                                             </c:if>
                                             <c:if test="${statusFollowingPost eq false}">
-                                                <!--                                                <form action="StudentSaveJobController" method="POST">
-                                                                                                    <input type="hidden" name="postID" value="${recommendPost.postID}" />
-                                                                                                    <input type="submit" value="Save Job" class="far fa-heart save-btn save-btn-active" />
-                                                                                                </form>-->
-                                                <%--    <c:url var="saveJob" value="StudentSaveJobController">
-                                                        <c:param name="postID" value="${recommendPost.postID}"/>
-                                                    </c:url>
-                                                    <a href="${saveJob}" class="far fa-heart save-btn "></a> --%>
                                                 <form action="StudentSaveJobController" method="POST">
                                                     <input type="hidden" name="postID" value="${recommendPost.postID}" />
                                                     <label for="saveJob+${recommendPost.postID}" class="far fa-heart save-btn "> </label>
@@ -302,25 +278,6 @@
                                                 </form>
                                             </c:if>
                                             </p>
-
-                                            <%--
-
-                                            <c:if test="${requestScope.FOLLOWING == true}" var="following">
-                                                       hidden="hidden"
-                                                   </c:if>
-                                                       
-
-                                                <c:url var="urlSaveJob" value="StudentSaveJobController">
-                                                <c:param name="postID" value="${dto.postID}"/>
-                                                <c:param name="studentCode" value="${student.studentCode}"/>
-                                                
-                                            </c:url>
-                                            <p>
-                                                <a href="${urlSaveJob}">
-                                                    <i class="far fa-heart save-btn save-btn-active"></i>
-                                                    Save Job
-                                                </a>
-                                            </p>--%>
                                         </div>
                                     </div>
                                 </div>

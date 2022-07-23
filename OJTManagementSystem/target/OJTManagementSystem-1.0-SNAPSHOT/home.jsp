@@ -51,7 +51,6 @@
                 <form action="SearchCompanyStudentHomeController" class="main__search-form">
                     <div class="row">
                         <div class="col-4">
-                            <!--                            <input type="text" name="" id="" placeholder="Company">-->
                             <select name="nameCompany">
                                 <option value="" hidden>Company Name</option>
                                 <option value="">All Company</option>
@@ -61,7 +60,6 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <!--                            <input type="text" name="" id="" placeholder="Job">-->
                             <select name="nameMajor">
                                 <option value="" hidden="">Major</option>
                                 <option value="">All Major</option>
@@ -107,19 +105,7 @@
                                 <div class="card-company-btn">
                                     <a href="ShowApplyCVController?postID=${dto.postID}" class="primary-btn hApply-btn">Apply Now</a>
                                 </div>   
-
-                                <%--<c:url var="urlSaveJob" value="StudentSaveJobController" >
-=======
-                                <c:url var="urlSaveJob" value="StudentSaveJobController" >
->>>>>>> 088c3615fd6c5642dbb4cf87142e6b41497a44e6
-                                    <c:param name="save" value="homePage" />
-                                    <c:param name="postID" value="${dto.postID}" />
-                                </c:url>
-                                <c:url var="urlUnSaveJob" value="StudentDeleteSaveJobController" >
-                                    <c:param name="unSave" value="homePage" />
-                                    <c:param name="postID" value="${dto.postID}" />
-<<<<<<< HEAD
-                                </c:url>--%>
+                                
                                 <c:set var="statusFollowing" value="${my:getStatusSaveJob(requestScope.LIST_FOLLOWING_POST, dto.postID)}" />
                                 <c:if test="${statusFollowing eq true}">
                                     <form action="StudentDeleteSaveJobController" method="POST">
@@ -129,9 +115,6 @@
                                             <input type="submit" value="Unsave Job"  id="unsaveJob+${dto.postID}" hidden/>
                                         </label>
                                     </form>
-                                    <%--<a href="${urlUnSaveJob}">
-                                        <i class="far fa-heart card-company-btn-save save-btn save-btn-active "></i>
-                                    </a>--%>
                                 </c:if>
                                 <c:if test="${statusFollowing eq false}">
                                     <form action="StudentSaveJobController" method="POST">
@@ -141,9 +124,7 @@
                                             <input type="submit" value="" hidden id="saveJob+${dto.postID}"/>
                                         </label>
                                     </form>
-                                    <%--<a href="${urlSaveJob}">
-                                        <i class="far fa-heart card-company-btn-save save-btn"></i>
-                                    </a>--%>
+
                                 </c:if>
                             </div>
                         </div>
@@ -161,18 +142,7 @@
                     </a>
                 </div>
             </div>
-            <%--
-            <div class="main__company-icon">
-                <div class="row row-cols-7">
-                    <c:forEach items="${requestScope.LIST_AVATAR_SIGNED_COMPANY}" var="avatar">
-                        <div class="col company__click">
-                            <a href="SearchCompanyStudentHomeController?nameCompany=${avatar.companyID}&nameMajor=&nameLocation=" class="">
-                                <img src="./avatars/${avatar.account.avatar}" alt="${avatar.account.avatar}" class="main__company-img ">
-                            </a>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>--%>
+
             <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-inner" style="padding: 10px 70px;">
                     <c:forEach begin="1" end="${my:getIndexList(requestScope.LIST_AVATAR_SIGNED_COMPANY)}" var="index">
