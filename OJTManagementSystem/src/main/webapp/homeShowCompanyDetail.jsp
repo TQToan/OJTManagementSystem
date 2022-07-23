@@ -46,7 +46,7 @@
         <main class="main">
             <div class="main__search">
                 <h2>Search Jobs</h2>
-                <form action="SearchCompanyStudentHomeController" class="main__search-form">
+                <form action="SearchCompanyStudentHomeController" class="main__search-form" method="post">
                     <div class="row">
                         <div class="col-4">
                             <select name="nameCompany">

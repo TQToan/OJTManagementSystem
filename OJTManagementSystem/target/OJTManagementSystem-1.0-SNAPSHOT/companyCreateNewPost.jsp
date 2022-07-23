@@ -135,7 +135,7 @@
                 <div class="row">
                     <div class="main-body-cPostEdit  offset-2 col-8">
                         <div class="main-body-cPostEdit__header">
-                            Company Post*
+                            Company Post
                         </div>
                         <c:set var="error" value="${requestScope.ERRORS}" />
                         <form action="CreateNewCompanyPostController" method="POST">
@@ -264,14 +264,11 @@
                                 </c:if>
 
                             </div>
-                            
-                            <div class="cPostEdit-edit-btn primary-btn">
+                                
+                            <label class="cPostEdit-edit-btn primary-btn" for="btaction">
                                 <i class="fas fa-edit"></i>
-                                <label for="btaction"></label>
-
                                 <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
-
-                            </div>
+                            </label>
                             <c:if test="${not empty error.companyNotSignedError}">
                                 <h5 class="text-danger text-start ">
                                     ${error.companyNotSignedError}
