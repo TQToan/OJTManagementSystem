@@ -40,7 +40,7 @@ public class DownloadFileModelServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String url = MyApplicationConstants.DownloadFileModelFeature.LOGIN_PAGE;
         if (session != null) {
-            TblAccountDTO admin = (TblAccountDTO) session.getAttribute("");
+            TblAccountDTO admin = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
             if (admin != null) {
                 String dowloadFile = getServletContext().getRealPath("/excels/FileImportStudent_OJT.xlsx");
                 File dwFile = new File(dowloadFile);

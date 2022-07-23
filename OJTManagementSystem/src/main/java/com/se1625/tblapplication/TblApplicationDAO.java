@@ -341,7 +341,7 @@ public class TblApplicationDAO implements Serializable {
                     applicationDTO.setCompanyConfirm(companyConfirm);
                     applicationDTO.setStudent(student);
                     applicationDTO.setCompanyPost(companyPost);
-                    
+
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO semester = semesterDAO.getSemesterByID(semesterID);
                     applicationDTO.setSemester(semester);
@@ -1589,7 +1589,7 @@ public class TblApplicationDAO implements Serializable {
 
             int check_company_confirm = 1;
             while (rs.next()) {
-                
+
                 String attachmentPath = rs.getString("attachmentPath");
                 String expected_job = rs.getString("expected_Job");
                 String technology = rs.getString("technology");
@@ -1775,9 +1775,9 @@ public class TblApplicationDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, studentCode);
                 stm.setInt(2, semesterID);
-                
+
                 rs = stm.executeQuery();
-                
+
                 if (rs.next()) {
                     int applicationID = rs.getInt("applicationID");
                     TblApplicationDTO application = getApplication(applicationID);
@@ -1828,6 +1828,52 @@ public class TblApplicationDAO implements Serializable {
                 con.close();
             }
         }
+    }
+
+    public List<TblApplicationDTO> getListApplicationOfCompany(String companyCode, int currentSemester)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<TblApplicationDTO> listApp = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT applicationID "
+                        + "FROM tblApplication AS app INNER JOIN TblCompany_Post as comPost "
+                        + "ON (app.postID = comPost.postID)"
+                        + "WHERE comPost.companyID = ? and semesterID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, companyCode);
+                stm.setInt(2, currentSemester);
+
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int applicationID = rs.getInt("applicationID");
+                    TblApplicationDTO application = getApplication(applicationID);
+                    if (listApp == null) {
+                        listApp = new ArrayList<>();
+                    }
+                    listApp.add(application);
+                }
+                if (listApp != null) {
+                    if (listApp.isEmpty()) {
+                        listApp = null;
+                    }
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listApp;
     }
 
 }

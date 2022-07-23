@@ -153,6 +153,35 @@
                             Company Management
                         </div>
 
+                        <c:if test="${not empty requestScope.WARING_CHANGE_SIGNING_STATUS}">
+                            <div class="all">
+                                <div class="modal-cus" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalLabel">Warning</h3>
+                                            </div>
+                                            <h4 style="color: red">
+                                                ${requestScope.WARING_CHANGE_SIGNING_STATUS}
+                                            </h4>
+                                            <div class="text-center">
+                                                <div class="row row-cols-1">
+                                                    <div class="col">
+                                                        <form action="SearchCompanyAdminManagerController" method="Post">
+                                                            <input type="hidden" name="selectCompany" value="${param.selectCompany}" />
+                                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
+                                                            <input type="hidden" name="selectStatus" value="${param.selectStatus}" />
+                                                            <input type="hidden" name="page" value="${param.page}" />
+                                                            <input type="submit" value="Cancel" name="btAction" class="btn-regular-green"/>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
 
                         <div class="main-body-aComManage__search">
                             <form action="SearchCompanyAdminManagerController" method="POST">

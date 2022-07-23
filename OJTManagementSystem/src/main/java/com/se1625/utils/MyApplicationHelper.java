@@ -54,7 +54,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 public class MyApplicationHelper {
-    
+
     public static void getSiteMaps(ServletContext context) throws IOException {
         //1. get siteMaps file
         String siteMapsFile = context.getInitParameter("SITE_MAPS_FILE_PATH");
@@ -67,7 +67,7 @@ public class MyApplicationHelper {
         //3. tạo attribute trong contextScope
         context.setAttribute("SITE_MAPS", properties);
     }
-    
+
     public static void getSemesterDate(ServletContext context) throws IOException {
         //1. get siteMaps file
         String siteMapsFile = context.getInitParameter("SEMESTER_DATE_FILE_PATH");
@@ -80,7 +80,7 @@ public class MyApplicationHelper {
         //3. tạo attribute trong contextScope
         context.setAttribute("SEMESTER_DATE", properties);
     }
-    
+
     public static void getCheckingExpirationPost(ServletContext context) throws IOException {
         //1. get siteMaps file
         String siteMapsFile = context.getInitParameter("CHECKING_EXPIRATION_POST");
@@ -93,17 +93,17 @@ public class MyApplicationHelper {
         //3. tạo attribute trong contextScope
         context.setAttribute("CHECKING_EXPIRATION_POST_TIME", properties);
     }
-    
+
     public static String getRandom() {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
         return String.format("%06d", number);
     }
-    
+
     public static boolean sendEmail(TblAccountDTO toAccount, TblAccountDTO fromAccount, String message, String subject)
             throws AddressException, MessagingException {
         boolean test = false;
-        
+
         String toEmail = toAccount.getEmail();
         final String fromEmail = fromAccount.getEmail().trim();
         final String password = fromAccount.getPassword().trim();
@@ -121,21 +121,21 @@ public class MyApplicationHelper {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail, password);
             }
-            
+
         });
-        
+
         Message mess = new MimeMessage(session);
         mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
         mess.setFrom(new InternetAddress(fromEmail));
-        
+
         mess.setSubject(subject);
         mess.setText(message);
         Transport.send(mess);
         test = true;
-        
+
         return test;
     }
-    
+
     public static String createIdCompany(String lastID) {
         if (lastID == null) {
             lastID = "FPT001";
@@ -158,7 +158,7 @@ public class MyApplicationHelper {
             return newId;
         }
     }
-    
+
     public static String getToken(String code) throws ClientProtocolException, IOException {
         // call api to get token
         String response = Request.Post(MyApplicationConstants.Constants.GOOGLE_LINK_GET_TOKEN)
@@ -167,28 +167,28 @@ public class MyApplicationHelper {
                         .add("redirect_uri", MyApplicationConstants.Constants.GOOGLE_REDIRECT_URI).add("code", code)
                         .add("grant_type", MyApplicationConstants.Constants.GOOGLE_GRANT_TYPE).build())
                 .execute().returnContent().asString();
-        
+
         JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
         String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
         return accessToken;
     }
-    
+
     public static UserGoogleDTO getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
         String link = MyApplicationConstants.Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
         String response = Request.Get(link).execute().returnContent().asString();
-        
+
         UserGoogleDTO googlePojo = new Gson().fromJson(response, UserGoogleDTO.class);
-        
+
         return googlePojo;
     }
-    
+
     public static String getStudentCode(String username) {
         int end = username.indexOf("@");
         int begin = end - 8;
         String StudentCode = username.substring(begin, end).toUpperCase();
         return StudentCode;
     }
-    
+
     public static List<TblStudentDTO> readExcel(String excelFilePath)
             throws FileNotFoundException, IOException, IllegalArgumentException, Exception {
         List<TblStudentDTO> studentList = null;
@@ -204,7 +204,7 @@ public class MyApplicationHelper {
 
             //get all rows
             Iterator<Row> interator = sheet.iterator();
-            
+
             if (sheet.getLastRowNum() < 1) {
                 workbook.close();
                 inputStream.close();
@@ -241,7 +241,7 @@ public class MyApplicationHelper {
                                     foundError = true;
                                 } else {
                                     boolean existedStudent = studentDAO.checkExistedStudent(studentCode);
-                                    
+
                                     if (existedStudent == false) {
                                         boolean existedStudentList = checkExistedStudentCode(studentCode, studentList);
                                         if (existedStudentList) {
@@ -257,11 +257,33 @@ public class MyApplicationHelper {
                                 break;
                             case 1:
                                 String fullName = cell.toString();
-                                if (fullName.trim().isEmpty() || fullName.trim().length() > 50) {
+                                if (fullName.trim().isEmpty() || fullName.trim().length() > 50 || fullName.trim().length() < 6) {
                                     foundError = true;
                                 } else {
-                                    account.setName(fullName);
-                                    NumberOfCells++;
+                                    String patternName = "^[^\\p{L}\\s]*$";
+                                    if (fullName.matches(patternName)) {
+                                        foundError = true;
+                                    } else {
+                                        char[] nameArray = fullName.toCharArray();
+                                        boolean isNumber = false;
+                                        for (char c : nameArray) {
+                                            if (Character.isDigit(c)) {
+                                                isNumber = true;
+                                                break;
+                                            }
+                                        }
+                                        if (isNumber) {
+                                            foundError = true;
+                                        } else {
+                                            String pattern = "[\\p{L}\\s]*";
+                                            if (fullName.matches(pattern) == false) {
+                                                foundError = true;
+                                            } else {
+                                                account.setName(fullName);
+                                                NumberOfCells++;
+                                            }
+                                        }
+                                    }
                                 }
                                 break;
                             case 2:
@@ -359,7 +381,7 @@ public class MyApplicationHelper {
         }
         return studentList;
     }
-    
+
     private static boolean checkExistedStudentCode(String studentCode, List<TblStudentDTO> studentList) {
         if (studentList != null) {
             for (TblStudentDTO student : studentList) {
@@ -370,7 +392,7 @@ public class MyApplicationHelper {
         }
         return false;
     }
-    
+
     private static boolean checkExistedEmail(String email, List<TblStudentDTO> studentList) {
         if (studentList != null) {
             for (TblStudentDTO student : studentList) {
@@ -381,7 +403,7 @@ public class MyApplicationHelper {
         }
         return false;
     }
-    
+
     private static boolean checkExistedNumberPhone(String numberPhone, List<TblStudentDTO> studentList) {
         if (studentList != null) {
             for (TblStudentDTO student : studentList) {
@@ -392,7 +414,7 @@ public class MyApplicationHelper {
         }
         return false;
     }
-    
+
     private static Workbook getWorkbook(InputStream inputStream, String excelFilePath)
             throws IOException {
         Workbook workbook = null;
@@ -404,7 +426,7 @@ public class MyApplicationHelper {
         }
         return workbook;
     }
-    
+
     public static void writeHeaderLine(Sheet sheet, int rowIndex) {
         //create cellstyle 
         CellStyle cellStyle = createStyleForHeader(sheet);
@@ -416,32 +438,32 @@ public class MyApplicationHelper {
         Cell cell = row.createCell(0);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Stdudent Code");
-        
+
         cell = row.createCell(1);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Major");
-        
+
         cell = row.createCell(2);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Company Name");
-        
+
         cell = row.createCell(3);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Job");
-        
+
         cell = row.createCell(4);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Grade");
-        
+
         cell = row.createCell(5);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Evaluation");
-        
+
         cell = row.createCell(6);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Status");
     }
-    
+
     private static CellStyle createStyleForHeader(Sheet sheet) {
         // Create font
         Font font = sheet.getWorkbook().createFont();
@@ -458,7 +480,7 @@ public class MyApplicationHelper {
         cellStyle.setBorderBottom(BorderStyle.THIN);
         return cellStyle;
     }
-    
+
     public static void writeStudentEvaluation(TblApplicationDTO application, Row row) {
         short format = (short) BuiltinFormats.getBuiltinFormat("#,##0");
         // DataFormat df = workbook.createDataFormat();
@@ -468,27 +490,27 @@ public class MyApplicationHelper {
         Workbook workbook = row.getSheet().getWorkbook();
         cellStyleFormatNumber = workbook.createCellStyle();
         cellStyleFormatNumber.setDataFormat(format);
-        
+
         Cell cell = row.createCell(0);
         cell.setCellValue(application.getStudent().getStudentCode());
-        
+
         cell = row.createCell(1);
         cell.setCellValue(application.getStudent().getMajor());
-        
+
         cell = row.createCell(2);
         cell.setCellValue(application.getCompanyPost().getCompany()
                 .getAccount().getName());
-        
+
         cell = row.createCell(3);
         cell.setCellValue(application.getCompanyPost().
                 getMajor().getMajorName());
-        
+
         cell = row.createCell(4);
         cell.setCellValue(application.getGrade());
-        
+
         cell = row.createCell(5);
         cell.setCellValue(application.getEvaluation());
-        
+
         if (application.getIsPass() == 1) {
             cell = row.createCell(6);
             cell.setCellValue("Passed");
@@ -497,7 +519,7 @@ public class MyApplicationHelper {
             cell.setCellValue("Not Pass");
         }
     }
-    
+
     public static void createExcelFile(Workbook workbook, String excelPath) throws FileNotFoundException, IOException {
         FileOutputStream outputStream = new FileOutputStream(excelPath);
         workbook.write(outputStream);

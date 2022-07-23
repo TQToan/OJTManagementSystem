@@ -82,7 +82,7 @@ public class CompanySearchPostServlet extends HttpServlet {
                         request.setAttribute("COMPANY_NOT_ALLOW_CREATE_POST", "Company isn's signed, so can't not create a new post!");
                     } else {
                         url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
-
+                    }
                         int idMajor = 0;
                         if (majorID != null) {
                             if (majorID.trim().isEmpty()) {
@@ -131,7 +131,7 @@ public class CompanySearchPostServlet extends HttpServlet {
                             url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
                             sizeOfList = 0;
                         } // if company post list NOT exisst
-                    }
+                    //}
                     request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
                     request.setAttribute("page", page);
                     request.setAttribute("numberPage", numberPage);

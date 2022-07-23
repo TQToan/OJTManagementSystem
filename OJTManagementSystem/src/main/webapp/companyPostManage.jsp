@@ -281,7 +281,12 @@
                                                 <td>
                                                     <form action="CompanyShowPostDetailsController" method ="post">
                                                         <input type="hidden" name="postID" value="${post.postID}" >
-                                                        <input type="submit" value="Edit" class="btn-update-green">
+                                                        <c:if test="${company.is_Signed eq false}">
+                                                            <input type="submit" value="Edit" class="btn-update-green" disabled="disabled" />
+                                                        </c:if>
+                                                            <c:if test="${company.is_Signed eq true}">
+                                                            <input type="submit" value="Edit" class="btn-update-green" />
+                                                        </c:if>
                                                     </form>
                                                 </td>
                                             </tr>

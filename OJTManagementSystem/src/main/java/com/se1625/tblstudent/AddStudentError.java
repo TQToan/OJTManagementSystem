@@ -21,6 +21,7 @@ public class AddStudentError {
     private String creditError;
     private String creditEmptyError;
     private String existedEmailError;
+    private String studentNameContainSpecialCharacter;
 
     public AddStudentError() {
     }
@@ -179,6 +180,20 @@ public class AddStudentError {
      */
     public void setCreditEmptyError(String creditEmptyError) {
         this.creditEmptyError = creditEmptyError;
+    }
+
+    /**
+     * @return the studentNameContainSpecialCharacter
+     */
+    public String getStudentNameContainSpecialCharacter() {
+        return studentNameContainSpecialCharacter;
+    }
+
+    /**
+     * @param studentNameContainSpecialCharacter the studentNameContainSpecialCharacter to set
+     */
+    public void setStudentNameContainSpecialCharacter(String studentNameContainSpecialCharacter) {
+        this.studentNameContainSpecialCharacter = studentNameContainSpecialCharacter;
     }
 
     

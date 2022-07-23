@@ -1607,4 +1607,28 @@ public class TblCompany_PostDAO implements Serializable {
             }
         }
     }
+    public void updateStatusForExpirationPost(int postID, int statusPost) throws SQLException, NamingException {
+        Connection con  = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblCompany_Post "
+                        + "SET statusPost = ? "
+                        + "WHERE postID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, statusPost);
+                stm.setInt(2, postID);
+                
+                stm.executeUpdate();
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

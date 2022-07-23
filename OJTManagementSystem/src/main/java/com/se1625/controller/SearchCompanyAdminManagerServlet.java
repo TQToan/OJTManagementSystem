@@ -45,7 +45,7 @@ public class SearchCompanyAdminManagerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String companyID = request.getParameter("selectCompany");
-        String email = request.getParameter("txtEmail").trim();
+        String email = request.getParameter("txtEmail");
         String status = request.getParameter("selectStatus");
 
         ServletContext context = this.getServletContext();
