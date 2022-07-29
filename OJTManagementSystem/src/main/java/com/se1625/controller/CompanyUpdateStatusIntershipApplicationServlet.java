@@ -60,7 +60,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url = prop.getProperty(MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
         try {
@@ -180,8 +180,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         String email = request.getParameter("txtEmail");
                         String selectStatus = request.getParameter("status");
                         String xpage = request.getParameter("page");
-                        url = prop.getProperty(
-                                MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.COMPANY_SEARCH_INTERNS_CONTROLLER)
+                        url =  MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.COMPANY_SEARCH_INTERNS_CONTROLLER
                                 +"?txtFullName="+fullName
                                 +"&txtEmail="+email
                                 +"&selectCompanyPost="+companyPostIDString

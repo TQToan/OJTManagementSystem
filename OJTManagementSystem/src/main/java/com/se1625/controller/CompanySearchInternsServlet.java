@@ -55,7 +55,7 @@ public class CompanySearchInternsServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties)context.getAttribute("SITE_MAPS");
-        String url = prop.getProperty(MyApplicationConstants.CompanySearchInternsFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.CompanySearchInternsFeature.LOGIN_PAGE;
         
         HttpSession session = request.getSession(false);
         int page;

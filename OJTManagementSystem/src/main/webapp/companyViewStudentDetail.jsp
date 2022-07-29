@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="/WEB-INF/tlds/myapplicationlib.tld" prefix="my"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -153,7 +154,7 @@
                             </c:if>
                             <div class="inforStu-left__content col-md-12 col-7 ">
                                 <p>Name: ${studentInfor.account.name}</p>
-                                <p>Birthday: ${studentInfor.birthDay}</p>
+                                <p>Birthday: ${my:changeDateFormat(studentInfor.birthDay)}</p>
                                 <p> 
                                     <c:if test="${studentInfor.gender eq true}">
                                         Gender: Male
@@ -192,7 +193,7 @@
                 <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
                     <input type="hidden" name="studentCode" value="${studentInfor.studentCode}" />
                     <input type="hidden" name="companyPostID" value="${companyPostInfor.postID}" />  
-
+                    <input type="hidden" name="page" value="${requestScope.PAGE}" />
                     <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
                     <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
                     <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
@@ -205,6 +206,18 @@
                     <c:if test="${companyConfirm eq 2}">
                         <input name="action" class="accept-btn primary-btn" type="submit" value="Accept" /> 
                         <input name="action" class="reject-btn primary-btn" type="submit" value="Reject" />                            
+                    </c:if>
+                    <c:if test="${companyConfirm eq -2}">
+                        <input name="action" class="accept-btn primary-btn" type="submit" value="Interview" disabled="disabled" style="opacity: 0.4" /> 
+                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject Interview" disabled="disabled" style="opacity: 0.4" />                           
+                    </c:if>
+                    <c:if test="${companyConfirm eq 1}">
+                        <input name="action" class="accept-btn primary-btn" type="submit" value="Accept" disabled="disabled" style="opacity: 0.4" /> 
+                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject" disabled="disabled" style="opacity: 0.4" />                            
+                    </c:if>
+                    <c:if test="${companyConfirm eq -1}">
+                        <input name="action" class="accept-btn primary-btn" type="submit" value="Accept" disabled="disabled" style="opacity: 0.4" /> 
+                        <input name="action" class="reject-btn primary-btn" type="submit" value="Reject" disabled="disabled" style="opacity: 0.4" />                            
                     </c:if>
                 </form>
 

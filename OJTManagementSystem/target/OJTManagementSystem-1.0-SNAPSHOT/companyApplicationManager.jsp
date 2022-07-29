@@ -249,6 +249,7 @@
                                                         <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                         <input type="hidden" name="status" value="${param.status}" />
                                                         <input type="hidden" name="companyConfirm" value="${applicationDTO.companyConfirm}" />
+                                                        <input type="hidden" name="page" value="${requestScope.PAGE}" />
                                                         <input type="submit" value="${applicationDTO.student.account.name}" />
                                                     </form>
                                                 </td>

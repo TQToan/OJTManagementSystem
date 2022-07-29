@@ -78,39 +78,39 @@ public class CompanyShowPostServlet extends HttpServlet {
 
                         url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
                     }
-                        //Lay danh sach cac bai post
-                        companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
-                        List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
-                        //Phan trang
-                        if (companyPostList != null) {
-                            sizeOfList = companyPostList.size();
-                            if (xpage == null) {
-                                page = 1;
-                            } // load page save job 
-                            else {
-                                page = Integer.parseInt(xpage);
-                            } // when choose number of page
-
-                            numberPage = sizeOfList % numberRowsPerPage;
-
-                            if (numberPage == 0) {
-                                numberPage = sizeOfList / numberRowsPerPage;
-                            } else {
-                                numberPage = (sizeOfList / numberRowsPerPage) + 1;
-                            }
-                            start = (page - 1) * numberRowsPerPage;
-                            end = Math.min(page * numberRowsPerPage, sizeOfList);
-
-                            companyPostPerPage = companyPostDAO.
-                                    getListByPage(companyPostList, start, end);
-                        } // if company have posts
+                    //Lay danh sach cac bai post
+                    companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
+                    List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
+                    //Phan trang
+                    if (companyPostList != null) {
+                        sizeOfList = companyPostList.size();
+                        if (xpage == null) {
+                            page = 1;
+                        } // load page save job 
                         else {
-                            companyPostPerPage = companyPostList;
-                            sizeOfList = 0;
-                            page = 0;
-                            numberPage = 0;
-                        } // if company haven't post
-                        //Set attribute
+                            page = Integer.parseInt(xpage);
+                        } // when choose number of page
+
+                        numberPage = sizeOfList % numberRowsPerPage;
+
+                        if (numberPage == 0) {
+                            numberPage = sizeOfList / numberRowsPerPage;
+                        } else {
+                            numberPage = (sizeOfList / numberRowsPerPage) + 1;
+                        }
+                        start = (page - 1) * numberRowsPerPage;
+                        end = Math.min(page * numberRowsPerPage, sizeOfList);
+
+                        companyPostPerPage = companyPostDAO.
+                                getListByPage(companyPostList, start, end);
+                    } // if company have posts
+                    else {
+                        companyPostPerPage = companyPostList;
+                        sizeOfList = 0;
+                        page = 0;
+                        numberPage = 0;
+                    } // if company haven't post
+                    //Set attribute
                     //}
 
                     request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);

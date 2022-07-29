@@ -54,8 +54,7 @@ public class CompanyViewStudentDetailServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url
-                = MyApplicationConstants.CompanyViewStudentDetailFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.CompanyViewStudentDetailFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
         try {

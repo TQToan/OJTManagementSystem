@@ -118,6 +118,8 @@ public class AdminUpdateStatusCompanyServlet extends HttpServlet {
                     }
                     if (action) {
                         boolean result = companyDAO.updateCompanyStatus(companyID, status);
+                        TblCompanyDTO newCompany = companyDAO.getCompany(companyID);
+                        session.setAttribute("COMPANY_ROLE_INFO", newCompany);
                         if (result) {
                             TblCompanyDTO company = companyDAO.getCompany(companyID);
                             TblAccountDAO accountDAO = new TblAccountDAO();
