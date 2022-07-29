@@ -240,7 +240,11 @@
                                             <tr>
                                                 <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
+                                                    <form action="AdminViewPostDetailController" method="POST   ">
+                                                        
+                                                    </form>
                                                     <c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
+                                                        <input type="hidden" name="postID" value="${post.postID}"/>
                                                         <c:param name="postID" value="${post.postID}"/>
                                                         <c:param name="page" value="${requestScope.page}"/>
                                                         <c:param name="semester" value="${currentSemester.semesterID}"/>
