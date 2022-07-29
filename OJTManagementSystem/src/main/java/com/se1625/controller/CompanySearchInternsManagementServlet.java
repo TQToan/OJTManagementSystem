@@ -158,6 +158,8 @@ public class CompanySearchInternsManagementServlet extends HttpServlet {
                             MyApplicationConstants.CompanySearchInternsManagementFeature.COMPANY_APPLICATION_MANAGER_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
             } else {
                 response.sendRedirect(url);

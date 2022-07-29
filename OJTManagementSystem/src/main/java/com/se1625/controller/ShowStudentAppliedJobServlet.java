@@ -7,6 +7,7 @@ package com.se1625.controller;
 
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -92,7 +93,10 @@ public class ShowStudentAppliedJobServlet extends HttpServlet {
 
                         List<TblApplicationDTO> listAppliedJobPerPage = applicationDAO.
                                 getListByPage(listAppliedJobs, start, end);
-
+                        
+                        TblCompanyDAO companyDAO = new TblCompanyDAO();
+                        List<String> listCompanyNameAppliedAsStudent = companyDAO.getListCompanyNameAppliedAsStudent(student.getStudentCode(), student.getSemester().getSemesterID());                
+                        request.setAttribute("List_COMPANY_NAME", listCompanyNameAppliedAsStudent);
                         request.setAttribute("LIST_APPLIED_JOB_RESULT", listAppliedJobPerPage);
                         request.setAttribute("SIZE_OF_LIST", sizeOfList);
                         request.setAttribute("page", page);
@@ -107,13 +111,13 @@ public class ShowStudentAppliedJobServlet extends HttpServlet {
                 else {
                     response.sendRedirect(url);
                 } // if session does not exist
+            } else {
+                response.sendRedirect(url);
             }
         } catch (SQLException ex) {
             log("SQLException at ShowStudentAppliedJobServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at ShowStudentAppliedJobServlet " + ex.getMessage());
-        } finally {
-
         }
     }
 

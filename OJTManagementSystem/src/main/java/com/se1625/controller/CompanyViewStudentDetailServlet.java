@@ -93,6 +93,8 @@ public class CompanyViewStudentDetailServlet extends HttpServlet {
                             MyApplicationConstants.CompanyViewStudentDetailFeature.COMPANY_VIEW_STUDENT_DETAILE_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
             } else {
                 response.sendRedirect(url);

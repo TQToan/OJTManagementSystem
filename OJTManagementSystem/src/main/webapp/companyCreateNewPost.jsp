@@ -193,7 +193,7 @@
 
                             <div class="cPostEdit__input row">
                                 <label class="col-4 cPostEdit--label" for="date">Expiration Date</label>
-                                <input type="date" class="col-8 cPostEdit--input " name="txtExpirationDate" id="date" value="${param.txtExoirationDate}" />
+                                <input type="date" class="col-8 cPostEdit--input " name="txtExpirationDate" id="date" value="${param.txtExpirationDate}" />
                                 <c:if test="${not empty error.expirationdateIllegal}">
                                     <h5 class="text-danger offset-4 col-8 text-start ">
                                         ${error.expirationdateIllegal}

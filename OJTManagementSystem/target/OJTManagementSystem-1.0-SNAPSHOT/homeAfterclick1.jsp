@@ -229,10 +229,10 @@
                         ${ ERROR_RUN_OUT_QUANTITY_INTERNS}
                     </c:if>
                     <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn" 
-                           <c:if test="${not empty errorCompanyPost}">
-                               disabled
-                           </c:if>
-                        >
+                           <c:if test="${not empty errorCompanyPost or not empty errors.studentInformationError}">
+                               disabled style="opacity: 0.4"
+                           </c:if>                              
+                           >
                     <c:url var="linkOther" value="HomeShowCompanyDetailController">
                         <c:param name="postID" value="${companyPost.postID}"/>
                     </c:url>

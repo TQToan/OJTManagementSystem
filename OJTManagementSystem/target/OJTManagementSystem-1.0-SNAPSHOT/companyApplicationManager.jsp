@@ -183,8 +183,8 @@
                                                     >
                                                 Denied
                                             </option>
-                                            <option value="Interview" class="text-warning"
-                                                    <c:if test="${selected eq 'Interview'}">
+                                            <option value="Interviewing" class="text-warning"
+                                                    <c:if test="${selected eq 'Interviewing'}">
                                                         selected="selected"
                                                     </c:if>
                                                     >
@@ -229,7 +229,7 @@
                                             <tr>
                                                 <td>${my:counter(requestScope.PAGE, counter.count)}</td>
                                                 <td>
-                                                    <c:url var="viewStudentDetail" value="CompanyViewStudentController">
+                                                    <%-- <c:url var="viewStudentDetail" value="CompanyViewStudentController">
                                                         <c:param name="studentCode" value="${applicationDTO.student.studentCode}" />
                                                         <c:param name="companyPostID" value="${applicationDTO.companyPost.postID}" />
                                                         <c:param name="txtFullName" value="${param.txtFullName}"/>
@@ -238,8 +238,19 @@
                                                         <c:param name="status" value="${param.status}"/>
                                                         <c:param name="companyConfirm" value="${applicationDTO.companyConfirm}"/>
                                                     </c:url>
-
-                                                    <a href="${viewStudentDetail}">${applicationDTO.student.account.name}</a>
+                                                    
+                                                    <a href="${viewStudentDetail}">${applicationDTO.student.account.name}</a> --%>
+                                                    
+                                                    <form action="CompanyViewStudentController" method="POST">
+                                                        <input type="hidden" name="studentCode" value="${applicationDTO.student.studentCode}" />
+                                                        <input type="hidden" name="companyPostID" value="${applicationDTO.companyPost.postID}" />
+                                                        <input type="hidden" name="txtFullName" value="${param.txtFullName}" />
+                                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
+                                                        <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
+                                                        <input type="hidden" name="status" value="${param.status}" />
+                                                        <input type="hidden" name="companyConfirm" value="${applicationDTO.companyConfirm}" />
+                                                        <input type="submit" value="${applicationDTO.student.account.name}" />
+                                                    </form>
                                                 </td>
                                                 <td>${applicationDTO.student.account.email}</td>
                                                 <td>${applicationDTO.companyPost.title_Post}</td>

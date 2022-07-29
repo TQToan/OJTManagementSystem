@@ -78,6 +78,8 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
                     if (checkError) {
                         request.setAttribute("ERROR_MARK", error);
                         url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
                         if (mark < 0 || mark > 10) {
                             error.setErrorInputInvalidMark("Please enter mark 0-10");
@@ -86,6 +88,8 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
                         if (checkError) {
                             request.setAttribute("ERROR_MARK", error);
                             url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
                         } else {
                             float grade = Float.parseFloat(txtMark);
                             int postID = Integer.parseInt(txtPostID);
@@ -127,12 +131,22 @@ public class CompanyUpdateInternsServlet extends HttpServlet {
                                         + "Regards,\n"
                                         + "The support OJT team";
                                 MyApplicationHelper.sendEmail(student.getAccount(), systemAccount, message, subject);
-                                url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER);
+
+                                String fullName = request.getParameter("txtFullName");
+                                String email = request.getParameter("txtEmail");
+                                String companyPostIDString = request.getParameter("selectCompanyPost");
+                                String selectStatus = request.getParameter("status");
+                                String xpage = request.getParameter("page");
+                                url = prop.getProperty(MyApplicationConstants.CompanyUpdateInternsFeature.COMPANY_SEARCH_INTERNS_MANAGEMENT_CONTROLLER)
+                                        + "?txtFullName=" + fullName
+                                        + "&txtEmail=" + email
+                                        + "&selectCompanyPost=" + companyPostIDString
+                                        + "&status=" + selectStatus
+                                        + "&page=" + xpage;
+                                response.sendRedirect(url);
                             }
                         }
                     }
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
                 } else {
                     response.sendRedirect(url);
                 }

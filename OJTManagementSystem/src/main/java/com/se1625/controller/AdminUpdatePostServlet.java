@@ -79,14 +79,14 @@ public class AdminUpdatePostServlet extends HttpServlet {
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_VIEW_POST_DETAIL_CONTROLLER)
                                     + "?postID=" + postID + "&page=" + xpage + "&semester=" + semesterID;
 //                            request.setAttribute("page", xpage);
-                            request.setAttribute("UPDATE_SUSCESS", "Update success");
+                            //request.setAttribute("UPDATE_SUSCESS", "Update success");
                         } else if (save.equals("adminPostManagePage") || save.equals("adminSearchCompanyPostPage")) {
                             //url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SHOW_POST_MANAGE_CONTROLLER);
 
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SEARCH_POST_MANAGE_CONTROLLER)
                                     + "?page=" + xpage + "&semester=" + semesterID + "&txtTitle=" + titlePost + "&txtCompanyName=" + companyName + "&nameStatus=" + nameStatus;
                             //+"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
-                            request.setAttribute("UPDATE_SUSCESS", "Update success");
+                            //request.setAttribute("UPDATE_SUSCESS", "Update success");
                         }
                         String link = "http://localhost:8080/OJTManagementSystem";
                         TblAccountDAO accountDAO = new TblAccountDAO();
@@ -112,9 +112,9 @@ public class AdminUpdatePostServlet extends HttpServlet {
                                     + "The support OJT team";
                         }
                         MyApplicationHelper.sendEmail(companyPost.getCompany().getAccount(), systemAccount, message, subject);
-                        RequestDispatcher rd = request.getRequestDispatcher(url);
-                        rd.forward(request, response);
-//                        response.sendRedirect(url);
+//                        RequestDispatcher rd = request.getRequestDispatcher(url);
+//                        rd.forward(request, response);
+                       response.sendRedirect(url);
                     } else {
                         url = MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_VIEW_POST_DETAIL_CONTROLLER
                                 + "?postID=" + postID;

@@ -121,18 +121,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
 
                     ApplyCVStudentError errors = new ApplyCVStudentError();
                     boolean found = false;
-                    //check student infor
-                    Date checkBirthday = student.getBirthDay();
-                    String checkAddress = student.getAddress();
-                    String checkPhone = student.getPhone();
-                    if (checkBirthday == null || checkAddress == null || checkPhone == null) {
-                        errors.setStudentInformationError("Please enter all personal information first");
-                        request.setAttribute("POST_ID", postID);
-                        TblCompany_PostDAO postDAO = new TblCompany_PostDAO();
-                        TblCompany_PostDTO companyPost = postDAO.getCompanyPost(postID);
-                        request.setAttribute("POST_COMPANY_INFOR", companyPost);
-                        request.setAttribute("ERRORS", errors);
-                    } else {
                         if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
                             found = true;
                             errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
@@ -228,11 +216,10 @@ public class ApplyCVStudentServlet extends HttpServlet {
                                 response.sendRedirect(url);
                             }
                         }
-                    }
-                } else {
+                }else{
                     response.sendRedirect(url);
                 }
-            } else {
+            }else{
                 response.sendRedirect(url);
             }
         } catch (SQLException ex) {

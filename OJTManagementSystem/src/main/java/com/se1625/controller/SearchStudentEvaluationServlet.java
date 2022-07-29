@@ -117,8 +117,6 @@ public class SearchStudentEvaluationServlet extends HttpServlet {
             log("SQLException at SearchStudentEvaluationServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at SearchStudentEvaluationServlet " + ex.getMessage());
-        } finally {
-
         }
     }
 

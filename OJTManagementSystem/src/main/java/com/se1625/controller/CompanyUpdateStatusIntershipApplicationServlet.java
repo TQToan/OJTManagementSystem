@@ -75,7 +75,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         companyConfirm = 2;
                     } else if (companyConfirmString.equals("Accept")) {
                         companyConfirm = 1;
-                    } else if(companyConfirmString.equals("Reject")){
+                    } else if (companyConfirmString.equals("Reject")) {
                         companyConfirm = -1;
                     }
                     //get quantityInterns of company
@@ -87,6 +87,10 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         CompanyPostDetailError error = new CompanyPostDetailError();
                         error.setQuantitytInternsNotEngough("The number of applications is enough");
                         request.setAttribute("ERROR_QUANTITY_INTERNS", error);
+                        url = prop.getProperty(
+                                MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.COMPANY_SEARCH_INTERNS_CONTROLLER);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
                         TblApplicationDAO applicationDAO = new TblApplicationDAO();
                         boolean result = applicationDAO.updateStatusCompanyConfirm(studentCode, companyPostID, companyConfirm);
@@ -101,7 +105,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                                     + "\n";
                             if (companyConfirm == -2) {
                                 message += "The OJT system wants to announce that you were denied an interview by " + companyPostDTO.getCompany().getAccount().getName() + " company."
-                                        + " Please click on the link " + link 
+                                        + " Please click on the link " + link
                                         + " so as not to miss any information."
                                         + "\n"
                                         + "Regards,"
@@ -109,8 +113,8 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                             }
                             if (companyConfirm == 2) {
                                 message += "The OJT system wants to announce that you were accepted an interview by " + companyPostDTO.getCompany().getAccount().getName() + " company."
-                                        + " You should actively send an email to the company " + companyPostDTO.getCompany().getAccount().getEmail() +" so that you can receive an interview schedule."
-                                        + " Please click on the link " + link 
+                                        + " You should actively send an email to the company " + companyPostDTO.getCompany().getAccount().getEmail() + " so that you can receive an interview schedule."
+                                        + " Please click on the link " + link
                                         + " so as not to miss any information.\n"
                                         + "\n"
                                         + "Regards,"
@@ -118,7 +122,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                             }
                             if (companyConfirm == -1) {
                                 message += "The OJT system wants to announce that you were Denied for the job " + companyPostDTO.getTitle_Post() + " by " + companyPostDTO.getCompany().getAccount().getName() + " company."
-                                        + " Please click on the link " + link 
+                                        + " Please click on the link " + link
                                         + " so as not to miss any information."
                                         + "\n"
                                         + "Regards,"
@@ -141,19 +145,19 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                                     // true 0 0
                                     // true 1 0
                                     // true 1 2
-                                    if (application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true && application.getSchoolConfirm() == 0 
+                                    if (application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true && application.getSchoolConfirm() == 0
                                             && application.getCompanyConfirm() == 0
-                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true 
-                                            && application.getSchoolConfirm() == 1 
-                                            && application.getCompanyConfirm() == 0 
-                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true 
-                                            && application.getSchoolConfirm() == 1 
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true
+                                            && application.getSchoolConfirm() == 1
+                                            && application.getCompanyConfirm() == 0
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true
+                                            && application.getSchoolConfirm() == 1
                                             && application.getCompanyConfirm() == 2) {
                                         listApplicationChageStatus.add(application);
                                     }
@@ -164,7 +168,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                                 }
                                 message = "The OJT system wants to announce that you were accepted for the job " + companyPostDTO.getTitle_Post() + " by " + companyPostDTO.getCompany().getAccount().getName() + " company."
                                         + " You should actively send email to the company " + companyPostDTO.getCompany().getAccount().getEmail() + " so that you can receive information about the job."
-                                        + " Please click on the link " + link 
+                                        + " Please click on the link " + link
                                         + " so as not to miss any information."
                                         + "\n"
                                         + "Regards,"
@@ -172,12 +176,20 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                             }
                             MyApplicationHelper.sendEmail(studentInfor.getAccount(), systemAccount, message, subject);
                         }
-                    }
-                    url = prop.getProperty(
-                            MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.COMPANY_SEARCH_INTERNS_CONTROLLER);
+                        String fullName = request.getParameter("txtFullName");
+                        String email = request.getParameter("txtEmail");
+                        String selectStatus = request.getParameter("status");
+                        String xpage = request.getParameter("page");
+                        url = prop.getProperty(
+                                MyApplicationConstants.CompanyUpdateStatusIntershipApplicationFeature.COMPANY_SEARCH_INTERNS_CONTROLLER)
+                                +"?txtFullName="+fullName
+                                +"&txtEmail="+email
+                                +"&selectCompanyPost="+companyPostIDString
+                                +"&status="+selectStatus
+                                +"&page="+xpage;
 
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
+                        response.sendRedirect(url);
+                    }
                 } else {
                     response.sendRedirect(url);
                 }
