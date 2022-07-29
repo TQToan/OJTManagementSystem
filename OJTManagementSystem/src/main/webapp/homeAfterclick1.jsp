@@ -166,7 +166,6 @@
                                             <span id="displayResult"></span>
                                         </label>
                                         <input type="file" id="inputFile" name="myfile" value="" hidden="hidden">
-                                        <%--      <input type="file" id="inputFile" name="myfile" value="${application.attachmentPath}" hidden="hidden"> --%>
                                         <h5 class="text-red">
                                             <br/>
                                             <c:if test="${not empty errors.fileUploadError}" >
@@ -230,10 +229,10 @@
                         ${ ERROR_RUN_OUT_QUANTITY_INTERNS}
                     </c:if>
                     <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn" 
-                           <c:if test="${not empty errorCompanyPost}">
+                           <c:if test="${not empty errorCompanyPost or not empty errors.studentInformationError}">
                                disabled
-                           </c:if>
-                        >
+                           </c:if>                              
+                           >
                     <c:url var="linkOther" value="HomeShowCompanyDetailController">
                         <c:param name="postID" value="${companyPost.postID}"/>
                     </c:url>

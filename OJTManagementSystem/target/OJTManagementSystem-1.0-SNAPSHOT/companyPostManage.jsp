@@ -138,34 +138,6 @@
                         <div class="main-body-cPostManage__header">
                             Post Management
                         </div>
-                        <%--<<<<<<< HEAD
-                        <c:set  var="error" value="${requestScope.COMPANY_NOT_ALLOW_CREATE_POST}"/>
-                        <c:if test="${not empty error}">
-                            <p id="error" style="display: none">${error}</p>
-                        </c:if>
-                        <c:if test="${company.is_Signed eq false}">
-                            <div class="main-body-cPostManage__create">
-                                <a onclick="displayDate()" href="#" id="myBtn" class="main-body-cPostManage__create-btn">
-                                    <i class="fa-solid fa-plus"></i>
-                                    Create
-                                </a>
-                                <h5 class="text-danger text-start " id="demo" style="display: none">
-
-                                </h5>
-                            </div>
-                        </c:if>
-                        <c:if test="${company.is_Signed eq true}">
-                            <div class="main-body-cPostManage__create">
-                                <a href="ShowCreateNewCompanyPostController" class="main-body-cPostManage__create-btn">
-                                    <i class="fa-solid fa-plus"></i>
-                                    Create
-                                </a>
-                            </div>
-                        </c:if>--%>
-
-
-
-                        <!--=======-->
                         <c:set  var="error" value="${requestScope.COMPANY_NOT_ALLOW_CREATE_POST}"/>
                         <div class="main-body-cPostManage__create">
                             <!-- Đặt điều kiện ở đây -->
@@ -192,8 +164,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
-                                            <h4> ${error}
-                                            </h4>
+                                            You can not create post. Because your company has not signed with FPT University.
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -202,7 +173,6 @@
                                 </div>
                             </div>
                         </div>
-                        <%-->>>>>>> 042b312904c18d5b82cc0faf24c0159bd12e2074--%>
                         <div class="main-body-cPostManage__search">
                             <form action="CompanySearchPostController" method="POST">
 
@@ -213,7 +183,8 @@
                                     </div>
                                     <div class="col-3">
                                         <select name="nameMajor" class="company--select" id="title">
-                                            <option value="">Major</option>
+                                            <option value=""hidden>Major</option>
+                                            <option value="">All Major</option>
                                             <c:forEach items="${requestScope.LIST_MAJOR_NAME}" var="major">
                                                 <option value="${major.majorID}" <c:if test="${major.majorID eq param.nameMajor}">
                                                         selected="selected"
@@ -224,7 +195,8 @@
 
                                     <div class="col-3">
                                         <select id="city" name="nameStatus" class="company--select" >
-                                            <option value="" selected>Status</option>
+                                            <option value="" hidden>Status</option>
+                                            <option value="" >All Status</option>
                                             <option value="Active" class="text-success" <c:if test="${param.nameStatus eq 'Active'}">
                                                     selected="selected"
                                                 </c:if>>Active</option>
@@ -307,10 +279,14 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-<!--                                                    <a href="CompanyShowPostDetailsController?postID=${post.postID}" >Edit</a>-->
                                                     <form action="CompanyShowPostDetailsController" method ="post">
                                                         <input type="hidden" name="postID" value="${post.postID}" >
-                                                        <input type="submit" value="Edit" class="btn-update-green">
+                                                        <c:if test="${company.is_Signed eq false}">
+                                                            <input type="submit" value="Edit" class="btn-update-green" disabled="disabled" />
+                                                        </c:if>
+                                                            <c:if test="${company.is_Signed eq true}">
+                                                            <input type="submit" value="Edit" class="btn-update-green" />
+                                                        </c:if>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -321,7 +297,6 @@
                                 </table>
                             </div>
 
-                            <!--<div id="pageX" hidden>${requestScope.page}</div>-->
                             <div class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
                                     <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -417,28 +392,6 @@
                                         </li>
                                         <!--đưa icon vào-->
                                     </c:if>
-                                    <%--
-                                <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <form action="CompanySearchPostController" method="POST">
-                                        <input type="hidden" name="page" value="${i}"/>
-                                        <input type="hidden" name="companyID" value="${company.companyID}"/>
-                                        <input type="hidden" name="title_Post" value="${param.title_Post}"/>
-                                        <input type="hidden" name="nameMajor" value="${param.nameMajor}"/>
-                                        <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                        <input type="submit" value="${i}" class="page-link"/>
-                                    </form>
-
-                                    <%--<c:url var="url" value="CompanySearchController">
->>>>>>> cb0376207e7f886ecc03428d63f9baec4248040e
-                                        <c:param name="page" value="${i}"/>
-                                        <c:param name="companyID" value="${company.companyID}"/>
-                                        <c:param name="title_Post" value="${param.title_Post}"/>
-                                        <c:param name="nameMajor" value="${param.nameMajor}"/>
-                                        <c:param name="nameStatus" value="${param.nameStatus}"/>                              
-                                    </c:url>
-                                    <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                </c:forEach>--%>
-
                                 </ul>
                             </div>
                         </c:if>
@@ -461,13 +414,5 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> 
-        <script src="./assets/js/base.js"></script>
-        <script>
-
-            function displayDate() {
-                var error = document.getElementById("error");
-                alert(document.getElementById("demo").innerHTML = error.innerHTML);
-            }
-        </script>
     </body>
 </html>

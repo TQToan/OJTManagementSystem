@@ -5,6 +5,8 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
+import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblapplication.ApplyCVStudentError;
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
@@ -15,6 +17,7 @@ import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.tblstudent.TblStudentDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +30,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -116,18 +121,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
 
                     ApplyCVStudentError errors = new ApplyCVStudentError();
                     boolean found = false;
-                    //check student infor
-                    Date checkBirthday = student.getBirthDay();
-                    String checkAddress = student.getAddress();
-                    String checkPhone = student.getPhone();
-                    if (checkBirthday == null || checkAddress == null || checkPhone == null) {
-                        errors.setStudentInformationError("Please enter all personal information first");
-                        request.setAttribute("POST_ID", postID);
-                        TblCompany_PostDAO postDAO = new TblCompany_PostDAO();
-                        TblCompany_PostDTO companyPost = postDAO.getCompanyPost(postID);
-                        request.setAttribute("POST_COMPANY_INFOR", companyPost);
-                        request.setAttribute("ERRORS", errors);
-                    } else {
                         if (expectedJob.trim().length() < 6 || expectedJob.trim().length() > 50) {
                             found = true;
                             errors.setExpectedJobLengthError("Expected Job is required 6-50 characters");
@@ -200,27 +193,47 @@ public class ApplyCVStudentServlet extends HttpServlet {
 
                             request.setAttribute("POST_COMPANY_INFOR", companyPost);
                             request.setAttribute("ERRORS", errors);
+
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
                         } else {
                             TblApplicationDAO applicationDAO = new TblApplicationDAO();
                             boolean result = applicationDAO.addApplication(application);
                             if (result) {
+                                String subject = "The new application internship";
+                                TblAccountDAO accountDAO = new TblAccountDAO();
+                                TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                                String link = "http://localhost:8080/OJTManagementSystem/CompanyShowInternshipApplicationController";
+                                String message = "Dear " + companyPost.getCompany().getAccount().getName() + " company,\n"
+                                        + "\n"
+                                        + "The OJT system wants to announce that the job is " + companyPost.getTitle_Post()
+                                        + " that was applied by the student is " + student.getAccount().getName() + ", student Code is "
+                                        + student.getStudentCode() + ". Please click on the link " + link
+                                        + " so as not to miss any information.\n"
+                                        + "\n"
+                                        + "Regards,"
+                                        + "The support OJT team";
+                                MyApplicationHelper.sendEmail(companyPost.getCompany().getAccount(), systemAccount, message, subject);
                                 url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.STUDENT_APPLIED_JOB_PAGE);
+                                response.sendRedirect(url);
                             }
                         }
-                    }
+                }else{
+                    response.sendRedirect(url);
                 }
+            }else{
+                response.sendRedirect(url);
             }
         } catch (SQLException ex) {
             log("SQLException at ApplyCVStudentServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at ApplyCVStudentServlet " + ex.getMessage());
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
             log("Exception at ApplyCVStudentServlet " + ex.getMessage());
-            ex.getCause();
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
         }
     }
 

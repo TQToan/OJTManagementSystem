@@ -21,12 +21,10 @@
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/student.css">
         <link rel="stylesheet" href="./assets/css/student-responsive.css">
-
     </head>
 
     <body>
         <header></header>
-
 
         <c:set var="student" value="${sessionScope.STUDENT_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
@@ -157,13 +155,15 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <input type="text" name="txtJob" value="${param.txtJob}" id="" placeholder="Job" class="student--input">
-                                        <%--                                    <input type="hidden" name="job" value="${tittle_Post}" />--%>
                                     </div>
                                     <div class="col-4">
                                         <select id="city" name="txtCompany"  class="student--select" >
                                             <option value="" hidden>Company</option>
                                             <c:if test="${requestScope.SIZE_OF_LIST eq 0}">
                                                 <option value="" disabled="disabled">No Company to choose</option>
+                                            </c:if>
+                                            <c:if test="${requestScope.SIZE_OF_LIST gt 1}">
+                                                <option value="" >All Company</option>
                                             </c:if>
                                             <c:forEach var="allCompany" items="${requestScope.LIST_ALL_COMPANY}">
                                                 <option value="${allCompany.account.name}"
@@ -234,16 +234,6 @@
                                                 <td>${my:changeDateFormat(post.exprirationDate)}</td>
 
                                                 <td>
-                                                    <%--<c:url var="urlDeleteSaveJob" value="StudentDeleteSaveJobController">
-                                                        <c:param name="postID" value="${post.postID}"/>
-                                                    </c:url>
-                                                    <a href="${urlDeleteSaveJob}" >Unsave</a>--%>
-
-                                                    <%-- <form action="StudentDeleteSaveJobController" >
-                                                         <input type="hidden" name="postID" value="${post.getPostID()}" />
-                                                         <input type="hidden" name="studentCode" value="${student1.getStudentCode()}" />
-                                                         <input type="submit" value="Delete" class="far fa-heart save-btn save-btn-active" />
-                                                         </form>--%>
                                                     <form action="StudentDeleteSaveJobController" method="Post">
                                                         <input type="hidden" name="postID" value="${post.postID}" />
                                                         <input type="submit" value="Unsave" class="btn-regular-red" />
@@ -254,7 +244,7 @@
                                     </tbody>
                                 </table>
 
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
+                                
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -342,33 +332,6 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <!--                                        <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                                            <span aria-hidden="true">&laquo;</span>
-                                                                                        </a>
-                                                                                    </li>-->
-                                        <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                            <form action="SearchSaveJobController" method="POST">
-                                                <input type="hidden" name="page" value="${i}"/>
-                                                <input type="hidden" name="txtJob" value="${param.txtJob}"/>
-                                                <input type="hidden" name="txtCompany" value="${param.txtCompany}"/>
-                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
-                                                <input type="submit" value="${i}" class="page-link"/>
-                                            </form>--%>
-
-                                        <%--<c:url var="url" value="SearchSaveJobController">
-                                            <c:param name="page" value="${i}"/>
-                                            <c:param name="txtJob" value="${param.txtJob}"/>
-                                            <c:param name="txtCompany" value="${param.txtCompany}"/>
-                                            <c:param name="nameLocation" value="${param.nameLocation}"/>
-                                        </c:url>
-                                        <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>
-                                    </c:forEach>--%>
-                                        <!--                                        <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                                            <span aria-hidden="true">&raquo;</span>
-                                                                                        </a>
-                                                                                    </li>-->
                                     </ul>
                                 </div>
                             </c:if>
@@ -391,6 +354,5 @@
         </footer>
 
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>    
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

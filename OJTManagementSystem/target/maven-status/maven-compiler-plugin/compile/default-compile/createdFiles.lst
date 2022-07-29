@@ -40,6 +40,7 @@ com\se1625\tblapplication\TblApplicationDAO.class
 com\se1625\controller\CompanyShowPostServlet.class
 com\se1625\tblaccount\TblAccountError.class
 com\se1625\tblapplication\TblApplicationError.class
+com\se1625\utils\MyApplicationConstants$ExportEvalutionExcelFileFeature.class
 com\se1625\utils\MyApplicationConstants$ShowStudentEvaluationFeature.class
 com\se1625\controller\CompanyShowPostDetailsServlet.class
 com\se1625\controller\CompanyUpdateInternsServlet.class
@@ -108,6 +109,7 @@ com\se1625\utils\MyApplicationConstants$AdminCompanyManagerFeature.class
 com\se1625\controller\SearchStudentByAdminServlet.class
 com\se1625\controller\AdminViewPostDetailsServlet.class
 com\se1625\utils\MyApplicationConstants$AdminDashboardFeature.class
+com\se1625\utils\MyApplicationConstants$DownloadFileModelFeature.class
 com\se1625\utils\MyApplicationConstants$ShowStudentAppliedJobFeature.class
 com\se1625\tblfollowing_post\TblFollowing_PostDTO.class
 com\se1625\controller\StudentDeleteSaveJobServlet.class

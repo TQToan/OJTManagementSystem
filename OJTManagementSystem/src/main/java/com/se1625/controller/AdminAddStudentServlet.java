@@ -17,6 +17,7 @@ import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.regex.Pattern;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -66,9 +67,9 @@ public class AdminAddStudentServlet extends HttpServlet {
             if (session != null) {
                 TblAccountDTO adminAccount = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
                 if (adminAccount != null) {
-                    if (studentID.trim().length() == 0 || studentID.trim().length() > 8) {
+                    if (studentID.trim().length() != 8) {
                         found = true;
-                        errors.setStudentIDLengthError("Student ID is required 8 characters.");
+                        errors.setStudentIDLengthError("Student ID is required 8 characters.(Example: SE151272)");
                     } else {
                         TblStudentDAO studentDAO = new TblStudentDAO();
                         boolean checkExistedStudentID = studentDAO.checkExistedStudent(studentID);
@@ -81,6 +82,31 @@ public class AdminAddStudentServlet extends HttpServlet {
                     if (studentName.trim().length() == 0 || studentName.trim().length() > 50 || studentName.trim().length() < 6) {
                         found = true;
                         errors.setStudentNameLengthError("Student name is required 6 - 50 character.");
+                    } else {
+                        String patternName = "^[^\\p{L}\\s]*$";
+                        if (studentName.matches(patternName)) {
+                            found = true;
+                            errors.setStudentNameContainSpecialCharacter("Student name does not contain any special characters.");
+                        } else {
+                            char[] nameArray = studentName.toCharArray();
+                            boolean isNumber = false;
+                            for (char c : nameArray) {
+                                if (Character.isDigit(c)) {
+                                    isNumber = true;
+                                    break;
+                                }
+                            }
+                            if (isNumber) {
+                                found = true;
+                                errors.setStudentNameContainSpecialCharacter("Student name does not contain any special characters.");
+                            } else {
+                                String pattern = "[\\p{L}\\s]*";
+                                if (studentName.matches(pattern) == false) {
+                                    found = true;
+                                    errors.setStudentNameContainSpecialCharacter("Student name does not contain any special characters.");
+                                }
+                            }
+                        }
                     }
 
                     if (major.trim().length() == 0) {
@@ -129,6 +155,8 @@ public class AdminAddStudentServlet extends HttpServlet {
                     if (found) {
                         request.setAttribute("ERRORS", errors);
                         url = properties.getProperty(MyApplicationConstants.AdminAddStudentFeature.ADMIN_SHOW_ADDING_STUDENT_CONTROLLER);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
                         TblStudentDTO student = new TblStudentDTO();
                         student.setStudentCode(studentID);
@@ -145,12 +173,9 @@ public class AdminAddStudentServlet extends HttpServlet {
                         boolean result = accountDAO.addStudentAccount(student, semester.getSemesterID());
                         if (result) {
                             url = properties.getProperty(MyApplicationConstants.AdminAddStudentFeature.SHOW_ADMIN_STUDENT_MANAGEMENT_CONTROLLER);
+                            response.sendRedirect(url);
                         }
-                    }
-
-                    RequestDispatcher rd = request.getRequestDispatcher(url);
-                    rd.forward(request, response);
-
+                    }   
                 } else {
                     response.sendRedirect(url);
                 }

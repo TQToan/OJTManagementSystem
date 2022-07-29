@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css"/>
     </head>
 
     <body>
@@ -28,7 +28,7 @@
 
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
-                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                <a href="AdminDashboardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
@@ -36,7 +36,7 @@
                     <i class="fa-solid fa-bars nav__respo--btn"></i>
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
-                    <a href="" class=" nav__infor--link text-truncate text-center">
+                    <a href="AdminDashboardController" class=" nav__infor--link text-truncate text-center">
                         <i class="fas fa-user-circle nav__infor--icon"></i>
                         <font> ${admin.name} </font>
                     </a>
@@ -90,10 +90,10 @@
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="#" class="nav__logo ">
+                <a href="AdminDashboardController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="#" class=" nav__infor--link text-truncate">
+                <a href="AdminDashboardController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${admin.name}
                 </a>
@@ -240,7 +240,17 @@
                                             <tr>
                                                 <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
-                                                    <c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
+                                                    <form action="AdminViewPostDetailController" method="POST">
+                                                        <input type="hidden" name="postID" value="${post.postID}"/>
+                                                        <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                        <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                        <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                        <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                        <input type="submit" value="${post.title_Post}" />
+                                                    </form>
+                                                    <%--<c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
+                                                        <input type="hidden" name="postID" value="${post.postID}"/>
                                                         <c:param name="postID" value="${post.postID}"/>
                                                         <c:param name="page" value="${requestScope.page}"/>
                                                         <c:param name="semester" value="${currentSemester.semesterID}"/>
@@ -248,7 +258,7 @@
                                                         <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                         <c:param name="nameStatus" value="${param.nameStatus}"/>
                                                     </c:url>
-                                                    <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>
+                                                    <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>--%>
                                                 </td>
                                                 <td>${post.vacancy}</td>
                                                 <td>${my:changeDateFormat(post.postingDate)}</td>
@@ -314,7 +324,7 @@
                                                                 <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
                                                             </c:if>
                                                             <c:if test="${post.statusPost eq 1}">       
-                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal_${post.postID}">
                                                                     Reject
                                                                 </button>
                                                             </c:if>
@@ -322,7 +332,7 @@
 
 
                                                             <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="exampleModal_${post.postID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -331,7 +341,7 @@
                                                                         </div>
                                                                         <form action="AdminUpdatePostController" method="POST"> 
                                                                             <div class="modal-body">
-                                                                                <textarea name="" id="" cols="70" rows="5" style="resize:none"></textarea>
+                                                                                <textarea name="txtReason"  cols="70" rows="5" style="resize:none"></textarea>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                                     <div>
@@ -360,14 +370,10 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
-
                                     </tbody>
-
                                 </table>
 
 
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div  class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -467,30 +473,12 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <!--                                     <li class="page-item">
-                                                                                <a class="page-link" href="#" aria-label="Previous">
-                                                                                     <span aria-hidden="true">&laquo;</span>
-                                                                                </a>
-                                                                            </li>-->
-                                        <%--
-                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-
-                                            <form action="AdminSearchCompanyPostController" method="POST">
-                                                <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
-                                                <input type="hidden" name="page" value="${i}" />
-                                                <input type="hidden" name="semester" value="${currentSemester.semesterID}" />
-                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}" />
-                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}" />
-                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}" />
-                                                <input type="submit" value="${i}" class="page-link" />
-                                            </form>
-                                        </c:forEach>--%>
                                     </ul>
                                 </div>
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    You have not any post job yet!
+                                    Post job list does not have any result!
                                 </h3>
                             </c:if>
 
@@ -509,6 +497,8 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
+
+
+
     </body>
 </html>

@@ -80,8 +80,7 @@ public class CancleApplyCVServlet extends HttpServlet {
 
                         if (result) {
                             url = properties.getProperty(MyApplicationConstants.CancleApplyCVFeature.STUDENT_APPLIED_JOB_PAGE);
-                            RequestDispatcher rd = request.getRequestDispatcher(url);
-                            rd.forward(request, response);
+                            response.sendRedirect(url);
                         }
                     }
 

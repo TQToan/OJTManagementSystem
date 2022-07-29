@@ -97,7 +97,11 @@ public class ShowAdminStudentManagementServlet extends HttpServlet {
                         else {
                             page = Integer.parseInt(xpage);
                         } // when choose number of page
-
+                        String is_Disable = request.getParameter("isDisabled");
+                        boolean isDisable = Boolean.parseBoolean(is_Disable);
+                        if (isDisable) {
+                            page = 1;
+                        }
                         int numberPage = sizeOfList % numberRowsPerPage;
 
                         if (numberPage == 0) {

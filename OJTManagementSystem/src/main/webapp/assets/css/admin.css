@@ -124,6 +124,7 @@
         .dashboard-card--link{
             text-decoration: none;
             color: #000;
+            width: 100%;
         }
         
         .dashboard-card--link:hover{

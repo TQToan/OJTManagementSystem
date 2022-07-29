@@ -85,7 +85,11 @@ public class AdminDashboardServlet extends HttpServlet {
 
                     TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                     companyPostDAO.searchPostByFilterAsAdminRole("", "", "Waiting", currentSemester.getSemesterID());
-                    int totalPendingPost = companyPostDAO.getCompanyPostListAdminPage().size();
+                    List<TblCompany_PostDTO> listCompanyPost = companyPostDAO.getCompanyPostListAdminPage();
+                    int totalPendingPost = 0;
+                    if (listCompanyPost != null) {
+                        totalPendingPost = listCompanyPost.size();
+                    }
                     request.setAttribute("TOTAL_PENDING_POST", totalPendingPost);
 
                     TblCompanyDAO companydao = new TblCompanyDAO();

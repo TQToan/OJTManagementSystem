@@ -156,11 +156,19 @@
                                         <input type="text" name="nameTypeJob" class="student--input" value="${param.nameTypeJob}" id="" placeholder="Type Job">
                                     </div>
                                     <div class="col-3">                             
-                                        <input type="text" name="nameCompany" class="student--input"  value="${param.nameCompany}" id="" placeholder="Company">
+                                        <!--<input type="text" name="nameCompany" class="student--input"  value="${param.nameCompany}" id="" placeholder="Company">-->
+                                        <c:set var="listCompanyName" value="${requestScope.List_COMPANY_NAME}"/>
+                                        <select id="city" name="nameCompany"  class="student--select" >
+                                            <option value="">All Company</option>
+                                            <c:forEach var="companyName" items="${listCompanyName}">
+                                                <option value="${companyName}" <c:if test="${param.nameCompany eq companyName}">
+                                                        selected="selected"
+                                                    </c:if>>${companyName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="col-2">
                                         <select id="city" name="nameLocation"  class="student--select" >
-                                            <!-->>>>>>> 9edfda73613ca59615b350eb609bf0303156bf1c-->
                                             <option value="" hidden>Location</option>
                                             <option value="">All Location</option>
                                             <option value="TP.HCM" <c:if test="${param.nameLocation eq 'TP.HCM'}">
@@ -190,6 +198,12 @@
                                             <option value="Success" class="text-success" <c:if test="${param.nameStatus eq 'Success'}">
                                                     selected="selected"
                                                 </c:if>>Success</option>
+                                            <option value="Interviewing" class="text-warning" <c:if test="${param.nameStatus eq 'Interviewing'}">
+                                                    selected="selected"
+                                                </c:if>>Interviewing</option>
+                                            <option value="Failed" class="text-danger" <c:if test="${param.nameStatus eq 'Failed'}">
+                                                    selected="selected"
+                                                </c:if>>Failed</option>
                                             <option value="Canceled" class="text-gray" <c:if test="${param.nameStatus eq 'Canceled'}">
                                                     selected="selected"
                                                 </c:if>>Canceled</option>
@@ -229,43 +243,58 @@
                                                 <td>${appliedJob.companyPost.company.account.name}</td>
                                                 <td>${appliedJob.companyPost.workLocation}</td>
                                                 <td>${my:changeDateFormat(appliedJob.companyPost.expirationDate)}</td>
-                                                <c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 0 and appliedJob.companyConfirm eq 0)
+                                                <%--<c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 0 and appliedJob.companyConfirm eq 0)
                                                               or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 2) }">
                                                       <td class="text-warning">
                                                           <strong>
                                                               Waiting
                                                           </strong>
                                                       </td>
-                                                </c:if>
-                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 0}">
+                                                </c:if>--%>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.companyConfirm eq 0}">
                                                     <td class="text-warning">
                                                         <strong>
                                                             Waiting
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq -1}" >
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.companyConfirm eq -1}" >
                                                     <td class="text-danger">
                                                         <strong>
                                                             Denied
                                                         </strong>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1)
+                                                <%--<c:if test="${(appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -1)
                                                               or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq -2)}" >
                                                       <td class="text-danger">
                                                           <strong>
                                                               Denied
                                                           </strong>
                                                       </td>
-                                                </c:if>
-                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1}" >
+                                                </c:if>---%>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.companyConfirm eq 1}" >
                                                     <td class="text-success">
                                                         <strong>
                                                             Accepted
                                                         </strong>
                                                     </td>
                                                 </c:if>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.companyConfirm eq 2}" >
+                                                    <td class="text-warning">
+                                                        <strong>
+                                                            Interviewing
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${appliedJob.studentConfirm eq true and appliedJob.companyConfirm eq -2}" >
+                                                    <td class="text-danger">
+                                                        <strong>
+                                                            Failed
+                                                        </strong>
+                                                    </td>
+                                                </c:if>
+
                                                 <c:if test="${appliedJob.studentConfirm eq false}">
                                                     <td class="text-gray">
                                                         <strong>
@@ -273,6 +302,7 @@
                                                         </strong>
                                                     </td>
                                                 </c:if>
+
                                                 <c:url var="url" value="CancleApplyCVController" >
                                                     <c:param name="applicationID" value="${appliedJob.applicationID}" />
                                                 </c:url>
@@ -309,7 +339,6 @@
                                     </tbody>
 
                                 </table>
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -403,19 +432,6 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <%--
-                                    <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                        <li>
-                                            <form action="SearchStudentAppliedJobController" method="POST">
-                                                <input type="hidden" name="page" value="${i}"/>
-                                                <input type="hidden" name="nameTypeJob" value="${param.txtJob}"/>
-                                                <input type="hidden" name="nameCompany" value="${param.txtCompany}"/>
-                                                <input type="hidden" name="nameLocation" value="${param.nameLocation}"/>
-                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                <input type="submit" value="${i}" class="page-link"/>
-                                            </form>
-                                        </li>
-                                    </c:forEach> --%>
                                     </ul>
                                 </div>
 
@@ -440,6 +456,5 @@
         </footer>
 
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

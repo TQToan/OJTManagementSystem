@@ -7,6 +7,11 @@ package com.se1625.tblcompany;
 
 import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
+import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblcompany_post.TblCompany_PostDAO;
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
+import com.se1625.tblstudent.TblStudentDAO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -584,5 +589,48 @@ public class TblCompanyDAO implements Serializable {
             }
         }
         return company;
+    }
+
+    public List<String> getListCompanyNameAppliedAsStudent(String studentCode, int semesterID) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<String> listComName = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT DISTINCT acc.name "
+                        + "FROM tblApplication AS app "
+                        + "INNER JOIN tblCompany_Post AS comPost ON (app.postID = comPost.postID) "
+                        + "INNER JOIN tblCompany AS com ON (com.companyID = comPost.companyID) "
+                        + "INNER JOIN tblAccount AS acc ON (acc.username = com.username) "
+                        + "WHERE app.studentCode = ? AND app.semesterID = ?";
+                
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                stm.setInt(2, semesterID);
+                
+                rs = stm.executeQuery();
+                
+                while (rs.next()) {
+                    String companyName = rs.getString("name");
+                    if (listComName == null) {
+                        listComName = new ArrayList<>();
+                    }
+                    listComName.add(companyName);                   
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listComName;
     }
 }

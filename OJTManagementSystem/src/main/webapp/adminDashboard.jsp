@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-        <link rel="stylesheet" href="./assets/css/admin-responsive.css.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     </head>
     <body>
@@ -143,156 +143,174 @@
                 </ul>
 
             </nav>        <div class="main-body  offset-xl-2 col-xl-10 offset-md-3 col-md-9 col-12">
-            <div class="row  row-cols-xl-4 row-cols-2 ">
-                <div class="dashboard-card col">
-                    <a href="AdminShowPostManagementController" class="dashboard-card--link">
-                        <div class="pending-posts">
-                            ${requestScope.TOTAL_PENDING_POST}
-                        </div>
-                        <div class="dashboard-card__content">
-                            Posts waiting
-                        </div>
-                    </a>
+                <div class="row  row-cols-xl-4 row-cols-2 ">
+                    <div class="dashboard-card col">
+                        <form action="AdminSearchCompanyPostController" method="post">
+                            <input type="hidden" name="txtTitle" value ="">
+                            <input type="hidden" name="txtCompanyName" value ="">
+                            <input type="hidden" name="page" value ="1">
+                            <input type="hidden" name="nameStatus" value="Waiting">
+                            <label class="dashboard-card--link" for ="post">
+                                <div class="pending-posts">
+                                    ${requestScope.TOTAL_PENDING_POST}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Posts waiting
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="post">
+                        </form>
+                    </div>
+                    <div class="dashboard-card col">
+                        <form action="ShowAdminStudentManagementController" method="post">
+                            <label class="dashboard-card--link" for ="student">
+                                <div class="total-student">
+                                    ${requestScope.TOTAL_STUDENT}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Total student
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id ="student">
+                        </form>    
+                    </div>
+                    <div class="dashboard-card col">
+                        <form action="SearchCompanyAdminManagerController" method="post">
+                            <input type="hidden" name="selectCompany" value ="">
+                            <input type="hidden" name="txtEmail" value ="">
+                            <input type="hidden" name="selectStatus" value="Success">
+                            <label class="dashboard-card--link" for="signed">
+                                <div class="signed-company">
+                                    ${requestScope.TOTAL_SIGNED_COMPANY}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Signed company
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="signed">
+                        </form>    
+                    </div>
+                    <div class="dashboard-card col">
+                        <form action="SearchCompanyAdminManagerController" method="post">
+                            <input type="hidden" name="selectCompany" value ="">
+                            <input type="hidden" name="txtEmail" value ="">
+                            <input type="hidden" name="selectStatus" value="Denied">
+                            <label class="dashboard-card--link" for="unsigned">
+                                <div class="unsigned-company">
+                                    ${requestScope.TOTAL_UNSIGNED_COMPANY}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Unsigned company
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="unsigned">
+                        </form>
 
+                    </div>
                 </div>
-                <div class="dashboard-card col">
-                    <a href="ShowAdminStudentManagementController" class="dashboard-card--link">
-                        <div class="total-student">
-                            ${requestScope.TOTAL_STUDENT}
-                        </div>
-                        <div class="dashboard-card__content">
-                            Total student
-                        </div>
-                    </a>
 
-                </div>
-                <div class="dashboard-card col">
-                    <a href="AdminCompanyManagerController" class="dashboard-card--link">
-                        <div class="signed-company">
-                            ${requestScope.TOTAL_SIGNED_COMPANY}
-                        </div>
-                        <div class="dashboard-card__content">
-                            Signed company
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-card col">
-                    <a href="AdminCompanyManagerController" class="dashboard-card--link">
-                        <div class="unsigned-company">
-                             ${requestScope.TOTAL_UNSIGNED_COMPANY}
-                        </div>
-                        <div class="dashboard-card__content">
-                            Unsigned company
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="admindashboard">
-                <div class="admindashboard__header">
-                    <div class="row">
-                        <div class="d-flex justify-content-between">
-                            <h4><strong>Score Spectrum</strong></h4>
-                            <div class="filterdashboard">
-                                <form action="AdminDashboardController" method="post">
-                                    <select name="txtSemesterID" id="" class="filterdashboard__select">
-                                        <c:forEach items="${requestScope.LIST_SEMESTERS}" var="semester">
-                                        <option value="${semester.semesterID}"
-                                                <c:if test="${requestScope.SELECTED_SEMESTER eq semester.semesterID}">
-                                                        selected="selected"
-                                                    </c:if>
-                                                >${semester.semesterName}</option>
-                                        </c:forEach>
-                                    </select>
-                                    <input type="submit" value="Search" class="filterdashboard__button">
-                                </form>
+                <div class="admindashboard">
+                    <div class="admindashboard__header">
+                        <div class="row">
+                            <div class="d-flex justify-content-between">
+                                <h4><strong>Score Spectrum</strong></h4>
+                                <div class="filterdashboard">
+                                    <form action="AdminDashboardController" method="post">
+                                        <select name="txtSemesterID" id="" class="filterdashboard__select">
+                                            <c:forEach items="${requestScope.LIST_SEMESTERS}" var="semester">
+                                                <option value="${semester.semesterID}"
+                                                        <c:if test="${requestScope.SELECTED_SEMESTER eq semester.semesterID}">
+                                                            selected="selected"
+                                                        </c:if>
+                                                        >${semester.semesterName}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <input type="submit" value="Search" class="filterdashboard__button">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="admindashboard__content">
-                    <canvas id="dashboard1" style="width:100%; height:400px"></canvas>
+                    <div class="admindashboard__content">
+                        <canvas id="dashboard1" style="width:100%; height:400px"></canvas>
 
-                    <script>
-                        var xValues = [0,1,2,3,4,5,6,7,8,9,10];
-                        var yValues = [${requestScope.LIST_GRADE}];
+                        <script>
+                            var xValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                            var yValues = [${requestScope.LIST_GRADE}];
 
-                        new Chart("dashboard1", {
-                            type: "line",
-                            data: {
-                              labels: xValues,
-                              datasets: [{
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "rgba(0,0,255,1.0)",
-                                borderColor: "rgba(0,0,255,0.1)",
-                                data: yValues
-                              }]
-                            },
-                            options: {
-                              legend: {display: false},
-                              scales: {
-                                yAxes: [{ticks: {min: 0, max:10}}],
-                              }
-                            }
-                          });
-                    </script>
-                </div>
-            </div>
-
-            <div class="admindashboard">
-                <div class="admindashboard__header">
-                    <div class="row">
-                        <div class="">
-                            <h4><strong>Pass Rating</strong></h4>
-                        </div>
+                            new Chart("dashboard1", {
+                                type: "line",
+                                data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                            fill: false,
+                                            lineTension: 0,
+                                            backgroundColor: "rgba(0,0,255,1.0)",
+                                            borderColor: "rgba(0,0,255,0.1)",
+                                            data: yValues
+                                        }]
+                                },
+                                options: {
+                                    legend: {display: false},
+                                    scales: {
+                                        yAxes: [{ticks: {min: 0, max: 10}}],
+                                    }
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
-                <div class="admindashboard__content">
-                    <canvas id="dashboard2" style="width:100%; height:400px"></canvas>
 
-                    <script>
-                        var xValues = [${requestScope.LIST_SEMESTER_STRING}];
+                <div class="admindashboard">
+                    <div class="admindashboard__header">
+                        <div class="row">
+                            <div class="">
+                                <h4><strong>Pass Rating</strong></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admindashboard__content">
+                        <canvas id="dashboard2" style="width:100%; height:400px"></canvas>
 
-                        new Chart("dashboard2", {
-                        type: "line",
-                        data: {
-                            labels: xValues,
-                            datasets: [{ 
-                            data: [${requestScope.LIST_FAILED}],
-                            borderColor: "red",
-                            fill: false,
-                            label:'Not Pass'
-                            }, { 
-                            data: [${requestScope.LIST_PASSED}],
-                            borderColor: "green",
-                            fill: false,
-                            label:'Passed'
-                            }]
-                        },
-                        options: {
-                            legend: {display: true},
-                            scales: {
-                                yAxes: [{ticks: {min: 0, max:20}}],
-                              }
-                        }
-                        });
-                    </script>
+                        <script>
+                            var xValues = [${requestScope.LIST_SEMESTER_STRING}];
+
+                            new Chart("dashboard2", {
+                                type: "line",
+                                data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                            data: [${requestScope.LIST_FAILED}],
+                                            borderColor: "red",
+                                            fill: false,
+                                            label: 'Not Pass'
+                                        }, {
+                                            data: [${requestScope.LIST_PASSED}],
+                                            borderColor: "green",
+                                            fill: false,
+                                            label: 'Passed'
+                                        }]
+                                },
+                                options: {
+                                    legend: {display: true},
+                                    scales: {
+                                        yAxes: [{ticks: {min: 0, max: 20}}],
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </main>
+        </main>
 
-    <footer class="footer">
+        <footer class="footer">
             <div class="footer__content">
                 <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
-    </footer>
+        </footer>
 
-    
-
-
-</body>
+    </body>
 
 </html>

@@ -7,6 +7,7 @@ package com.se1625.controller;
 
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
+import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
         String nameLocation = request.getParameter("nameLocation");
         String statusName = request.getParameter("nameStatus");
         String xpage = request.getParameter("page");
-        
+
         if (jobName != null) {
             jobName = jobName.trim();
 
@@ -57,7 +58,7 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
         if (companyName != null) {
             companyName = companyName.trim();
         }
-        
+
         HttpSession session = request.getSession(false);
 
         int page;
@@ -106,7 +107,9 @@ public class SearchStudentAppliedJobServlet extends HttpServlet {
 
                             List<TblApplicationDTO> listAppliedJobPerPage = applicationDAO.
                                     getListByPage(listApplication, start, end);
-
+                            TblCompanyDAO companyDAO = new TblCompanyDAO();
+                            List<String> listCompanyNameAppliedAsStudent = companyDAO.getListCompanyNameAppliedAsStudent(student.getStudentCode(), student.getSemester().getSemesterID());
+                            request.setAttribute("List_COMPANY_NAME", listCompanyNameAppliedAsStudent);
                             request.setAttribute("LIST_APPLIED_JOB_RESULT", listAppliedJobPerPage);
                             request.setAttribute("page", page);
                             request.setAttribute("numberPage", numberPage);

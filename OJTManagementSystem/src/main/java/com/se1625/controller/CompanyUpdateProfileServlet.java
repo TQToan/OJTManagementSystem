@@ -170,7 +170,8 @@ public class CompanyUpdateProfileServlet extends HttpServlet {
                         if (fileName.equals("") == false) {
                             String oldAvatar = account.getAvatar();
                             boolean resultUpdateAccount = accountDAO.updateAccount(email, avatarName);
-
+                            account.setAvatar(avatarName);
+                            session.setAttribute("COMPANY_ROLE", account);
                             if (resultUpdateCompany == true && resultUpdateAccount == true) {
                                 if (oldAvatar != null || "".equals(oldAvatar) == false) {
                                     String oldAvatarPath = request.getServletContext().

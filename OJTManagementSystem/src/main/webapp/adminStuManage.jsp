@@ -26,7 +26,7 @@
         <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
-                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                <a href="AdminDashboardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
@@ -34,7 +34,7 @@
                     <i class="fa-solid fa-bars nav__respo--btn"></i>
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
-                    <a href="" class=" nav__infor--link text-truncate text-center">
+                    <a href="AdminDashboardController" class=" nav__infor--link text-truncate text-center">
                         <i class="fas fa-user-circle nav__infor--icon"></i>
                         <font> ${Admin.name} </font>
                     </a>
@@ -89,10 +89,10 @@
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="ShowAdminStudentManagementController" class="nav__logo ">
+                <a href="AdminDashboardController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="#" class=" nav__infor--link text-truncate">
+                <a href="AdminDashboardController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     <font> ${Admin.name} </font>
                 </a>
@@ -373,7 +373,6 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h3 class="modal-title" id="exampleModalLabel">Error</h3>
-                                                                                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                  ${error}
@@ -381,11 +380,9 @@
                                                                             <div class="text-center">
                                                                                 <div class="row row-cols-2">
                                                                                     <div class="col">
-                                                                                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
                                                                                         <input type="submit" value="Appcept" name="btAction" class="btn-regular-green"/>
                                                                                     </div>
                                                                                     <div class="col">
-                                                                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                                                         <input type="submit" value="Cancel" name="btAction" class="btn-regular-red" />
                                                                                     </div>
                                                                                 </div>
@@ -425,12 +422,11 @@
                             </c:if>
                             <c:if test="${empty requestScope.LIST_APPLICATION_RESULT}" >
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    Student List does not has any result for you!
+                                    Student list does not have any result!
                                 </h3>
                             </c:if>
                         </div>
 
-                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div  class="main__pagination">
                             <ul class="pagination main_cus__pagination">
                                 <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -530,18 +526,6 @@
                                     </li>
                                     <!--đưa icon vào-->
                                 </c:if>
-                                <%--
-                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <form action="SearchStudentByAdminController" method="POST">
-                                    <input type="hidden" name="page" value="${i}"/>
-                                    <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
-                                    <input type="hidden" name="txtCredit" value="${param.txtCredit}"/>
-                                    <input type="hidden" name="txtMajor" value="${param.txtMajor}"/>
-                                    <input type="hidden" name="isIntern" value="${param.isIntern}"/>
-                                    <input type="hidden" name="txtStudentCode" value="${param.txtStudentCode}"/>
-                                    <input type="submit" value="${i}" class="page-link"/>
-                                </form>
-                            </c:forEach> --%>
                             </ul>
                         </div>
 
@@ -557,7 +541,6 @@
             </div>
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
         <script src="./assets/js/inputfile.js"></script>
     </body>
 </html>

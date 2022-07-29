@@ -5,12 +5,17 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
+import com.se1625.tblcompany_post.TblCompany_PostDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -45,14 +50,14 @@ public class AdminUpdatePostServlet extends HttpServlet {
         int postID = Integer.parseInt(request.getParameter("postID"));
         String school_confirm = request.getParameter("school_confirm");
         int statusPost = Integer.parseInt(request.getParameter("statusPost"));
-        
+
         //get param load lai trang
         String titlePost = request.getParameter("txtTitle").trim();
         String companyName = request.getParameter("txtCompanyName").trim();
         String nameStatus = request.getParameter("nameStatus").trim();
         String xpage = request.getParameter("page");
         int semesterID = Integer.parseInt(request.getParameter("semester"));
-        
+
         String save = request.getParameter("save");
 
         ServletContext context = this.getServletContext();
@@ -74,21 +79,42 @@ public class AdminUpdatePostServlet extends HttpServlet {
                             url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_VIEW_POST_DETAIL_CONTROLLER)
                                     + "?postID=" + postID + "&page=" + xpage + "&semester=" + semesterID;
 //                            request.setAttribute("page", xpage);
-                            request.setAttribute("UPDATE_SUSCESS", "Update success");
-                            RequestDispatcher rd = request.getRequestDispatcher(url);
-                            rd.forward(request, response);
+                            //request.setAttribute("UPDATE_SUSCESS", "Update success");
                         } else if (save.equals("adminPostManagePage") || save.equals("adminSearchCompanyPostPage")) {
                             //url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SHOW_POST_MANAGE_CONTROLLER);
-                            
-                            url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SEARCH_POST_MANAGE_CONTROLLER)
-                                    +"?page=" + xpage + "&semester=" + semesterID + "&txtTitle=" + titlePost + "&txtCompanyName="+ companyName+"&nameStatus=" +nameStatus;
-                                    //+"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
-                            request.setAttribute("UPDATE_SUSCESS", "Update success");
-                            RequestDispatcher rd = request.getRequestDispatcher(url);
-                            rd.forward(request, response);
-                        }
 
-//                        response.sendRedirect(url);
+                            url = properties.getProperty(MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_SEARCH_POST_MANAGE_CONTROLLER)
+                                    + "?page=" + xpage + "&semester=" + semesterID + "&txtTitle=" + titlePost + "&txtCompanyName=" + companyName + "&nameStatus=" + nameStatus;
+                            //+"?page=" + xpage + "&txtTitle=&txtCompanyName=&nameStatus=";
+                            //request.setAttribute("UPDATE_SUSCESS", "Update success");
+                        }
+                        String link = "http://localhost:8080/OJTManagementSystem";
+                        TblAccountDAO accountDAO = new TblAccountDAO();
+                        TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                        TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
+                        String subject = "Confirmation about the company's Job";
+                        String message = "Dear " + companyPost.getCompany().getAccount().getName() + " company,\n"
+                                + "\n";
+                        if (school_confirm.equals("true")) {
+                            message += "The OJT system wants to announce that the company's job is " + companyPost.getTitle_Post()
+                                    + " was accepted by FPT University. Please click on the link " + link
+                                    + " so as not to miss any information.\n"
+                                    + "\n"
+                                    + "Regards,\n"
+                                    + "The support OJT team";
+                        } else {
+                            String reason = request.getParameter("txtReason");
+                            message += "The OJT system wants to announce that the company's job is " + companyPost.getTitle_Post()
+                                    + " was denied by FPT University. " + reason
+                                    + "\n"
+                                    + "\n"
+                                    + "Regards,\n"
+                                    + "The support OJT team";
+                        }
+                        MyApplicationHelper.sendEmail(companyPost.getCompany().getAccount(), systemAccount, message, subject);
+//                        RequestDispatcher rd = request.getRequestDispatcher(url);
+//                        rd.forward(request, response);
+                       response.sendRedirect(url);
                     } else {
                         url = MyApplicationConstants.AdminShowPostManagementFeature.ADMIN_VIEW_POST_DETAIL_CONTROLLER
                                 + "?postID=" + postID;
@@ -109,6 +135,10 @@ public class AdminUpdatePostServlet extends HttpServlet {
             log("SQLException at AdminUpdatePostServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at AdminUpdatePostServlet " + ex.getMessage());
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         }
 
     }

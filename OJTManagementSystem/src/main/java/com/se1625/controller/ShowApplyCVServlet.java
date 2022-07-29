@@ -5,6 +5,7 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblapplication.ApplyCVStudentError;
 import com.se1625.tblapplication.TblApplicationDAO;
 import com.se1625.tblapplication.TblApplicationDTO;
 import com.se1625.tblcompany_post.CompanyPostDetailError;
@@ -126,7 +127,20 @@ public class ShowApplyCVServlet extends HttpServlet {
                         if (found == true) {
                             request.setAttribute("ERROR_COMPANY_POST", error);
                         }
-                        
+
+                        //check student infor
+                        Date checkBirthday = student.getBirthDay();
+                        String checkAddress = student.getAddress();
+                        String checkPhone = student.getPhone();
+                        ApplyCVStudentError errors = new ApplyCVStudentError();
+                        if (checkBirthday == null || checkAddress == null || checkPhone == null) {
+                            errors.setStudentInformationError("Please enter all personal information first");
+                            request.setAttribute("POST_ID", postID);
+                            TblCompany_PostDAO postDAO = new TblCompany_PostDAO();
+                            TblCompany_PostDTO companyPost = postDAO.getCompanyPost(postID);
+                            request.setAttribute("POST_COMPANY_INFOR", companyPost);
+                            request.setAttribute("ERRORS", errors);
+                        }
                         TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                         request.setAttribute("POST_COMPANY_INFOR", companyPost);

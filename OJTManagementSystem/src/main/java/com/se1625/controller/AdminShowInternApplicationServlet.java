@@ -75,10 +75,13 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
 
                      TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
-                    int semesterID =currentSemester.getSemesterID(); 
                     if (request.getParameter("semester") != null) {
-                        semesterID = Integer.parseInt(request.getParameter("semester"));
-                        if (semesterID != currentSemester.getSemesterID()) {
+                        int semesterID = Integer.parseInt(request.getParameter("semester"));
+                        if (xpage == null) {
+                            if (semesterID != currentSemester.getSemesterID()) {
+                                currentSemester.setSemesterID(semesterID);
+                            }
+                        } else {
                             currentSemester = semesterDAO.getSemesterByID(semesterID);
                         }
                     }
@@ -90,7 +93,7 @@ public class AdminShowInternApplicationServlet extends HttpServlet {
                     
                     TblApplicationDAO applDAO = new TblApplicationDAO();
                     List<TblApplicationDTO> listApplicationByFilter = new ArrayList<>();
-                    listApplicationByFilter = applDAO.getApplicationByFilterInAdminIternAppl(studentID, companyID, titleJob, schoolStatus,semesterID);
+                    listApplicationByFilter = applDAO.getApplicationByFilterInAdminIternAppl(studentID, companyID, titleJob, schoolStatus,currentSemester.getSemesterID());
 
                     if (listApplicationByFilter != null) {
                         sizeOfList = listApplicationByFilter.size();

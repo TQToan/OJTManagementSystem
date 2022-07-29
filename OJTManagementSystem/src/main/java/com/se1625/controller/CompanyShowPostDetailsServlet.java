@@ -51,33 +51,36 @@ public class CompanyShowPostDetailsServlet extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         String url = MyApplicationConstants.UpdateStudentProfileFeature.LOGIN_PAGE;
 
-        //lay postID
-        int postID = Integer.parseInt(request.getParameter("postID"));
         //get session
         HttpSession session = request.getSession(false);
         try {
             if (session != null) {
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
                 if (companyDTO != null) {
-                    url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_EDIT_PAGE);
+                    if (companyDTO.isIs_Signed() == false) {
+                        url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_SHOW_POST_CONTROLLER);
+                        response.sendRedirect(url);
+                    } else {
+                        //lay postID
+                        int postID = Integer.parseInt(request.getParameter("postID"));
+                        url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_EDIT_PAGE);
 
-                    //lay detail post
-                    TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
-                    TblCompany_PostDTO companyPostDTO = companyPostDAO.getCompanyPost(postID);
+                        //lay detail post
+                        TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
+                        TblCompany_PostDTO companyPostDTO = companyPostDAO.getCompanyPost(postID);
 
-                    //set Company
-                    companyPostDTO.setCompany(companyDTO);
-                    request.setAttribute("COMPANY_POST_DETAIL", companyPostDTO);
-                    //get list major
-                    TblMajorDAO majorDAO = new TblMajorDAO();
-                    majorDAO.getNameMajor();
-                    List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
-                    request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
+                        //set Company
+                        companyPostDTO.setCompany(companyDTO);
+                        request.setAttribute("COMPANY_POST_DETAIL", companyPostDTO);
+                        //get list major
+                        TblMajorDAO majorDAO = new TblMajorDAO();
+                        majorDAO.getNameMajor();
+                        List<TblMajorDTO> listNameMajor = majorDAO.getListNameMajor();
+                        request.setAttribute("LIST_NAME_MAJOR", listNameMajor);
 
-                    
                         RequestDispatcher rd = request.getRequestDispatcher(url);
                         rd.forward(request, response);
-                    
+                    }
 
                 } //if conpany exist
                 else {

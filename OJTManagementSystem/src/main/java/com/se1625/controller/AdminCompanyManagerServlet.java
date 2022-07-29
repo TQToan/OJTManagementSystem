@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ASUS
+ * @author Thai Quoc Toan <toantqse151272@fpt.edu.vn>
  */
 public class AdminCompanyManagerServlet extends HttpServlet {
 
@@ -41,10 +41,11 @@ public class AdminCompanyManagerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url = prop.getProperty(MyApplicationConstants.AdminCompanyManagerFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.AdminCompanyManagerFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
         int page;
@@ -85,18 +86,16 @@ public class AdminCompanyManagerServlet extends HttpServlet {
                     url = prop.getProperty(MyApplicationConstants.AdminCompanyManagerFeature.ADMIN_COMPANY_MANAGER_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
-                } else{
-                     response.sendRedirect(url);
+                } else {
+                    response.sendRedirect(url);
                 }
-            } else{
-                 response.sendRedirect(url);
+            } else {
+                response.sendRedirect(url);
             }
         } catch (NamingException ex) {
             log("AdminCompanyManagerServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("AdminCompanyManagerServlet_SQLException " + ex.getMessage());
-        } finally {
-            
         }
     }
 

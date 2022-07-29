@@ -49,10 +49,9 @@
                 <c:set var="majorID" value="${param.nameMajor}"/>
                 <c:set var="nameLocation" value="${param.nameLocation}"/>
                 <c:set var="page" value="${requestScope.page}"/>
-                <form action="SearchCompanyStudentHomeController" class="main__search-form">
+                <form action="SearchCompanyStudentHomeController" class="main__search-form" method="post">
                     <div class="row">
                         <div class="col-4">
-                            <!--                            <input type="text" name="" id="" placeholder="Company">-->
                             <select name="nameCompany">
                                 <option value=""hidden>Company Name</option>
                                 <option value="">All Company</option>
@@ -64,7 +63,6 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <!--                            <input type="text" name="" id="" placeholder="Job">-->
                             <select name="nameMajor">
                                 <option value="" hidden="">Major</option>
                                 <option value="">All Major</option>
@@ -116,6 +114,7 @@
                                     <tr>
                                         <th>NO.</th>
                                         <th>Title Job</th>
+                                        <th>Vacancy</th>
                                         <th>Quantity</th>
                                         <th>Company</th>
                                         <th>Location</th>
@@ -135,8 +134,11 @@
                                                     <c:param name="postID" value="${post.postID}"/>
                                                 </c:url>
                                                 <a href="${showDetail}">
-                                                    ${post.majorName}
+                                                    ${post.title_Post}
                                                 </a>
+                                            </td>
+                                            <td>
+                                                ${post.vacancy}
                                             </td>
                                             <td>
                                                 ${post.quantityIterns}
@@ -162,7 +164,6 @@
                         <div>                       
                             <div  class="main__pagination">
                                 <ul class="pagination main_cus__pagination">
-                                    <!--<div id="pageX" hidden>${requestScope.page}</div>-->
                                     <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
                                     <c:if test="${requestScope.page gt 5 }">
                                         <li class="page-item" >
@@ -248,18 +249,6 @@
                                     </li>
                                     <!--đưa icon vào-->
                                     </c:if>
-                                    <%--
-                            <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                            <li class="page-item" >
-                                <form action="SearchCompanyStudentHomeController" method="POST">
-                                    <input type="hidden" name="page" value="${i}">
-                                    <input type="hidden" name="nameCompany" value="${companyID}">
-                                    <input type="hidden" name="nameMajor" value="${majorID}">
-                                    <input type="hidden" name="nameLocation" value="${nameLocation}">
-                                    <input type="submit" value="${i}" class="page-link" >
-                                </form>
-                            </li>
-                        </c:forEach>--%>
                                 </ul>
                             </div>
                         </div>
@@ -273,6 +262,5 @@
                 <i class="fa-regular fa-copyright"></i> Copyright 2022,  Developed by <strong> OJT-Team </strong>
             </div>
         </footer>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>
