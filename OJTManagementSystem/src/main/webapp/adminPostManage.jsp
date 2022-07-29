@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/admin.css">
-        <link rel="stylesheet" href="./assets/css/admin-responsive.css">
+        <link rel="stylesheet" href="./assets/css/admin-responsive.css"/>
     </head>
 
     <body>
@@ -318,7 +318,7 @@
                                                                 <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
                                                             </c:if>
                                                             <c:if test="${post.statusPost eq 1}">       
-                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal_${post.postID}">
                                                                     Reject
                                                                 </button>
                                                             </c:if>
@@ -326,7 +326,7 @@
 
 
                                                             <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="exampleModal_${post.postID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -335,7 +335,7 @@
                                                                         </div>
                                                                         <form action="AdminUpdatePostController" method="POST"> 
                                                                             <div class="modal-body">
-                                                                                <textarea name="" id="" cols="70" rows="5" style="resize:none"></textarea>
+                                                                                <textarea name="txtReason"  cols="70" rows="5" style="resize:none"></textarea>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                                     <div>
@@ -364,14 +364,10 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
-
                                     </tbody>
-
                                 </table>
 
 
-                                <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                                 <div  class="main__pagination">
                                     <ul class="pagination main_cus__pagination">
                                         <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -471,30 +467,12 @@
                                             </li>
                                             <!--đưa icon vào-->
                                         </c:if>
-                                        <!--                                     <li class="page-item">
-                                                                                <a class="page-link" href="#" aria-label="Previous">
-                                                                                     <span aria-hidden="true">&laquo;</span>
-                                                                                </a>
-                                                                            </li>-->
-                                        <%--
-                                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-
-                                            <form action="AdminSearchCompanyPostController" method="POST">
-                                                <input type="hidden" name="save" value="adminSearchCompanyPostPage" />
-                                                <input type="hidden" name="page" value="${i}" />
-                                                <input type="hidden" name="semester" value="${currentSemester.semesterID}" />
-                                                <input type="hidden" name="txtTitle" value="${param.txtTitle}" />
-                                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}" />
-                                                <input type="hidden" name="nameStatus" value="${param.nameStatus}" />
-                                                <input type="submit" value="${i}" class="page-link" />
-                                            </form>
-                                        </c:forEach>--%>
                                     </ul>
                                 </div>
                             </c:if>
                             <c:if test="${empty requestScope.COMPANY_POST_LIST}">
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    You have not any post job yet!
+                                    Post job list does not have any result!
                                 </h3>
                             </c:if>
 
@@ -513,6 +491,8 @@
 
         </footer>
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
+
+
+
     </body>
 </html>

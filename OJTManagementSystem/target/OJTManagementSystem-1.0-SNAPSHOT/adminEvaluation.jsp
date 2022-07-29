@@ -276,12 +276,11 @@
 
                         <c:if test="${empty requestScope.LIST_APPLICATION_RESULT}" >
                             <h3 class="text-center" style="margin-top: 20px">
-                                Evaluation List does not has any result!
+                                Evaluation list does not have any result!
                             </h3>
                         </c:if>
                     </div>
 
-                    <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                     <div  class="main__pagination">
                         <ul class="pagination main_cus__pagination">
                             <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -381,29 +380,6 @@
                                 </li>
                                 <!--đưa icon vào-->
                             </c:if>
-                            <%--
-                        <c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                            <form action="SearchStudentEvaluationController" method="POST">
-                                <input type="hidden" name="page" value="${i}"/>
-                                <input type="hidden" name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
-                                <input type="hidden" name="studentCode" value="${param.studentCode}"/>
-                                <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                <input type="hidden" name="garde" value="${param.garde}"/>
-                                <input type="hidden" name="isPass" value="${param.isPass}"/>
-                                <input type="submit" value="${i}" class="page-link"/>
-                            </form>--%>
-
-                            <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                <c:url var="url" value="SearchStudentEvaluationController">
-                                    <c:param name="page" value="${i}"/>
-                                    <c:param name="semester" value="${requestScope.CURRENT_SEMESTER.semesterID}"/>
-                                    <c:param name="studentCode" value="${param.studentCode}"/>
-                                    <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
-                                    <c:param name="garde" value="${param.garde}"/>
-                                    <c:param name="isPass" value="${param.isPass}"/>
-                                </c:url>
-                                <li class="page-item"><a class="page-link" href="${url}">${i}</a></li>--%>
-                            <%--</c:forEach>--%>
                         </ul>
                     </div>        
 
@@ -420,6 +396,5 @@
     </footer>
 
     <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/base.js"></script>
 </body>
 </html>

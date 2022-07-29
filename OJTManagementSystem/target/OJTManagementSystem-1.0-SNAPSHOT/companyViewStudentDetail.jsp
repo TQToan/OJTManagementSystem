@@ -188,8 +188,6 @@
             </div>
 
             <div class="fix--btn">
-                <!--                <a href="" class="accept-btn primary-btn">Accept</a>
-                                <a href=""class= "reject-btn primary-btn">Reject</a>-->
 
                 <form action="CompanyUpdateStatusIntershipApplicationController" method="POST">
                     <input type="hidden" name="studentCode" value="${studentInfor.studentCode}" />

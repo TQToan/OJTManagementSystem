@@ -40,6 +40,7 @@ public class MyApplicationConstants {
         public static final String  ADMIN_VIEW_POST_DETAIL_CONTROLLER="AdminViewPostDetailController";
         public static final String  ADMIN_SEARCH_POST_MANAGE_CONTROLLER="AdminSearchCompanyPostController";
         public static final String  ADMIN_UPDATE_POST_MANAGE_CONTROLLER="AdminUpdatePostController";
+        public static final String LOGIN_PAGE = "";
         
     }
     
@@ -132,7 +133,7 @@ public class MyApplicationConstants {
     }
 
     public class ImportStudentExcelFileFeature {
-
+        public static final String LOGIN_PAGE = "";
         public static final String ADMIN_STUDENT_MANAGEMENT_PAGE = "ShowAdminStudentManagementController";
     }
     
@@ -302,6 +303,14 @@ public class MyApplicationConstants {
     public class AdminDashboardFeature{
         public static final String ADMIN_DASHBOARD_PAGE = "AdminDashboardPage";
         public static final String ADMIN_DASHBOARD_CONTROLLER = "AdminDashboardController";
+        public static final String LOGIN_PAGE = "";
+    }
+    
+    public class ExportEvalutionExcelFileFeature {
+        public static final String LOGIN_PAGE = "";
+    }
+    
+    public class DownloadFileModelFeature {
         public static final String LOGIN_PAGE = "";
     }
 }

@@ -135,7 +135,7 @@
                 <div class="row">
                     <div class="main-body-cPostEdit  offset-2 col-8">
                         <div class="main-body-cPostEdit__header">
-                            Company Post*
+                            Company Post
                         </div>
                         <c:set var="error" value="${requestScope.ERRORS}" />
                         <form action="CreateNewCompanyPostController" method="POST">
@@ -177,8 +177,6 @@
                                         ${error.majorChooseError}
                                     </h5>
                                 </c:if>
-                                <!--                                <label class="col-4 cPostEdit--label" for="major">Major</label>
-                                                                <input type="text" class="col-8 cPostEdit--input " name="txtMajor" id="major" value="" />-->
 
                             </div>
 
@@ -266,21 +264,11 @@
                                 </c:if>
 
                             </div>
-                            <%--<c:set var="company_isSigned" value="${requestScope.COMPANY_ISSIGNED}"/>
-                            <c:set var="company_isSigned" value="${requestScope.ERROR_NOTSIGNED}"/>--%>
-                            <div class="cPostEdit-edit-btn primary-btn">
+                                
+                            <label class="cPostEdit-edit-btn primary-btn" for="btaction">
                                 <i class="fas fa-edit"></i>
-                                <label for="btaction"></label>
-                                <%--<c:if test="${company_isSigned eq false}">
-                                    <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post" disabled="disabled"/>
-                                </c:if>
-                                <c:if test="${company_isSigned}">
-                                    <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
-                                </c:if>--%>
-
                                 <input type="submit" id="btaction" class="cPostEdit-edit--input " name="btAction" value="Post"/>
-
-                            </div>
+                            </label>
                             <c:if test="${not empty error.companyNotSignedError}">
                                 <h5 class="text-danger text-start ">
                                     ${error.companyNotSignedError}

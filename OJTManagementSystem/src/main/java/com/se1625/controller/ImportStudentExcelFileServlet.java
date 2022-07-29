@@ -29,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -54,59 +55,70 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
+        HttpSession session = request.getSession(false);
+        String url = MyApplicationConstants.ImportStudentExcelFileFeature.LOGIN_PAGE;
         String fileError = "";
         try {
-            List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
+            if (session != null) {
+                TblAccountDTO admin = (TblAccountDTO) session.getAttribute("ADMIN_ROLE");
+                if (admin != null) {
+                    List<FileItem> items = (List<FileItem>) request.getAttribute("LIST_PARAMETERS");
 
-            Iterator<FileItem> iter = items.iterator();
-            String filePath = "";
-            String fileName = "";
-            String fileImportPath = "";
+                    Iterator<FileItem> iter = items.iterator();
+                    String filePath = "";
+                    String fileName = "";
+                    String fileImportPath = "";
 
-            while (iter.hasNext()) {
-                FileItem item = iter.next();
+                    while (iter.hasNext()) {
+                        FileItem item = iter.next();
 
-                if (item.isFormField()) {
-                } else {
-                    filePath = item.getName();
-                    if (filePath == null || filePath.equals("")) {
-                        break;
+                        if (item.isFormField()) {
+                        } else {
+                            filePath = item.getName();
+                            if (filePath == null || filePath.equals("")) {
+                                break;
+                            } else {
+                                Path path = Paths.get(filePath);
+                                String realPath = request.getServletContext().getRealPath("/excels");
+                                fileName = path.getFileName().toString();
+                                File uploadFile = new File(realPath + "/" + fileName);
+
+                                fileImportPath = uploadFile.toString();
+                                if (Files.exists(Paths.get(realPath)) == false) {
+                                    Files.createDirectories(Paths.get(realPath));
+                                }
+                                item.write(uploadFile);
+                                fileError = fileImportPath;
+                            }
+                        }
+                    }
+                    if (fileName.isEmpty()) {
+                        request.setAttribute("ERROR_IMPORT_EXCEL", "Please Choose file to import!");
+                        url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                        RequestDispatcher rd = request.getRequestDispatcher(url);
+                        rd.forward(request, response);
                     } else {
-                        Path path = Paths.get(filePath);
-                        String realPath = request.getServletContext().getRealPath("/excels");
-                        fileName = path.getFileName().toString();
-                        File uploadFile = new File(realPath + "/" + fileName);
-
-                        fileImportPath = uploadFile.toString();
-                        if (Files.exists(Paths.get(realPath)) == false) {
-                            Files.createDirectories(Paths.get(realPath));
-                        }
-                        item.write(uploadFile);
-                        fileError = fileImportPath;
-                    }
-                }
-            }
-            if (fileName.isEmpty()) {
-                request.setAttribute("ERROR_IMPORT_EXCEL", "Please Choose file to import!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
-            } else {
-                //check size của file
-                List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
-                if (studentList != null) {
-                    TblAccountDAO dao = new TblAccountDAO();
-                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
-                    TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
-                    for (TblStudentDTO student : studentList) {
-                        if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
-                            dao.addStudentAccount(student, currentSemester.getSemesterID());
+                        //check size của file
+                        List<TblStudentDTO> studentList = MyApplicationHelper.readExcel(fileImportPath);
+                        if (studentList != null) {
+                            TblAccountDAO dao = new TblAccountDAO();
+                            TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                            TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
+                            for (TblStudentDTO student : studentList) {
+                                if (dao.checkExistedAccount(student.getAccount().getEmail()) == false) {
+                                    dao.addStudentAccount(student, currentSemester.getSemesterID());
+                                }
+                            }
+                            Files.deleteIfExists(Paths.get(fileImportPath));
+                            url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
+                            response.sendRedirect(url);
                         }
                     }
-                    Files.deleteIfExists(Paths.get(fileImportPath));
-                    String url = MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE;
+                } else {
                     response.sendRedirect(url);
                 }
+            } else {
+                response.sendRedirect(url);
             }
         } catch (FileUploadException ex) {
             log("FileUploadException at ImportStudentExcelFileServlet " + ex.getMessage());
@@ -120,7 +132,7 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
             log("IllegalArgumentException occurs ImportStudentExcelFileServlet " + ex.getMessage());
             if ("The specified file is not Excel file".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is not a excel(.xlsx) file. Please check again!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
                 Files.deleteIfExists(Paths.get(fileError));
@@ -129,14 +141,14 @@ public class ImportStudentExcelFileServlet extends HttpServlet {
             log("Exception at ImportStudentExcelFileServlet " + ex.getMessage());
             if ("Sheet is empty".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file is empty. Please check again!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
                 Files.deleteIfExists(Paths.get(fileError));
             }
             if ("Error Import Excel File".equals(ex.getMessage())) {
                 request.setAttribute("ERROR_IMPORT_EXCEL", "This file has some invalid data. Please check again!");
-                String url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
+                url = properties.getProperty(MyApplicationConstants.ImportStudentExcelFileFeature.ADMIN_STUDENT_MANAGEMENT_PAGE);
                 RequestDispatcher rd = request.getRequestDispatcher(url);
                 rd.forward(request, response);
                 Files.deleteIfExists(Paths.get(fileError));

@@ -5,12 +5,16 @@
  */
 package com.se1625.tblsemester_student;
 
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
 import com.se1625.utils.DBHelper;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.NamingException;
 
 /**
@@ -78,5 +82,44 @@ public class TblSemester_StudentDAO implements Serializable{
             }
         }
         return false;
+    }
+    
+    public TblSemesterDTO getSemesterOfStudent(String studentCode) 
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT TOP 1 ss.semesterID "
+                        + "FROM tblSemester_Student AS ss INNER JOIN TblSemester AS s ON (ss.semesterID = s.semesterID) "
+                        + "WHERE ss.studentCode = ? "
+                        + "ORDER BY s.endDate DESC ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, studentCode);
+                
+                rs = stm.executeQuery();
+                
+                if (rs.next()) {
+                    int semesterID = rs.getInt("semesterID");
+                    
+                    TblSemesterDAO semesterDAO = new TblSemesterDAO();
+                    TblSemesterDTO semester = semesterDAO.getSemesterByID(semesterID);
+                    return semester;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
     }
 }

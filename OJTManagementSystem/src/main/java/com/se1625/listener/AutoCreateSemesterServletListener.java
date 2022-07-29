@@ -2,12 +2,15 @@ package com.se1625.listener;
 
 import com.se1625.tblsemester.TblSemesterDAO;
 import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblstudent.TblStudentDAO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -77,7 +80,8 @@ public class AutoCreateSemesterServletListener implements ServletContextListener
 
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO semester = semesterDAO.getCurrentSemester();
-
+                    TblStudentDAO studentDAO = new TblStudentDAO();
+                    List<TblStudentDTO> listStudentOldSemester = studentDAO.getListStudent(semester.getSemesterID());
                     LocalDate today = LocalDate.now();
                     Date currentDate = Date.valueOf(today);
                     java.util.Date springStartDate = new java.util.Date(today.getYear() + "/" + springStart);
@@ -141,6 +145,10 @@ public class AutoCreateSemesterServletListener implements ServletContextListener
                         }
                         if (status) {
                             semesterDAO.addNextSemester(newSemester, startSemester, endSemester);
+                            //change status of all of students in the old semester
+                            for (TblStudentDTO tblStudentDTO : listStudentOldSemester) {
+                                studentDAO.updateDisableStatusOfStudent(true, tblStudentDTO.getStudentCode());
+                            }
                         }
                         if (oldPeriod != period) {
                             this.cancel();

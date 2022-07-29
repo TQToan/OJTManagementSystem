@@ -5,6 +5,7 @@
  */
 package com.se1625.controller;
 
+import com.se1625.tblaccount.TblAccountDAO;
 import com.se1625.tblaccount.TblAccountDTO;
 import com.se1625.tblcompany.TblCompanyDAO;
 import com.se1625.tblcompany.TblCompanyDTO;
@@ -12,7 +13,11 @@ import com.se1625.tblcompany_post.CreateNewCompanyPostError;
 import com.se1625.tblcompany_post.TblCompany_PostDAO;
 import com.se1625.tblmajor.TblMajorDAO;
 import com.se1625.tblmajor.TblMajorDTO;
+import com.se1625.tblsemester.TblSemesterDAO;
+import com.se1625.tblsemester.TblSemesterDTO;
+import com.se1625.tblstudent.TblStudentDTO;
 import com.se1625.utils.MyApplicationConstants;
+import com.se1625.utils.MyApplicationHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -22,6 +27,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -161,7 +168,21 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
                                     txtWorkLocation, quantity, currentDate, expirationDate,
                                     1, vacancy);
                             if (result) {
-
+                                TblAccountDAO accountDAO = new TblAccountDAO();
+                                TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                                TblAccountDTO universityAccount = accountDAO.getAccountSchool();
+                                String link = "http://localhost:8080/OJTManagementSystem/AdminShowPostManagementController"; 
+                                String subject = "The new announcement of a new company post";
+                                String message = "Dear " + universityAccount.getName() + ",\n"
+                                        + "\n"
+                                        + "The OJT system wants to announce you know that you have a new announcement about a post of " + companyAccount.getName() 
+                                        + " company that the title is " + tiltePost + ". "
+                                        + "Please click on the link " + link
+                                        + " so as not to miss any information.\n"
+                                        + "\n"
+                                        + "Regards,\n"
+                                        + "The support OJT team";
+                                MyApplicationHelper.sendEmail(universityAccount, systemAccount, message, subject);
                                 url = properties.getProperty(MyApplicationConstants.CreateNewCompanyPostFeature.SHOW_COMPANY_POST_MANAGER_CONTROLLER);
                                 response.sendRedirect(url);
                             }
@@ -178,8 +199,10 @@ public class CreateNewCompanyPostServlet extends HttpServlet {
             log("SQLException at CreateNewCompanyPostServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at CreateNewCompanyPostServlet " + ex.getMessage());
-        } finally {
-
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         }
 
     }

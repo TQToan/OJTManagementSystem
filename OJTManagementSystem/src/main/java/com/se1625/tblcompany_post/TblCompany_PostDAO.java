@@ -461,7 +461,7 @@ public class TblCompany_PostDAO implements Serializable {
             if (con != null) {
                 String sql = "SELECT post.postID, post.title_Post, post.quantityInterns, post.postingDate, "
                         + "post.expirationDate, post.workLocation, major.majorName, acc.name, acc.avatar, "
-                        + "post.school_confirm, post.statusPost "
+                        + "post.school_confirm, post.statusPost,post.vacancy "
                         + "FROM tblCompany_Post AS post INNER JOIN tblCompany AS cm ON (post.companyID = cm.companyID) "
                         + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
                         + "ON (post.majorID = major.majorID) ";
@@ -522,6 +522,7 @@ public class TblCompany_PostDAO implements Serializable {
                 while (rs.next()) {
                     int postID = rs.getInt("postID");
                     String title_Post = rs.getNString("title_Post");
+                    String vacancy = rs.getNString("vacancy");
                     int quanityItens = rs.getInt("quantityInterns");
                     if (quanityItens == 0) {
                         continue;
@@ -559,6 +560,7 @@ public class TblCompany_PostDAO implements Serializable {
                         post.setWorkLocation(workLocation);
                         post.setQuantityIterns(quanityItens);
                         post.setTitle_Post(title_Post);
+                        post.setVacancy(vacancy);
 
                         if (companyPostByFilter == null) {
                             companyPostByFilter = new ArrayList<>();
@@ -1594,6 +1596,30 @@ public class TblCompany_PostDAO implements Serializable {
                         + "WHERE postID = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, 3);
+                stm.setInt(2, postID);
+                
+                stm.executeUpdate();
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    public void updateStatusForExpirationPost(int postID, int statusPost) throws SQLException, NamingException {
+        Connection con  = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "UPDATE tblCompany_Post "
+                        + "SET statusPost = ? "
+                        + "WHERE postID = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, statusPost);
                 stm.setInt(2, postID);
                 
                 stm.executeUpdate();

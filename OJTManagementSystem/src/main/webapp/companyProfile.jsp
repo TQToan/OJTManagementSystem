@@ -215,9 +215,6 @@
 
                                     <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="inputFile" hidden="hidden"  />
 
-                                    <!--                                    <div class="input-file">
-                                                                            <input type="file" name="avatar" class="col-8" value="./avatars/${companyProfile.account.avatar}" id="inputFile" />
-                                                                        </div>-->
                                 </label>
                             </div>
                             <c:if test="${not empty errors.companyLogoLengthError}">

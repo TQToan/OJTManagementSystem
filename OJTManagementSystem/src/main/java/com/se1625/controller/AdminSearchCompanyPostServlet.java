@@ -49,7 +49,7 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get Paramente
-        int semesterID = Integer.parseInt(request.getParameter("semester"));
+        //int semesterID = Integer.parseInt(request.getParameter("semester"));
         String titlePost = request.getParameter("txtTitle").trim();
         String companyName = request.getParameter("txtCompanyName").trim();
         String nameStatus = request.getParameter("nameStatus").trim();
@@ -81,7 +81,10 @@ public class AdminSearchCompanyPostServlet extends HttpServlet {
                     TblSemesterDAO semesterDAO = new TblSemesterDAO();
                     TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
                     TblSemesterDTO nowSemester = currentSemester;
-
+                    int semesterID = currentSemester.getSemesterID();
+                    if (request.getParameter("semester") != null){
+                        semesterID = Integer.parseInt(request.getParameter("semester"));
+                    }
                     if (semesterID == currentSemester.getSemesterID()) {
                         companyPostDAO.searchPostByFilterAsAdminRole(titlePost, companyName, nameStatus, semesterID);
                     } else {

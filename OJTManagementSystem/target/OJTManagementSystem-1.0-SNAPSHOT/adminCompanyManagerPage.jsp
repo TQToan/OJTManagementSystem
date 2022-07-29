@@ -52,13 +52,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="AdminCompanyManagerController" class="nav__item--link">
+                            <a href="AdminCompanyManagerController" class="nav__item--link link-active">
                                 <i class="far fa-building"></i>
                                 Company Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="AdminShowPostManagementController" class="nav__item--link link-active">
+                            <a href="AdminShowPostManagementController" class="nav__item--link">
                                 <i class="fas fa-pen"></i>
                                 Post Management
                             </a>
@@ -153,6 +153,35 @@
                             Company Management
                         </div>
 
+                        <c:if test="${not empty requestScope.WARING_CHANGE_SIGNING_STATUS}">
+                            <div class="all">
+                                <div class="modal-cus" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalLabel">Warning</h3>
+                                            </div>
+                                            <h4 style="color: red">
+                                                ${requestScope.WARING_CHANGE_SIGNING_STATUS}
+                                            </h4>
+                                            <div class="text-center">
+                                                <div class="row row-cols-1">
+                                                    <div class="col">
+                                                        <form action="SearchCompanyAdminManagerController" method="Post">
+                                                            <input type="hidden" name="selectCompany" value="${param.selectCompany}" />
+                                                            <input type="hidden" name="txtEmail" value="${param.txtEmail}" />
+                                                            <input type="hidden" name="selectStatus" value="${param.selectStatus}" />
+                                                            <input type="hidden" name="page" value="${param.page}" />
+                                                            <input type="submit" value="Cancel" name="btAction" class="btn-regular-green"/>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
 
                         <div class="main-body-aComManage__search">
                             <form action="SearchCompanyAdminManagerController" method="POST">
@@ -261,12 +290,11 @@
                             </c:if>
                             <c:if test="${empty listCompany}">
                                 <h3 class="text-center" style="margin-top: 20px">
-                                    Company List does not has any result!
+                                    Company list does not have any result!
                                 </h3>
                             </c:if>
                         </div>
 
-                        <!--<div id="pageX" hidden >${requestScope.page}</div>-->
                         <div class="main__pagination">
                             <ul class="pagination main_cus__pagination"> 
                                 <c:set var="map" value="${my:paging(requestScope.page, 10, requestScope.numberPage)}"/>
@@ -354,25 +382,6 @@
                                     </li>
                                     <!--đưa icon vào-->
                                 </c:if>
-                                <%--<c:forEach begin="1" end="${requestScope.numberPage}" var="i">
-                                    <form action="SearchCompanyAdminManagerController" method="POST">
-                                        <input type="hidden" name="page" value="${i}"/>
-                                        <input type="hidden" name="selectCompany" value="${param.selectCompany}"/>
-                                        <input type="hidden" name="txtEmail" value="${param.txtEmail}"/>
-                                        <input type="hidden" name="selectStatus" value="${param.selectStatus}"/>
-                                        <input type="submit" value="${i}" class="page-link"/>
-                                    </form>
-
-                                <%--<c:url var="url" value="SearchCompanyAdminManagerController">
-                                <c:param name="page" value="${i}"/>
-                                <c:param name="selectCompany" value="${param.selectCompany}"/>
-                                <c:param name="txtEmail" value="${param.txtEmail}"/>
-                                <c:param name="selectStatus" value="${param.selectStatus}"/>
-                            </c:url>                       
-                            <li class="page-item">
-                                <a class="page-link" href="${url}">${i}</a>
-                            </li>
-                            </c:forEach> --%>
                             </ul>
 
                         </div>
@@ -392,6 +401,5 @@
         </footer>
 
         <script src="./assets/font/bootstrap-5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/base.js"></script>
     </body>
 </html>

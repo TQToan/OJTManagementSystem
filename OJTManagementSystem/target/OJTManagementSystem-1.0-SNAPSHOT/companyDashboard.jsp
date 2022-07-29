@@ -24,8 +24,8 @@
         <header></header>
 
         <c:set var="company" value="${requestScope.COMPANY_INFORMATION}" />
-        
-         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
+
+        <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
                 <a href="ShowCompanyDashBoardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
@@ -42,33 +42,33 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a href="ShowCompanyDashBoardController" class="nav__item--link link-active">
-                            <i class="fas fa-palette "></i>
-                            Dashboard
-                        </a>
+                                <i class="fas fa-palette "></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowProfileController" class="nav__item--link">
-                            <i class="fas fa-user-edit"></i>
-                            My Profile
-                        </a>
+                                <i class="fas fa-user-edit"></i>
+                                My Profile
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowPostController" class="nav__item--link">
-                            <i class="fas fa-pen"></i>
-                            My Posts
-                        </a>
+                                <i class="fas fa-pen"></i>
+                                My Posts
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowInternsManagermentController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Interns Management
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Interns Management
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="CompanyShowIntershipApplicationController" class="nav__item--link">
-                            <i class="fas fa-poll-h"></i>
-                            Internship Application
-                        </a>
+                                <i class="fas fa-poll-h"></i>
+                                Internship Application
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="logoutController" class="nav__item--link">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        
+
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
                 <a href="ShowCompanyDashBoardController" class="nav__logo ">
@@ -160,44 +160,64 @@
                 <c:set var="expiredJobs" value="${requestScope.NUMBER_OF_EXPIRED_JOBS}" />
                 <div class="row  row-cols-xl-4 row-cols-2 ">
                     <div class="dashboard-card col">
-                        <a href="CompanySearchPostController?nameStatus=Active&companyID=${company.companyID}" class="dashboard-card--link">
-                            <div class="active-jobs">
-                                ${activeJobs}
-                            </div>
-                            <div class="dashboard-card__content">
-                                Active Jobs
-                            </div>
-                        </a>
+                        <form action="CompanySearchPostController" method="post">
+                            <input type="hidden" name="nameStatus" value="Active">
+                            <input type="hidden" name="companyID" value="${company.companyID}">
+                            <label for="Active" class="dashboard-card--link">
+                                <div class="active-jobs">
+                                    ${activeJobs}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Active Jobs
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="Active">
+                        </form>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="CompanySearchPostController?nameStatus=Pending&companyID=${company.companyID}" class="dashboard-card--link">
-                            <div class="pending-jobs">
-                                ${pedingJobs}
-                            </div>
-                            <div class="dashboard-card__content">
-                                Pending Jobs
-                            </div>
-                        </a>
+                        <form action="CompanySearchPostController" method="post">
+                            <input type="hidden" name="nameStatus" value="Pending">
+                            <input type="hidden" name="companyID" value="${company.companyID}">
+                            <label for="Pending" class="dashboard-card--link">
+                                <div class="pending-jobs">
+                                    ${pedingJobs}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Pending Jobs
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="Pending">
+                        </form>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="CompanySearchPostController?nameStatus=Inactive&companyID=${company.companyID}" class="dashboard-card--link">
-                            <div class="inactive-jobs">
-                                ${inactiveJobs}
-                            </div>
-                            <div class="dashboard-card__content">
-                                Inactive Jobs
-                            </div>
-                        </a>
+                        <form action="CompanySearchPostController" method="post">
+                            <input type="hidden" name="nameStatus" value="Inactive">
+                            <input type="hidden" name="companyID" value="${company.companyID}">
+                            <label for="Inactive"class="dashboard-card--link">
+                                <div class="inactive-jobs">
+                                    ${inactiveJobs}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Inactive Jobs
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="Inactive">
+                        </form>
                     </div>
                     <div class="dashboard-card col">
-                        <a href="CompanySearchPostController?nameStatus=Expired&companyID=${company.companyID}" class="dashboard-card--link">
-                            <div class="expired-jobs">
-                                ${expiredJobs}
-                            </div>
-                            <div class="dashboard-card__content">
-                                Expired Jobs
-                            </div>
-                        </a>
+                        <form action="CompanySearchPostController" method="post">
+                            <input type="hidden" name="nameStatus" value="Expired">
+                            <input type="hidden" name="companyID" value="${company.companyID}">
+                            <label for="Expired"class="dashboard-card--link">
+                                <div class="expired-jobs">
+                                    ${expiredJobs}
+                                </div>
+                                <div class="dashboard-card__content">
+                                    Expired Jobs
+                                </div>
+                            </label>
+                            <input type="submit" value ="submit" hidden="hidden" id="Expired">
+                        </form>
                     </div>
                 </div>
 
@@ -230,21 +250,30 @@
                             </c:forEach>
                         </div>
                         <div class="cActive__see-more--btn">
-                        <c:url var="urlSearchPost" value="CompanySearchPostController">
-                            <c:param name="companyID" value="${company.companyID}"/>
-                            <c:param name="nameStatus" value="Active"/>
-                        </c:url>
-                        <a href="${urlSearchPost}" class="cActive--more--btn">
-                            See More 
-                            <i class="fas fa-arrow-right"></i>
-                        </a> 
-                    </div>
+                            <form action="CompanySearchPostController" method="post">
+                                <input type="hidden" name="companyID" value="${company.companyID}">
+                                <input type="hidden" name="nameStatus" value="Active">
+                                <label for="seemore" class="cActive--more--btn">
+                                    See More
+                                    <i class="fas fa-arrow-right"></i>
+                                </label>
+                                <input type="submit" value="submit" hidden="hidden" id ="seemore">
+                            </form>
+                        </div>
                     </c:if>
                     <c:if test="${empty listActiveJobs}">
-                        <div class ="text-center" style="padding: 30px">
-                             <h3>Add your new posts to recruit more candidates.</h3>
-                            <a href="">Add a new Post!</a>
-                        </div>
+                        <c:if test ="${company.is_Signed eq true}">
+                            <div class ="text-center" style="padding: 30px">
+                                <h3>Add your new posts to recruit more candidates.</h3>
+                                <a href="ShowCreateNewCompanyPostController">Add a new Post!</a>
+                            </div>
+                        </c:if>
+                        <c:if test ="${company.is_Signed eq false}">
+                            <div class ="text-center" style="padding: 30px">
+                                <h3>Currently, you do not have permission to add the post. <br>
+                                    Please wait for confirmation from The Business Relations Department.</h3>
+                            </div>
+                        </c:if>
                     </c:if>
                 </div>
             </div>

@@ -184,7 +184,7 @@ public class UpdateStudentProfileServlet extends HttpServlet {
                         if (fileName.equals("") == false) {
                             String oldAvatar = student.getAccount().getAvatar();
                             boolean resultUpdateAccount = accountDAO.updateAccount(email, avatarName);
-
+                            
                             if (resultIpdateStudent == true && resultUpdateAccount == true) {
                                 if (oldAvatar != null || "".equals(oldAvatar) == false) {
                                     String oldAvatarPath = request.getServletContext().

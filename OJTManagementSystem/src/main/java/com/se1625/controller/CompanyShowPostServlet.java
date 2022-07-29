@@ -77,11 +77,10 @@ public class CompanyShowPostServlet extends HttpServlet {
                     } else {
 
                         url = properties.getProperty(MyApplicationConstants.CompanyFeatures.COMPANY_POST_MANAGE_PAGE);
-
+                    }
                         //Lay danh sach cac bai post
                         companyPostDAO.getCompanyPostByCompanyID(companyDTO.getCompanyID());
                         List<TblCompany_PostDTO> companyPostList = companyPostDAO.getCompanyPostByFilter();
-
                         //Phan trang
                         if (companyPostList != null) {
                             sizeOfList = companyPostList.size();
@@ -112,7 +111,7 @@ public class CompanyShowPostServlet extends HttpServlet {
                             numberPage = 0;
                         } // if company haven't post
                         //Set attribute
-                    }
+                    //}
 
                     request.setAttribute("COMPANY_POST_LIST", companyPostPerPage);
                     request.setAttribute("SIZE_OF_LIST", sizeOfList);

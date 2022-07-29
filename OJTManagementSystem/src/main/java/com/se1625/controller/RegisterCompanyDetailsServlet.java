@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -197,6 +199,21 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
                             boolean statusAdded = companyDAO.AddCompany(companyDetail);
                             if (statusAdded) {
                                 session.invalidate();
+                                //hệ thống gửi email cho university để thống báo có công ty mới chưa signed
+                                TblAccountDTO universityAccount = accountDAO.getAccountSchool();
+                                TblAccountDTO systemAccount = accountDAO.GetAccountByRole(4);
+                                String subject = "The new company registered into the system";
+                                String link = "http://localhost:8080/OJTManagementSystem/AdminCompanyManagerController";
+                                String message = "Dear " + universityAccount.getName() + ",\n"
+                                                + "\n"
+                                                + "The OJT system wants to announce that The new company regitered into the system. "
+                                                + "The company name is " + companyName + " and Email is " + email + ". "
+                                                + "Please click on the link " + link 
+                                                + " so as not to miss any information.\n"
+                                                + "\n"
+                                                + "Regards,"
+                                                + "The support OJT team";
+                                MyApplicationHelper.sendEmail(universityAccount, systemAccount, message, subject);
                                 url = properties.getProperty(MyApplicationConstants.RegisterCompanyFeature.LOGIN_PAGE);
                             }
                         }
@@ -213,7 +230,11 @@ public class RegisterCompanyDetailsServlet extends HttpServlet {
             log("SQLException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException occurs RegisterCompanyDetailsServlet " + ex.getMessage());
-        } catch (Exception ex) {
+        } catch (AddressException ex) {
+            log("AddressException at CreateNewCompanyPostServlet " + ex.getMessage());
+        } catch (MessagingException ex) {
+            log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
+        }catch (Exception ex) {
             ex.printStackTrace();
             log("Exception occurs RegisterCompanyDetailsServlet " + ex.getMessage());
         }

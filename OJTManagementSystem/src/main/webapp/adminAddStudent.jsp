@@ -177,6 +177,11 @@
                                         ${error.studentNameLengthError}
                                     </h5>
                                 </c:if>
+                                <c:if test="${not empty error.studentNameContainSpecialCharacter}">
+                                    <h5 class="text-danger offset-4 col-8 text-start ">
+                                        ${error.studentNameContainSpecialCharacter}
+                                    </h5>
+                                </c:if>
                             </div>
                             <c:set var="listMajorName" value="${requestScope.LIST_MAJOR_NAME}"/>
                             <div class="aAddStu__input row">
