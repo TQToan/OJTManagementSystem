@@ -299,7 +299,7 @@
                                                               or (appliedJob.studentConfirm eq true and appliedJob.schoolConfirm eq 1 and appliedJob.companyConfirm eq 1)}">
                                                       <td>
                                                           <form action="${url}" method="POST">
-                                                              <input type="submit" name="btAction" value="Cancel"  class="btn-regular-red-disable" disabled="disabled"/>
+                                                              <input type="submit" name="btAction" value="Cancel"  class="btn-regular-red-disable" disabled="disabled" style="opacity: 0.4" />
                                                           </form>
                                                       </td>
                                                 </c:if>

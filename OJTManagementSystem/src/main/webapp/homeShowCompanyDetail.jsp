@@ -171,6 +171,8 @@
                                     </font>
                                 </c:if>
                             </h5>
+                            <a href="ShowApplyCVController?postID=${postDetail.postID}" class="primary-btn hComApplDetail-btn--app" 
+                               style="pointer-events: none; opacity: 0.5">Apply Now</a>
                         </c:if>
                     </div>
                 </div>

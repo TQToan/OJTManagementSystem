@@ -163,7 +163,7 @@
                                             <h3 class="modal-title" id="exampleModalLabel">Error</h3>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body text-start">
+                                        <div class="modal-body text-start" style="color: red">
                                             You can not create post. Because your company has not signed with FPT University.
                                         </div>
                                         <div class="modal-footer">

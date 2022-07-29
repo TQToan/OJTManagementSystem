@@ -289,7 +289,7 @@
                                                         <input type="submit" class="btn-regular-green" value="Update">
                                                     </c:if>
                                                     <c:if test="${applicationDTO.isPass ne 0}">
-                                                        <input type="submit" class="btn-regular-green-disable" value="Update" disabled="disabled">
+                                                        <input type="submit" class="btn-regular-green-disable" value="Update" disabled="disabled" style="opacity: 0.4">
                                                     </c:if>
                                                 </td>
                                             </tr>

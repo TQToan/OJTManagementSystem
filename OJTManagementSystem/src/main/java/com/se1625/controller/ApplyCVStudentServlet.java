@@ -69,7 +69,7 @@ public class ApplyCVStudentServlet extends HttpServlet {
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
         //check session và lấy attribute
         HttpSession session = request.getSession(false);
-        String url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.ApplyCVStudentFeature.LOGIN_PAGE;
         try {
             if (session != null) {
                 TblStudentDTO student = (TblStudentDTO) session.getAttribute("STUDENT_ROLE");
@@ -199,12 +199,13 @@ public class ApplyCVStudentServlet extends HttpServlet {
                             found = true;
                         }
                         if (found) {
+                            request.setAttribute("POST_COMPANY_INFOR", companyPost);
+                            request.setAttribute("ERRORS", errors);
+                            RequestDispatcher rd = request.getRequestDispatcher(url);
+                            rd.forward(request, response);
                             if (cvName.trim().isEmpty() == false) {
                                 Files.deleteIfExists(Paths.get(filePath));
                             }
-
-                            request.setAttribute("POST_COMPANY_INFOR", companyPost);
-                            request.setAttribute("ERRORS", errors);
                         } else {
                             TblApplicationDAO applicationDAO = new TblApplicationDAO();
                             boolean result = applicationDAO.addApplication(application);
@@ -215,19 +216,24 @@ public class ApplyCVStudentServlet extends HttpServlet {
                                 String link = "http://localhost:8080/OJTManagementSystem/CompanyShowInternshipApplicationController";
                                 String message = "Dear " + companyPost.getCompany().getAccount().getName() + " company,\n"
                                         + "\n"
-                                        + "The OJT system wants to announce that the job is " + companyPost.getTitle_Post() 
-                                        + " that was applied by the student is " + student.getAccount().getName() + ", student Code is " 
-                                        + student.getStudentCode() + ". Please click on the link " + link 
+                                        + "The OJT system wants to announce that the job is " + companyPost.getTitle_Post()
+                                        + " that was applied by the student is " + student.getAccount().getName() + ", student Code is "
+                                        + student.getStudentCode() + ". Please click on the link " + link
                                         + " so as not to miss any information.\n"
                                         + "\n"
                                         + "Regards,"
                                         + "The support OJT team";
                                 MyApplicationHelper.sendEmail(companyPost.getCompany().getAccount(), systemAccount, message, subject);
-                                url = properties.getProperty(MyApplicationConstants.ApplyCVStudentFeature.STUDENT_APPLIED_JOB_PAGE);
+                                url = MyApplicationConstants.ApplyCVStudentFeature.STUDENT_APPLIED_JOB_PAGE;
+                                response.sendRedirect(url);
                             }
                         }
                     }
+                } else {
+                    response.sendRedirect(url);
                 }
+            } else {
+                response.sendRedirect(url);
             }
         } catch (SQLException ex) {
             log("SQLException at ApplyCVStudentServlet " + ex.getMessage());
@@ -239,9 +245,6 @@ public class ApplyCVStudentServlet extends HttpServlet {
             log("MessagingException at CreateNewCompanyPostServlet " + ex.getMessage());
         } catch (Exception ex) {
             log("Exception at ApplyCVStudentServlet " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
         }
     }
 

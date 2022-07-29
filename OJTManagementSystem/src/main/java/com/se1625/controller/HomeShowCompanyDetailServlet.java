@@ -125,7 +125,10 @@ public class HomeShowCompanyDetailServlet extends HttpServlet {
                                 && application.getCompanyConfirm() == 0
                                 || application.isStudentConfirm() == true
                                 && application.getSchoolConfirm() == 0
-                                && application.getCompanyConfirm() == 0) {
+                                && application.getCompanyConfirm() == 0
+                                ||application.isStudentConfirm() == true
+                                && application.getCompanyConfirm() == 2
+                                && application.getSchoolConfirm() == 1) {
                             found = true;
                             error.setAppliedTwoTimeError("You applied this company's Job before");
                         }
