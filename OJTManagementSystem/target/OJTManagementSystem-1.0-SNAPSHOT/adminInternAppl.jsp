@@ -27,7 +27,7 @@
             <c:set var="Admin" value="${sessionScope.ADMIN_ROLE}"/>
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
-                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                <a href="AdminDashboardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
@@ -35,7 +35,7 @@
                     <i class="fa-solid fa-bars nav__respo--btn"></i>
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
-                    <a href="" class=" nav__infor--link text-truncate text-center">
+                    <a href="AdminDashboardController" class=" nav__infor--link text-truncate text-center">
                         <i class="fas fa-user-circle nav__infor--icon"></i>
                         <font> ${Admin.name} </font>
                     </a>
@@ -97,10 +97,10 @@
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="#" class="nav__logo ">
+                <a href="AdminDashboardController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="#" class=" nav__infor--link text-truncate">
+                <a href="AdminDashboardController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${Admin.name}
                 </a>

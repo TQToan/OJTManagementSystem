@@ -235,35 +235,35 @@ public class TblCompany_PostDAO implements Serializable {
                         + "INNER JOIN tblAccount AS acc ON (cm.username = acc.username) INNER JOIN tblMajor AS major "
                         + "ON (post.majorID = major.majorID) ";
                 if (title_Post.trim().isEmpty() == true && majorID == 0 && nameStatus.trim().isEmpty() == true) {
-                    sql += "WHERE post.companyID = ? ";
+                    sql += "WHERE post.companyID = ? ORDER BY statusPost ";
                     stm = con.prepareStatement(sql);
                     stm.setString(1, companyID);
                 }
                 if (title_Post.trim().isEmpty() == false && majorID != 0 && nameStatus.trim().isEmpty() == false) {
                     sql += "WHERE post.companyID = ? and post.title_Post LIKE ? and post.majorID = ? ";
                     if ("Inactive".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, majorID);
                         stm.setInt(4, 0);
                     } else if ("Pending".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, majorID);
                         stm.setInt(4, 1);
                     } else if ("Active".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, majorID);
                         stm.setInt(4, 2);
                     } else if ("Expired".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
@@ -272,13 +272,13 @@ public class TblCompany_PostDAO implements Serializable {
                     }
                 }
                 if (title_Post.trim().isEmpty() == false && majorID == 0 && nameStatus.trim().isEmpty() == true) {
-                    sql += "WHERE post.companyID = ? and post.title_Post LIKE ?";
+                    sql += "WHERE post.companyID = ? and post.title_Post LIKE ? ORDER BY post.statusPost";
                     stm = con.prepareStatement(sql);
                     stm.setString(1, companyID);
                     stm.setNString(2, "%" + title_Post + "%");
                 }
                 if (title_Post.trim().isEmpty() == false && majorID != 0 && nameStatus.trim().isEmpty() == true) {
-                    sql += "WHERE post.companyID = ? and post.title_Post LIKE ? and post.majorID = ?";
+                    sql += "WHERE post.companyID = ? and post.title_Post LIKE ? and post.majorID = ? ORDER BY post.statusPost";
                     stm = con.prepareStatement(sql);
                     stm.setString(1, companyID);
                     stm.setNString(2, "%" + title_Post + "%");
@@ -287,25 +287,25 @@ public class TblCompany_PostDAO implements Serializable {
                 if (title_Post.trim().isEmpty() == false && majorID == 0 && nameStatus.trim().isEmpty() == false) {
                     sql += "WHERE post.companyID = ? and post.title_Post LIKE ? ";
                     if ("Inactive".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, 0);
                     } else if ("Pending".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, 1);
                     } else if ("Active".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
                         stm.setInt(3, 2);
                     } else if ("Expired".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setNString(2, "%" + title_Post + "%");
@@ -315,25 +315,25 @@ public class TblCompany_PostDAO implements Serializable {
                 if (title_Post.trim().isEmpty() == true && majorID != 0 && nameStatus.trim().isEmpty() == false) {
                     sql += "WHERE post.companyID = ? and post.majorID = ? ";
                     if ("Inactive".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, majorID);
                         stm.setInt(3, 0);
                     } else if ("Pending".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, majorID);
                         stm.setInt(3, 1);
                     } else if ("Active".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, majorID);
                         stm.setInt(3, 2);
                     } else if ("Expired".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, majorID);
@@ -341,7 +341,7 @@ public class TblCompany_PostDAO implements Serializable {
                     }
                 }
                 if (title_Post.trim().isEmpty() == true && majorID != 0 && nameStatus.trim().isEmpty() == true) {
-                    sql += "WHERE post.companyID = ? and post.majorID = ?";
+                    sql += "WHERE post.companyID = ? and post.majorID = ? ORDER BY post.statusPost";
                     stm = con.prepareStatement(sql);
                     stm.setString(1, companyID);
                     stm.setInt(2, majorID);
@@ -349,22 +349,22 @@ public class TblCompany_PostDAO implements Serializable {
                 if (title_Post.trim().isEmpty() == true && majorID == 0 && nameStatus.trim().isEmpty() == false) {
                     sql += "Where post.companyID = ? ";
                     if ("Inactive".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, 0);
                     } else if ("Pending".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, 1);
                     } else if ("Active".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, 2);
                     } else if ("Expired".equals(nameStatus)) {
-                        sql += " and post.statusPost = ? ";
+                        sql += " and post.statusPost = ?  ORDER BY post.statusPost";
                         stm = con.prepareStatement(sql);
                         stm.setString(1, companyID);
                         stm.setInt(2, 3);
@@ -1010,7 +1010,8 @@ public class TblCompany_PostDAO implements Serializable {
                         + "quantityInterns, postingDate, expirationDate, "
                         + "school_Confirm, statusPost, companyID, majorID, vacancy "
                         + "FROM tblCompany_Post "
-                        + "WHERE companyID = ? ";
+                        + "WHERE companyID = ? "
+                        + "ORDER BY statusPost ";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, companyID);
 

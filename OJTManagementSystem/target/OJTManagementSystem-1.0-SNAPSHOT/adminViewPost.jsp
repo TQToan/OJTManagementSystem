@@ -213,7 +213,7 @@
                                 <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                 <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                 <input type="submit" value="Accept" class="primary-btn accept-btn" 
-                                       <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
+                                       <c:if test="${post.statusPost ne 1}">
                                            autocomplete="off" hidden 
                                        </c:if> />
                             </div>
@@ -222,7 +222,7 @@
                         <div>
                             
                                 <button type="button" class="primary-btn reject-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                        <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">hidden="hidden"</c:if> >
+                                        <c:if test="${post.statusPost ne 1}">hidden="hidden"</c:if> >
                                     Reject
                                 </button>
                             
@@ -252,7 +252,7 @@
                                                         <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                         <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
                                                         <input type="submit" value="Reject" class="btn-regular-red"
-                                                               <c:if test="${not empty requestScope.UPDATE_SUSCESS or post.statusPost ne 1}">
+                                                               <c:if test="${post.statusPost ne 1}">
                                                                    autocomplete="off" hidden 
                                                                </c:if> />
 

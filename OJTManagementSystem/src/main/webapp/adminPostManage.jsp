@@ -28,7 +28,7 @@
 
         <div class="navbar navbar-expand-md navbar-dark text-center navbar-sm-cus">
             <div class="container-fluid">
-                <a href="ShowAdminStudentManagementController" class="header__logo ">
+                <a href="AdminDashboardController" class="header__logo ">
                     <img src="./assets/img/logo.png" alt="" class="logo">
                 </a>
 
@@ -36,7 +36,7 @@
                     <i class="fa-solid fa-bars nav__respo--btn"></i>
                 </button>
                 <div class="collapse navbar-collapse navbar-collapse-cus" id="navbarSupportedContent">
-                    <a href="" class=" nav__infor--link text-truncate text-center">
+                    <a href="AdminDashboardController" class=" nav__infor--link text-truncate text-center">
                         <i class="fas fa-user-circle nav__infor--icon"></i>
                         <font> ${admin.name} </font>
                     </a>
@@ -90,10 +90,10 @@
 
         <main class="row">
             <nav class="col-xl-2  nav-fixed col-md-3">
-                <a href="#" class="nav__logo ">
+                <a href="AdminDashboardController" class="nav__logo ">
                     <img src="./assets/img/logo.png" alt="" class="nav--logo">
                 </a>
-                <a href="#" class=" nav__infor--link text-truncate">
+                <a href="AdminDashboardController" class=" nav__infor--link text-truncate">
                     <i class="fas fa-user-circle nav__infor--icon"></i>
                     ${admin.name}
                 </a>
@@ -240,10 +240,16 @@
                                             <tr>
                                                 <td>${my:counter(requestScope.page, counter.count)}</td>
                                                 <td>
-                                                    <form action="AdminViewPostDetailController" method="POST   ">
-                                                        
+                                                    <form action="AdminViewPostDetailController" method="POST">
+                                                        <input type="hidden" name="postID" value="${post.postID}"/>
+                                                        <input type="hidden" name="page" value="${requestScope.page}"/>
+                                                        <input type="hidden" name="semester" value="${currentSemester.semesterID}"/>
+                                                        <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
+                                                        <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
+                                                        <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
+                                                        <input type="submit" value="${post.title_Post}" />
                                                     </form>
-                                                    <c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
+                                                    <%--<c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
                                                         <input type="hidden" name="postID" value="${post.postID}"/>
                                                         <c:param name="postID" value="${post.postID}"/>
                                                         <c:param name="page" value="${requestScope.page}"/>
@@ -252,7 +258,7 @@
                                                         <c:param name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                         <c:param name="nameStatus" value="${param.nameStatus}"/>
                                                     </c:url>
-                                                    <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>
+                                                    <a href="${urlAdminViewPostDetail}">${post.title_Post}</a>--%>
                                                 </td>
                                                 <td>${post.vacancy}</td>
                                                 <td>${my:changeDateFormat(post.postingDate)}</td>
