@@ -71,7 +71,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         companyConfirm = 2;
                     } else if (companyConfirmString.equals("Accept")) {
                         companyConfirm = 1;
-                    } else if(companyConfirmString.equals("Reject")){
+                    } else if (companyConfirmString.equals("Reject")) {
                         companyConfirm = -1;
                     }
                     //get quantityInterns of company
@@ -87,7 +87,7 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                         TblApplicationDAO applicationDAO = new TblApplicationDAO();
                         boolean result = applicationDAO.updateStatusCompanyConfirm(studentCode, companyPostID, companyConfirm);
                         if (result) {
-                            
+
                             if (companyConfirm == 1) {
                                 TblSemesterDAO semesterDAO = new TblSemesterDAO();
                                 TblSemesterDTO currentSemester = semesterDAO.getCurrentSemester();
@@ -106,19 +106,19 @@ public class CompanyUpdateStatusIntershipApplicationServlet extends HttpServlet 
                                     // true 0 0
                                     // true 1 0
                                     // true 1 2
-                                    if (application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true && application.getSchoolConfirm() == 0 
+                                    if (application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true && application.getSchoolConfirm() == 0
                                             && application.getCompanyConfirm() == 0
-                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true 
-                                            && application.getSchoolConfirm() == 1 
-                                            && application.getCompanyConfirm() == 0 
-                                            || application.getStudent().getStudentCode().equals(student.getStudentCode()) 
-                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID() 
-                                            && application.isStudentConfirm() == true 
-                                            && application.getSchoolConfirm() == 1 
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true
+                                            && application.getSchoolConfirm() == 1
+                                            && application.getCompanyConfirm() == 0
+                                            || application.getStudent().getStudentCode().equals(student.getStudentCode())
+                                            && application.getSemester().getSemesterID() == currentSemester.getSemesterID()
+                                            && application.isStudentConfirm() == true
+                                            && application.getSchoolConfirm() == 1
                                             && application.getCompanyConfirm() == 2) {
                                         listApplicationChageStatus.add(application);
                                     }
