@@ -249,7 +249,8 @@
                                                         <input type="hidden" name="selectCompanyPost" value="${param.selectCompanyPost}" />
                                                         <input type="hidden" name="status" value="${param.status}" />
                                                         <input type="hidden" name="companyConfirm" value="${applicationDTO.companyConfirm}" />
-                                                        <input type="submit" value="${applicationDTO.student.account.name}" />
+                                                        <label for ="${my:counter(requestScope.PAGE, counter.count)}" class="a-link">${applicationDTO.student.account.name}</label>
+                                                        <input type="submit" value="View" hidden id="${my:counter(requestScope.PAGE, counter.count)}"/>
                                                     </form>
                                                 </td>
                                                 <td>${applicationDTO.student.account.email}</td>

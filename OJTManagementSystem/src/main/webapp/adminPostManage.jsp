@@ -247,7 +247,8 @@
                                                         <input type="hidden" name="txtTitle" value="${param.txtTitle}"/>
                                                         <input type="hidden" name="txtCompanyName" value="${param.txtCompanyName}"/>
                                                         <input type="hidden" name="nameStatus" value="${param.nameStatus}"/>
-                                                        <input type="submit" value="${post.title_Post}" />
+                                                        <label for="${post.postID}" class="a-link">${post.title_Post} </label>
+                                                        <input type="submit" value="View" hidden id="${post.postID}"/>
                                                     </form>
                                                     <%--<c:url var="urlAdminViewPostDetail" value="AdminViewPostDetailController">
                                                         <input type="hidden" name="postID" value="${post.postID}"/>

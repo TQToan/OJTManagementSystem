@@ -496,6 +496,15 @@ input-file{
     border-radius: 5px;
 }
 
+.a-link{
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.a-link:hover{
+    color: #009;
+}
+
 /* General -------------------END----------------------------- */
 
 /* Responsive ----------------mobile sm  max-width: 767px------------- */
