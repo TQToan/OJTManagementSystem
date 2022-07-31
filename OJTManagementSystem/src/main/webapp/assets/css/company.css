@@ -701,24 +701,29 @@ input[type=file]{
 /* Main-body-------------------Internship Application--END---------------------- */
 
 /* Main-body-------------------View Student Detail------------------------ */
+/*.accept-btn{
+    background-color:green; 
+    color:white;
+    border: 1px solid green;
+}
 .accept-btn:hover{
-    background-color: var(--background-orange);
-    color: var(--text-color-white);
-    transform: scale(1.1);
+    background-color: white;
+    color: green;
+    transform: scale(1.1); 
 }
 
 .reject-btn{
-    background-color: var(--background-white);
-    color: var(--text-color-black);
-    border: 1px solid var(--text-color-black);
+    background-color: red;
+    color: white;
+    border: 1px solid red;
 }
 
 .reject-btn:hover{
     transform: scale(1.1);
-    background-color: var(--background-white);
-    color: var(--text-color-black);
+    background-color: white;
+    color: red;
     border: 1px solid var(--text-color-black);
-}
+}*/
 
 .main-body-cViewStu{
     text-align: center;

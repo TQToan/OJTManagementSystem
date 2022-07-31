@@ -111,13 +111,13 @@ public class ShowStudentAppliedJobServlet extends HttpServlet {
                 else {
                     response.sendRedirect(url);
                 } // if session does not exist
+            } else {
+                response.sendRedirect(url);
             }
         } catch (SQLException ex) {
             log("SQLException at ShowStudentAppliedJobServlet " + ex.getMessage());
         } catch (NamingException ex) {
             log("NamingException at ShowStudentAppliedJobServlet " + ex.getMessage());
-        } finally {
-
         }
     }
 

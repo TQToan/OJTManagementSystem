@@ -82,8 +82,6 @@ public class CompanyViewPostDetailServlet extends HttpServlet {
             log("NamingException at CompanyViewPostDetailServlet " + ex.getMessage());
         } catch (SQLException ex) {
             log("SQLException at CompanyViewPostDetailServlet " + ex.getMessage());
-        } finally {
-            
         }
     }
 

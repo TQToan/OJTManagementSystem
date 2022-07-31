@@ -312,7 +312,7 @@
                                                                         <input type="submit" value="Accept" class="btn-regular-green" >
                                                                     </c:if>
                                                                     <c:if test="${post.statusPost ne 1}">
-                                                                        <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled" >
+                                                                        <input type="submit" value="Accept" class="btn-regular-green-disable" disabled="disabled" style="opacity: 0.4" />
                                                                     </c:if>
                                                                 </div>
                                                             </form>
@@ -322,7 +322,7 @@
                                                         <div class=" col">
 
                                                             <c:if test="${post.statusPost ne 1}">
-                                                                <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" >
+                                                                <input type="submit" value="Reject" class="btn-regular-red-disable" disabled="disabled" style="opacity: 0.4" />
                                                             </c:if>
                                                             <c:if test="${post.statusPost eq 1}">       
                                                                 <button type="button" class="btn-regular-red" data-bs-toggle="modal" data-bs-target="#exampleModal_${post.postID}">

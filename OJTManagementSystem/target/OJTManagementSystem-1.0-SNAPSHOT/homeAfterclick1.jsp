@@ -15,8 +15,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home - Student Information</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.min.css">
+        <link rel="stylesheet" href="./assets/font/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/base.css">
         <link rel="stylesheet" href="./assets/css/home.css">
     </head>
@@ -228,9 +228,12 @@
                     <c:if test="${not empty ERROR_RUN_OUT_QUANTITY_INTERNS}" >
                         ${ ERROR_RUN_OUT_QUANTITY_INTERNS}
                     </c:if>
-                    <input type="submit" value="Apply Now" name="btAction" class="primary-btn upload-btn" 
+                    <input type="submit" value="Apply Now" name="btAction" 
                            <c:if test="${not empty errorCompanyPost or not empty errors.studentInformationError}">
-                               disabled
+                               disabled style="opacity: 0.4" class="primary-btn upload-btn" 
+                           </c:if>                              
+                           <c:if test="${ empty errorCompanyPost and empty errors.studentInformationError}">
+                               class="primary-btn edit-btn" 
                            </c:if>                              
                            >
                     <c:url var="linkOther" value="HomeShowCompanyDetailController">

@@ -54,8 +54,7 @@ public class CompanyViewStudentDetailServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url
-                = MyApplicationConstants.CompanyViewStudentDetailFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.CompanyViewStudentDetailFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
         try {
@@ -93,6 +92,8 @@ public class CompanyViewStudentDetailServlet extends HttpServlet {
                             MyApplicationConstants.CompanyViewStudentDetailFeature.COMPANY_VIEW_STUDENT_DETAILE_PAGE);
                     RequestDispatcher rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect(url);
                 }
             } else {
                 response.sendRedirect(url);

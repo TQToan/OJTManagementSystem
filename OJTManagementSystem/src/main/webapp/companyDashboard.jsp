@@ -270,8 +270,8 @@
                         </c:if>
                         <c:if test ="${company.is_Signed eq false}">
                             <div class ="text-center" style="padding: 30px">
-                                <h3>Currently, you do not have permission to add the post. <br>
-                                    Please wait for confirmation from The Business Relations Department.</h3>
+                                <h4 style="color: red">* Currently, you do not have permission to add the post. <br>
+                                    Please wait for confirmation about signed status from The Business Relations Department.</h4>
                             </div>
                         </c:if>
                     </c:if>

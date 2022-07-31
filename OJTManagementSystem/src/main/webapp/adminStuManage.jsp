@@ -165,7 +165,9 @@
                                     <input type="submit" value="Import File" name="btAction" class="btn-update-green" />
                                 </form>
                                 <c:if test="${not empty requestScope.ERROR_IMPORT_EXCEL}">
-                                    ${requestScope.ERROR_IMPORT_EXCEL}
+                                    <font style="color: red">
+                                        ${requestScope.ERROR_IMPORT_EXCEL}
+                                    </font>
                                 </c:if>
                             </div>
 
@@ -400,12 +402,12 @@
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" style="opacity: 0.4" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq 1}" >
                                                     <td>
-                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" class="btn-update-green"/>
+                                                        <input type="submit" value="Update" name="btAction" disabled="disabled" style="opacity: 0.4" class="btn-update-green"/>
                                                     </td> 
                                                 </c:if>
                                                 <c:if test="${student.isIntern eq 2 and application.isPass eq -1}" >

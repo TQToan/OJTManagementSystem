@@ -110,7 +110,8 @@ public class SearchCompanyAdminManagerServlet extends HttpServlet {
                     request.setAttribute("page", page);
                     request.setAttribute("numberPage", numberPage);
                     url = prop.getProperty(MyApplicationConstants.SearchCompanyAdminManagerFeature.ADMIN_COMPANY_MANAGER_PAGE);
-
+                    RequestDispatcher rd = request.getRequestDispatcher(url);;
+                    rd.forward(request, response);
                 } else {
                     response.sendRedirect(url);
                 }
@@ -121,9 +122,6 @@ public class SearchCompanyAdminManagerServlet extends HttpServlet {
             log("SearchCompanyAdminManagerServlet_NamingException " + ex.getMessage());
         } catch (SQLException ex) {
             log("SearchCompanyAdminManagerServlet_SQLException " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);;
-            rd.forward(request, response);
         }
     }
 

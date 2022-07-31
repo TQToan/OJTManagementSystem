@@ -87,8 +87,6 @@ public class AdminChangeStatusInternApplicationServlet extends HttpServlet {
         } catch (NumberFormatException ex) {
             log("NumberFormatException occurs AdminChangeStatusInternApplicationServlet " + ex.getMessage());
 
-        }finally{
-            
         }
     }
 

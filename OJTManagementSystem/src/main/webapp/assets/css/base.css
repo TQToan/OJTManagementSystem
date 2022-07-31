@@ -499,10 +499,57 @@ input-file{
 .a-link{
     color: #007bff;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .a-link:hover{
     color: #009;
+}
+
+
+.accept-btn{
+    background-color:green; 
+    color:white;
+    border: 1px solid green;
+}
+.accept-btn:hover{
+    background-color: white;
+    color: green;
+}
+
+.reject-btn{
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+.reject-btn:hover{
+    background-color: white;
+    color: red;
+}
+
+
+.accept-btn-nonhover{
+    background-color:green; 
+    color:white;
+    border: 1px solid green;
+}
+.accept-btn-nonhover:hover{
+    background-color:green; 
+    color:white;
+    border: 1px solid green;
+}
+
+.reject-btn-nonhover{
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+.reject-btn-nonhover:hover{
+     background-color: red;
+    color: white;
+    border: 1px solid red;
 }
 
 /* General -------------------END----------------------------- */

@@ -49,8 +49,7 @@ public class CompanyShowInternsManagermentServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties prop = (Properties) context.getAttribute("SITE_MAPS");
-        String url
-                = MyApplicationConstants.CompanyShowInternsManagermentFeature.LOGIN_PAGE;
+        String url = MyApplicationConstants.CompanyShowInternsManagermentFeature.LOGIN_PAGE;
 
         //get session
         HttpSession session = request.getSession(false);

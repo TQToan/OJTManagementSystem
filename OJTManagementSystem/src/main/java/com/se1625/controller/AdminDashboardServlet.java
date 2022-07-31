@@ -54,7 +54,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties properties = (Properties) context.getAttribute("SITE_MAPS");
-        String url = properties.getProperty(MyApplicationConstants.AdminDashboardFeature.LOGIN_PAGE);
+        String url = MyApplicationConstants.AdminDashboardFeature.LOGIN_PAGE;
 
         HttpSession session = request.getSession(false);
 
