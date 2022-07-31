@@ -133,7 +133,7 @@
                     <li class="nav__items">
                         <a href="ShowStudentEvaluationController" class="nav__item--link link-active">
                             <i class="fas fa-poll-h"></i>
-                            Evaluation
+                            Comment
                         </a>
                     </li>
                     <li class="nav__items">

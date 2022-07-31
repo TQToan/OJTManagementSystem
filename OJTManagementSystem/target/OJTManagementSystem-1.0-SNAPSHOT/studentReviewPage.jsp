@@ -185,7 +185,7 @@
                                 </div>
                                
                                 <div class="review__input row ">
-                                    <div class="col-4 review--label" >Evaluation</div> <br>
+                                    <div class="col-4 review--label" >Comment</div> <br>
                                     <!-- review--input--evaluate-->
                                     <div class="col-8 review--input" >
                                         <c:if test="${studentApp.student.isIntern eq 2}" >

@@ -65,7 +65,7 @@ public class TblApplicationDAO implements Serializable {
                     int isPass = rs.getInt("is_Pass");
 
                     if (grade >= 0 && evaluation != null) {
-                        TblStudentDTO student = studentDAO.getStudentInformation(studentCode);
+                        TblStudentDTO student = studentDAO.getStudentInformationExport(studentCode);
                         TblCompany_PostDTO companyPost = companyPostDAO.getCompanyPost(postID);
 
                         TblApplicationDTO application = new TblApplicationDTO();
