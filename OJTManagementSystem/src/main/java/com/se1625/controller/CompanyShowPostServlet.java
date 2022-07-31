@@ -66,8 +66,10 @@ public class CompanyShowPostServlet extends HttpServlet {
         try {
 
             if (session != null) {
-
                 TblCompanyDTO companyDTO = (TblCompanyDTO) session.getAttribute("COMPANY_ROLE_INFO");
+                TblCompanyDAO companyDAO = new TblCompanyDAO();
+                TblCompanyDTO newCompany = companyDAO.getCompany(companyDTO.getCompanyID());
+                session.setAttribute("COMPANY_ROLE_INFO", newCompany);
                 TblCompany_PostDAO companyPostDAO = new TblCompany_PostDAO();
                 if (companyDTO != null) {
                     List<TblCompany_PostDTO> companyPostPerPage = null;
